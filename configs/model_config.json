@@ -1,0 +1,19 @@
+{
+  "model_version": "v3.2.0-sih-prod",
+  "algorithm": "Global LightGBM Ensemble",
+  "parameters": {
+    "objective": "regression",
+    "metric": "l1",
+    "boosting_type": "gbdt",
+    "learning_rate": 0.04,
+    "num_leaves": 31,
+    "max_depth": 6,
+    "feature_fraction": 0.85,
+    "bagging_fraction": 0.85,
+    "bagging_freq": 1,
+    "min_child_samples": 20,
+    "verbosity": -1,
+    "random_state": 42
+  },
+  "best_iteration": 350
+}

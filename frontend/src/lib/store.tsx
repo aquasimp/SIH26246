@@ -23,6 +23,8 @@ interface AppContextType {
   setSelectedOccupationNco: (nco: string) => void;
   forecastHorizon: ForecastHorizon;
   setForecastHorizon: (h: ForecastHorizon) => void;
+  datasetMode: 'sih' | 'synthetic';
+  setDatasetMode: (m: 'sih' | 'synthetic') => void;
   demoMode: boolean;
   setDemoMode: (m: boolean) => void;
   searchQuery: string;
@@ -48,7 +50,8 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
   const [selectedSector, setSelectedSector] = useState<string>('All Sectors');
   const [selectedOccupationNco, setSelectedOccupationNco] = useState<string>('7126.0101'); // Solar PV
   const [forecastHorizon, setForecastHorizon] = useState<ForecastHorizon>('6M');
-  const [demoMode, setDemoMode] = useState<boolean>(true);
+  const [datasetMode, setDatasetMode] = useState<'sih' | 'synthetic'>('sih');
+  const [demoMode, setDemoMode] = useState<boolean>(false);
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [activeEvidence, setActiveEvidence] = useState<Recommendation | null>(null);
   const [copilotOpen, setCopilotOpen] = useState<boolean>(false);
@@ -81,6 +84,8 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
       setSelectedOccupationNco,
       forecastHorizon,
       setForecastHorizon,
+      datasetMode,
+      setDatasetMode,
       demoMode,
       setDemoMode,
       searchQuery,

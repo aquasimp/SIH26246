@@ -1,0 +1,23 @@
+
+================================================================================
+KAUSHALPULSE — RECOMMENDED REAL DEMO CASE (SIH EVALUATION DATASET)
+================================================================================
+Rank: 1 (Composite Score: 187.6)
+State:             Gujarat
+District:          Ahmedabad
+Occupation:        Solar PV Installer (NCO: 7126.0101)
+Current Demand:    996 verified industry vacancies
+Effective Supply:  150 available candidates (248 sanctioned seats)
+Net Deficit:       846 unmet job positions
+Current Gap Score: 100 / 100 (Severe Shortage)
+6-Month Growth:    +2.3% demand acceleration
+Data Confidence:   98%
+Recommended Action:Expand local training capacity by reallocating 550 PMKVY seats to Solar PV Installer in Ahmedabad
+================================================================================
+
+Top 5 Candidates Evaluated:
+1. Ahmedabad, Gujarat — Solar PV Installer | Demand: 996, Supply: 150, Gap: 100, Score: 187.6
+2. Pune, Maharashtra — Solar PV Installer | Demand: 1021, Supply: 166, Gap: 100, Score: 186.6
+3. Bengaluru Urban, Karnataka — Solar PV Installer | Demand: 1056, Supply: 189, Gap: 100, Score: 182.0
+4. Surat, Gujarat — Solar PV Installer | Demand: 921, Supply: 145, Gap: 100, Score: 181.2
+5. Kanpur Nagar, Uttar Pradesh — Solar PV Installer | Demand: 848, Supply: 143, Gap: 100, Score: 174.1

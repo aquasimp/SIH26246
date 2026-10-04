@@ -1,0 +1,11 @@
+{
+  "run_id": "RUN-2026-10-04-SIH-001",
+  "dataset_mode": "sih_dummy",
+  "data_source": "Official SIH Evaluation Dataset (data/raw/sih_official_dummy_dataset.csv)",
+  "train_rows": 4096,
+  "val_rows": 1536,
+  "wape_baseline": 6.7,
+  "wape_lightgbm": 2.86,
+  "error_reduction": 57.31,
+  "trained_at": "2026-10-04T17:52:17.398553+00:00"
+}

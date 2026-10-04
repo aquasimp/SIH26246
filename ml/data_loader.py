@@ -8,12 +8,23 @@ import sqlite3
 import pandas as pd
 from typing import Optional
 
-def load_canonical_data(db_path: str = "data/kaushal_pulse.db", csv_backup: str = "data/canonical_dataset.csv") -> pd.DataFrame:
+def load_canonical_data(
+    db_path: str = "data/kaushal_pulse.db", 
+    csv_backup: str = "data/canonical_dataset.csv",
+    table_name: str = "canonical_labour_records"
+) -> pd.DataFrame:
     """Load canonical labour market data from SQLite database with fallback to CSV."""
     if os.path.exists(db_path):
         conn = sqlite3.connect(db_path)
-        df = pd.read_sql("SELECT * FROM canonical_labour_records", conn)
+        # Check if table exists
+        cursor = conn.cursor()
+        cursor.execute("SELECT name FROM sqlite_master WHERE type='table' AND name=?", (table_name,))
+        if not cursor.fetchone():
+            table_name = "canonical_labour_records"
+        df = pd.read_sql(f"SELECT * FROM {table_name}", conn)
         conn.close()
+    elif os.path.exists("data/sih_canonical_dataset.csv"):
+        df = pd.read_csv("data/sih_canonical_dataset.csv")
     elif os.path.exists(csv_backup):
         df = pd.read_csv(csv_backup)
     else:

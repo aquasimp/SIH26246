@@ -16,42 +16,82 @@ CANONICAL_OCCUPATIONS = [
     {
         "nco": "7126.0101",
         "title": "Solar PV Installer",
-        "synonyms": ["solar pv installer", "solar technician", "pv panel installer", "solar panel fitter", "suryamitra", "rooftop solar installer"]
+        "synonyms": ["solar pv installer", "solar pv installer suryamitra", "solar technician", "pv panel installer", "solar panel fitter", "suryamitra", "rooftop solar installer"]
     },
     {
         "nco": "5223.0101",
         "title": "Retail Sales Associate",
-        "synonyms": ["retail sales associate", "retail salesperson", "store salesperson", "store sales executive", "shop assistant", "retail cashier", "store associate", "shop salesperson", "counter salesperson", "sales clerk"]
+        "synonyms": ["retail store sales associate", "retail sales associate", "retail salesperson", "store salesperson", "store sales executive", "shop assistant", "retail cashier", "store associate", "shop salesperson", "counter salesperson", "sales clerk"]
     },
     {
         "nco": "7233.0102",
         "title": "EV Service Technician",
-        "synonyms": ["ev service technician", "electric vehicle mechanic", "ev battery technician", "electric 2w mechanic", "ev powertrain technician"]
+        "synonyms": ["electric vehicle ev service technician", "electric vehicle service technician", "ev service technician", "electric vehicle mechanic", "ev battery technician", "electric 2w mechanic", "ev powertrain technician"]
     },
     {
         "nco": "2512.0101",
         "title": "AI/ML Data Annotation Specialist",
-        "synonyms": ["ai data annotation specialist", "data annotator", "ai labeler", "image labeler", "data annotation associate", "llm annotator"]
+        "synonyms": ["indic speech ai data annotation specialist", "indic speech ai data annotator", "ai ml data annotation specialist", "ai data annotation specialist", "data annotator", "ai labeler", "image labeler", "data annotation associate", "llm annotator"]
     },
     {
         "nco": "8151.0101",
         "title": "CNC Machine Operator",
-        "synonyms": ["cnc machine operator", "cnc machinist", "cnc lathe operator", "vmc operator", "cnc milling operator"]
+        "synonyms": ["cnc milling and turning operator", "cnc machine operator", "cnc machinist", "cnc lathe operator", "vmc operator", "cnc milling operator"]
     },
     {
         "nco": "7212.0101",
         "title": "Drone Maintenance Technician",
-        "synonyms": ["drone maintenance technician", "drone repair technician", "uav technician", "kisan drone mechanic", "drone pilot technician"]
+        "synonyms": ["agricultural drone maintenance pilot", "drone maintenance technician", "drone repair technician", "uav technician", "kisan drone mechanic", "drone pilot technician"]
     },
     {
-        "nco": "3253.0101",
+        "nco": "5321.0101",
         "title": "Community Health Assistant",
-        "synonyms": ["community health assistant", "general duty assistant", "gda", "health worker", "nursing assistant", "asha health assistant"]
+        "synonyms": ["general duty healthcare assistant gda", "general duty assistant", "community health assistant", "gda", "health worker", "nursing assistant", "asha health assistant"]
     },
     {
-        "nco": "7131.0101",
+        "nco": "7233.0201",
         "title": "Smart Meter Installation Technician",
-        "synonyms": ["smart meter installation technician", "smart meter technician", "electric meter installer", "discom smart meter fitter"]
+        "synonyms": ["smart water utility metering technician", "smart meter installation technician", "smart meter technician", "electric meter installer", "discom smart meter fitter"]
+    },
+    {
+        "nco": "7411.0101",
+        "title": "Domestic Electrician & Wireman",
+        "synonyms": ["domestic electrical wireman", "domestic electrician", "building electrician", "wireman", "house wiring electrician"]
+    },
+    {
+        "nco": "7412.0201",
+        "title": "Industrial Automation Technician",
+        "synonyms": ["industrial automation plc technician", "plc technician", "automation technician", "mechatronics technician", "scada technician"]
+    },
+    {
+        "nco": "4132.0101",
+        "title": "Data Entry Operator",
+        "synonyms": ["data entry and office console operator", "data entry operator", "deo", "computer operator", "office console operator"]
+    },
+    {
+        "nco": "7127.0101",
+        "title": "Cold Storage & HVAC Mechanic",
+        "synonyms": ["commercial cold storage hvac mechanic", "hvac technician", "cold storage mechanic", "refrigeration technician", "chiller plant technician"]
+    },
+    {
+        "nco": "9333.0101",
+        "title": "Warehouse Logistics Executive",
+        "synonyms": ["warehouse logistics picker sorter", "warehouse picker", "logistics associate", "forklift operator", "inventory clerk"]
+    },
+    {
+        "nco": "8153.0101",
+        "title": "Sewing Machine Operator",
+        "synonyms": ["sewing machine operator apparel", "sewing machine operator", "apparel tailor", "garment stitching operator"]
+    },
+    {
+        "nco": "7126.0201",
+        "title": "Solar Pump Technician",
+        "synonyms": ["micro irrigation solar pump technician", "solar pump technician", "kusum solar pump mechanic", "micro irrigation technician"]
+    },
+    {
+        "nco": "7231.0101",
+        "title": "Automotive Assembly Fitter",
+        "synonyms": ["automotive assembly body fitter", "automotive assembly fitter", "auto assembly line worker", "vehicle fitter", "oem assembly technician"]
     }
 ]
 

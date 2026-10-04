@@ -23,7 +23,8 @@ export const Header: React.FC = () => {
     t, 
     selectedState, 
     selectedDistrict, 
-    demoMode, 
+    datasetMode,
+    setDatasetMode,
     notificationOpen, 
     setNotificationOpen,
     alerts,
@@ -90,16 +91,37 @@ export const Header: React.FC = () => {
             <RefreshCw className="w-3 h-3 text-emerald-600" />
             <span>Refreshed <strong>2h ago</strong></span>
             <span className="text-slate-300">|</span>
-            <span className="font-mono text-[10px] text-slate-500">{DATA_HEALTH_METRIC.lastRunId}</span>
+            <span className="font-mono text-[10px] text-slate-500">
+              {datasetMode === 'sih' ? 'RUN-SIH-001' : DATA_HEALTH_METRIC.lastRunId}
+            </span>
           </div>
 
-          {/* Demo Dataset Tag (Mandatory Section 51) */}
-          {demoMode && (
-            <div className="flex items-center gap-1 px-2.5 py-1 rounded-xl bg-amber-50 border border-amber-200/70 text-amber-800 text-[11px] font-semibold">
-              <Shield className="w-3 h-3 text-amber-600" />
-              <span>{t.status.demoDataset}</span>
-            </div>
-          )}
+          {/* Dataset Mode Switcher: [ SIH Dataset ] / [ Demo Dataset ] */}
+          <div className="flex items-center p-0.5 rounded-xl bg-slate-200/60 border border-slate-300/60 text-xs font-semibold">
+            <button
+              onClick={() => setDatasetMode('sih')}
+              className={`px-2.5 py-1 rounded-lg transition-all flex items-center gap-1.5 cursor-pointer ${
+                datasetMode === 'sih'
+                  ? 'bg-blue-600 text-white shadow-xs font-bold'
+                  : 'text-slate-600 hover:text-slate-900'
+              }`}
+              title="Official SIH Evaluation Dataset (Primary)"
+            >
+              <Shield className="w-3 h-3 text-amber-300" />
+              <span>SIH Mode</span>
+            </button>
+            <button
+              onClick={() => setDatasetMode('synthetic')}
+              className={`px-2.5 py-1 rounded-lg transition-all flex items-center gap-1.5 cursor-pointer ${
+                datasetMode === 'synthetic'
+                  ? 'bg-white text-slate-900 shadow-xs font-bold'
+                  : 'text-slate-600 hover:text-slate-900'
+              }`}
+              title="Synthetic Benchmark Dataset (Demo Fallback)"
+            >
+              <span>Demo Mode</span>
+            </button>
+          </div>
 
           {/* Bilingual Switcher (EN | हिन्दी) */}
           <div className="flex items-center p-0.5 rounded-xl liquid-control border border-slate-200/60">

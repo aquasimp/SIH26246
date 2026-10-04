@@ -14,9 +14,14 @@ import pandas as pd
 import numpy as np
 import lightgbm as lgb
 
-from data_loader import load_canonical_data
-from features import create_features, FEATURE_COLUMNS
-from evaluate import calculate_metrics, run_seasonal_naive_benchmark
+try:
+    from ml.data_loader import load_canonical_data
+    from ml.features import create_features, FEATURE_COLUMNS
+    from ml.evaluate import calculate_metrics, run_seasonal_naive_benchmark
+except ImportError:
+    from data_loader import load_canonical_data
+    from features import create_features, FEATURE_COLUMNS
+    from evaluate import calculate_metrics, run_seasonal_naive_benchmark
 
 ARTIFACTS_DIR = "ml/model_artifacts"
 
@@ -111,50 +116,89 @@ def train_and_evaluate():
 
     # 8. Save Model Artifacts
     os.makedirs(ARTIFACTS_DIR, exist_ok=True)
+    os.makedirs("models", exist_ok=True)
+    os.makedirs("metrics", exist_ok=True)
+    os.makedirs("configs", exist_ok=True)
+    os.makedirs("runs", exist_ok=True)
+
     model_path = os.path.join(ARTIFACTS_DIR, "demand_model.pkl")
     with open(model_path, "wb") as f:
         pickle.dump(final_model, f)
-    print(f"\nStep 7: Saved trained model artifact to: {model_path}")
+    with open("models/demand_lightgbm.pkl", "wb") as f:
+        pickle.dump(final_model, f)
+    print(f"\nStep 7: Saved trained model artifact to: {model_path} and models/demand_lightgbm.pkl")
 
     # Save feature schema
+    schema_dict = {
+        "features": FEATURE_COLUMNS,
+        "categorical_features": ["sector", "nco_code", "district", "state"],
+        "target": "job_demand",
+        "model_type": "LightGBM Regressor (GBDT)"
+    }
     schema_path = os.path.join(ARTIFACTS_DIR, "feature_schema.json")
     with open(schema_path, "w") as f:
-        json.dump({
-            "features": FEATURE_COLUMNS,
-            "categorical_features": ["sector", "nco_code", "district", "state"],
-            "target": "job_demand",
-            "model_type": "LightGBM Regressor (GBDT)"
-        }, f, indent=2)
+        json.dump(schema_dict, f, indent=2)
+    with open("configs/feature_schema.json", "w") as f:
+        json.dump(schema_dict, f, indent=2)
 
     # Save metrics
+    metrics_dict = {
+        "dataset": "Official SIH Evaluation Dataset (sih_monthly_intelligence)",
+        "seasonal_naive_baseline": naive_metrics,
+        "lightgbm_ensemble": lgbm_metrics,
+        "relative_improvement_percent": round(improvement, 2),
+        "walk_forward_split_date": str(split_date)[:10],
+        "training_rows": len(train_df),
+        "validation_rows": len(val_df),
+        "total_observations": len(df_valid),
+        "horizons_supported": ["3M", "6M", "12M"],
+        "timestamp": datetime.datetime.now(datetime.timezone.utc).isoformat()
+    }
     metrics_path = os.path.join(ARTIFACTS_DIR, "metrics.json")
     with open(metrics_path, "w") as f:
-        json.dump({
-            "seasonal_naive_baseline": naive_metrics,
-            "lightgbm_ensemble": lgbm_metrics,
-            "relative_improvement_percent": round(improvement, 2),
-            "walk_forward_split_date": str(split_date)[:10],
-            "training_rows": len(train_df),
-            "validation_rows": len(val_df),
-            "total_observations": len(df_valid),
-            "timestamp": datetime.datetime.now(datetime.timezone.utc).isoformat()
-        }, f, indent=2)
-    print(f"Saved actual evaluation metrics to: {metrics_path}")
+        json.dump(metrics_dict, f, indent=2)
+    with open("metrics/backtest.json", "w") as f:
+        json.dump(metrics_dict, f, indent=2)
+    print(f"Saved actual evaluation metrics to: {metrics_path} and metrics/backtest.json")
 
-    # Save model metadata
+    # Save model metadata & config
+    config_dict = {
+        "model_version": "v3.2.0-sih-prod",
+        "algorithm": "Global LightGBM Ensemble",
+        "parameters": params,
+        "best_iteration": int(final_model.best_iteration_ or 350)
+    }
+    with open("configs/model_config.json", "w") as f:
+        json.dump(config_dict, f, indent=2)
+
+    today_str = datetime.date.today().strftime("%Y-%m-%d")
+    run_dict = {
+        "run_id": f"RUN-{today_str}-SIH-001",
+        "dataset_mode": "sih_dummy",
+        "data_source": "Official SIH Evaluation Dataset (data/raw/sih_official_dummy_dataset.csv)",
+        "train_rows": len(train_df),
+        "val_rows": len(val_df),
+        "wape_baseline": naive_metrics["wape"],
+        "wape_lightgbm": lgbm_metrics["wape"],
+        "error_reduction": round(improvement, 2),
+        "trained_at": datetime.datetime.now(datetime.timezone.utc).isoformat()
+    }
+    with open(f"runs/RUN-{today_str}.json", "w") as f:
+        json.dump(run_dict, f, indent=2)
+
     metadata_path = os.path.join(ARTIFACTS_DIR, "model_metadata.json")
     with open(metadata_path, "w") as f:
         json.dump({
-            "model_version": "v3.2.0-prod",
-            "run_id": "RUN-2026-10-04-001",
+            "model_version": "v3.2.0-sih-prod",
+            "run_id": f"RUN-{today_str}-SIH-001",
             "algorithm": "Global LightGBM Ensemble",
-            "best_iteration": final_model.best_iteration_ or 350,
+            "best_iteration": int(final_model.best_iteration_ or 350),
             "parameters": params,
             "feature_importances": importances,
             "trained_at": datetime.datetime.now(datetime.timezone.utc).isoformat(),
-            "data_source": "Canonical Labour Records (SQLite / CSV)"
+            "data_source": "Official SIH Evaluation Dataset (sih_monthly_intelligence)"
         }, f, indent=2)
-    print(f"Saved model metadata to: {metadata_path}")
+    print(f"Saved model metadata to: {metadata_path} and configs/model_config.json")
     print("=" * 65)
 
 if __name__ == "__main__":

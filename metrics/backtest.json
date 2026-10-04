@@ -1,0 +1,26 @@
+{
+  "dataset": "Official SIH Evaluation Dataset (sih_monthly_intelligence)",
+  "seasonal_naive_baseline": {
+    "mae": 32.6,
+    "rmse": 39.94,
+    "wape": 6.7,
+    "sample_count": 1536
+  },
+  "lightgbm_ensemble": {
+    "mae": 13.94,
+    "rmse": 17.59,
+    "wape": 2.86,
+    "sample_count": 1536
+  },
+  "relative_improvement_percent": 57.31,
+  "walk_forward_split_date": "2024-05-01",
+  "training_rows": 4096,
+  "validation_rows": 1536,
+  "total_observations": 5632,
+  "horizons_supported": [
+    "3M",
+    "6M",
+    "12M"
+  ],
+  "timestamp": "2026-10-04T17:52:17.396547+00:00"
+}
