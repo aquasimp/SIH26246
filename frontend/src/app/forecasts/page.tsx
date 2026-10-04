@@ -25,7 +25,8 @@ export default function ForecastPage() {
     forecastHorizon, 
     setForecastHorizon,
     selectedDistrict,
-    selectedState 
+    selectedState,
+    datasetMode 
   } = useApp();
 
   const [activeModel, setActiveModel] = useState<'lightgbm' | 'naive'>('lightgbm');
@@ -108,7 +109,7 @@ export default function ForecastPage() {
                 Primary Model
               </span>
               <span className="text-xs font-mono text-slate-400">
-                v3.2
+                {datasetMode === 'sih' ? 'v3.2.0-sih' : 'v3.2.0-prod'}
               </span>
             </div>
             <h3 className="text-base font-extrabold text-slate-900">
@@ -122,11 +123,15 @@ export default function ForecastPage() {
           <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between">
             <div>
               <span className="text-[10px] text-slate-400 uppercase font-bold block">WAPE Error</span>
-              <span className="text-xl font-extrabold text-blue-600 font-mono">12.7%</span>
+              <span className="text-xl font-extrabold text-blue-600 font-mono">
+                {datasetMode === 'sih' ? '2.86%' : '5.00%'}
+              </span>
             </div>
             <div className="text-right">
               <span className="text-[10px] text-slate-400 uppercase font-bold block">Status</span>
-              <span className="text-xs font-bold text-emerald-600">Optimal (Retrained 2h ago)</span>
+              <span className="text-xs font-bold text-emerald-600">
+                {datasetMode === 'sih' ? 'Optimal (Walk-Forward)' : 'Optimal (K-Fold CV)'}
+              </span>
             </div>
           </div>
         </div>
@@ -153,11 +158,15 @@ export default function ForecastPage() {
           <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between">
             <div>
               <span className="text-[10px] text-slate-400 uppercase font-bold block">WAPE Error</span>
-              <span className="text-xl font-extrabold text-slate-600 font-mono">18.4%</span>
+              <span className="text-xl font-extrabold text-slate-600 font-mono">
+                {datasetMode === 'sih' ? '6.70%' : '16.59%'}
+              </span>
             </div>
             <div className="text-right">
-              <span className="text-[10px] text-slate-400 uppercase font-bold block">Variance</span>
-              <span className="text-xs font-bold text-amber-600">+5.7% Greater Error</span>
+              <span className="text-[10px] text-slate-400 uppercase font-bold block">Model Gain</span>
+              <span className="text-xs font-bold text-emerald-600">
+                {datasetMode === 'sih' ? '+57.3% Error Reduction' : '+69.9% Error Reduction'}
+              </span>
             </div>
           </div>
         </div>
@@ -177,11 +186,13 @@ export default function ForecastPage() {
           <div className="mt-4 space-y-1.5 text-[11px] text-indigo-950 font-mono">
             <div className="flex justify-between">
               <span>Pipeline Run:</span>
-              <strong>{DATA_HEALTH_METRIC.lastRunId}</strong>
+              <strong>{datasetMode === 'sih' ? 'RUN-SIH-001' : DATA_HEALTH_METRIC.lastRunId}</strong>
             </div>
             <div className="flex justify-between">
-              <span>Data Freshness:</span>
-              <strong className="text-emerald-700">98% (Synced)</strong>
+              <span>Dataset Scope:</span>
+              <strong className={datasetMode === 'sih' ? 'text-blue-700' : 'text-slate-600'}>
+                {datasetMode === 'sih' ? 'SIH Official Dummy' : 'Synthetic Benchmark'}
+              </strong>
             </div>
             <div className="flex justify-between">
               <span>Model Confidence:</span>

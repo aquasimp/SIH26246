@@ -245,6 +245,25 @@ export default function OverviewPage() {
         </div>
       </div>
 
+      {/* Presentation Anchor: Why This Matters (Section 9) */}
+      <div className="px-4 py-3 rounded-2xl bg-amber-50/80 border border-amber-200/80 shadow-2xs flex items-center justify-between gap-3">
+        <div className="flex items-center gap-2.5">
+          <div className="p-1.5 rounded-xl bg-amber-500 text-white shrink-0">
+            <Lightbulb className="w-4 h-4" />
+          </div>
+          <p className="text-xs sm:text-sm text-amber-950 font-medium leading-relaxed">
+            <strong className="font-bold text-amber-900 uppercase tracking-wide mr-1.5">Why This Matters:</strong>
+            If training capacity is planned without current and future demand signals, districts continue funding legacy trades with low hiring absorption while high-growth sectors remain critically understaffed.
+          </p>
+        </div>
+        <Link
+          href="/scenarios"
+          className="hidden md:flex items-center gap-1 text-xs font-bold text-amber-900 hover:text-amber-950 underline shrink-0"
+        >
+          <span>Simulate Fix →</span>
+        </Link>
+      </div>
+
       {/* Main Hero Visual: India Intelligence Map (Section 14) */}
       <GlassPanel
         title="National Labour Market Geospatial Intelligence"
