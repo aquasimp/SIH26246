@@ -1,0 +1,44 @@
+[
+  {
+    "nco_code": "7126.0101",
+    "title": "Solar PV Installer",
+    "sector": "Green Jobs & Renewable Energy",
+    "nsqf_level": 4,
+    "current_demand": 820,
+    "effective_supply": 430,
+    "gap_score": 84,
+    "severity": "Severe Shortage",
+    "shortage_probability_6m": 71,
+    "forecast_demand_6m": 1020,
+    "training_seats": 180,
+    "key_skills": ["Rooftop Inverter Wiring", "Solar Panel Array Mounting", "Grid Synchronization"]
+  },
+  {
+    "nco_code": "5223.0101",
+    "title": "Retail Sales Associate",
+    "sector": "Retail, Logistics & Supply Chain",
+    "nsqf_level": 3,
+    "current_demand": 420,
+    "effective_supply": 760,
+    "gap_score": 24,
+    "severity": "Severe Oversupply",
+    "shortage_probability_6m": 12,
+    "forecast_demand_6m": 385,
+    "training_seats": 850,
+    "key_skills": ["Point-of-Sale Operations", "Customer Service", "Inventory Stacking"]
+  },
+  {
+    "nco_code": "7233.0102",
+    "title": "EV Service Technician",
+    "sector": "Automotive & Advanced Manufacturing",
+    "nsqf_level": 4,
+    "current_demand": 1150,
+    "effective_supply": 620,
+    "gap_score": 82,
+    "severity": "Severe Shortage",
+    "shortage_probability_6m": 74,
+    "forecast_demand_6m": 1460,
+    "training_seats": 260,
+    "key_skills": ["High-Voltage Battery Diagnostics", "BMS Calibration", "Electric Drivetrain Repair"]
+  }
+]

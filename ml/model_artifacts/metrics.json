@@ -1,0 +1,20 @@
+{
+  "seasonal_naive_baseline": {
+    "mae": 120.01,
+    "rmse": 162.28,
+    "wape": 16.59,
+    "sample_count": 6144
+  },
+  "lightgbm_ensemble": {
+    "mae": 36.17,
+    "rmse": 66.83,
+    "wape": 5.0,
+    "sample_count": 6144
+  },
+  "relative_improvement_percent": 69.86,
+  "walk_forward_split_date": "2025-11-01",
+  "training_rows": 18432,
+  "validation_rows": 6144,
+  "total_observations": 24576,
+  "timestamp": "2026-10-04T17:13:15.647598+00:00"
+}
