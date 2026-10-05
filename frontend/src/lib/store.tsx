@@ -39,6 +39,8 @@ interface AppContextType {
   acknowledgeAlert: (id: string) => void;
   recommendations: Recommendation[];
   approveRecommendation: (id: string) => void;
+  isOfflineFixture: boolean;
+  setIsOfflineFixture: (val: boolean) => void;
 }
 
 const AppContext = createContext<AppContextType | undefined>(undefined);
@@ -58,6 +60,24 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
   const [notificationOpen, setNotificationOpen] = useState<boolean>(false);
   const [alerts, setAlerts] = useState<EarlyWarningAlert[]>(EARLY_WARNING_ALERTS);
   const [recommendations, setRecommendations] = useState<Recommendation[]>(RECOMMENDATIONS);
+  const [isOfflineFixture, setIsOfflineFixture] = useState<boolean>(false);
+
+  React.useEffect(() => {
+    fetch('/api/overview')
+      .then(res => {
+        const src = res.headers.get('X-KaushalPulse-Source');
+        if (src === 'offline-fixture') {
+          setIsOfflineFixture(true);
+        } else {
+          return res.json().then(data => {
+            if (data?.is_offline_fixture) {
+              setIsOfflineFixture(true);
+            }
+          });
+        }
+      })
+      .catch(() => setIsOfflineFixture(true));
+  }, []);
 
   const t = translations[language];
 
@@ -99,7 +119,9 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
       alerts,
       acknowledgeAlert,
       recommendations,
-      approveRecommendation
+      approveRecommendation,
+      isOfflineFixture,
+      setIsOfflineFixture
     }}>
       {children}
     </AppContext.Provider>

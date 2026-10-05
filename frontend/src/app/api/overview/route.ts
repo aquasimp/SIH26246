@@ -31,6 +31,8 @@ export async function GET(request: Request) {
   return NextResponse.json({
     status: 'success',
     data_mode: 'synthetic',
+    is_offline_fixture: true,
+    source_badge: 'Offline fixture data',
     pipeline_run_id: 'RUN-2026-10-04-001',
     timestamp: new Date().toISOString(),
     metrics: {
@@ -45,9 +47,13 @@ export async function GET(request: Request) {
       shortage_occupation: 'Solar PV Installer (Gorakhpur)',
       oversupply_occupation: 'Retail Sales Associate (Gorakhpur)',
       gap_scores: {
-        solar_pv_installer: 84,
-        retail_sales_associate: 24
+        solar_pv_installer: 93,
+        retail_sales_associate: 66
       }
+    }
+  }, {
+    headers: {
+      'X-KaushalPulse-Source': 'offline-fixture'
     }
   });
 }

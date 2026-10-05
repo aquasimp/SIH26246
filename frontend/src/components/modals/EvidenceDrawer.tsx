@@ -100,37 +100,60 @@ export const EvidenceDrawer: React.FC = () => {
 
           {/* Section: Evidence Breakdown */}
           <div>
-            <h3 className="text-xs font-bold uppercase tracking-wider text-slate-500 mb-3 flex items-center gap-1.5">
-              <FileText className="w-4 h-4 text-slate-700" />
-              Empirical Evidence & Data Provenance
-            </h3>
+            <div className="flex items-center justify-between mb-3">
+              <h3 className="text-xs font-bold uppercase tracking-wider text-slate-500 flex items-center gap-1.5">
+                <FileText className="w-4 h-4 text-slate-700" />
+                Empirical Evidence & Data Provenance
+              </h3>
+              <span className="px-2 py-0.5 rounded-md text-[10px] font-bold bg-amber-100 text-amber-800 border border-amber-300">
+                Synthetic data
+              </span>
+            </div>
             
             <div className="space-y-2.5">
               <div className="p-3 rounded-xl bg-white border border-slate-200/80 shadow-2xs">
-                <span className="text-[10px] font-bold text-orange-600 uppercase tracking-wider block mb-0.5">
-                  1. Real-Time Demand Signals
-                </span>
+                <div className="flex items-center justify-between mb-0.5">
+                  <span className="text-[10px] font-bold text-orange-600 uppercase tracking-wider block">
+                    1. Real-Time Demand Signals
+                  </span>
+                  <span className="text-[9px] text-slate-500 font-medium">NCS / Aggregated Feed</span>
+                </div>
                 <p className="text-slate-700 text-xs">{rec.evidence.demandSignal}</p>
               </div>
 
               <div className="p-3 rounded-xl bg-white border border-slate-200/80 shadow-2xs">
-                <span className="text-[10px] font-bold text-emerald-600 uppercase tracking-wider block mb-0.5">
-                  2. Verified Vacancy Expansion
-                </span>
+                <div className="flex items-center justify-between mb-0.5">
+                  <span className="text-[10px] font-bold text-slate-700 uppercase tracking-wider block">
+                    2. Employer Vacancy Expansion
+                  </span>
+                  <span className="px-1.5 py-0.5 rounded text-[9px] font-bold bg-amber-100 text-amber-800 border border-amber-300">
+                    Synthetic data
+                  </span>
+                </div>
                 <p className="text-slate-700 text-xs">{rec.evidence.vacancyGrowth}</p>
               </div>
 
               <div className="p-3 rounded-xl bg-white border border-slate-200/80 shadow-2xs">
-                <span className="text-[10px] font-bold text-indigo-600 uppercase tracking-wider block mb-0.5">
-                  3. Training Pipeline Saturation / Stagnation
-                </span>
+                <div className="flex items-center justify-between mb-0.5">
+                  <span className="text-[10px] font-bold text-slate-700 uppercase tracking-wider block">
+                    3. Placement Rates & Pipeline Saturation
+                  </span>
+                  <span className="px-1.5 py-0.5 rounded text-[9px] font-bold bg-amber-100 text-amber-800 border border-amber-300">
+                    Synthetic data
+                  </span>
+                </div>
                 <p className="text-slate-700 text-xs">{rec.evidence.supplyStagnation}</p>
               </div>
 
               <div className="p-3 rounded-xl bg-white border border-slate-200/80 shadow-2xs">
-                <span className="text-[10px] font-bold text-blue-600 uppercase tracking-wider block mb-0.5">
-                  4. Employer Hiring Intent
-                </span>
+                <div className="flex items-center justify-between mb-0.5">
+                  <span className="text-[10px] font-bold text-slate-700 uppercase tracking-wider block">
+                    4. Employer Letters of Intent (LOIs)
+                  </span>
+                  <span className="px-1.5 py-0.5 rounded text-[9px] font-bold bg-amber-100 text-amber-800 border border-amber-300">
+                    Synthetic data
+                  </span>
+                </div>
                 <p className="text-slate-700 text-xs">{rec.evidence.employerHiringTrend}</p>
               </div>
             </div>

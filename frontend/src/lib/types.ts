@@ -5,6 +5,8 @@ export type AlertType =
   | 'emerging_shortage' 
   | 'emerging_oversupply' 
   | 'saturation_risk' 
+  | 'capacity_inefficiency'
+  | 'persistent_shortage'
   | 'emerging_occupation' 
   | 'geographic_imbalance' 
   | 'skill_obsolescence';
@@ -61,6 +63,13 @@ export interface Occupation {
   qualifications: string[];      // Qualification Pack IDs
   timeSeries: TimePoint[];
   explainability: ExplainabilityFactor[];
+  whyThisScore?: {
+    demandGrowth6M: number;
+    supplyGrowth6M: number;
+    netVelocityMismatch: number;
+    localShapDrivers: { feature: string; shap_value: number; abs_impact: number; direction: string; desc: string }[];
+    globalModelDrivers: { rank: number; feature: string; importance: number; desc: string }[];
+  };
 }
 
 export interface District {
@@ -94,6 +103,8 @@ export interface EarlyWarningAlert {
   forecastHorizon: ForecastHorizon;
   confidence: number;
   recommendedAction: string;
+  context?: string;       // e.g. 'Context, not model output: ...'
+  wastedSeats?: number;   // e.g. 536 seats
   timestamp: string;
   acknowledged: boolean;
 }
@@ -128,20 +139,64 @@ export interface Recommendation {
   status: 'pending' | 'approved' | 'simulated';
 }
 
+export interface TradeBeforeAfter {
+  title: string;
+  nco: string;
+  district?: string;
+  seats_before: number;
+  seats_after: number;
+  demand_before: number;
+  demand_after: number;
+  supply_before: number;
+  supply_after: number;
+  deficit_before: number;
+  deficit_after: number;
+  gap_score_before: number;
+  gap_score_after: number;
+  severity_before: string;
+  severity_after: string;
+  deficit_reduction_percent?: number;
+  was_shrunk?: boolean;
+  requested_seats?: number;
+  actual_seats_shifted?: number;
+  shrink_reason?: string;
+}
+
 export interface ScenarioParams {
   occupationNco: string;
   districtId: string;
   seatShiftAmount: number;    // e.g. 500 seats shifted from oversupplied trade
   donorNco: string;           // e.g. Retail Sales Associate
+  donorDistrict?: string;     // e.g. Gorakhpur
   seatPercentAdjustment: number; // -50% to +50%
   demandShockPercent: number;    // -30% to +30%
   newCentreActive: boolean;      // +150 capacity
   mobilityFactorPercent: number; // 0% to 30% inter-district supply mobility
+  enforceDonorConstraint?: boolean; // LP donor safety constraint
+  donorSafetyRule?: number;     // 0.05 (default, strict), 0.10 (moderate), 0.18 (permissive)
+}
+
+export interface SensitivityRow {
+  rule: number;
+  label: string;
+  seats_moved: number;
+  donor_score: number;
+  donor_deficit?: number;
+  donor_gap_ratio?: number;
+  target_score_realloc: number;
+  deficit_closed_realloc_pct: number;
+  target_score_combo_no_mobility?: number;
+  deficit_closed_combo_no_mobility_pct?: number;
+  target_score_combo: number;
+  deficit_closed_combo_pct: number;
+  total_cost_lakhs: number;
 }
 
 export interface ScenarioResult {
   baselineGapScore: number;
+  baselineSeverity: string;
   simulatedGapScore: number;
+  simulatedSeverity: string;
   baselineShortageProbability: number;
   simulatedShortageProbability: number;
   gapReductionPercent: number;
@@ -150,6 +205,23 @@ export interface ScenarioResult {
   supplyCoverageIncreasePercent: number;
   estimatedInterventionCostINR: number;
   projectedTimeSeries: { month: string; baselineDemand: number; baselineSupply: number; simulatedSupply: number }[];
+  targetTrade?: TradeBeforeAfter;
+  donorTrade?: TradeBeforeAfter;
+  wasShrunk?: boolean;
+  requestedSeats?: number;
+  actualSeatsShifted?: number;
+  shrinkReason?: string;
+  sensitivityTable?: SensitivityRow[];
+}
+
+export interface BacktestHorizonRow {
+  horizon: '3M' | '6M' | '12M';
+  model: string;
+  wape: number;
+  mase: number;
+  coverage_80: number;
+  coverage_95: number;
+  sample_count: number;
 }
 
 export interface DataHealthMetric {
@@ -168,6 +240,7 @@ export interface DataHealthMetric {
     lastTrained: string;
     status: 'optimal' | 'healthy' | 'retraining';
   }[];
+  backtestHorizons?: BacktestHorizonRow[];
   sources: {
     name: string;
     type: 'Public Aggregate' | 'Demo Dataset' | 'Planned Government Feed';

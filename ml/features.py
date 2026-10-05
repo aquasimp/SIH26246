@@ -12,8 +12,8 @@ FEATURE_COLUMNS = [
     "rolling_mean_3", "rolling_mean_6", "rolling_mean_12", "rolling_std_6",
     "demand_growth_3m", "demand_growth_12m",
     "lag_1_employer", "employer_growth_3m",
-    "training_seats", "effective_supply",
-    "industry_signal", "wage_signal",
+    "lag_1_training_seats", "lag_1_effective_supply",
+    "lag_1_wage_signal", "lag_1_industry_signal",
     "month", "quarter",
     "sector", "nco_code", "district", "state"
 ]
@@ -22,13 +22,15 @@ def create_features(df: pd.DataFrame) -> pd.DataFrame:
     """
     Computes time-series lag and rolling statistics grouped by (district, nco_code).
     All features are derived strictly from t-1 or earlier, preventing data leakage.
+    Contemporaneous metrics (seats, supply, wage, industry) are strictly lagged by >= 1 month.
     """
     df = df.copy()
     df["date"] = pd.to_datetime(df["date"])
     df = df.sort_values(by=["district", "nco_code", "date"]).reset_index(drop=True)
 
-    # Calculate effective supply
-    df["effective_supply"] = (df["available_supply"] * df["placement_rate"]).astype(int)
+    # Calculate effective supply for historical records using documented job-readiness rate (0.70)
+    # Replaces circular placement_rate outcome multiplier
+    df["effective_supply"] = np.round(df["available_supply"] * 0.70).astype(int)
 
     # Groupby district and nco_code to calculate true group-level lags
     grouped = df.groupby(["district", "nco_code"])
@@ -55,7 +57,13 @@ def create_features(df: pd.DataFrame) -> pd.DataFrame:
     lag_3_emp = grouped["employer_count"].shift(3)
     df["employer_growth_3m"] = (df["lag_1_employer"] - lag_3_emp) / (lag_3_emp + 1.0)
 
-    # 5. Calendar Features
+    # 5. Training Seats, Effective Supply, Wage, and Industry Signals (Strictly Lag-1)
+    df["lag_1_training_seats"] = grouped["training_seats"].shift(1)
+    df["lag_1_effective_supply"] = grouped["effective_supply"].shift(1)
+    df["lag_1_wage_signal"] = grouped["wage_signal"].shift(1)
+    df["lag_1_industry_signal"] = grouped["industry_signal"].shift(1)
+
+    # 6. Calendar Features (Deterministic calendar info known at forecast time)
     df["month"] = df["date"].dt.month
     df["quarter"] = df["date"].dt.quarter
 

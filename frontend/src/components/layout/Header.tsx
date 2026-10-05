@@ -30,7 +30,8 @@ export const Header: React.FC = () => {
     alerts,
     setCopilotOpen,
     searchQuery,
-    setSearchQuery
+    setSearchQuery,
+    isOfflineFixture
   } = useApp();
 
   const unreadAlerts = alerts.filter(a => !a.acknowledged).length;
@@ -85,6 +86,14 @@ export const Header: React.FC = () => {
               className="w-full text-xs pl-8 pr-3 py-1.5 rounded-xl liquid-control text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-blue-500"
             />
           </div>
+
+          {/* Offline Fixture Badge (Honesty Label) */}
+          {isOfflineFixture && (
+            <div className="flex items-center gap-1.5 text-xs px-2.5 py-1.5 rounded-xl bg-amber-100/90 text-amber-900 border border-amber-300 font-bold shadow-xs animate-in fade-in" title="Analytical backend offline; serving local deterministic fixture data">
+              <span className="w-2 h-2 rounded-full bg-amber-500 animate-pulse"></span>
+              <span>Offline fixture data</span>
+            </div>
+          )}
 
           {/* Data Freshness Indicator */}
           <div className="hidden sm:flex items-center gap-1.5 text-xs px-2.5 py-1.5 rounded-xl liquid-control text-slate-600 border border-white/80">

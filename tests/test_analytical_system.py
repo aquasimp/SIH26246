@@ -81,11 +81,18 @@ def test_planted_demo_scenario():
 def test_pulp_seat_reallocation_solver():
     donors = [{"title": "Retail Sales Associate", "nco": "5223.0101", "excess_seats": 500}]
     targets = [{"title": "Solar PV Installer", "nco": "7126.0101", "deficit": 600, "gap_score": 84}]
-    res = optimize_seat_reallocation("Gorakhpur", donors, targets)
+    
+    # 1. Default strict rule (gap ratio <= 0.05)
+    res_strict = optimize_seat_reallocation("Gorakhpur", donors, targets, donor_safety_rule=0.05)
+    assert res_strict["status"] == "Optimal"
+    assert res_strict["total_seats_reallocated"] == 97
+    assert res_strict["total_cost_inr"] == 97 * 6500.0
 
+    # 2. Permissive rule (gap score <= 59, 218 seats)
+    res = optimize_seat_reallocation("Gorakhpur", donors, targets, donor_safety_rule=0.1895)
     assert res["status"] == "Optimal"
-    assert res["total_seats_reallocated"] == 500
-    assert res["total_cost_inr"] == 3250000.0
+    assert res["total_seats_reallocated"] == 218
+    assert res["total_cost_inr"] == 218 * 6500.0
 
 def test_sih_dummy_adapter_mapping():
     adapter = SIHDummyDataAdapter()
@@ -141,10 +148,10 @@ def test_fastapi_endpoints():
     assert r.status_code == 200
     assert len(r.json()["alerts"]) >= 5
 
-    # 7. Recommendations
+    # 7. Recommendations (Hardened default: post-transfer gap ratio <= 0.05 -> 97 seats)
     r = client.get("/api/recommendations?district=Gorakhpur")
     assert r.status_code == 200
-    assert r.json()["recommendations"][0]["recommendedSeats"] == 500
+    assert r.json()["recommendations"][0]["recommendedSeats"] == 97
 
     # 8. Scenarios POST
     r = client.post("/api/scenarios", json={

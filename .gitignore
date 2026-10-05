@@ -71,3 +71,7 @@ desktop.ini
 scratch/
 *.tmp
 *.bak
+
+.vercel/
+frontend/.vercel/
+*.vercel

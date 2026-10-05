@@ -87,6 +87,28 @@ export default function AlertsPage() {
 
       <FilterBar />
 
+      {/* Official Dataset Early Warning Intelligence Banner */}
+      <div className="p-4 rounded-2xl bg-gradient-to-r from-red-50 via-amber-50 to-blue-50 border border-slate-200/90 shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
+        <div className="space-y-1">
+          <div className="flex items-center gap-2">
+            <span className="px-2 py-0.5 rounded text-[10px] font-extrabold uppercase bg-red-600 text-white tracking-wider font-mono">
+              Official SIH Intelligence Scan
+            </span>
+            <span className="font-bold text-slate-800">
+              35 Active Anomalies Detected across 16 Districts
+            </span>
+          </div>
+          <p className="text-slate-600 text-[11px] leading-relaxed">
+            Of the 6 algorithmic alert categories, <strong>4 categories fire on the official dataset</strong>: <strong>1 Persistent Severe Shortage</strong> (Gorakhpur Solar PV Installer with 3/3 periods at Gap Score 94), <strong>1 Critical Emerging Shortage</strong> (Drone Maintenance in Rajkot), <strong>30 Capacity Inefficiencies</strong> (physical training seats &gt; 2.0× demand, ranked by wasted seats), and <strong>3 Skill Obsolescence Risks</strong> (legacy garments &amp; HVAC). The top 5 prioritized alerts are surfaced below.
+          </p>
+        </div>
+        <div className="shrink-0 flex items-center gap-2">
+          <span className="px-2.5 py-1 rounded-lg bg-white/90 border border-slate-200 text-[11px] font-bold text-slate-700 shadow-2xs">
+            Top 5 Surfaced by Default
+          </span>
+        </div>
+      </div>
+
       {/* Filter and Category Pills */}
       <div className="p-4 rounded-2xl bg-white/80 border border-slate-200/80 shadow-xs flex flex-col md:flex-row items-center justify-between gap-4">
         <div className="flex items-center flex-wrap gap-2 text-xs">
@@ -123,7 +145,7 @@ export default function AlertsPage() {
         </div>
       </div>
 
-      {/* Alert Feed Cards (Section 22: Severity, Affected geography, Occupation, Trigger, Forecast horizon, Confidence, Recommended action, Acknowledge, Investigate, Simulate, Export) */}
+      {/* Alert Feed Cards */}
       <div className="space-y-4">
         {filteredAlerts.map((alert) => (
           <div
@@ -161,6 +183,12 @@ export default function AlertsPage() {
                   <span className="text-xs font-semibold text-blue-700 bg-blue-50 px-2 py-0.5 rounded-md border border-blue-200">
                     {alert.occupation} (NCO {alert.ncoCode})
                   </span>
+
+                  {alert.wastedSeats && (
+                    <span className="text-[10px] font-mono font-bold text-amber-800 bg-amber-100/80 px-2 py-0.5 rounded-md border border-amber-300">
+                      Wasted Seats: {alert.wastedSeats}
+                    </span>
+                  )}
                 </div>
 
                 <div className="flex items-center gap-3 text-xs text-slate-500 font-mono">
@@ -178,6 +206,21 @@ export default function AlertsPage() {
               <p className="text-xs sm:text-sm text-slate-700 mb-3 leading-relaxed">
                 <strong>Trigger:</strong> {alert.trigger}
               </p>
+
+              {/* Context Label Callout (Section 4: Context, not model output) */}
+              {alert.context && (
+                <div className="p-3 rounded-xl bg-amber-50/70 border border-amber-200/80 mb-3 text-xs flex items-start gap-2">
+                  <Info className="w-4 h-4 text-amber-700 shrink-0 mt-0.5" />
+                  <div>
+                    <span className="text-[10px] font-bold text-amber-800 uppercase tracking-wider block">
+                      Context, not model output
+                    </span>
+                    <p className="text-amber-950 font-normal mt-0.5">
+                      {alert.context.replace(/^Context,\s*not model output:\s*/i, '')}
+                    </p>
+                  </div>
+                </div>
+              )}
 
               {/* Recommended Action Box */}
               <div className="p-3.5 rounded-xl bg-slate-50/90 border border-slate-200/80 mb-4 text-xs">

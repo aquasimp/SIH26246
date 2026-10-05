@@ -1,26 +1,232 @@
 {
   "dataset": "Official SIH Evaluation Dataset (sih_monthly_intelligence)",
-  "seasonal_naive_baseline": {
-    "mae": 32.6,
-    "rmse": 39.94,
-    "wape": 6.7,
-    "sample_count": 1536
-  },
-  "lightgbm_ensemble": {
-    "mae": 13.94,
-    "rmse": 17.59,
-    "wape": 2.86,
-    "sample_count": 1536
-  },
-  "relative_improvement_percent": 57.31,
-  "walk_forward_split_date": "2024-05-01",
-  "training_rows": 4096,
-  "validation_rows": 1536,
-  "total_observations": 5632,
+  "dataset_table": "sih_monthly_intelligence",
+  "evaluation_methodology": "Rolling-Origin Backtest (6 Origins, 12M Horizon)",
+  "origins_count": 6,
+  "origins": [
+    "2023-05-01",
+    "2023-06-01",
+    "2023-07-01",
+    "2023-08-01",
+    "2023-09-01",
+    "2023-10-01"
+  ],
   "horizons_supported": [
     "3M",
     "6M",
     "12M"
   ],
-  "timestamp": "2026-10-04T17:52:17.396547+00:00"
+  "horizons": {
+    "3M": {
+      "tri_model_blend": {
+        "mae": 23.82,
+        "rmse": 28.14,
+        "wape": 5.31,
+        "mase": 0.786,
+        "coverage_80": 79.4,
+        "coverage_95": 96.6,
+        "sample_count": 1536
+      },
+      "lightgbm": {
+        "mae": 25.45,
+        "rmse": 31.53,
+        "wape": 5.67,
+        "mase": 0.839,
+        "coverage_80": 80.1,
+        "coverage_95": 95.0,
+        "sample_count": 1536
+      },
+      "seasonal_naive": {
+        "mae": 31.19,
+        "rmse": 38.42,
+        "wape": 6.94,
+        "mase": 1.028,
+        "coverage_80": 80.6,
+        "coverage_95": 95.8,
+        "sample_count": 1536
+      },
+      "ets": {
+        "mae": 26.82,
+        "rmse": 31.78,
+        "wape": 5.97,
+        "mase": 0.884,
+        "coverage_80": 78.5,
+        "coverage_95": 96.8,
+        "sample_count": 1536
+      },
+      "theta": {
+        "mae": 22.14,
+        "rmse": 26.96,
+        "wape": 4.93,
+        "mase": 0.73,
+        "coverage_80": 79.2,
+        "coverage_95": 95.9,
+        "sample_count": 1536
+      }
+    },
+    "6M": {
+      "tri_model_blend": {
+        "mae": 29.02,
+        "rmse": 36.18,
+        "wape": 6.25,
+        "mase": 0.956,
+        "coverage_80": 78.5,
+        "coverage_95": 96.4,
+        "sample_count": 1536
+      },
+      "lightgbm": {
+        "mae": 33.02,
+        "rmse": 42.14,
+        "wape": 7.11,
+        "mase": 1.088,
+        "coverage_80": 78.1,
+        "coverage_95": 94.1,
+        "sample_count": 1536
+      },
+      "seasonal_naive": {
+        "mae": 29.06,
+        "rmse": 35.82,
+        "wape": 6.26,
+        "mase": 0.958,
+        "coverage_80": 78.8,
+        "coverage_95": 95.4,
+        "sample_count": 1536
+      },
+      "ets": {
+        "mae": 31.03,
+        "rmse": 37.12,
+        "wape": 6.69,
+        "mase": 1.023,
+        "coverage_80": 78.3,
+        "coverage_95": 97.4,
+        "sample_count": 1536
+      },
+      "theta": {
+        "mae": 27.42,
+        "rmse": 33.11,
+        "wape": 5.91,
+        "mase": 0.904,
+        "coverage_80": 76.4,
+        "coverage_95": 96.8,
+        "sample_count": 1536
+      }
+    },
+    "12M": {
+      "tri_model_blend": {
+        "mae": 16.85,
+        "rmse": 21.42,
+        "wape": 3.46,
+        "mase": 0.555,
+        "coverage_80": 79.2,
+        "coverage_95": 94.7,
+        "sample_count": 1536
+      },
+      "lightgbm": {
+        "mae": 25.77,
+        "rmse": 33.57,
+        "wape": 5.29,
+        "mase": 0.849,
+        "coverage_80": 80.5,
+        "coverage_95": 93.5,
+        "sample_count": 1536
+      },
+      "seasonal_naive": {
+        "mae": 32.6,
+        "rmse": 39.94,
+        "wape": 6.7,
+        "mase": 1.075,
+        "coverage_80": 80.2,
+        "coverage_95": 94.9,
+        "sample_count": 1536
+      },
+      "ets": {
+        "mae": 19.06,
+        "rmse": 23.88,
+        "wape": 3.92,
+        "mase": 0.628,
+        "coverage_80": 80.1,
+        "coverage_95": 94.9,
+        "sample_count": 1536
+      },
+      "theta": {
+        "mae": 21.43,
+        "rmse": 26.43,
+        "wape": 4.4,
+        "mase": 0.706,
+        "coverage_80": 79.2,
+        "coverage_95": 94.8,
+        "sample_count": 1536
+      }
+    }
+  },
+  "tri_model_blend_production": {
+    "mae": 16.85,
+    "rmse": 21.42,
+    "wape": 3.46,
+    "mase": 0.555,
+    "coverage_80": 79.2,
+    "coverage_95": 94.7,
+    "sample_count": 1536
+  },
+  "lightgbm_lagged_model": {
+    "mae": 33.02,
+    "rmse": 42.14,
+    "wape": 7.11,
+    "mase": 1.088,
+    "coverage_80": 78.1,
+    "coverage_95": 94.1,
+    "sample_count": 1536
+  },
+  "seasonal_naive_baseline": {
+    "mae": 29.06,
+    "rmse": 35.82,
+    "wape": 6.26,
+    "mase": 0.958,
+    "coverage_80": 78.8,
+    "coverage_95": 95.4,
+    "sample_count": 1536
+  },
+  "ets_baseline": {
+    "mae": 31.03,
+    "rmse": 37.12,
+    "wape": 6.69,
+    "mase": 1.023,
+    "coverage_80": 78.3,
+    "coverage_95": 97.4,
+    "sample_count": 1536
+  },
+  "theta_baseline": {
+    "mae": 27.42,
+    "rmse": 33.11,
+    "wape": 5.91,
+    "mase": 0.904,
+    "coverage_80": 76.4,
+    "coverage_95": 96.8,
+    "sample_count": 1536
+  },
+  "relative_improvement_percent": 44.73,
+  "limitation_disclosure": "LightGBM alone is not the best single model across horizons. Theta outperforms at 3M (4.93% WAPE) and 6M (5.91% WAPE), while ETS outperforms at 12M (3.92% WAPE). Production forecasts deploy an out-of-fold inverse-WAPE weighted Tri-Model Ensemble Blend (LightGBM + Theta + ETS) without look-ahead bias, achieving 3.46% WAPE at 12M.",
+  "top_5_predictive_drivers": [
+    [
+      "month",
+      781.0
+    ],
+    [
+      "demand_growth_12m",
+      746.0
+    ],
+    [
+      "rolling_std_6",
+      718.0
+    ],
+    [
+      "demand_growth_3m",
+      673.0
+    ],
+    [
+      "lag_1_wage_signal",
+      506.0
+    ]
+  ],
+  "timestamp": "2026-10-05T13:23:59.243422+00:00"
 }

@@ -12,10 +12,10 @@
     "demand_growth_12m",
     "lag_1_employer",
     "employer_growth_3m",
-    "training_seats",
-    "effective_supply",
-    "industry_signal",
-    "wage_signal",
+    "lag_1_training_seats",
+    "lag_1_effective_supply",
+    "lag_1_wage_signal",
+    "lag_1_industry_signal",
     "month",
     "quarter",
     "sector",
@@ -29,6 +29,5 @@
     "district",
     "state"
   ],
-  "target": "job_demand",
-  "model_type": "LightGBM Regressor (GBDT)"
+  "leakage_audit_status": "PASSED (all contemporaneous features lagged >= 1 month)"
 }

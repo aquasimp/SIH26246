@@ -1,0 +1,128 @@
+{
+  "dataset": "sih_monthly_intelligence",
+  "origins_count": 6,
+  "origins": [
+    "2023-05-01",
+    "2023-06-01",
+    "2023-07-01",
+    "2023-08-01",
+    "2023-09-01",
+    "2023-10-01"
+  ],
+  "horizons": {
+    "3M": {
+      "lightgbm": {
+        "mae": 25.39,
+        "rmse": 31.46,
+        "wape": 5.65,
+        "mase": 0.837,
+        "coverage_80": 79.8,
+        "coverage_95": 95.1,
+        "sample_count": 1536
+      },
+      "seasonal_naive": {
+        "mae": 31.19,
+        "rmse": 38.42,
+        "wape": 6.94,
+        "mase": 1.028,
+        "coverage_80": 80.6,
+        "coverage_95": 95.8,
+        "sample_count": 1536
+      },
+      "ets": {
+        "mae": 26.82,
+        "rmse": 31.78,
+        "wape": 5.97,
+        "mase": 0.884,
+        "coverage_80": 78.5,
+        "coverage_95": 96.8,
+        "sample_count": 1536
+      },
+      "theta": {
+        "mae": 22.14,
+        "rmse": 26.96,
+        "wape": 4.93,
+        "mase": 0.73,
+        "coverage_80": 79.2,
+        "coverage_95": 95.9,
+        "sample_count": 1536
+      }
+    },
+    "6M": {
+      "lightgbm": {
+        "mae": 33.11,
+        "rmse": 42.22,
+        "wape": 7.13,
+        "mase": 1.091,
+        "coverage_80": 77.8,
+        "coverage_95": 94.3,
+        "sample_count": 1536
+      },
+      "seasonal_naive": {
+        "mae": 29.06,
+        "rmse": 35.82,
+        "wape": 6.26,
+        "mase": 0.958,
+        "coverage_80": 78.8,
+        "coverage_95": 95.4,
+        "sample_count": 1536
+      },
+      "ets": {
+        "mae": 31.03,
+        "rmse": 37.12,
+        "wape": 6.69,
+        "mase": 1.023,
+        "coverage_80": 78.3,
+        "coverage_95": 97.4,
+        "sample_count": 1536
+      },
+      "theta": {
+        "mae": 27.42,
+        "rmse": 33.11,
+        "wape": 5.91,
+        "mase": 0.904,
+        "coverage_80": 76.4,
+        "coverage_95": 96.8,
+        "sample_count": 1536
+      }
+    },
+    "12M": {
+      "lightgbm": {
+        "mae": 25.81,
+        "rmse": 33.62,
+        "wape": 5.3,
+        "mase": 0.851,
+        "coverage_80": 80.6,
+        "coverage_95": 93.3,
+        "sample_count": 1536
+      },
+      "seasonal_naive": {
+        "mae": 32.6,
+        "rmse": 39.94,
+        "wape": 6.7,
+        "mase": 1.075,
+        "coverage_80": 80.2,
+        "coverage_95": 94.9,
+        "sample_count": 1536
+      },
+      "ets": {
+        "mae": 19.06,
+        "rmse": 23.88,
+        "wape": 3.92,
+        "mase": 0.628,
+        "coverage_80": 80.1,
+        "coverage_95": 94.9,
+        "sample_count": 1536
+      },
+      "theta": {
+        "mae": 21.43,
+        "rmse": 26.43,
+        "wape": 4.4,
+        "mase": 0.706,
+        "coverage_80": 79.2,
+        "coverage_95": 94.8,
+        "sample_count": 1536
+      }
+    }
+  }
+}

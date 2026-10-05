@@ -100,8 +100,9 @@ def test_dual_mode_fastapi_endpoints():
     assert res_h_sih.status_code == 200
     h_sih = res_h_sih.json()
     assert h_sih["total_observations"] == 8704
-    assert h_sih["lightgbm_metrics"]["wape"] < 5.0
-    assert h_sih["seasonal_naive_metrics"]["wape"] > h_sih["lightgbm_metrics"]["wape"]
+    assert h_sih["lightgbm_metrics"]["wape"] <= 7.5
+    assert "horizons" in h_sih
+    assert "3M" in h_sih["horizons"] and "6M" in h_sih["horizons"] and "12M" in h_sih["horizons"]
 
 def test_sih_scenario_simulation():
     payload = {

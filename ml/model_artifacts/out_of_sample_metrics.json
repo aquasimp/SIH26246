@@ -1,0 +1,177 @@
+{
+  "blend_weights_fitted_on_origins_1_3": {
+    "3": {
+      "lightgbm": 0.28545869720951794,
+      "ets": 0.32455391605820205,
+      "theta": 0.38998738673228
+    },
+    "6": {
+      "lightgbm": 0.25486374143649376,
+      "ets": 0.3131619981551807,
+      "theta": 0.43197426040832543
+    },
+    "12": {
+      "lightgbm": 0.2327619353941927,
+      "ets": 0.4069010137625439,
+      "theta": 0.3603370508432634
+    }
+  },
+  "train_origins": [
+    "2023-05-01",
+    "2023-06-01",
+    "2023-07-01"
+  ],
+  "eval_origins": [
+    "2023-08-01",
+    "2023-09-01",
+    "2023-10-01"
+  ],
+  "evaluation_origins_4_6": [
+    "2023-08-01",
+    "2023-09-01",
+    "2023-10-01"
+  ],
+  "metrics": {
+    "3M": {
+      "tri_model_blend": {
+        "mae": 18.69,
+        "rmse": 23.18,
+        "wape": 4.17,
+        "mase": 0.602,
+        "coverage_80": 80.2,
+        "coverage_95": 95.1,
+        "sample_count": 768
+      },
+      "theta": {
+        "mae": 19.02,
+        "rmse": 23.62,
+        "wape": 4.24,
+        "mase": 0.613,
+        "coverage_80": 80.5,
+        "coverage_95": 94.8,
+        "sample_count": 768
+      },
+      "ets": {
+        "mae": 23.28,
+        "rmse": 28.24,
+        "wape": 5.19,
+        "mase": 0.75,
+        "coverage_80": 79.7,
+        "coverage_95": 96.4,
+        "sample_count": 768
+      },
+      "lightgbm": {
+        "mae": 16.63,
+        "rmse": 20.8,
+        "wape": 3.71,
+        "mase": 0.536,
+        "coverage_80": 80.1,
+        "coverage_95": 95.1,
+        "sample_count": 768
+      },
+      "seasonal_naive": {
+        "mae": 29.08,
+        "rmse": 35.83,
+        "wape": 6.49,
+        "mase": 0.937,
+        "coverage_80": 79.6,
+        "coverage_95": 95.6,
+        "sample_count": 768
+      }
+    },
+    "6M": {
+      "tri_model_blend": {
+        "mae": 20.06,
+        "rmse": 24.82,
+        "wape": 4.18,
+        "mase": 0.646,
+        "coverage_80": 76.6,
+        "coverage_95": 95.4,
+        "sample_count": 768
+      },
+      "theta": {
+        "mae": 25.53,
+        "rmse": 31.53,
+        "wape": 5.32,
+        "mase": 0.822,
+        "coverage_80": 76.6,
+        "coverage_95": 95.4,
+        "sample_count": 768
+      },
+      "ets": {
+        "mae": 21.64,
+        "rmse": 26.78,
+        "wape": 4.51,
+        "mase": 0.697,
+        "coverage_80": 78.3,
+        "coverage_95": 96.4,
+        "sample_count": 768
+      },
+      "lightgbm": {
+        "mae": 17.17,
+        "rmse": 21.23,
+        "wape": 3.58,
+        "mase": 0.553,
+        "coverage_80": 80.6,
+        "coverage_95": 95.1,
+        "sample_count": 768
+      },
+      "seasonal_naive": {
+        "mae": 29.03,
+        "rmse": 35.82,
+        "wape": 6.05,
+        "mase": 0.935,
+        "coverage_80": 78.0,
+        "coverage_95": 95.3,
+        "sample_count": 768
+      }
+    },
+    "12M": {
+      "tri_model_blend": {
+        "mae": 16.26,
+        "rmse": 20.3,
+        "wape": 3.41,
+        "mase": 0.524,
+        "coverage_80": 78.9,
+        "coverage_95": 94.5,
+        "sample_count": 768
+      },
+      "theta": {
+        "mae": 19.94,
+        "rmse": 24.86,
+        "wape": 4.18,
+        "mase": 0.642,
+        "coverage_80": 79.7,
+        "coverage_95": 94.8,
+        "sample_count": 768
+      },
+      "ets": {
+        "mae": 17.81,
+        "rmse": 22.11,
+        "wape": 3.73,
+        "mase": 0.574,
+        "coverage_80": 79.4,
+        "coverage_95": 95.3,
+        "sample_count": 768
+      },
+      "lightgbm": {
+        "mae": 16.96,
+        "rmse": 21.58,
+        "wape": 3.55,
+        "mase": 0.546,
+        "coverage_80": 80.5,
+        "coverage_95": 95.1,
+        "sample_count": 768
+      },
+      "seasonal_naive": {
+        "mae": 33.08,
+        "rmse": 40.81,
+        "wape": 6.93,
+        "mase": 1.066,
+        "coverage_80": 80.6,
+        "coverage_95": 94.0,
+        "sample_count": 768
+      }
+    }
+  }
+}
