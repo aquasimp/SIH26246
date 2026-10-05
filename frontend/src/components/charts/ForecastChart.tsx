@@ -2,8 +2,9 @@
 
 import React, { useState } from 'react';
 import { TimePoint, ForecastHorizon } from '@/lib/types';
-import { clsx } from 'clsx';
-import { Info, Sparkles, TrendingUp, ShieldAlert } from 'lucide-react';
+import { OUT_OF_SAMPLE_BENCHMARKS } from '@/lib/benchmarkMetrics';
+import { useChartPalette } from '@/lib/useChartPalette';
+import { Sparkles, Calendar, TrendingUp, AlertCircle } from 'lucide-react';
 
 interface ForecastChartProps {
   data: TimePoint[];
@@ -21,8 +22,10 @@ export const ForecastChart: React.FC<ForecastChartProps> = ({
   onModelChange
 }) => {
   const [hoverIndex, setHoverIndex] = useState<number | null>(null);
+  const palette = useChartPalette();
+  const benchmark = OUT_OF_SAMPLE_BENCHMARKS[horizon];
 
-  // Slice data based on horizon
+  // Slice data based on horizon: 24 historical + horizon months
   const displayCount = horizon === '3M' ? 27 : horizon === '6M' ? 30 : 36;
   const activeData = data.slice(0, displayCount);
 
@@ -49,20 +52,18 @@ export const ForecastChart: React.FC<ForecastChartProps> = ({
   const getX = (idx: number) => padding.left + (idx / (activeData.length - 1)) * chartW;
   const getY = (val: number) => padding.top + chartH - ((val - minVal) / range) * chartH;
 
-  // Build SVG Paths
-  let histDemandPath = '';
-  let forecastDemandPath = '';
-  let supplyPath = '';
-  let naivePath = '';
-  let ciAreaPath = '';
-
   const historicalPoints = activeData.filter(d => d.historicalDemand !== undefined);
   const forecastPoints = activeData.filter((d, i) => i >= 23); // connects last historical to forecasts
 
-  // Historical path
-  histDemandPath = historicalPoints.map((d, i) => `${i === 0 ? 'M' : 'L'} ${getX(i)} ${getY(d.historicalDemand!)}`).join(' ');
+  // Historical path (solid line)
+  const histDemandPath = historicalPoints.map((d, i) => `${i === 0 ? 'M' : 'L'} ${getX(i)} ${getY(d.historicalDemand!)}`).join(' ');
 
-  // Forecast path (using LightGBM or Naive)
+  // Forecast path (dashed line)
+  let forecastDemandPath = '';
+  let ci95AreaPath = '';
+  let ci80AreaPath = '';
+  let gapShadedPath = '';
+
   if (model === 'lightgbm') {
     forecastDemandPath = forecastPoints.map((d, i) => {
       const globalIdx = 23 + i;
@@ -70,80 +71,109 @@ export const ForecastChart: React.FC<ForecastChartProps> = ({
       return `${i === 0 ? 'M' : 'L'} ${getX(globalIdx)} ${getY(val)}`;
     }).join(' ');
 
-    // Confidence Interval Area
-    const ciUpperPoints = forecastPoints.map((d, i) => `${getX(23 + i)},${getY(d.ciUpper || d.forecastDemand || 0)}`);
-    const ciLowerPoints = [...forecastPoints].reverse().map((d, i) => `${getX(23 + (forecastPoints.length - 1 - i))},${getY(d.ciLower || d.forecastDemand || 0)}`);
-    ciAreaPath = `M ${ciUpperPoints.join(' L ')} L ${ciLowerPoints.join(' L ')} Z`;
-  } else {
-    // Naive baseline
-    naivePath = activeData.map((d, i) => `${i === 0 ? 'M' : 'L'} ${getX(i)} ${getY(d.baselineNaive || d.historicalDemand || 0)}`).join(' ');
+    // 95% Confidence Interval Area
+    const ci95Upper = forecastPoints.map((d, i) => `${getX(23 + i)},${getY(d.ciUpper || d.forecastDemand || 0)}`);
+    const ci95Lower = [...forecastPoints].reverse().map((d, i) => `${getX(23 + (forecastPoints.length - 1 - i))},${getY(d.ciLower || d.forecastDemand || 0)}`);
+    ci95AreaPath = `M ${ci95Upper.join(' L ')} L ${ci95Lower.join(' L ')} Z`;
+
+    // 80% Confidence Interval Area (narrower)
+    const ci80Upper = forecastPoints.map((d, i) => {
+      const f = d.forecastDemand || 0;
+      const u = d.ciUpper || f;
+      const val80 = f + (u - f) * 0.65;
+      return `${getX(23 + i)},${getY(val80)}`;
+    });
+    const ci80Lower = [...forecastPoints].reverse().map((d, i) => {
+      const f = d.forecastDemand || 0;
+      const l = d.ciLower || f;
+      const val80 = f - (f - l) * 0.65;
+      return `${getX(23 + (forecastPoints.length - 1 - i))},${getY(val80)}`;
+    });
+    ci80AreaPath = `M ${ci80Upper.join(' L ')} L ${ci80Lower.join(' L ')} Z`;
+
+    // Shaded Gap Area between forecast and supply
+    const gapUpper = forecastPoints.map((d, i) => `${getX(23 + i)},${getY(d.forecastDemand || 0)}`);
+    const gapLower = [...forecastPoints].reverse().map((d, i) => `${getX(23 + (forecastPoints.length - 1 - i))},${getY(d.effectiveSupply || 0)}`);
+    gapShadedPath = `M ${gapUpper.join(' L ')} L ${gapLower.join(' L ')} Z`;
   }
 
-  // Supply path
-  supplyPath = activeData.map((d, i) => `${i === 0 ? 'M' : 'L'} ${getX(i)} ${getY(d.effectiveSupply)}`).join(' ');
+  // Naive baseline path
+  const naivePath = activeData.map((d, i) => `${i === 0 ? 'M' : 'L'} ${getX(i)} ${getY(d.baselineNaive || d.historicalDemand || 0)}`).join(' ');
+
+  // Supply path (second line)
+  const supplyPath = activeData.map((d, i) => `${i === 0 ? 'M' : 'L'} ${getX(i)} ${getY(d.effectiveSupply)}`).join(' ');
 
   const activePoint = hoverIndex !== null ? activeData[hoverIndex] : activeData[activeData.length - 1];
   const activeX = hoverIndex !== null ? getX(hoverIndex) : getX(activeData.length - 1);
 
   return (
-    <div className="w-full">
-      {/* Top Chart Header & Legend Controls */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
+    <div className="w-full space-y-3">
+      {/* Top Header & Dynamic Benchmark Badges (§4.1, §6.2) */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div className="flex items-center gap-2">
-          <span className="text-xs font-bold text-slate-800">
+          <span className="text-xs font-bold text-[var(--text)]">
             {occupationTitle}
           </span>
-          <span className="text-[11px] px-2 py-0.5 rounded-full bg-blue-100 text-blue-800 font-semibold">
-            {horizon} Projection
+          <span className="text-[11px] font-mono px-2 py-0.5 rounded-full bg-[var(--brand)]/15 text-[var(--brand)] font-bold border border-[var(--brand)]/30">
+            {horizon} Horizon
           </span>
         </div>
 
-        {/* Model Switcher Pills */}
+        {/* Model Switcher with Verified Out-Of-Sample WAPE (§4.1) */}
         <div className="flex items-center gap-2">
-          <span className="text-[11px] font-semibold text-slate-500">Forecasting Engine:</span>
-          <div className="flex rounded-xl p-0.5 liquid-control border border-slate-200">
+          <span className="text-[11px] font-semibold text-[var(--text-faint)]">Model Architecture:</span>
+          <div className="glass inline-flex items-center rounded-xl p-0.5 border border-[var(--border)] text-xs">
             <button
+              type="button"
               onClick={() => onModelChange && onModelChange('lightgbm')}
-              className={clsx(
-                'px-2.5 py-1 text-xs font-bold rounded-lg transition-all cursor-pointer flex items-center gap-1',
+              className={`px-2.5 py-1 text-xs font-bold rounded-lg transition-all cursor-pointer flex items-center gap-1.5 ${
                 model === 'lightgbm' 
-                  ? 'bg-blue-600 text-white shadow-xs' 
-                  : 'text-slate-600 hover:text-slate-900'
-              )}
+                  ? 'bg-[var(--brand)] text-white shadow-xs' 
+                  : 'text-[var(--text-muted)] hover:text-[var(--text)]'
+              }`}
             >
               <Sparkles className="w-3 h-3 text-amber-300" />
-              LightGBM Ensemble (WAPE 12.7%)
+              <span>{horizon === '12M' ? 'Tri-Model Blend' : 'LightGBM'} (WAPE {benchmark.wape}%)</span>
             </button>
             <button
+              type="button"
               onClick={() => onModelChange && onModelChange('naive')}
-              className={clsx(
-                'px-2.5 py-1 text-xs font-bold rounded-lg transition-all cursor-pointer',
+              className={`px-2.5 py-1 text-xs font-bold rounded-lg transition-all cursor-pointer ${
                 model === 'naive' 
-                  ? 'bg-slate-700 text-white shadow-xs' 
-                  : 'text-slate-600 hover:text-slate-900'
-              )}
+                  ? 'bg-[var(--surface-solid)] text-[var(--text)] border border-[var(--border-strong)] shadow-xs' 
+                  : 'text-[var(--text-muted)] hover:text-[var(--text)]'
+              }`}
             >
-              Seasonal Naive (WAPE 18.4%)
+              <span>Seasonal Naive ({benchmark.naiveWape}%)</span>
             </button>
           </div>
         </div>
       </div>
 
       {/* SVG Chart Area */}
-      <div className="relative w-full overflow-hidden rounded-2xl bg-gradient-to-b from-white/90 to-slate-50/90 border border-slate-200/70 p-2 shadow-inner">
+      <div className="relative w-full overflow-hidden rounded-2xl glass border border-[var(--border)] p-2 shadow-inner">
         <svg
           viewBox={`0 0 ${width} ${height}`}
-          className="w-full h-auto select-none"
+          className="w-full h-auto select-none overflow-visible"
           onMouseLeave={() => setHoverIndex(null)}
         >
           <defs>
-            <linearGradient id="ciGradient" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#3b82f6" stopOpacity="0.25" />
-              <stop offset="100%" stopColor="#3b82f6" stopOpacity="0.05" />
+            {/* 95% Confidence Interval Gradient */}
+            <linearGradient id="ci95Gradient" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor={palette.brand} stopOpacity="0.20" />
+              <stop offset="100%" stopColor={palette.brand} stopOpacity="0.04" />
             </linearGradient>
-            <linearGradient id="forecastGlow" x1="0" y1="0" x2="1" y2="0">
-              <stop offset="0%" stopColor="#2563eb" />
-              <stop offset="100%" stopColor="#818cf8" />
+
+            {/* 80% Confidence Interval Gradient */}
+            <linearGradient id="ci80Gradient" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor={palette.brand} stopOpacity="0.32" />
+              <stop offset="100%" stopColor={palette.brand} stopOpacity="0.10" />
+            </linearGradient>
+
+            {/* Gap Gradient */}
+            <linearGradient id="gapGradient" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor={palette.severe} stopOpacity="0.18" />
+              <stop offset="100%" stopColor={palette.severe} stopOpacity="0.03" />
             </linearGradient>
           </defs>
 
@@ -158,7 +188,7 @@ export const ForecastChart: React.FC<ForecastChartProps> = ({
                   y1={y}
                   x2={width - padding.right}
                   y2={y}
-                  stroke="#e2e8f0"
+                  stroke={palette.grid}
                   strokeDasharray="4 4"
                   strokeWidth="1"
                 />
@@ -167,8 +197,9 @@ export const ForecastChart: React.FC<ForecastChartProps> = ({
                   y={y + 4}
                   textAnchor="end"
                   fontSize="10"
-                  fill="#94a3b8"
+                  fill={palette.textMuted}
                   fontWeight="600"
+                  className="font-mono tabular-nums"
                 >
                   {val.toLocaleString()}
                 </text>
@@ -176,7 +207,7 @@ export const ForecastChart: React.FC<ForecastChartProps> = ({
             );
           })}
 
-          {/* Forecast split vertical divider */}
+          {/* Forecast split vertical divider (§6.2) */}
           {activeData.length > 24 && (
             <g>
               <line
@@ -184,36 +215,47 @@ export const ForecastChart: React.FC<ForecastChartProps> = ({
                 y1={padding.top}
                 x2={getX(23)}
                 y2={height - padding.bottom}
-                stroke="#94a3b8"
+                stroke={palette.brand}
                 strokeWidth="1.5"
                 strokeDasharray="3 3"
+                opacity="0.8"
               />
               <text
-                x={getX(23) - 6}
+                x={getX(23) - 8}
                 y={padding.top + 14}
                 textAnchor="end"
                 fontSize="10"
                 fontWeight="700"
-                fill="#64748b"
+                fill={palette.textMuted}
               >
                 Historical Actuals
               </text>
               <text
-                x={getX(23) + 6}
+                x={getX(23) + 8}
                 y={padding.top + 14}
                 textAnchor="start"
                 fontSize="10"
                 fontWeight="700"
-                fill="#2563eb"
+                fill={palette.brand}
               >
-                Forward Projections →
+                {horizon} Projection →
               </text>
             </g>
           )}
 
-          {/* CI Area */}
-          {model === 'lightgbm' && ciAreaPath && (
-            <path d={ciAreaPath} fill="url(#ciGradient)" />
+          {/* Shaded Gap Area (§6.2) */}
+          {model === 'lightgbm' && gapShadedPath && (
+            <path d={gapShadedPath} fill="url(#gapGradient)" />
+          )}
+
+          {/* 95% Confidence Interval Area (§6.2) */}
+          {model === 'lightgbm' && ci95AreaPath && (
+            <path d={ci95AreaPath} fill="url(#ci95Gradient)" />
+          )}
+
+          {/* 80% Confidence Interval Area (§6.2) */}
+          {model === 'lightgbm' && ci80AreaPath && (
+            <path d={ci80AreaPath} fill="url(#ci80Gradient)" />
           )}
 
           {/* Baseline Naive Path */}
@@ -221,35 +263,35 @@ export const ForecastChart: React.FC<ForecastChartProps> = ({
             <path
               d={naivePath}
               fill="none"
-              stroke="#64748b"
+              stroke={palette.textMuted}
               strokeWidth="2"
               strokeDasharray="6 4"
             />
           )}
 
-          {/* Effective Supply Line (Emerald) */}
+          {/* Effective Supply Line (Solid balanced green) (§6.2) */}
           <path
             d={supplyPath}
             fill="none"
-            stroke="#059669"
+            stroke={palette.balanced}
             strokeWidth="2.5"
           />
 
-          {/* Historical Demand Line (Solid Coral/Orange) */}
+          {/* Historical Demand Line (Solid Coral/Severe line) (§6.2) */}
           <path
             d={histDemandPath}
             fill="none"
-            stroke="#ea580c"
+            stroke={palette.severe}
             strokeWidth="3"
             strokeLinecap="round"
           />
 
-          {/* Forecast Demand Line (Sapphire with dash/glow) */}
+          {/* Forecast Demand Line (Dashed brand line) (§6.2) */}
           {model === 'lightgbm' && forecastDemandPath && (
             <path
               d={forecastDemandPath}
               fill="none"
-              stroke="url(#forecastGlow)"
+              stroke={palette.brand}
               strokeWidth="3.5"
               strokeDasharray="8 4"
               strokeLinecap="round"
@@ -264,7 +306,7 @@ export const ForecastChart: React.FC<ForecastChartProps> = ({
                 y1={padding.top}
                 x2={activeX}
                 y2={height - padding.bottom}
-                stroke="#3b82f6"
+                stroke={palette.brand}
                 strokeWidth="1.5"
                 strokeDasharray="2 2"
               />
@@ -272,7 +314,7 @@ export const ForecastChart: React.FC<ForecastChartProps> = ({
                 cx={activeX}
                 cy={getY(activePoint.forecastDemand || activePoint.historicalDemand || 0)}
                 r="5"
-                fill="#2563eb"
+                fill={palette.brand}
                 stroke="#ffffff"
                 strokeWidth="2"
               />
@@ -280,14 +322,14 @@ export const ForecastChart: React.FC<ForecastChartProps> = ({
                 cx={activeX}
                 cy={getY(activePoint.effectiveSupply)}
                 r="5"
-                fill="#059669"
+                fill={palette.balanced}
                 stroke="#ffffff"
                 strokeWidth="2"
               />
             </g>
           )}
 
-          {/* Invisible interactive hover bars */}
+          {/* Interactive hover rect triggers */}
           {activeData.map((d, i) => (
             <rect
               key={d.month}
@@ -302,98 +344,97 @@ export const ForecastChart: React.FC<ForecastChartProps> = ({
           ))}
 
           {/* X Axis Month Labels */}
-          {activeData.filter((_, i) => i % 3 === 0 || i === activeData.length - 1).map((d) => {
-            const idx = activeData.findIndex(p => p.month === d.month);
+          {activeData.map((d, i) => {
+            // Show every 3rd or 4th label to prevent clutter
+            const step = horizon === '12M' ? 4 : 3;
+            if (i % step !== 0 && i !== 23 && i !== activeData.length - 1) return null;
             return (
               <text
                 key={d.month}
-                x={getX(idx)}
+                x={getX(i)}
                 y={height - padding.bottom + 18}
                 textAnchor="middle"
-                fontSize="10"
-                fill="#64748b"
-                fontWeight="600"
+                fontSize="9"
+                fill={i >= 24 ? palette.brand : palette.textMuted}
+                fontWeight={i >= 24 ? '700' : '500'}
+                className="font-mono"
               >
-                {d.month}
+                {d.month.slice(2)}
               </text>
             );
           })}
         </svg>
 
-        {/* Floating Tooltip Box */}
-        {activePoint && (
-          <div className="mt-2 p-3 rounded-xl bg-white/95 border border-slate-200/80 shadow-md flex flex-wrap items-center justify-between gap-4 text-xs">
-            <div className="flex items-center gap-2">
-              <span className="font-bold text-slate-800 bg-slate-100 px-2 py-0.5 rounded-md">
-                Month: {activePoint.month}
+        {/* Liquid Glass Interactive Tooltip Overlay */}
+        {hoverIndex !== null && (
+          <div
+            className="absolute z-20 pointer-events-none p-3 rounded-2xl overlay border border-[var(--border-strong)] shadow-xl text-xs space-y-1.5 backdrop-blur-md font-mono"
+            style={{
+              left: Math.min(width - 200, Math.max(20, activeX - 90)),
+              top: 20
+            }}
+          >
+            <div className="font-bold text-[var(--text)] flex items-center justify-between gap-4 border-b border-[var(--border)] pb-1">
+              <span>{activePoint.month}</span>
+              <span className="text-[10px] text-[var(--text-faint)]">
+                {hoverIndex < 24 ? 'Historical Actual' : `${horizon} Forecast`}
               </span>
-              {activePoint.forecastDemand !== undefined && (
-                <span className="px-2 py-0.5 rounded-md bg-blue-50 text-blue-700 font-semibold border border-blue-200">
-                  Forecasted
-                </span>
-              )}
             </div>
 
-            <div className="flex items-center flex-wrap gap-4">
-              <div className="flex items-center gap-1.5">
-                <span className="w-2.5 h-2.5 rounded-full bg-orange-600"></span>
-                <span className="text-slate-500">Demand:</span>
-                <strong className="text-slate-900 font-mono">
-                  {(activePoint.forecastDemand || activePoint.historicalDemand || 0).toLocaleString()}
-                </strong>
+            <div className="space-y-1 text-[11px]">
+              <div className="flex justify-between gap-4 text-[var(--severe)] font-semibold">
+                <span>Demand:</span>
+                <span className="tabular-nums font-bold">
+                  {(activePoint.forecastDemand || activePoint.historicalDemand)?.toLocaleString()}
+                </span>
               </div>
 
-              <div className="flex items-center gap-1.5">
-                <span className="w-2.5 h-2.5 rounded-full bg-emerald-600"></span>
-                <span className="text-slate-500">Effective Supply:</span>
-                <strong className="text-slate-900 font-mono">
-                  {activePoint.effectiveSupply.toLocaleString()}
-                </strong>
+              <div className="flex justify-between gap-4 text-[var(--balanced)] font-semibold">
+                <span>Supply:</span>
+                <span className="tabular-nums font-bold">
+                  {activePoint.effectiveSupply?.toLocaleString()}
+                </span>
               </div>
 
-              {activePoint.ciLower !== undefined && (
-                <div className="flex items-center gap-1.5 text-slate-500">
-                  <span>95% CI:</span>
-                  <span className="font-mono text-slate-700">
-                    [{activePoint.ciLower} - {activePoint.ciUpper}]
+              {activePoint.forecastDemand && (
+                <div className="flex justify-between gap-4 text-[var(--brand)] text-[10px] pt-0.5 border-t border-[var(--border)]">
+                  <span>95% CI Range:</span>
+                  <span className="tabular-nums">
+                    {activePoint.ciLower} – {activePoint.ciUpper}
                   </span>
                 </div>
               )}
-
-              <div className="flex items-center gap-1.5 pl-2 border-l border-slate-200">
-                <span className="text-slate-500">Net Gap:</span>
-                <strong className={clsx(
-                  'font-mono font-bold',
-                  (activePoint.forecastDemand || activePoint.historicalDemand || 0) > activePoint.effectiveSupply
-                    ? 'text-red-600'
-                    : 'text-indigo-600'
-                )}>
-                  {((activePoint.forecastDemand || activePoint.historicalDemand || 0) - activePoint.effectiveSupply > 0 ? '+' : '')}
-                  {((activePoint.forecastDemand || activePoint.historicalDemand || 0) - activePoint.effectiveSupply).toLocaleString()}
-                </strong>
-              </div>
             </div>
           </div>
         )}
       </div>
 
-      {/* Chart Legend */}
-      <div className="flex flex-wrap items-center justify-center gap-6 mt-3 text-xs text-slate-600 font-medium">
-        <div className="flex items-center gap-2">
-          <span className="w-3.5 h-1 rounded bg-orange-600"></span>
-          <span>Historical Demand (NCS Aggregates)</span>
+      {/* Chart Legend Bar */}
+      <div className="flex flex-wrap items-center justify-between gap-3 text-xs text-[var(--text-muted)] pt-1 px-1">
+        <div className="flex items-center flex-wrap gap-4 font-mono text-[11px]">
+          <div className="flex items-center gap-1.5">
+            <span className="w-3.5 h-1 bg-[var(--severe)] rounded" />
+            <span>Historical Actuals</span>
+          </div>
+
+          <div className="flex items-center gap-1.5">
+            <span className="w-3.5 h-1 bg-[var(--brand)] rounded border-b border-dashed" />
+            <span>Forecast Demand</span>
+          </div>
+
+          <div className="flex items-center gap-1.5">
+            <span className="w-3.5 h-1 bg-[var(--balanced)] rounded" />
+            <span>Staged Supply (0.70 Readiness)</span>
+          </div>
+
+          <div className="flex items-center gap-1.5">
+            <span className="w-3 h-3 rounded bg-[var(--brand)]/20 border border-[var(--brand)]/30" />
+            <span>80% & 95% Confidence Band</span>
+          </div>
         </div>
-        <div className="flex items-center gap-2">
-          <span className="w-3.5 h-1 rounded bg-blue-600 border border-blue-400 border-dashed"></span>
-          <span>Forecast Demand (LightGBM)</span>
-        </div>
-        <div className="flex items-center gap-2">
-          <span className="w-3.5 h-1 rounded bg-emerald-600"></span>
-          <span>Effective Employable Supply</span>
-        </div>
-        <div className="flex items-center gap-2">
-          <span className="w-3.5 h-3 rounded bg-blue-400/20 border border-blue-400/40"></span>
-          <span>95% Confidence Interval</span>
+
+        <div className="text-[10px] font-mono text-[var(--text-faint)]">
+          Walk-Forward Validation: WAPE <strong className="text-[var(--text)]">{benchmark.wape}%</strong> (vs. Naive {benchmark.naiveWape}%)
         </div>
       </div>
     </div>

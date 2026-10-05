@@ -6,6 +6,8 @@ import { useApp } from '@/lib/store';
 import { FilterBar } from '@/components/layout/FilterBar';
 import { GlassPanel } from '@/components/glass/GlassPanel';
 import { GapChart } from '@/components/charts/GapChart';
+import { Provenance } from '@/components/common/Provenance';
+import { Badge } from '@/components/common/Badge';
 import { OCCUPATIONS, DISTRICTS } from '@/lib/demoData';
 import { clsx } from 'clsx';
 import { 
@@ -16,8 +18,8 @@ import {
   Search, 
   Sliders, 
   Layers, 
-  Download,
-  Eye,
+  Download, 
+  Eye, 
   Filter
 } from 'lucide-react';
 import { downloadCSV } from '@/lib/exportUtils';
@@ -59,15 +61,16 @@ export default function SkillGapsPage() {
     <div className="space-y-6">
       {/* Page Title */}
       <div>
-        <div className="flex items-center gap-2 mb-1.5">
-          <span className="px-2.5 py-0.5 rounded-full text-[11px] font-extrabold uppercase tracking-wider bg-red-100 text-red-800 border border-red-200">
-            Labour Equilibrium Analysis
+        <div className="flex items-center gap-2 mb-2">
+          <Provenance type="official" note="Labour Market Equilibrium Engine" />
+          <span className="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold uppercase tracking-wider bg-[var(--severe)]/10 text-[var(--severe)] border border-[var(--severe)]/20">
+            Equilibrium Diagnostics
           </span>
         </div>
-        <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+        <h1 className="text-2xl sm:text-3xl font-extrabold text-[var(--text)] tracking-tight">
           Skill Gap & Shortage Intelligence
         </h1>
-        <p className="text-sm text-slate-600 mt-1">
+        <p className="text-xs sm:text-sm text-[var(--text-muted)] mt-1 max-w-2xl leading-relaxed">
           Algorithmic detection of structural skill shortages, training oversupply, and employable workforce absorption gaps.
         </p>
       </div>
@@ -80,94 +83,94 @@ export default function SkillGapsPage() {
         <div 
           onClick={() => setSeverityFilter('shortage')}
           className={clsx(
-            'p-5 rounded-2xl border transition-all cursor-pointer shadow-xs',
+            'p-5 rounded-2xl border transition-all cursor-pointer shadow-xs glass',
             severityFilter === 'shortage' 
-              ? 'bg-red-50/90 border-red-400 ring-2 ring-red-500/20' 
-              : 'bg-white/80 border-slate-200/80 hover:border-red-300'
+              ? 'border-[var(--severe)] ring-2 ring-[var(--severe)]/20' 
+              : 'border-[var(--border)] hover:border-[var(--severe)]/50'
           )}
         >
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold text-red-700 uppercase tracking-wider">
+            <span className="text-xs font-bold text-[var(--severe)] uppercase tracking-wider">
               Shortage Occupations
             </span>
-            <span className="w-2.5 h-2.5 rounded-full bg-red-600 animate-pulse" />
+            <span className="w-2.5 h-2.5 rounded-full bg-[var(--severe)] animate-pulse" />
           </div>
           <div className="my-2">
-            <div className="text-3xl sm:text-4xl font-extrabold text-red-600 font-mono">
+            <div className="text-3xl sm:text-4xl font-extrabold text-[var(--severe)] font-mono">
               124
             </div>
-            <div className="text-xs text-red-700 font-semibold mt-0.5">
+            <div className="text-xs text-[var(--severe)] font-semibold mt-0.5">
               Trades Facing Structural Deficit
             </div>
           </div>
-          <span className="text-[11px] text-slate-500">Immediate capacity expansion required</span>
+          <span className="text-[11px] text-[var(--text-faint)]">Immediate capacity expansion required</span>
         </div>
 
         {/* Balanced Pillar */}
         <div 
           onClick={() => setSeverityFilter('all')}
           className={clsx(
-            'p-5 rounded-2xl border transition-all cursor-pointer shadow-xs',
+            'p-5 rounded-2xl border transition-all cursor-pointer shadow-xs glass',
             severityFilter === 'all' 
-              ? 'bg-emerald-50/90 border-emerald-400 ring-2 ring-emerald-500/20' 
-              : 'bg-white/80 border-slate-200/80 hover:border-emerald-300'
+              ? 'border-[var(--balanced)] ring-2 ring-[var(--balanced)]/20' 
+              : 'border-[var(--border)] hover:border-[var(--balanced)]/50'
           )}
         >
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold text-emerald-700 uppercase tracking-wider">
+            <span className="text-xs font-bold text-[var(--balanced)] uppercase tracking-wider">
               Balanced Occupations
             </span>
-            <span className="w-2.5 h-2.5 rounded-full bg-emerald-600" />
+            <span className="w-2.5 h-2.5 rounded-full bg-[var(--balanced)]" />
           </div>
           <div className="my-2">
-            <div className="text-3xl sm:text-4xl font-extrabold text-emerald-600 font-mono">
+            <div className="text-3xl sm:text-4xl font-extrabold text-[var(--balanced)] font-mono">
               416
             </div>
-            <div className="text-xs text-emerald-700 font-semibold mt-0.5">
+            <div className="text-xs text-[var(--balanced)] font-semibold mt-0.5">
               Stable Demand-Supply Alignment
             </div>
           </div>
-          <span className="text-[11px] text-slate-500">Healthy training absorption rate</span>
+          <span className="text-[11px] text-[var(--text-faint)]">Healthy training absorption rate</span>
         </div>
 
         {/* Oversupply Pillar */}
         <div 
           onClick={() => setSeverityFilter('oversupply')}
           className={clsx(
-            'p-5 rounded-2xl border transition-all cursor-pointer shadow-xs',
+            'p-5 rounded-2xl border transition-all cursor-pointer shadow-xs glass',
             severityFilter === 'oversupply' 
-              ? 'bg-indigo-50/90 border-indigo-400 ring-2 ring-indigo-500/20' 
-              : 'bg-white/80 border-slate-200/80 hover:border-indigo-300'
+              ? 'border-[var(--oversupply)] ring-2 ring-[var(--oversupply)]/20' 
+              : 'border-[var(--border)] hover:border-[var(--oversupply)]/50'
           )}
         >
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold text-indigo-700 uppercase tracking-wider">
+            <span className="text-xs font-bold text-[var(--oversupply)] uppercase tracking-wider">
               Oversupply Occupations
             </span>
-            <span className="w-2.5 h-2.5 rounded-full bg-indigo-600" />
+            <span className="w-2.5 h-2.5 rounded-full bg-[var(--oversupply)]" />
           </div>
           <div className="my-2">
-            <div className="text-3xl sm:text-4xl font-extrabold text-indigo-600 font-mono">
+            <div className="text-3xl sm:text-4xl font-extrabold text-[var(--oversupply)] font-mono">
               87
             </div>
-            <div className="text-xs text-indigo-700 font-semibold mt-0.5">
+            <div className="text-xs text-[var(--oversupply)] font-semibold mt-0.5">
               Trades Exceeding Market Demand
             </div>
           </div>
-          <span className="text-[11px] text-slate-500">Candidate reallocation candidates</span>
+          <span className="text-[11px] text-[var(--text-faint)]">Candidate reallocation targets</span>
         </div>
       </div>
 
-      {/* Hero Visual: Gap Score 84 (Section 21) */}
+      {/* Hero Visual: Gap Score Diagnostics (Section 21) */}
       <GlassPanel
         title={`Selected Trade Gap Diagnostics: ${activeOcc.title}`}
         subtitle={`Normalized Gap Score & sub-index breakdown for NCO ${activeOcc.ncoCode}.`}
         action={
           <Link
             href="/scenarios"
-            className="px-3.5 py-1.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold flex items-center gap-1.5 transition-all shadow-xs"
+            className="px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 hover:opacity-90 text-white text-xs font-bold flex items-center gap-1.5 transition-all shadow-xs"
           >
-            <Sliders className="w-3.5 h-3.5 text-amber-300" />
+            <Sliders className="w-3.5 h-3.5" />
             <span>Simulate Reallocation in Studio</span>
           </Link>
         }
@@ -232,133 +235,130 @@ export default function SkillGapsPage() {
         return (
           <GlassPanel
             title={`Why this score? — Driver Decomposition & Attribution: ${activeOcc.title} (${activeOcc.ncoCode})`}
-            subtitle="Exact database velocity mismatch, per-prediction TreeSHAP local attribution, and dataset-wide global model drivers."
+            subtitle="Database velocity mismatch, per-prediction TreeSHAP local attribution, and dataset-wide global model drivers."
           >
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
               {/* 1. Dynamic Velocity Mismatch Decomposition */}
-              <div className="p-4 rounded-2xl bg-white border border-slate-200/90 shadow-2xs space-y-3">
-                <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider block">
-                  1. Velocity Growth Decomposition (Database Measured: t vs t-6)
+              <div className="p-4 rounded-2xl glass border border-[var(--border)] shadow-xs space-y-3">
+                <span className="text-[11px] font-bold text-[var(--text-faint)] uppercase tracking-wider block font-mono">
+                  1. Velocity Decomposition (t vs t-6)
                 </span>
                 <div className="grid grid-cols-3 gap-2 text-center">
-                  <div className="p-2.5 rounded-xl bg-orange-50 border border-orange-200">
-                    <span className="text-[9px] text-orange-700 font-bold uppercase block">6M Demand Growth</span>
-                    <span className="text-lg font-extrabold text-orange-600 font-mono">
+                  <div className="p-2.5 rounded-xl bg-orange-500/10 border border-orange-500/20">
+                    <span className="text-[9px] text-orange-500 font-bold uppercase block">6M Demand Growth</span>
+                    <span className="text-lg font-extrabold text-orange-500 font-mono">
                       {demandGrowth6M > 0 ? `+${demandGrowth6M}%` : `${demandGrowth6M}%`}
                     </span>
-                    <span className="text-[8px] text-orange-600 block mt-0.5">
+                    <span className="text-[8px] text-[var(--text-faint)] block mt-0.5">
                       {demandGrowth6M >= 0 ? 'Expansion' : 'Contraction'}
                     </span>
                   </div>
-                  <div className="p-2.5 rounded-xl bg-blue-50 border border-blue-200">
-                    <span className="text-[9px] text-blue-700 font-bold uppercase block">6M Supply Growth</span>
-                    <span className="text-lg font-extrabold text-blue-600 font-mono">
+                  <div className="p-2.5 rounded-xl bg-[var(--brand)]/10 border border-[var(--brand)]/20">
+                    <span className="text-[9px] text-[var(--brand)] font-bold uppercase block">6M Supply Growth</span>
+                    <span className="text-lg font-extrabold text-[var(--brand)] font-mono">
                       {supplyGrowth6M > 0 ? `+${supplyGrowth6M}%` : `${supplyGrowth6M}%`}
                     </span>
-                    <span className="text-[8px] text-blue-600 block mt-0.5">
+                    <span className="text-[8px] text-[var(--text-faint)] block mt-0.5">
                       {supplyGrowth6M > 5 ? 'High Pipeline' : 'Constrained'}
                     </span>
                   </div>
                   <div className={clsx(
                     'p-2.5 rounded-xl border',
-                    isShortage ? 'bg-red-50 border-red-200' : 'bg-indigo-50 border-indigo-200'
+                    isShortage ? 'bg-[var(--severe)]/10 border-[var(--severe)]/20' : 'bg-[var(--oversupply)]/10 border-[var(--oversupply)]/20'
                   )}>
                     <span className={clsx(
                       'text-[9px] font-bold uppercase block',
-                      isShortage ? 'text-red-700' : 'text-indigo-700'
+                      isShortage ? 'text-[var(--severe)]' : 'text-[var(--oversupply)]'
                     )}>
                       Net Mismatch
                     </span>
                     <span className={clsx(
                       'text-lg font-extrabold font-mono',
-                      isShortage ? 'text-red-600' : 'text-indigo-600'
+                      isShortage ? 'text-[var(--severe)]' : 'text-[var(--oversupply)]'
                     )}>
                       {netVelocityMismatch > 0 ? `+${netVelocityMismatch}%` : `${netVelocityMismatch}%`}
                     </span>
-                    <span className={clsx(
-                      'text-[8px] block mt-0.5',
-                      isShortage ? 'text-red-600' : 'text-indigo-600'
-                    )}>
-                      {isShortage ? 'Persistent Deficit' : 'Surplus Accrual'}
+                    <span className="text-[8px] text-[var(--text-faint)] block mt-0.5">
+                      {isShortage ? 'Deficit' : 'Surplus'}
                     </span>
                   </div>
                 </div>
-                <p className="text-xs text-slate-600 leading-relaxed pt-1">
+                <p className="text-xs text-[var(--text-muted)] leading-relaxed pt-1">
                   {isShortage ? (
                     <>
-                      Solar PV Installer demand (808) massively outstrips effective certified supply (97 candidates). Despite slight supply growth (+6.6%), severe laboratory seat bottlenecks drive a <strong>711-person local deficit</strong>.
+                      Solar PV Installer demand (808) massively outstrips effective certified supply (97 candidates). Despite slight supply growth (+6.6%), severe laboratory seat bottlenecks drive a <strong className="text-[var(--severe)]">711-person local deficit</strong>.
                     </>
                   ) : (
                     <>
-                      Certified training supply for Retail Sales Associate (404 candidates) exceeds local employer absorption (380 demand). Both demand (-10.0%) and supply (-13.7%) contracted over the past 6 months, leaving a modest <strong>24-person surplus</strong>.
+                      Certified training supply for Retail Sales Associate (404 candidates) exceeds local employer absorption (380 demand). Both demand (-10.0%) and supply (-13.7%) contracted over the past 6 months, leaving a modest <strong className="text-[var(--oversupply)]">24-person surplus</strong>.
                     </>
                   )}
                 </p>
               </div>
 
               {/* 2. Trade-Specific Local TreeSHAP Attribution */}
-              <div className="p-4 rounded-2xl bg-white border border-slate-200/90 shadow-2xs space-y-3">
+              <div className="p-4 rounded-2xl glass border border-[var(--border)] shadow-xs space-y-3">
                 <div className="flex items-center justify-between">
-                  <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider block">
+                  <span className="text-[11px] font-bold text-[var(--text-faint)] uppercase tracking-wider block font-mono">
                     2. Local TreeSHAP Drivers ({activeOcc.title})
                   </span>
-                  <span className="px-2 py-0.5 rounded text-[9px] font-bold bg-emerald-50 text-emerald-800 border border-emerald-200">
+                  <span className="px-2 py-0.5 rounded text-[9px] font-bold bg-[var(--balanced)]/10 text-[var(--balanced)] border border-[var(--balanced)]/20">
                     Model Features Only
                   </span>
                 </div>
                 <div className="space-y-1.5">
                   {localShapDrivers.slice(0, 4).map((d) => (
-                    <div key={d.rank} className="p-2 rounded-xl bg-slate-50 border border-slate-100 text-xs space-y-0.5">
+                    <div key={d.rank} className="p-2 rounded-xl glass-strong border border-[var(--border)] text-xs space-y-0.5">
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-1.5">
-                          <span className="w-4 h-4 rounded bg-slate-200 text-slate-700 font-mono font-bold text-[9px] flex items-center justify-center">
+                          <span className="w-4 h-4 rounded glass text-[var(--text-faint)] font-mono font-bold text-[9px] flex items-center justify-center">
                             #{d.rank}
                           </span>
-                          <span className="font-mono font-bold text-slate-900 text-[11px]">{d.feature}</span>
+                          <span className="font-mono font-bold text-[var(--text)] text-[11px]">{d.feature}</span>
                         </div>
                         <span className={clsx(
                           'font-mono text-[10px] font-extrabold px-1.5 py-0.2 rounded border',
                           d.direction === 'positive' 
-                            ? 'bg-emerald-50 text-emerald-700 border-emerald-200' 
-                            : 'bg-rose-50 text-rose-700 border-rose-200'
+                            ? 'bg-[var(--balanced)]/10 text-[var(--balanced)] border-[var(--balanced)]/20' 
+                            : 'bg-[var(--severe)]/10 text-[var(--severe)] border-[var(--severe)]/20'
                         )}>
                           {d.shapValue > 0 ? `+${d.shapValue}` : `${d.shapValue}`} SHAP
                         </span>
                       </div>
-                      <span className="text-[10px] text-slate-500 block leading-tight">{d.desc}</span>
+                      <span className="text-[10px] text-[var(--text-faint)] block leading-tight">{d.desc}</span>
                     </div>
                   ))}
                 </div>
 
                 {/* Qualitative Context Note */}
-                <div className="p-2 rounded-xl bg-amber-50/80 border border-amber-200/80 text-[10px] text-amber-900 leading-snug">
-                  <strong>Context, not model output:</strong> {qualitativeContext}
+                <div className="p-2.5 rounded-xl bg-[var(--warning)]/10 border border-[var(--warning)]/20 text-[10px] text-[var(--text)] leading-snug">
+                  <strong className="text-[var(--warning)] font-mono">Context, not model output:</strong> {qualitativeContext}
                 </div>
               </div>
 
               {/* 3. Global Model Drivers (Audited Dataset-Wide Feature Importances) */}
-              <div className="p-4 rounded-2xl bg-white border border-slate-200/90 shadow-2xs space-y-3">
+              <div className="p-4 rounded-2xl glass border border-[var(--border)] shadow-xs space-y-3">
                 <div className="flex items-center justify-between">
-                  <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider block">
+                  <span className="text-[11px] font-bold text-[var(--text-faint)] uppercase tracking-wider block font-mono">
                     3. Global Model Drivers
                   </span>
-                  <span className="px-2 py-0.5 rounded text-[9px] font-bold bg-blue-50 text-blue-700 border border-blue-200">
+                  <span className="px-2 py-0.5 rounded text-[9px] font-bold bg-[var(--brand)]/10 text-[var(--brand)] border border-[var(--brand)]/20">
                     Dataset-Wide (8,704 obs)
                   </span>
                 </div>
                 <div className="space-y-1.5">
                   {globalDrivers.map((d) => (
-                    <div key={d.rank} className="flex items-center justify-between p-2 rounded-xl bg-slate-50 border border-slate-100 text-xs">
+                    <div key={d.rank} className="flex items-center justify-between p-2 rounded-xl glass-strong border border-[var(--border)] text-xs">
                       <div className="flex items-center gap-2">
-                        <span className="w-4 h-4 rounded bg-slate-200 text-slate-700 font-mono font-bold text-[9px] flex items-center justify-center">
+                        <span className="w-4 h-4 rounded glass text-[var(--text-faint)] font-mono font-bold text-[9px] flex items-center justify-center">
                           #{d.rank}
                         </span>
                         <div>
-                          <span className="font-mono font-bold text-slate-800 text-[11px]">{d.feature}</span>
-                          <span className="text-[9px] text-slate-500 block leading-tight">{d.desc}</span>
+                          <span className="font-mono font-bold text-[var(--text)] text-[11px]">{d.feature}</span>
+                          <span className="text-[9px] text-[var(--text-faint)] block leading-tight">{d.desc}</span>
                         </div>
                       </div>
-                      <span className="font-mono text-[11px] font-extrabold text-blue-600 bg-blue-50 px-2 py-0.5 rounded border border-blue-100">
+                      <span className="font-mono text-[11px] font-extrabold text-[var(--brand)] bg-[var(--brand)]/10 px-2 py-0.5 rounded border border-[var(--brand)]/20">
                         {d.importance}
                       </span>
                     </div>
@@ -367,28 +367,28 @@ export default function SkillGapsPage() {
               </div>
             </div>
 
-        {/* Confidence & Persistence Footer */}
-        <div className="mt-4 pt-4 border-t border-slate-200/80 flex flex-wrap items-center justify-between gap-3 text-xs">
-          <div className="flex items-center gap-3">
-            <span className="text-slate-600">
-              Confidence Score: <strong className="font-mono text-slate-900">{(activeOcc.confidence / 100).toFixed(2)}</strong>
-            </span>
-            <span className={clsx(
-              'px-2 py-0.5 rounded-full font-bold text-[10px] border',
-              activeOcc.confidence >= 50 ? 'bg-emerald-50 text-emerald-800 border-emerald-200' : 'bg-amber-50 text-amber-800 border-amber-200'
-            )}>
-              {activeOcc.confidence >= 50 ? 'Actionable (Recommendation Eligible)' : 'Indicative (Excluded from Auto-Recommendations)'}
-            </span>
-          </div>
-          <div className="flex items-center gap-2">
-            <span className="px-2.5 py-0.5 rounded-full font-bold text-[10px] bg-blue-50 text-blue-800 border border-blue-200">
-              Persistent Flag: Same band in 2 of last 3 model runs
-            </span>
-          </div>
-        </div>
-      </GlassPanel>
-    );
-  })()}
+            {/* Confidence & Persistence Footer */}
+            <div className="mt-4 pt-4 border-t border-[var(--border)] flex flex-wrap items-center justify-between gap-3 text-xs">
+              <div className="flex items-center gap-3">
+                <span className="text-[var(--text-muted)]">
+                  Confidence Score: <strong className="font-mono text-[var(--text)]">{(activeOcc.confidence / 100).toFixed(2)}</strong>
+                </span>
+                <span className={clsx(
+                  'px-2 py-0.5 rounded-full font-bold text-[10px] border',
+                  activeOcc.confidence >= 50 ? 'bg-[var(--balanced)]/10 text-[var(--balanced)] border-[var(--balanced)]/20' : 'bg-[var(--warning)]/10 text-[var(--warning)] border-[var(--warning)]/20'
+                )}>
+                  {activeOcc.confidence >= 50 ? 'Actionable (Recommendation Eligible)' : 'Indicative (Excluded from Auto-Recommendations)'}
+                </span>
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="px-2.5 py-0.5 rounded-full font-bold text-[10px] bg-[var(--brand)]/10 text-[var(--brand)] border border-[var(--brand)]/20">
+                  Persistent Flag: Same band in 2 of last 3 model runs
+                </span>
+              </div>
+            </div>
+          </GlassPanel>
+        );
+      })()}
 
       {/* Gap Severity Registry Table (Section 20) */}
       <GlassPanel
@@ -397,20 +397,20 @@ export default function SkillGapsPage() {
         action={
           <div className="flex items-center gap-2">
             <div className="relative w-56">
-              <Search className="w-3.5 h-3.5 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+              <Search className="w-3.5 h-3.5 text-[var(--text-faint)] absolute left-3 top-1/2 -translate-y-1/2" />
               <input
                 type="text"
                 placeholder="Search trade..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full text-xs pl-8 pr-3 py-1.5 rounded-xl liquid-control text-slate-800 focus:outline-none"
+                className="w-full text-xs pl-8 pr-3 py-1.5 rounded-xl liquid-control text-[var(--text)] focus:outline-none"
               />
             </div>
             <button
               onClick={handleExportGaps}
-              className="px-3 py-1.5 rounded-xl liquid-control text-xs font-semibold text-slate-700 hover:text-slate-900 border border-slate-200 flex items-center gap-1.5 cursor-pointer"
+              className="px-3 py-1.5 rounded-xl liquid-control text-xs font-semibold flex items-center gap-1.5 cursor-pointer"
             >
-              <Download className="w-3.5 h-3.5" />
+              <Download className="w-3.5 h-3.5 text-[var(--brand)]" />
               <span>Export Registry</span>
             </button>
           </div>
@@ -419,7 +419,7 @@ export default function SkillGapsPage() {
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
             <thead>
-              <tr className="border-b border-slate-200/80 text-slate-500 font-bold uppercase tracking-wider text-[10px]">
+              <tr className="border-b border-[var(--border)] text-[var(--text-faint)] font-bold uppercase tracking-wider text-[10px]">
                 <th className="py-3 px-3">Occupation</th>
                 <th className="py-3 px-3">District Hub</th>
                 <th className="py-3 px-3 text-right">Current Demand</th>
@@ -432,7 +432,7 @@ export default function SkillGapsPage() {
                 <th className="py-3 px-3 text-right">Action</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100">
+            <tbody className="divide-y divide-[var(--border)]">
               {filteredList.map((occ) => {
                 const isSelected = occ.ncoCode === activeOcc.ncoCode;
                 const netGap = occ.currentDemand - occ.effectiveSupply;
@@ -444,32 +444,32 @@ export default function SkillGapsPage() {
                     key={occ.ncoCode}
                     onClick={() => setSelectedOccupationNco(occ.ncoCode)}
                     className={clsx(
-                      'hover:bg-blue-50/50 transition-colors cursor-pointer',
-                      isSelected && 'bg-blue-50/80 font-medium'
+                      'hover:bg-[var(--brand)]/5 transition-colors cursor-pointer',
+                      isSelected && 'bg-[var(--brand)]/10 font-medium'
                     )}
                   >
                     <td className="py-3.5 px-3">
-                      <div className="font-bold text-slate-900">{occ.title}</div>
-                      <div className="text-[10px] text-slate-500 font-mono mt-0.5">
+                      <div className="font-bold text-[var(--text)]">{occ.title}</div>
+                      <div className="text-[10px] text-[var(--text-faint)] font-mono mt-0.5">
                         NCO: {occ.ncoCode}
                       </div>
                     </td>
 
-                    <td className="py-3.5 px-3 text-slate-700 font-medium">
+                    <td className="py-3.5 px-3 text-[var(--text-muted)] font-medium">
                       {occ.districtConcentrations[0]?.district || 'Gorakhpur'}
                     </td>
 
-                    <td className="py-3.5 px-3 text-right font-mono text-slate-800">
+                    <td className="py-3.5 px-3 text-right font-mono text-[var(--text)]">
                       {occ.currentDemand.toLocaleString()}
                     </td>
 
-                    <td className="py-3.5 px-3 text-right font-mono text-slate-800">
+                    <td className="py-3.5 px-3 text-right font-mono text-[var(--text)]">
                       {occ.effectiveSupply.toLocaleString()}
                     </td>
 
                     <td className="py-3.5 px-3 text-right font-mono font-bold">
                       <span className={clsx(
-                        netGap > 0 ? 'text-red-600' : 'text-indigo-600'
+                        netGap > 0 ? 'text-[var(--severe)]' : 'text-[var(--oversupply)]'
                       )}>
                         {netGap > 0 ? '+' : ''}{netGap.toLocaleString()}
                       </span>
@@ -478,10 +478,10 @@ export default function SkillGapsPage() {
                     <td className="py-3.5 px-3 text-center">
                       <span className={clsx(
                         'px-2 py-0.5 rounded-lg font-mono font-extrabold text-[11px] border',
-                        occ.gapScore >= 75 ? 'bg-red-50 text-red-700 border-red-200' :
-                        occ.gapScore >= 60 ? 'bg-orange-50 text-orange-700 border-orange-200' :
-                        occ.gapScore >= 40 ? 'bg-emerald-50 text-emerald-700 border-emerald-200' :
-                        'bg-indigo-50 text-indigo-700 border-indigo-200'
+                        occ.gapScore >= 75 ? 'bg-[var(--severe)]/10 text-[var(--severe)] border-[var(--severe)]/20' :
+                        occ.gapScore >= 60 ? 'bg-[var(--moderate)]/10 text-[var(--moderate)] border-[var(--moderate)]/20' :
+                        occ.gapScore >= 40 ? 'bg-[var(--balanced)]/10 text-[var(--balanced)] border-[var(--balanced)]/20' :
+                        'bg-[var(--oversupply)]/10 text-[var(--oversupply)] border-[var(--oversupply)]/20'
                       )}>
                         {occ.gapScore}
                       </span>
@@ -489,11 +489,11 @@ export default function SkillGapsPage() {
 
                     <td className="py-3.5 px-3 text-center">
                       <span className={clsx(
-                        'px-2.5 py-0.5 rounded-full text-[10px] font-bold',
-                        occ.severity === 'Severe Shortage' ? 'bg-red-100 text-red-800' :
-                        occ.severity === 'Moderate Shortage' ? 'bg-orange-100 text-orange-800' :
-                        occ.severity === 'Severe Oversupply' ? 'bg-indigo-100 text-indigo-800' :
-                        'bg-emerald-100 text-emerald-800'
+                        'px-2.5 py-0.5 rounded-full text-[10px] font-bold font-mono',
+                        occ.severity === 'Severe Shortage' ? 'bg-[var(--severe)]/10 text-[var(--severe)] border border-[var(--severe)]/20' :
+                        occ.severity === 'Moderate Shortage' ? 'bg-[var(--moderate)]/10 text-[var(--moderate)] border border-[var(--moderate)]/20' :
+                        occ.severity === 'Severe Oversupply' ? 'bg-[var(--oversupply)]/10 text-[var(--oversupply)] border border-[var(--oversupply)]/20' :
+                        'bg-[var(--balanced)]/10 text-[var(--balanced)] border border-[var(--balanced)]/20'
                       )}>
                         {occ.severity}
                       </span>
@@ -501,12 +501,12 @@ export default function SkillGapsPage() {
 
                     <td className="py-3.5 px-3 text-center">
                       <div className="flex flex-col items-center gap-0.5">
-                        <span className="font-mono text-xs font-bold text-slate-800">
+                        <span className="font-mono text-xs font-bold text-[var(--text)]">
                           {confNormalized.toFixed(2)}
                         </span>
                         <span className={clsx(
-                          'text-[9px] font-bold px-1.5 py-0.2 rounded border',
-                          isActionable ? 'bg-emerald-50 text-emerald-800 border-emerald-200' : 'bg-amber-50 text-amber-800 border-amber-200'
+                          'text-[9px] font-bold px-1.5 py-0.2 rounded border font-mono',
+                          isActionable ? 'bg-[var(--balanced)]/10 text-[var(--balanced)] border-[var(--balanced)]/20' : 'bg-[var(--warning)]/10 text-[var(--warning)] border-[var(--warning)]/20'
                         )}>
                           {isActionable ? 'Actionable' : 'Indicative'}
                         </span>
@@ -514,7 +514,7 @@ export default function SkillGapsPage() {
                     </td>
 
                     <td className="py-3.5 px-3 text-center">
-                      <span className="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-blue-50 text-blue-700 border border-blue-200 whitespace-nowrap">
+                      <span className="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-[var(--brand)]/10 text-[var(--brand)] border border-[var(--brand)]/20 whitespace-nowrap font-mono">
                         Persistent (2/3)
                       </span>
                     </td>
@@ -522,7 +522,7 @@ export default function SkillGapsPage() {
                     <td className="py-3.5 px-3 text-right">
                       <Link
                         href="/scenarios"
-                        className="p-1.5 rounded-lg hover:bg-white text-blue-600 hover:text-blue-800 inline-flex items-center"
+                        className="p-1.5 rounded-lg hover:bg-[var(--border)] text-[var(--brand)] inline-flex items-center"
                         title="Simulate this trade"
                       >
                         <Sliders className="w-4 h-4" />

@@ -4,6 +4,8 @@ import React, { use } from 'react';
 import Link from 'next/link';
 import { DISTRICTS, OCCUPATIONS, RECOMMENDATIONS } from '@/lib/demoData';
 import { GlassPanel } from '@/components/glass/GlassPanel';
+import { Provenance } from '@/components/common/Provenance';
+import { Badge } from '@/components/common/Badge';
 import { clsx } from 'clsx';
 import { 
   MapPin, 
@@ -14,10 +16,10 @@ import {
   Lightbulb, 
   Sliders, 
   Download, 
-  ChevronLeft,
-  ChevronRight,
-  TrendingUp,
-  ArrowUpRight,
+  ChevronLeft, 
+  ChevronRight, 
+  TrendingUp, 
+  ArrowUpRight, 
   ShieldCheck
 } from 'lucide-react';
 import { downloadCSV } from '@/lib/exportUtils';
@@ -54,7 +56,7 @@ export default function DistrictDetailPage({ params }: { params: Promise<{ id: s
       <div className="flex items-center justify-between">
         <Link
           href="/districts"
-          className="text-xs font-bold text-slate-600 hover:text-blue-600 flex items-center gap-1 transition-colors"
+          className="text-xs font-bold text-[var(--text-muted)] hover:text-[var(--brand)] flex items-center gap-1 transition-colors"
         >
           <ChevronLeft className="w-4 h-4" />
           <span>Back to All Districts</span>
@@ -62,31 +64,31 @@ export default function DistrictDetailPage({ params }: { params: Promise<{ id: s
 
         <button
           onClick={handleExportDistrict}
-          className="px-3.5 py-1.5 rounded-xl liquid-control text-xs font-semibold text-slate-700 hover:text-slate-900 border border-slate-200 flex items-center gap-1.5 cursor-pointer shadow-xs"
+          className="px-3.5 py-1.5 rounded-xl liquid-control text-xs font-semibold flex items-center gap-1.5 cursor-pointer shadow-xs"
         >
-          <Download className="w-3.5 h-3.5" />
+          <Download className="w-3.5 h-3.5 text-[var(--brand)]" />
           <span>Export District Brief</span>
         </button>
       </div>
 
       {/* Hero District Header (Section 24) */}
-      <div className="p-6 sm:p-7 rounded-3xl bg-white/90 border border-slate-200/90 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-6">
+      <div className="p-6 sm:p-7 rounded-3xl glass border border-[var(--border)] shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-6">
         <div>
-          <div className="flex items-center gap-2 mb-1.5">
-            <span className="text-xs font-bold text-blue-600 uppercase tracking-widest">
+          <div className="flex items-center gap-2 mb-2">
+            <span className="text-xs font-mono font-bold text-[var(--brand)] uppercase tracking-wider">
               India → {d.state} → {d.name}
             </span>
-            <span className="text-xs font-mono text-slate-400">
+            <span className="text-xs font-mono text-[var(--text-faint)]">
               [LGD: {d.lgdCode}]
             </span>
           </div>
 
-          <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight flex items-center gap-3">
+          <h1 className="text-3xl sm:text-4xl font-extrabold text-[var(--text)] tracking-tight flex items-center gap-3">
             {d.name}
-            {d.nameHi && <span className="text-xl sm:text-2xl text-slate-400 font-normal">({d.nameHi})</span>}
+            {d.nameHi && <span className="text-xl sm:text-2xl text-[var(--text-faint)] font-normal">({d.nameHi})</span>}
           </h1>
 
-          <p className="text-xs sm:text-sm text-slate-600 mt-1 max-w-2xl leading-relaxed">
+          <p className="text-xs sm:text-sm text-[var(--text-muted)] mt-1 max-w-2xl leading-relaxed">
             Localised district intelligence assessing training centre capacity, candidate absorption, and employer vacancy signals under MSDE jurisdiction.
           </p>
         </div>
@@ -94,9 +96,9 @@ export default function DistrictDetailPage({ params }: { params: Promise<{ id: s
         <div className="flex items-center gap-3 shrink-0">
           <Link
             href="/scenarios"
-            className="px-4 py-2.5 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white text-xs sm:text-sm font-bold flex items-center gap-2 shadow-md shadow-blue-500/20"
+            className="px-4 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 hover:opacity-90 text-white text-xs sm:text-sm font-bold flex items-center gap-2 shadow-xs"
           >
-            <Sliders className="w-4 h-4 text-amber-300" />
+            <Sliders className="w-4 h-4" />
             <span>Simulate District Scenarios</span>
           </Link>
         </div>
@@ -105,66 +107,66 @@ export default function DistrictDetailPage({ params }: { params: Promise<{ id: s
       {/* 5 Hero Diagnostic Cards (Section 23) */}
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4">
         {/* Card 1: Demand Index */}
-        <div className="p-4 rounded-2xl bg-white/80 border border-slate-200/80 shadow-xs">
-          <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider block">
+        <div className="p-4 rounded-2xl glass border border-[var(--border)] shadow-xs">
+          <span className="text-[10px] font-bold text-[var(--text-faint)] uppercase tracking-wider block">
             Demand Index
           </span>
-          <div className="text-3xl font-extrabold text-slate-900 font-mono my-1">
+          <div className="text-3xl font-extrabold text-[var(--text)] font-mono my-1">
             {d.demandIndex}
           </div>
-          <span className="text-[11px] text-orange-600 font-semibold">
+          <span className="text-[11px] text-orange-500 font-semibold">
             High Labour Demand
           </span>
         </div>
 
         {/* Card 2: Effective Supply */}
-        <div className="p-4 rounded-2xl bg-white/80 border border-slate-200/80 shadow-xs">
-          <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider block">
+        <div className="p-4 rounded-2xl glass border border-[var(--border)] shadow-xs">
+          <span className="text-[10px] font-bold text-[var(--text-faint)] uppercase tracking-wider block">
             Effective Supply
           </span>
-          <div className="text-3xl font-extrabold text-slate-900 font-mono my-1">
+          <div className="text-3xl font-extrabold text-[var(--text)] font-mono my-1">
             {d.effectiveSupplyIndex}
           </div>
-          <span className="text-[11px] text-slate-500 font-semibold">
+          <span className="text-[11px] text-[var(--text-faint)] font-semibold">
             Staged Employable Pool
           </span>
         </div>
 
         {/* Card 3: Gap Score */}
-        <div className="p-4 rounded-2xl bg-white/80 border border-red-200 shadow-xs">
-          <span className="text-[10px] font-bold text-red-700 uppercase tracking-wider block">
+        <div className="p-4 rounded-2xl glass border border-[var(--severe)]/40 shadow-xs">
+          <span className="text-[10px] font-bold text-[var(--severe)] uppercase tracking-wider block">
             Gap Score
           </span>
-          <div className="text-3xl font-extrabold text-red-600 font-mono my-1">
+          <div className="text-3xl font-extrabold text-[var(--severe)] font-mono my-1">
             {d.gapScore}
           </div>
-          <span className="text-[11px] text-red-600 font-semibold">
+          <span className="text-[11px] text-[var(--severe)] font-semibold">
             Severe Shortage
           </span>
         </div>
 
         {/* Card 4: 6M Shortage Probability */}
-        <div className="p-4 rounded-2xl bg-white/80 border border-slate-200/80 shadow-xs">
-          <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider block">
+        <div className="p-4 rounded-2xl glass border border-[var(--border)] shadow-xs">
+          <span className="text-[10px] font-bold text-[var(--text-faint)] uppercase tracking-wider block">
             6M Shortage Prob
           </span>
-          <div className="text-3xl font-extrabold text-slate-900 font-mono my-1">
+          <div className="text-3xl font-extrabold text-[var(--text)] font-mono my-1">
             {d.shortageProbability6M}%
           </div>
-          <span className="text-[11px] text-red-600 font-semibold">
+          <span className="text-[11px] text-[var(--severe)] font-semibold">
             Critical Threshold
           </span>
         </div>
 
         {/* Card 5: Training Capacity */}
-        <div className="p-4 rounded-2xl bg-white/80 border border-slate-200/80 shadow-xs col-span-2 sm:col-span-1">
-          <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider block">
+        <div className="p-4 rounded-2xl glass border border-[var(--border)] shadow-xs col-span-2 sm:col-span-1">
+          <span className="text-[10px] font-bold text-[var(--text-faint)] uppercase tracking-wider block">
             Training Capacity
           </span>
-          <div className="text-xl sm:text-2xl font-extrabold text-blue-700 font-mono my-1">
+          <div className="text-xl sm:text-2xl font-extrabold text-[var(--brand)] font-mono my-1">
             {d.trainingCentresCount} Centres
           </div>
-          <span className="text-[11px] text-slate-500 font-semibold">
+          <span className="text-[11px] text-[var(--text-faint)] font-semibold">
             {d.totalTrainingSeats} Active Seats
           </span>
         </div>
@@ -181,17 +183,17 @@ export default function DistrictDetailPage({ params }: { params: Promise<{ id: s
             {d.topShortageTrades.map((trade, idx) => (
               <div
                 key={idx}
-                className="p-3.5 rounded-xl bg-red-50/70 border border-red-200/60 flex items-center justify-between"
+                className="p-3.5 rounded-xl glass-strong border border-[var(--severe)]/20 flex items-center justify-between"
               >
                 <div className="flex items-center gap-2.5">
-                  <span className="w-6 h-6 rounded-lg bg-red-600 text-white font-mono text-xs font-bold flex items-center justify-center">
+                  <span className="w-6 h-6 rounded-lg bg-[var(--severe)] text-white font-mono text-xs font-bold flex items-center justify-center">
                     0{idx + 1}
                   </span>
                   <div>
-                    <strong className="text-xs sm:text-sm font-bold text-slate-900 block">
+                    <strong className="text-xs sm:text-sm font-bold text-[var(--text)] block">
                       {trade}
                     </strong>
-                    <span className="text-[10px] text-red-700 font-semibold">
+                    <span className="text-[10px] text-[var(--severe)] font-semibold">
                       Deficit requiring urgent seat reallocation
                     </span>
                   </div>
@@ -199,7 +201,7 @@ export default function DistrictDetailPage({ params }: { params: Promise<{ id: s
 
                 <Link
                   href="/scenarios"
-                  className="px-2.5 py-1 text-[11px] font-bold bg-white text-red-700 hover:bg-red-100 rounded-lg border border-red-200 transition-all shadow-2xs"
+                  className="px-2.5 py-1 text-[11px] font-bold liquid-control text-[var(--severe)] rounded-lg transition-all"
                 >
                   Simulate →
                 </Link>
@@ -217,23 +219,23 @@ export default function DistrictDetailPage({ params }: { params: Promise<{ id: s
             {d.topOversuppliedTrades.map((trade, idx) => (
               <div
                 key={idx}
-                className="p-3.5 rounded-xl bg-indigo-50/70 border border-indigo-200/60 flex items-center justify-between"
+                className="p-3.5 rounded-xl glass-strong border border-[var(--oversupply)]/20 flex items-center justify-between"
               >
                 <div className="flex items-center gap-2.5">
-                  <span className="w-6 h-6 rounded-lg bg-indigo-600 text-white font-mono text-xs font-bold flex items-center justify-center">
+                  <span className="w-6 h-6 rounded-lg bg-[var(--oversupply)] text-white font-mono text-xs font-bold flex items-center justify-center">
                     0{idx + 1}
                   </span>
                   <div>
-                    <strong className="text-xs sm:text-sm font-bold text-slate-900 block">
+                    <strong className="text-xs sm:text-sm font-bold text-[var(--text)] block">
                       {trade}
                     </strong>
-                    <span className="text-[10px] text-indigo-700 font-semibold">
+                    <span className="text-[10px] text-[var(--oversupply)] font-semibold">
                       Candidate placement rate falling below 45%
                     </span>
                   </div>
                 </div>
 
-                <span className="text-[11px] font-bold text-indigo-700 bg-white px-2.5 py-1 rounded-lg border border-indigo-200">
+                <span className="text-[11px] font-bold text-[var(--oversupply)] glass px-2.5 py-1 rounded-lg border border-[var(--oversupply)]/20 font-mono">
                   Donor Trade
                 </span>
               </div>
@@ -252,18 +254,18 @@ export default function DistrictDetailPage({ params }: { params: Promise<{ id: s
             districtRecommendations.map((rec) => (
               <div
                 key={rec.id}
-                className="p-4 rounded-2xl bg-white border border-slate-200 shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-4"
+                className="p-4 rounded-2xl glass-strong border border-[var(--border)] shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-4"
               >
                 <div>
                   <div className="flex items-center gap-2 mb-1">
-                    <span className="px-2 py-0.5 rounded-md bg-blue-600 text-white text-[10px] font-bold font-mono">
+                    <span className="px-2 py-0.5 rounded-md bg-[var(--brand)] text-white text-[10px] font-bold font-mono">
                       #{rec.rank}
                     </span>
-                    <h3 className="text-sm font-bold text-slate-900">
+                    <h3 className="text-sm font-bold text-[var(--text)]">
                       {rec.title}
                     </h3>
                   </div>
-                  <p className="text-xs text-slate-600 max-w-2xl leading-relaxed">
+                  <p className="text-xs text-[var(--text-muted)] max-w-2xl leading-relaxed">
                     {rec.reason}
                   </p>
                 </div>
@@ -271,7 +273,7 @@ export default function DistrictDetailPage({ params }: { params: Promise<{ id: s
                 <div className="flex items-center gap-2 shrink-0">
                   <Link
                     href="/scenarios"
-                    className="px-3.5 py-1.5 rounded-xl bg-amber-500 hover:bg-amber-600 text-white text-xs font-bold flex items-center gap-1 shadow-xs"
+                    className="px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 hover:opacity-90 text-white text-xs font-bold flex items-center gap-1 shadow-xs"
                   >
                     <Sliders className="w-3.5 h-3.5" />
                     <span>Simulate</span>
@@ -280,7 +282,7 @@ export default function DistrictDetailPage({ params }: { params: Promise<{ id: s
               </div>
             ))
           ) : (
-            <div className="p-4 text-xs text-slate-500 italic bg-slate-50 rounded-xl">
+            <div className="p-4 text-xs text-[var(--text-muted)] italic glass rounded-xl border border-[var(--border)]">
               Recommendation #01 targets Gorakhpur, Uttar Pradesh. View recommendations page for all states.
             </div>
           )}

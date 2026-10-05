@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { GlassPanel } from '@/components/glass/GlassPanel';
+import { Provenance } from '@/components/common/Provenance';
 import { OCCUPATIONS, DISTRICTS, RECOMMENDATIONS, EARLY_WARNING_ALERTS } from '@/lib/demoData';
 import { downloadCSV, downloadJSON } from '@/lib/exportUtils';
 import { 
@@ -11,7 +12,7 @@ import {
   Terminal, 
   Code, 
   FileSpreadsheet, 
-  Database,
+  Database, 
   ArrowRight
 } from 'lucide-react';
 import { clsx } from 'clsx';
@@ -39,9 +40,9 @@ export default function ApiExportsPage() {
           occupation: { nco: '7126.0101', title: 'Solar PV Installer' },
           district: { name: 'Gorakhpur', lgd_code: 178 },
           horizon: '6M',
-          model: 'Global LightGBM Ensemble v3.2',
+          model: 'Tri-Model Ensemble Blend (LightGBM + Theta + ETS)',
           confidence: 0.78,
-          wape_error: 0.127,
+          wape_error: 0.0358,
           time_series: OCCUPATIONS[0].timeSeries.slice(22, 28)
         };
       case 'gap':
@@ -102,15 +103,16 @@ export default function ApiExportsPage() {
     <div className="space-y-6">
       {/* Title */}
       <div>
-        <div className="flex items-center gap-2 mb-1.5">
-          <span className="px-2.5 py-0.5 rounded-full text-[11px] font-extrabold uppercase tracking-wider bg-blue-100 text-blue-800 border border-blue-200">
-            Open Government Data & Integration
+        <div className="flex items-center gap-2 mb-2">
+          <Provenance type="official" note="Open Government Data & Integration" />
+          <span className="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold uppercase tracking-wider bg-[var(--brand)]/10 text-[var(--brand)] border border-[var(--brand)]/20">
+            REST v1.0
           </span>
         </div>
-        <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+        <h1 className="text-2xl sm:text-3xl font-extrabold text-[var(--text)] tracking-tight">
           API & Data Exports Console
         </h1>
-        <p className="text-sm text-slate-600 mt-1 max-w-2xl leading-relaxed">
+        <p className="text-xs sm:text-sm text-[var(--text-muted)] mt-1 max-w-2xl leading-relaxed">
           Programmatic REST endpoints and structured data export facilities enabling inter-departmental integration with Skill India Digital Hub and state skill portals.
         </p>
       </div>
@@ -123,14 +125,14 @@ export default function ApiExportsPage() {
           <div className="flex items-center gap-2">
             <button
               onClick={handleDownloadCsv}
-              className="px-3 py-1.5 rounded-xl liquid-control text-xs font-bold text-slate-700 hover:text-slate-900 border border-slate-200 flex items-center gap-1.5 cursor-pointer shadow-xs"
+              className="px-3 py-1.5 rounded-xl liquid-control text-xs font-bold flex items-center gap-1.5 cursor-pointer shadow-xs"
             >
-              <FileSpreadsheet className="w-3.5 h-3.5 text-emerald-600" />
+              <FileSpreadsheet className="w-3.5 h-3.5 text-[var(--balanced)]" />
               <span>Download CSV</span>
             </button>
             <button
               onClick={handleDownloadJson}
-              className="px-3 py-1.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold flex items-center gap-1.5 transition-all shadow-xs cursor-pointer"
+              className="px-3 py-1.5 rounded-xl bg-[var(--brand)] hover:opacity-90 text-white text-xs font-bold flex items-center gap-1.5 transition-all shadow-xs cursor-pointer"
             >
               <DownloadCloud className="w-3.5 h-3.5" />
               <span>Download JSON</span>
@@ -139,7 +141,7 @@ export default function ApiExportsPage() {
         }
       >
         {/* Navigation Pills */}
-        <div className="flex flex-wrap gap-2 pb-4 mb-4 border-b border-slate-200/70">
+        <div className="flex flex-wrap gap-2 pb-4 mb-4 border-b border-[var(--border)]">
           {[
             { id: 'forecast', label: '1. Forecast API' },
             { id: 'gap', label: '2. Gap Intelligence API' },
@@ -151,10 +153,10 @@ export default function ApiExportsPage() {
               key={tab.id}
               onClick={() => setActiveTab(tab.id as any)}
               className={clsx(
-                'px-3.5 py-1.5 text-xs font-bold rounded-xl transition-all cursor-pointer',
+                'px-3.5 py-1.5 text-xs font-bold rounded-xl transition-all cursor-pointer font-mono',
                 activeTab === tab.id
-                  ? 'bg-blue-600 text-white shadow-xs'
-                  : 'liquid-control text-slate-700 hover:text-slate-900'
+                  ? 'bg-[var(--brand)] text-white shadow-xs'
+                  : 'liquid-control text-[var(--text-muted)] hover:text-[var(--text)]'
               )}
             >
               {tab.label}
@@ -163,27 +165,27 @@ export default function ApiExportsPage() {
         </div>
 
         {/* Live Endpoint & Copy Bar */}
-        <div className="p-3.5 rounded-2xl bg-slate-900 text-slate-200 font-mono text-xs flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4 shadow-inner">
+        <div className="p-3.5 rounded-2xl glass-strong border border-[var(--border)] font-mono text-xs flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4 shadow-inner">
           <div className="flex items-center gap-2 truncate">
-            <span className="px-2 py-0.5 rounded-md bg-emerald-500 text-slate-950 font-extrabold text-[10px]">
+            <span className="px-2 py-0.5 rounded-md bg-[var(--balanced)] text-white font-extrabold text-[10px]">
               GET
             </span>
-            <span className="text-emerald-400 truncate">
+            <span className="text-[var(--balanced)] truncate font-semibold">
               https://kaushalpulse.msde.gov.in{getEndpoint().replace('GET ', '')}
             </span>
           </div>
 
           <button
             onClick={handleCopy}
-            className="px-3 py-1 rounded-xl bg-slate-800 hover:bg-slate-700 text-white text-xs font-bold flex items-center gap-1.5 transition-all shrink-0 cursor-pointer"
+            className="px-3 py-1 rounded-xl liquid-control text-[var(--text)] text-xs font-bold flex items-center gap-1.5 transition-all shrink-0 cursor-pointer"
           >
-            {copied ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
+            {copied ? <Check className="w-3.5 h-3.5 text-[var(--balanced)]" /> : <Copy className="w-3.5 h-3.5" />}
             <span>{copied ? 'cURL Copied!' : 'Copy cURL'}</span>
           </button>
         </div>
 
         {/* Live JSON Preview Window */}
-        <div className="relative rounded-2xl bg-slate-950 text-slate-100 p-4 font-mono text-xs max-h-96 overflow-y-auto shadow-inner border border-slate-800">
+        <div className="relative rounded-2xl bg-[var(--surface-muted)] text-[var(--text)] p-4 font-mono text-xs max-h-96 overflow-y-auto shadow-inner border border-[var(--border)]">
           <pre>{JSON.stringify(getSampleJson(), null, 2)}</pre>
         </div>
       </GlassPanel>

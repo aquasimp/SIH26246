@@ -33,6 +33,10 @@ nosetests.xml
 coverage.xml
 *.cover
 *.py,cover
+test-results/
+frontend/test-results/
+playwright-report/
+frontend/playwright-report/
 
 # Node & Next.js
 node_modules/

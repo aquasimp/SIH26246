@@ -10,11 +10,12 @@ import {
   TrendingUp, 
   AlertTriangle, 
   CheckCircle, 
-  Sparkles,
-  Download,
+  Sparkles, 
+  Download, 
   Share2
 } from 'lucide-react';
 import { downloadCSV, formatINR } from '@/lib/exportUtils';
+import { Provenance } from '@/components/common/Provenance';
 
 export const EvidenceDrawer: React.FC = () => {
   const { activeEvidence, setActiveEvidence, approveRecommendation } = useApp();
@@ -51,19 +52,19 @@ export const EvidenceDrawer: React.FC = () => {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex justify-end bg-slate-900/30 backdrop-blur-xs transition-opacity animate-in fade-in duration-200">
-      <div className="w-full max-w-xl h-full bg-white/95 backdrop-blur-xl border-l border-slate-200/90 shadow-2xl flex flex-col justify-between overflow-hidden animate-in slide-in-from-right duration-300">
+    <div className="fixed inset-0 z-50 flex justify-end bg-black/60 backdrop-blur-sm transition-opacity animate-in fade-in duration-200">
+      <div className="w-full max-w-xl h-full overlay border-l border-[var(--border-strong)] shadow-2xl flex flex-col justify-between overflow-hidden animate-in slide-in-from-right duration-300">
         {/* Drawer Header */}
-        <div className="p-6 border-b border-slate-200/70 bg-slate-50/70">
+        <div className="p-6 border-b border-[var(--border)] glass-strong">
           <div className="flex items-center justify-between gap-4 mb-2">
             <div className="flex items-center gap-2">
-              <span className="px-2.5 py-1 rounded-lg bg-blue-100 text-blue-800 font-extrabold text-xs">
+              <span className="px-2.5 py-1 rounded-lg bg-[var(--brand)] text-white font-extrabold text-xs font-mono">
                 #{String(rec.rank).padStart(2, '0')}
               </span>
-              <span className="text-xs font-bold text-slate-500 uppercase tracking-wider font-mono">
+              <span className="text-xs font-bold text-[var(--text-faint)] uppercase tracking-wider font-mono">
                 {rec.id}
               </span>
-              <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 flex items-center gap-1">
+              <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-[var(--balanced)]/10 text-[var(--balanced)] border border-[var(--balanced)]/20 flex items-center gap-1 font-mono">
                 <ShieldCheck className="w-3.5 h-3.5" />
                 Confidence: {rec.confidence}%
               </span>
@@ -71,29 +72,29 @@ export const EvidenceDrawer: React.FC = () => {
 
             <button
               onClick={() => setActiveEvidence(null)}
-              className="p-2 rounded-xl hover:bg-slate-200/60 text-slate-500 hover:text-slate-900 transition-colors cursor-pointer"
+              className="p-2 rounded-xl liquid-control text-[var(--text-muted)] hover:text-[var(--text)] transition-colors cursor-pointer"
             >
               <X className="w-5 h-5" />
             </button>
           </div>
 
-          <h2 className="text-lg sm:text-xl font-bold text-slate-900 tracking-tight">
+          <h2 className="text-lg sm:text-xl font-bold text-[var(--text)] tracking-tight">
             {rec.title}
           </h2>
-          <p className="text-xs text-slate-500 mt-1">
-            Geography: <strong className="text-slate-800">{rec.district}, {rec.state}</strong>
+          <p className="text-xs text-[var(--text-muted)] mt-1">
+            Geography: <strong className="text-[var(--text)]">{rec.district}, {rec.state}</strong>
           </p>
         </div>
 
         {/* Drawer Scrollable Body */}
-        <div className="p-6 space-y-6 overflow-y-auto flex-1 text-slate-800 text-xs sm:text-sm">
+        <div className="p-6 space-y-6 overflow-y-auto flex-1 text-[var(--text)] text-xs sm:text-sm">
           {/* Section: Algorithmic Rationale */}
-          <div className="p-4 rounded-2xl bg-blue-50/60 border border-blue-200/60">
-            <span className="text-[11px] font-bold text-blue-800 uppercase tracking-wider flex items-center gap-1.5 mb-1.5">
-              <Sparkles className="w-4 h-4 text-blue-600" />
+          <div className="p-4 rounded-2xl glass border border-[var(--brand)]/30">
+            <span className="text-[11px] font-bold text-[var(--brand)] uppercase tracking-wider flex items-center gap-1.5 mb-1.5 font-mono">
+              <Sparkles className="w-4 h-4 text-[var(--brand)]" />
               Strategic Planning Rationale
             </span>
-            <p className="text-slate-700 leading-relaxed">
+            <p className="text-[var(--text-muted)] leading-relaxed">
               {rec.reason}
             </p>
           </div>
@@ -101,123 +102,115 @@ export const EvidenceDrawer: React.FC = () => {
           {/* Section: Evidence Breakdown */}
           <div>
             <div className="flex items-center justify-between mb-3">
-              <h3 className="text-xs font-bold uppercase tracking-wider text-slate-500 flex items-center gap-1.5">
-                <FileText className="w-4 h-4 text-slate-700" />
+              <h3 className="text-xs font-bold uppercase tracking-wider text-[var(--text-faint)] flex items-center gap-1.5 font-mono">
+                <FileText className="w-4 h-4 text-[var(--text-muted)]" />
                 Empirical Evidence & Data Provenance
               </h3>
-              <span className="px-2 py-0.5 rounded-md text-[10px] font-bold bg-amber-100 text-amber-800 border border-amber-300">
-                Synthetic data
-              </span>
+              <Provenance type="synthetic" note="Simulated Funnel" />
             </div>
             
             <div className="space-y-2.5">
-              <div className="p-3 rounded-xl bg-white border border-slate-200/80 shadow-2xs">
-                <div className="flex items-center justify-between mb-0.5">
-                  <span className="text-[10px] font-bold text-orange-600 uppercase tracking-wider block">
+              <div className="p-3 rounded-xl glass-strong border border-[var(--border)] shadow-xs">
+                <div className="flex items-center justify-between mb-1">
+                  <span className="text-[10px] font-bold text-orange-500 uppercase tracking-wider block font-mono">
                     1. Real-Time Demand Signals
                   </span>
-                  <span className="text-[9px] text-slate-500 font-medium">NCS / Aggregated Feed</span>
+                  <span className="text-[9px] text-[var(--text-faint)] font-medium">NCS / Aggregated Feed</span>
                 </div>
-                <p className="text-slate-700 text-xs">{rec.evidence.demandSignal}</p>
+                <p className="text-[var(--text-muted)] text-xs">{rec.evidence.demandSignal}</p>
               </div>
 
-              <div className="p-3 rounded-xl bg-white border border-slate-200/80 shadow-2xs">
-                <div className="flex items-center justify-between mb-0.5">
-                  <span className="text-[10px] font-bold text-slate-700 uppercase tracking-wider block">
+              <div className="p-3 rounded-xl glass-strong border border-[var(--border)] shadow-xs">
+                <div className="flex items-center justify-between mb-1">
+                  <span className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-wider block font-mono">
                     2. Employer Vacancy Expansion
                   </span>
-                  <span className="px-1.5 py-0.5 rounded text-[9px] font-bold bg-amber-100 text-amber-800 border border-amber-300">
-                    Synthetic data
-                  </span>
+                  <Provenance type="synthetic" note="Projected" />
                 </div>
-                <p className="text-slate-700 text-xs">{rec.evidence.vacancyGrowth}</p>
+                <p className="text-[var(--text-muted)] text-xs">{rec.evidence.vacancyGrowth}</p>
               </div>
 
-              <div className="p-3 rounded-xl bg-white border border-slate-200/80 shadow-2xs">
-                <div className="flex items-center justify-between mb-0.5">
-                  <span className="text-[10px] font-bold text-slate-700 uppercase tracking-wider block">
+              <div className="p-3 rounded-xl glass-strong border border-[var(--border)] shadow-xs">
+                <div className="flex items-center justify-between mb-1">
+                  <span className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-wider block font-mono">
                     3. Placement Rates & Pipeline Saturation
                   </span>
-                  <span className="px-1.5 py-0.5 rounded text-[9px] font-bold bg-amber-100 text-amber-800 border border-amber-300">
-                    Synthetic data
-                  </span>
+                  <Provenance type="synthetic" note="Projected" />
                 </div>
-                <p className="text-slate-700 text-xs">{rec.evidence.supplyStagnation}</p>
+                <p className="text-[var(--text-muted)] text-xs">{rec.evidence.supplyStagnation}</p>
               </div>
 
-              <div className="p-3 rounded-xl bg-white border border-slate-200/80 shadow-2xs">
-                <div className="flex items-center justify-between mb-0.5">
-                  <span className="text-[10px] font-bold text-slate-700 uppercase tracking-wider block">
+              <div className="p-3 rounded-xl glass-strong border border-[var(--border)] shadow-xs">
+                <div className="flex items-center justify-between mb-1">
+                  <span className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-wider block font-mono">
                     4. Employer Letters of Intent (LOIs)
                   </span>
-                  <span className="px-1.5 py-0.5 rounded text-[9px] font-bold bg-amber-100 text-amber-800 border border-amber-300">
-                    Synthetic data
-                  </span>
+                  <Provenance type="synthetic" note="Projected" />
                 </div>
-                <p className="text-slate-700 text-xs">{rec.evidence.employerHiringTrend}</p>
+                <p className="text-[var(--text-muted)] text-xs">{rec.evidence.employerHiringTrend}</p>
               </div>
             </div>
           </div>
 
           {/* Section: Expected Impact */}
           <div>
-            <h3 className="text-xs font-bold uppercase tracking-wider text-slate-500 mb-3 flex items-center gap-1.5">
-              <TrendingUp className="w-4 h-4 text-emerald-600" />
+            <h3 className="text-xs font-bold uppercase tracking-wider text-[var(--text-faint)] mb-3 flex items-center gap-1.5 font-mono">
+              <TrendingUp className="w-4 h-4 text-[var(--balanced)]" />
               Projected Intervention Outcome
             </h3>
 
             <div className="grid grid-cols-3 gap-2.5">
-              <div className="p-3 rounded-xl bg-emerald-50 border border-emerald-200/70 text-center">
-                <span className="text-[10px] font-bold text-emerald-800 uppercase block">Gap Reduction</span>
-                <div className="text-xl font-extrabold text-emerald-700 mt-1 font-mono">
+              <div className="p-3 rounded-xl glass border border-[var(--balanced)]/30 text-center">
+                <span className="text-[10px] font-bold text-[var(--balanced)] uppercase block font-mono">Gap Reduction</span>
+                <div className="text-xl font-extrabold text-[var(--balanced)] mt-1 font-mono">
                   -{rec.expectedImpact.gapReductionPercent}%
                 </div>
-                <span className="text-[9px] text-emerald-600">6M Outlook</span>
+                <span className="text-[9px] text-[var(--text-faint)]">6M Outlook</span>
               </div>
 
-              <div className="p-3 rounded-xl bg-blue-50 border border-blue-200/70 text-center">
-                <span className="text-[10px] font-bold text-blue-800 uppercase block">Supply Coverage</span>
-                <div className="text-xl font-extrabold text-blue-700 mt-1 font-mono">
+              <div className="p-3 rounded-xl glass border border-[var(--brand)]/30 text-center">
+                <span className="text-[10px] font-bold text-[var(--brand)] uppercase block font-mono">Supply Coverage</span>
+                <div className="text-xl font-extrabold text-[var(--brand)] mt-1 font-mono">
                   +{rec.expectedImpact.supplyCoveragePercent}%
                 </div>
-                <span className="text-[9px] text-blue-600">Employable pool</span>
+                <span className="text-[9px] text-[var(--text-faint)]">Employable pool</span>
               </div>
 
-              <div className="p-3 rounded-xl bg-purple-50 border border-purple-200/70 text-center">
-                <span className="text-[10px] font-bold text-purple-800 uppercase block">Est. Cost</span>
-                <div className="text-sm font-extrabold text-purple-700 mt-2 font-mono">
+              <div className="p-3 rounded-xl glass border border-purple-500/30 text-center">
+                <span className="text-[10px] font-bold text-purple-400 uppercase block font-mono">Est. Cost</span>
+                <div className="text-sm font-extrabold text-purple-400 mt-2 font-mono">
                   {formatINR(rec.expectedImpact.estimatedCostINR)}
                 </div>
-                <span className="text-[9px] text-purple-600">Subsidies & Lab</span>
+                <span className="text-[9px] text-[var(--text-faint)]">Subsidies & Lab</span>
               </div>
             </div>
           </div>
 
           {/* Section: Constraints & Risks */}
-          <div className="p-3.5 rounded-xl bg-amber-50 border border-amber-200/70">
-            <span className="text-[11px] font-bold text-amber-800 uppercase tracking-wider flex items-center gap-1 mb-1">
-              <AlertTriangle className="w-3.5 h-3.5 text-amber-600" />
+          <div className="p-3.5 rounded-xl bg-[var(--warning)]/10 border border-[var(--warning)]/20">
+            <span className="text-[11px] font-bold text-[var(--warning)] uppercase tracking-wider flex items-center gap-1 mb-1 font-mono">
+              <AlertTriangle className="w-3.5 h-3.5 text-[var(--warning)]" />
               Deployment Constraints & Pre-conditions
             </span>
-            <p className="text-slate-700 text-xs leading-relaxed">
+            <p className="text-[var(--text)] text-xs leading-relaxed">
               {rec.constraints}
             </p>
           </div>
         </div>
 
         {/* Drawer Action Footer */}
-        <div className="p-5 border-t border-slate-200/80 bg-slate-50/80 flex flex-wrap items-center justify-between gap-3">
+        <div className="p-5 border-t border-[var(--border)] glass-strong flex flex-wrap items-center justify-between gap-3">
           <div className="flex items-center gap-2">
             <button
               onClick={handleExportEvidence}
-              className="px-3 py-2 rounded-xl liquid-control text-xs font-semibold text-slate-700 hover:text-slate-900 border border-slate-200 flex items-center gap-1.5 cursor-pointer"
+              className="px-3 py-2 rounded-xl liquid-control text-xs font-semibold flex items-center gap-1.5 cursor-pointer text-[var(--text)]"
             >
-              <Download className="w-3.5 h-3.5" />
+              <Download className="w-3.5 h-3.5 text-[var(--brand)]" />
               Export Dossier (CSV)
             </button>
             <a
               href="/scenarios"
-              className="px-3 py-2 rounded-xl bg-amber-500 hover:bg-amber-600 text-white text-xs font-bold flex items-center gap-1.5 transition-all shadow-xs"
+              className="px-3 py-2 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 hover:opacity-90 text-white text-xs font-bold flex items-center gap-1.5 transition-all shadow-xs"
             >
               Simulate in Studio →
             </a>
@@ -231,8 +224,8 @@ export const EvidenceDrawer: React.FC = () => {
             className={clsx(
               'px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-1.5 transition-all shadow-xs cursor-pointer',
               rec.status === 'approved'
-                ? 'bg-slate-300 text-slate-700 pointer-events-none'
-                : 'bg-emerald-600 hover:bg-emerald-700 text-white'
+                ? 'bg-slate-500/20 text-[var(--text-faint)] pointer-events-none'
+                : 'bg-[var(--balanced)] hover:opacity-90 text-white'
             )}
           >
             <CheckCircle className="w-4 h-4" />

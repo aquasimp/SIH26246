@@ -9,8 +9,8 @@ import {
   AlertCircle, 
   Info, 
   Check, 
-  ArrowRight,
-  Download,
+  ArrowRight, 
+  Download, 
   Sliders
 } from 'lucide-react';
 import { downloadCSV } from '@/lib/exportUtils';
@@ -40,19 +40,19 @@ export const NotificationDrawer: React.FC = () => {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex justify-end bg-slate-900/30 backdrop-blur-xs animate-in fade-in duration-200">
-      <div className="w-full max-w-md h-full bg-white/95 backdrop-blur-xl border-l border-slate-200/90 shadow-2xl flex flex-col justify-between overflow-hidden animate-in slide-in-from-right duration-300">
+    <div className="fixed inset-0 z-50 flex justify-end bg-black/60 backdrop-blur-sm animate-in fade-in duration-200">
+      <div className="w-full max-w-md h-full overlay border-l border-[var(--border-strong)] shadow-2xl flex flex-col justify-between overflow-hidden animate-in slide-in-from-right duration-300">
         {/* Header */}
-        <div className="p-5 border-b border-slate-200/80 bg-slate-50/80 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <div className="p-2 rounded-xl bg-red-100 text-red-700">
+        <div className="p-5 border-b border-[var(--border)] glass-strong flex items-center justify-between">
+          <div className="flex items-center gap-2.5">
+            <div className="p-2 rounded-xl bg-[var(--severe)]/10 text-[var(--severe)]">
               <AlertTriangle className="w-4 h-4" />
             </div>
             <div>
-              <h3 className="text-sm font-bold text-slate-900">
+              <h3 className="text-sm font-bold text-[var(--text)]">
                 Early Warning Intelligence Center
               </h3>
-              <p className="text-[11px] text-slate-500">
+              <p className="text-[11px] text-[var(--text-muted)]">
                 {alerts.filter(a => !a.acknowledged).length} unacknowledged national alerts
               </p>
             </div>
@@ -60,7 +60,7 @@ export const NotificationDrawer: React.FC = () => {
 
           <button
             onClick={() => setNotificationOpen(false)}
-            className="p-1.5 rounded-xl hover:bg-slate-200/60 text-slate-500 cursor-pointer"
+            className="p-1.5 rounded-xl liquid-control text-[var(--text-muted)] hover:text-[var(--text)] cursor-pointer"
           >
             <X className="w-5 h-5" />
           </button>
@@ -72,53 +72,53 @@ export const NotificationDrawer: React.FC = () => {
             <div
               key={alert.id}
               className={clsx(
-                'p-3.5 rounded-2xl border transition-all shadow-2xs',
+                'p-3.5 rounded-2xl border transition-all glass',
                 alert.acknowledged
-                  ? 'bg-slate-50/80 border-slate-200/60 opacity-60'
+                  ? 'opacity-60 border-[var(--border)]'
                   : alert.severity === 'critical'
-                  ? 'bg-red-50/60 border-red-200'
+                  ? 'border-[var(--severe)]/40 shadow-xs'
                   : alert.severity === 'warning'
-                  ? 'bg-amber-50/60 border-amber-200'
-                  : 'bg-blue-50/60 border-blue-200'
+                  ? 'border-[var(--warning)]/40'
+                  : 'border-[var(--border)]'
               )}
             >
               <div className="flex items-center justify-between gap-2 mb-1.5">
                 <span className={clsx(
-                  'text-[10px] font-extrabold uppercase px-2 py-0.5 rounded-full',
+                  'text-[10px] font-mono font-extrabold uppercase px-2 py-0.5 rounded-full',
                   alert.severity === 'critical'
-                    ? 'bg-red-600 text-white'
+                    ? 'bg-[var(--severe)] text-white'
                     : alert.severity === 'warning'
-                    ? 'bg-amber-600 text-white'
-                    : 'bg-blue-600 text-white'
+                    ? 'bg-[var(--warning)] text-white'
+                    : 'bg-[var(--brand)] text-white'
                 )}>
                   {alert.severity}
                 </span>
-                <span className="text-[10px] text-slate-400 font-mono">
+                <span className="text-[10px] text-[var(--text-faint)] font-mono">
                   {alert.timestamp}
                 </span>
               </div>
 
-              <h4 className="text-xs font-bold text-slate-900 mb-1 leading-snug">
+              <h4 className="text-xs font-bold text-[var(--text)] mb-1 leading-snug">
                 {alert.title}
               </h4>
 
-              <p className="text-[11px] text-slate-600 mb-2 leading-relaxed">
+              <p className="text-[11px] text-[var(--text-muted)] mb-2 leading-relaxed">
                 {alert.trigger}
               </p>
 
-              <div className="p-2 rounded-xl bg-white/80 border border-slate-200/70 text-[10px] text-slate-700 mb-2.5">
-                <strong className="text-slate-900">Action:</strong> {alert.recommendedAction}
+              <div className="p-2 rounded-xl glass-strong border border-[var(--border)] text-[10px] text-[var(--text-muted)] mb-2.5">
+                <strong className="text-[var(--text)]">Action:</strong> {alert.recommendedAction}
               </div>
 
-              <div className="flex items-center justify-between pt-1 border-t border-slate-200/50">
-                <span className="text-[10px] text-slate-500 font-medium">
+              <div className="flex items-center justify-between pt-1 border-t border-[var(--border)]">
+                <span className="text-[10px] text-[var(--text-faint)] font-mono">
                   Confidence: {alert.confidence}%
                 </span>
 
                 <div className="flex items-center gap-1.5">
                   <a
                     href="/scenarios"
-                    className="p-1 text-[10px] font-bold text-blue-700 hover:underline flex items-center gap-0.5"
+                    className="p-1 text-[10px] font-bold text-[var(--brand)] hover:underline flex items-center gap-0.5"
                   >
                     <Sliders className="w-3 h-3" />
                     Simulate
@@ -127,9 +127,9 @@ export const NotificationDrawer: React.FC = () => {
                   {!alert.acknowledged && (
                     <button
                       onClick={() => acknowledgeAlert(alert.id)}
-                      className="px-2 py-1 text-[10px] font-bold bg-white hover:bg-slate-100 text-slate-800 rounded-lg border border-slate-200 shadow-2xs flex items-center gap-1 cursor-pointer"
+                      className="px-2 py-1 text-[10px] font-bold liquid-control text-[var(--text)] rounded-lg shadow-2xs flex items-center gap-1 cursor-pointer"
                     >
-                      <Check className="w-3 h-3 text-emerald-600" />
+                      <Check className="w-3 h-3 text-[var(--balanced)]" />
                       Ack
                     </button>
                   )}
@@ -140,19 +140,19 @@ export const NotificationDrawer: React.FC = () => {
         </div>
 
         {/* Footer */}
-        <div className="p-4 border-t border-slate-200/80 bg-slate-50/80 flex items-center justify-between">
+        <div className="p-4 border-t border-[var(--border)] glass-strong flex items-center justify-between">
           <button
             onClick={handleExportAlerts}
-            className="px-3 py-1.5 rounded-xl liquid-control text-xs font-semibold text-slate-700 hover:text-slate-900 border border-slate-200 flex items-center gap-1.5 cursor-pointer"
+            className="px-3 py-1.5 rounded-xl liquid-control text-xs font-semibold flex items-center gap-1.5 cursor-pointer text-[var(--text)]"
           >
-            <Download className="w-3.5 h-3.5" />
+            <Download className="w-3.5 h-3.5 text-[var(--brand)]" />
             Export Alerts
           </button>
           <a
             href="/alerts"
-            className="text-xs font-bold text-blue-600 hover:underline flex items-center gap-1"
+            className="text-xs font-bold text-[var(--brand)] hover:underline flex items-center gap-1"
           >
-            Open Alert Command Center →
+            Open Command Center →
           </a>
         </div>
       </div>

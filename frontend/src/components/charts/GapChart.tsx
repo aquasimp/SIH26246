@@ -3,6 +3,7 @@
 import React from 'react';
 import { clsx } from 'clsx';
 import { GapSeverity } from '@/lib/types';
+import { useChartPalette } from '@/lib/useChartPalette';
 
 interface GapChartProps {
   score: number;             // e.g. 84
@@ -23,12 +24,14 @@ export const GapChart: React.FC<GapChartProps> = ({
   persistence,
   confidence
 }) => {
+  const palette = useChartPalette();
+
   // Score color
   const getScoreTheme = (s: number) => {
-    if (s >= 75) return { text: 'text-red-600', stroke: '#dc2626', bg: 'bg-red-50', border: 'border-red-200' };
-    if (s >= 60) return { text: 'text-orange-600', stroke: '#ea580c', bg: 'bg-orange-50', border: 'border-orange-200' };
-    if (s >= 40) return { text: 'text-emerald-600', stroke: '#059669', bg: 'bg-emerald-50', border: 'border-emerald-200' };
-    return { text: 'text-indigo-600', stroke: '#4f46e5', bg: 'bg-indigo-50', border: 'border-indigo-200' };
+    if (s >= 75) return { stroke: palette.severe, bg: 'bg-[var(--severe)]/10', text: 'text-[var(--severe)]', border: 'border-[var(--severe)]/20' };
+    if (s >= 60) return { stroke: palette.moderate, bg: 'bg-[var(--moderate)]/10', text: 'text-[var(--moderate)]', border: 'border-[var(--moderate)]/20' };
+    if (s >= 40) return { stroke: palette.balanced, bg: 'bg-[var(--balanced)]/10', text: 'text-[var(--balanced)]', border: 'border-[var(--balanced)]/20' };
+    return { stroke: palette.oversupply, bg: 'bg-[var(--oversupply)]/10', text: 'text-[var(--oversupply)]', border: 'border-[var(--oversupply)]/20' };
   };
 
   const theme = getScoreTheme(score);
@@ -37,7 +40,7 @@ export const GapChart: React.FC<GapChartProps> = ({
   const strokeDashoffset = circumference - (score / 100) * circumference;
 
   return (
-    <div className="flex flex-col md:flex-row items-center justify-between gap-6 p-5 rounded-2xl bg-white/80 border border-slate-200/80 shadow-xs">
+    <div className="flex flex-col md:flex-row items-center justify-between gap-6 p-5 rounded-2xl glass border border-[var(--border)] shadow-xs">
       {/* Left Radial Ring */}
       <div className="flex flex-col items-center justify-center shrink-0">
         <div className="relative w-36 h-36 flex items-center justify-center">
@@ -47,7 +50,7 @@ export const GapChart: React.FC<GapChartProps> = ({
               cx="72"
               cy="72"
               r={radius}
-              stroke="#e2e8f0"
+              stroke={palette.grid}
               strokeWidth="10"
               fill="transparent"
             />
@@ -67,28 +70,28 @@ export const GapChart: React.FC<GapChartProps> = ({
           </svg>
 
           <div className="absolute inset-0 flex flex-col items-center justify-center text-center">
-            <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">
+            <span className="text-[10px] font-bold uppercase tracking-wider text-[var(--text-faint)]">
               Gap Score
             </span>
-            <span className={clsx('text-3xl font-extrabold tracking-tight', theme.text)}>
+            <span className={clsx('text-3xl font-extrabold tracking-tight font-mono', theme.text)}>
               {score}
             </span>
-            <span className="text-[9px] font-semibold text-slate-500">
+            <span className="text-[9px] font-semibold text-[var(--text-faint)]">
               / 100
             </span>
           </div>
         </div>
 
-        <div className={clsx('mt-2 px-3 py-1 rounded-full text-xs font-bold border', theme.bg, theme.text, theme.border)}>
+        <div className={clsx('mt-2 px-3 py-1 rounded-full text-xs font-bold border font-mono', theme.bg, theme.text, theme.border)}>
           {severity}
         </div>
       </div>
 
       {/* Right Metric Sub-breakdowns */}
-      <div className="flex-1 w-full space-y-2.5">
-        <div className="flex items-center justify-between text-xs pb-1 border-b border-slate-100">
-          <span className="font-bold text-slate-700">Sub-Index Decomposition</span>
-          <span className="text-[11px] font-semibold text-blue-700 bg-blue-50 px-2 py-0.5 rounded-md">
+      <div className="flex-1 w-full space-y-3">
+        <div className="flex items-center justify-between text-xs pb-1.5 border-b border-[var(--border)]">
+          <span className="font-bold text-[var(--text)]">Sub-Index Decomposition</span>
+          <span className="text-[11px] font-semibold text-[var(--brand)] bg-[var(--brand)]/10 px-2.5 py-0.5 rounded-md border border-[var(--brand)]/20 font-mono">
             Model Confidence: {confidence}%
           </span>
         </div>
@@ -96,10 +99,10 @@ export const GapChart: React.FC<GapChartProps> = ({
         {/* Demand Pressure */}
         <div>
           <div className="flex justify-between text-xs font-semibold mb-1">
-            <span className="text-slate-600">Demand Pressure Index</span>
-            <span className="font-mono text-slate-900">{demandPressure} / 100</span>
+            <span className="text-[var(--text-muted)]">Demand Pressure Index</span>
+            <span className="font-mono text-[var(--text)]">{demandPressure} / 100</span>
           </div>
-          <div className="w-full h-1.5 rounded-full bg-slate-100 overflow-hidden">
+          <div className="w-full h-1.5 rounded-full bg-[var(--border)] overflow-hidden">
             <div className="h-full bg-orange-500 rounded-full" style={{ width: `${demandPressure}%` }} />
           </div>
         </div>
@@ -107,33 +110,33 @@ export const GapChart: React.FC<GapChartProps> = ({
         {/* Effective Supply Capacity */}
         <div>
           <div className="flex justify-between text-xs font-semibold mb-1">
-            <span className="text-slate-600">Effective Supply Capacity</span>
-            <span className="font-mono text-slate-900">{effectiveSupplyIndex} / 100</span>
+            <span className="text-[var(--text-muted)]">Effective Supply Capacity</span>
+            <span className="font-mono text-[var(--text)]">{effectiveSupplyIndex} / 100</span>
           </div>
-          <div className="w-full h-1.5 rounded-full bg-slate-100 overflow-hidden">
-            <div className="h-full bg-emerald-500 rounded-full" style={{ width: `${effectiveSupplyIndex}%` }} />
+          <div className="w-full h-1.5 rounded-full bg-[var(--border)] overflow-hidden">
+            <div className="h-full bg-[var(--balanced)] rounded-full" style={{ width: `${effectiveSupplyIndex}%` }} />
           </div>
         </div>
 
         {/* Forecast Pressure */}
         <div>
           <div className="flex justify-between text-xs font-semibold mb-1">
-            <span className="text-slate-600">6-Month Forecast Pressure</span>
-            <span className="font-mono text-slate-900">{forecastPressure} / 100</span>
+            <span className="text-[var(--text-muted)]">6-Month Forecast Pressure</span>
+            <span className="font-mono text-[var(--text)]">{forecastPressure} / 100</span>
           </div>
-          <div className="w-full h-1.5 rounded-full bg-slate-100 overflow-hidden">
-            <div className="h-full bg-blue-600 rounded-full" style={{ width: `${forecastPressure}%` }} />
+          <div className="w-full h-1.5 rounded-full bg-[var(--border)] overflow-hidden">
+            <div className="h-full bg-[var(--brand)] rounded-full" style={{ width: `${forecastPressure}%` }} />
           </div>
         </div>
 
         {/* Shortage Persistence */}
         <div>
           <div className="flex justify-between text-xs font-semibold mb-1">
-            <span className="text-slate-600">Shortage Structural Persistence</span>
-            <span className="font-mono text-slate-900">{persistence} / 100</span>
+            <span className="text-[var(--text-muted)]">Shortage Structural Persistence</span>
+            <span className="font-mono text-[var(--text)]">{persistence} / 100</span>
           </div>
-          <div className="w-full h-1.5 rounded-full bg-slate-100 overflow-hidden">
-            <div className="h-full bg-red-500 rounded-full" style={{ width: `${persistence}%` }} />
+          <div className="w-full h-1.5 rounded-full bg-[var(--border)] overflow-hidden">
+            <div className="h-full bg-[var(--severe)] rounded-full" style={{ width: `${persistence}%` }} />
           </div>
         </div>
       </div>

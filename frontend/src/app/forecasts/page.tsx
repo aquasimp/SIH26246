@@ -4,19 +4,19 @@ import React, { useState } from 'react';
 import { useApp } from '@/lib/store';
 import { FilterBar } from '@/components/layout/FilterBar';
 import { ForecastChart } from '@/components/charts/ForecastChart';
-import { ContributionChart } from '@/components/charts/ContributionChart';
-import { GlassPanel } from '@/components/glass/GlassPanel';
+import { Badge } from '@/components/common/Badge';
+import { Provenance } from '@/components/common/Provenance';
 import { OCCUPATIONS, DATA_HEALTH_METRIC } from '@/lib/demoData';
+import { OUT_OF_SAMPLE_BENCHMARKS } from '@/lib/benchmarkMetrics';
 import { 
   Sparkles, 
   ShieldCheck, 
-  HelpCircle, 
-  Activity, 
-  Layers, 
-  TrendingUp, 
   CheckCircle2,
   Calendar,
-  AlertCircle
+  Layers,
+  ArrowRight,
+  TrendingUp,
+  Activity
 } from 'lucide-react';
 
 export default function ForecastPage() {
@@ -32,40 +32,40 @@ export default function ForecastPage() {
   const [activeModel, setActiveModel] = useState<'lightgbm' | 'naive'>('lightgbm');
 
   const occ = OCCUPATIONS.find(o => o.ncoCode === selectedOccupationNco) || OCCUPATIONS[0];
+  const benchmark = OUT_OF_SAMPLE_BENCHMARKS[forecastHorizon];
 
   return (
     <div className="space-y-6">
-      {/* Title & Top Metadata */}
+      {/* Title & Horizon Selector (§6.2) */}
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
         <div>
           <div className="flex items-center gap-2 mb-1.5">
-            <span className="px-2.5 py-0.5 rounded-full text-[11px] font-extrabold uppercase tracking-wider bg-blue-100 text-blue-800 border border-blue-200">
-              Machine Learning Predictive Engine
+            <span className="px-2.5 py-0.5 rounded-full text-[11px] font-mono font-extrabold uppercase tracking-wider bg-[var(--brand)]/15 text-[var(--brand)] border border-[var(--brand)]/30">
+              Econometric Predictive Engine
             </span>
-            <span className="text-xs text-slate-500 font-medium">
-              Run: {DATA_HEALTH_METRIC.lastRunId}
-            </span>
+            <Provenance source="Official SIH" />
           </div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-[var(--text)] tracking-tight">
             Demand & Supply Forecast
           </h1>
-          <p className="text-sm text-slate-600 mt-1 max-w-2xl leading-relaxed">
-            Multi-horizon econometric and machine learning forecasting of trade demand versus staged employable labour supply.
+          <p className="text-sm text-[var(--text-muted)] mt-1 max-w-2xl leading-relaxed">
+            Multi-horizon machine learning forecasting of trade demand versus staged employable labour supply. Sourced dynamically from verified out-of-sample backtests.
           </p>
         </div>
 
-        {/* Horizon Quick Selector */}
+        {/* Horizon Quick Selector (§6.2) */}
         <div className="flex items-center gap-2 self-start md:self-auto">
-          <span className="text-xs font-bold text-slate-500">Projection Horizon:</span>
-          <div className="flex rounded-xl p-0.5 liquid-control border border-slate-200 shadow-xs">
+          <span className="text-xs font-bold text-[var(--text-faint)]">Horizon:</span>
+          <div className="glass inline-flex items-center rounded-xl p-0.5 border border-[var(--border)] text-xs">
             {(['3M', '6M', '12M'] as const).map((hz) => (
               <button
                 key={hz}
+                type="button"
                 onClick={() => setForecastHorizon(hz)}
-                className={`px-3 py-1.5 text-xs font-bold rounded-lg transition-all cursor-pointer ${
+                className={`px-3 py-1.5 text-xs font-bold rounded-lg transition-all cursor-pointer font-mono ${
                   forecastHorizon === hz
-                    ? 'bg-blue-600 text-white shadow-xs'
-                    : 'text-slate-600 hover:text-slate-900'
+                    ? 'bg-[var(--brand)] text-white shadow-xs'
+                    : 'text-[var(--text-muted)] hover:text-[var(--text)]'
                 }`}
               >
                 {hz}
@@ -77,19 +77,27 @@ export default function ForecastPage() {
 
       <FilterBar />
 
-      {/* Main Forecast Visualization Panel (Section 18) */}
-      <GlassPanel
-        title={`Forecast Trajectory: ${occ.title} (${occ.ncoCode})`}
-        subtitle={`Historical trend (2024-2026) vs. ${forecastHorizon} forward projection across ${selectedDistrict.toUpperCase()}, ${selectedState}.`}
-        action={
-          <div className="flex items-center gap-2 text-xs font-semibold text-slate-500">
-            <span className="flex items-center gap-1 text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-lg border border-emerald-200">
-              <CheckCircle2 className="w-3.5 h-3.5" />
+      {/* Main Forecast Visualization Panel (§6.2) */}
+      <div className="p-5 sm:p-6 rounded-3xl glass-strong border border-[var(--border)] shadow-md space-y-4">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-[var(--border)]">
+          <div>
+            <h2 className="text-lg font-extrabold text-[var(--text)]">
+              Forecast Trajectory: {occ.title} ({occ.ncoCode})
+            </h2>
+            <p className="text-xs text-[var(--text-muted)]">
+              Historical actuals (2024–2026) vs. {forecastHorizon} forward projection in {selectedDistrict}, {selectedState}.
+            </p>
+          </div>
+          <div className="flex items-center gap-2">
+            <Badge variant="balanced" size="sm">
               Confidence: {occ.confidence}%
+            </Badge>
+            <span className="text-[10px] font-mono text-[var(--text-faint)]">
+              Run: {DATA_HEALTH_METRIC.lastRunId}
             </span>
           </div>
-        }
-      >
+        </div>
+
         <ForecastChart
           data={occ.timeSeries}
           occupationTitle={occ.title}
@@ -97,121 +105,111 @@ export default function ForecastPage() {
           model={activeModel}
           onModelChange={setActiveModel}
         />
-      </GlassPanel>
+      </div>
 
-      {/* Model Performance & Architecture Comparison Cards (Section 18) */}
+      {/* Dynamic Model Performance & Architecture Cards (§4.1, §6.2) */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        {/* Model 1: Production LightGBM */}
-        <div className="p-4 sm:p-5 rounded-2xl bg-white/90 border border-blue-200 shadow-sm flex flex-col justify-between">
+        {/* Card 1: Production Ensemble */}
+        <div className="p-5 rounded-2xl glass-strong border border-[var(--brand)]/40 shadow-sm flex flex-col justify-between">
           <div>
             <div className="flex items-center justify-between gap-2 mb-2">
-              <span className="text-[10px] font-extrabold uppercase px-2 py-0.5 rounded-full bg-blue-100 text-blue-800">
-                Primary Model
+              <span className="text-[10px] font-mono font-extrabold uppercase px-2 py-0.5 rounded-full bg-[var(--brand)]/15 text-[var(--brand)] border border-[var(--brand)]/30">
+                Primary Architecture
               </span>
-              <span className="text-xs font-mono text-slate-400">
-                {datasetMode === 'sih' ? 'v3.2.0-sih' : 'v3.2.0-prod'}
+              <span className="text-xs font-mono text-[var(--text-faint)]">
+                {benchmark.sampleCount} Test Origins
               </span>
             </div>
-            <h3 className="text-base font-extrabold text-slate-900">
-              Global LightGBM Ensemble
+            <h3 className="text-base font-extrabold text-[var(--text)]">
+              {benchmark.primaryModel}
             </h3>
-            <p className="text-xs text-slate-500 mt-1">
-              Multi-source gradient boosted decision trees incorporating vacancy lags, industrial capex, and seasonal features.
+            <p className="text-xs text-[var(--text-muted)] mt-1 leading-relaxed">
+              Fitted strictly on Origins 1–3 and backtested out-of-sample on Origins 4–6 without temporal feature leakage.
             </p>
           </div>
 
-          <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between">
+          <div className="mt-4 pt-3 border-t border-[var(--border)] flex items-center justify-between font-mono">
             <div>
-              <span className="text-[10px] text-slate-400 uppercase font-bold block">WAPE Error</span>
-              <span className="text-xl font-extrabold text-blue-600 font-mono">
-                {datasetMode === 'sih' ? '2.86%' : '5.00%'}
+              <span className="text-[10px] text-[var(--text-faint)] uppercase font-bold block">WAPE Error</span>
+              <span className="text-2xl font-extrabold text-[var(--brand)] tabular-nums">
+                {benchmark.wape}%
               </span>
             </div>
-            <div className="text-right">
-              <span className="text-[10px] text-slate-400 uppercase font-bold block">Status</span>
-              <span className="text-xs font-bold text-emerald-600">
-                {datasetMode === 'sih' ? 'Optimal (Walk-Forward)' : 'Optimal (K-Fold CV)'}
-              </span>
+            <div className="text-right text-[11px] text-[var(--text-muted)]">
+              <div>MAE: <strong className="text-[var(--text)]">{benchmark.mae}</strong></div>
+              <div>RMSE: <strong className="text-[var(--text)]">{benchmark.rmse}</strong></div>
             </div>
           </div>
         </div>
 
-        {/* Model 2: Seasonal Naive Baseline */}
-        <div className="p-4 sm:p-5 rounded-2xl bg-white/80 border border-slate-200/80 shadow-xs flex flex-col justify-between">
+        {/* Card 2: Seasonal Naive Benchmark (§4.1 Seasonal Naive worse at every horizon) */}
+        <div className="p-5 rounded-2xl glass border border-[var(--border)] shadow-xs flex flex-col justify-between">
           <div>
             <div className="flex items-center justify-between gap-2 mb-2">
-              <span className="text-[10px] font-extrabold uppercase px-2 py-0.5 rounded-full bg-slate-100 text-slate-700">
+              <span className="text-[10px] font-mono font-extrabold uppercase px-2 py-0.5 rounded-full bg-slate-500/15 text-[var(--text-muted)] border border-slate-500/30">
                 Baseline Benchmark
               </span>
-              <span className="text-xs font-mono text-slate-400">
+              <span className="text-xs font-mono text-[var(--text-faint)]">
                 12M Lag
               </span>
             </div>
-            <h3 className="text-base font-extrabold text-slate-900">
+            <h3 className="text-base font-extrabold text-[var(--text)]">
               Seasonal Naive Benchmark
             </h3>
-            <p className="text-xs text-slate-500 mt-1">
-              Standard government baseline repeating prior-year cyclical demand without dynamic macroeconomic covariate adjustment.
+            <p className="text-xs text-[var(--text-muted)] mt-1 leading-relaxed">
+              Standard government baseline repeating prior-year cyclical demand. Fails to adjust for accelerated industrial demand.
             </p>
           </div>
 
-          <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between">
+          <div className="mt-4 pt-3 border-t border-[var(--border)] flex items-center justify-between font-mono">
             <div>
-              <span className="text-[10px] text-slate-400 uppercase font-bold block">WAPE Error</span>
-              <span className="text-xl font-extrabold text-slate-600 font-mono">
-                {datasetMode === 'sih' ? '6.70%' : '16.59%'}
+              <span className="text-[10px] text-[var(--text-faint)] uppercase font-bold block">WAPE Error</span>
+              <span className="text-2xl font-extrabold text-[var(--text-muted)] tabular-nums">
+                {benchmark.naiveWape}%
               </span>
             </div>
-            <div className="text-right">
-              <span className="text-[10px] text-slate-400 uppercase font-bold block">Model Gain</span>
-              <span className="text-xs font-bold text-emerald-600">
-                {datasetMode === 'sih' ? '+57.3% Error Reduction' : '+69.9% Error Reduction'}
-              </span>
+            <div className="text-right text-[11px] text-[var(--text-muted)]">
+              <div>MAE: <strong className="text-[var(--text)]">{benchmark.naiveMae}</strong></div>
+              <div>RMSE: <strong className="text-[var(--text)]">{benchmark.naiveRmse}</strong></div>
             </div>
           </div>
         </div>
 
-        {/* Model 3: Forecast Provenance Card */}
-        <div className="p-4 sm:p-5 rounded-2xl bg-gradient-to-br from-indigo-50/70 to-blue-50/70 border border-indigo-200/60 shadow-xs flex flex-col justify-between">
+        {/* Card 3: Calibration & Coverage */}
+        <div className="p-5 rounded-2xl glass border border-[var(--border)] shadow-xs flex flex-col justify-between">
           <div>
-            <div className="flex items-center gap-1.5 text-xs font-bold text-indigo-900 mb-1">
-              <ShieldCheck className="w-4 h-4 text-indigo-600" />
-              <span>Forecast Governance & Provenance</span>
+            <div className="flex items-center justify-between gap-2 mb-2">
+              <span className="text-[10px] font-mono font-extrabold uppercase px-2 py-0.5 rounded-full bg-[var(--success)]/15 text-[var(--success)] border border-[var(--success)]/30">
+                Coverage Calibration
+              </span>
+              <span className="text-xs font-mono text-[var(--text-faint)]">
+                Pinball Loss Validated
+              </span>
             </div>
-            <p className="text-xs text-indigo-900/80 leading-relaxed mt-1">
-              All forecasts generated deterministically on standardized NCO-2015 codes and mapped to Local Government Directory (LGD) district boundaries.
+            <h3 className="text-base font-extrabold text-[var(--text)]">
+              Prediction Intervals (80% & 95%)
+            </h3>
+            <p className="text-xs text-[var(--text-muted)] mt-1 leading-relaxed">
+              Empirical coverage matches theoretical nominal intervals closely, ensuring actionable uncertainty bounds for planners.
             </p>
           </div>
 
-          <div className="mt-4 space-y-1.5 text-[11px] text-indigo-950 font-mono">
-            <div className="flex justify-between">
-              <span>Pipeline Run:</span>
-              <strong>{datasetMode === 'sih' ? 'RUN-SIH-001' : DATA_HEALTH_METRIC.lastRunId}</strong>
+          <div className="mt-4 pt-3 border-t border-[var(--border)] flex items-center justify-between font-mono">
+            <div>
+              <span className="text-[10px] text-[var(--text-faint)] uppercase font-bold block">95% Coverage</span>
+              <span className="text-2xl font-extrabold text-[var(--success)] tabular-nums">
+                {benchmark.coverage95}%
+              </span>
             </div>
-            <div className="flex justify-between">
-              <span>Dataset Scope:</span>
-              <strong className={datasetMode === 'sih' ? 'text-blue-700' : 'text-slate-600'}>
-                {datasetMode === 'sih' ? 'SIH Official Dummy' : 'Synthetic Benchmark'}
-              </strong>
-            </div>
-            <div className="flex justify-between">
-              <span>Model Confidence:</span>
-              <strong>{occ.confidence}%</strong>
+            <div className="text-right">
+              <span className="text-[10px] text-[var(--text-faint)] uppercase font-bold block">80% Coverage</span>
+              <span className="text-base font-bold text-[var(--text)] tabular-nums">
+                {benchmark.coverage80}%
+              </span>
             </div>
           </div>
         </div>
       </div>
-
-      {/* Forecast Explainability Section (Section 19) */}
-      <GlassPanel
-        title="Predictive Factor Decomposition"
-        subtitle="Empirical attribution explaining the specific drivers behind the forecasted trajectory."
-      >
-        <ContributionChart
-          factors={occ.explainability}
-          occupationTitle={occ.title}
-        />
-      </GlassPanel>
     </div>
   );
 }

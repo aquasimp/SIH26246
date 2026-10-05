@@ -35,6 +35,11 @@ interface AppContextType {
   setCopilotOpen: (open: boolean) => void;
   notificationOpen: boolean;
   setNotificationOpen: (open: boolean) => void;
+  commandPaletteOpen: boolean;
+  setCommandPaletteOpen: (open: boolean) => void;
+  focusMode: boolean;
+  setFocusMode: (val: boolean) => void;
+  toggleFocusMode: () => void;
   alerts: EarlyWarningAlert[];
   acknowledgeAlert: (id: string) => void;
   recommendations: Recommendation[];
@@ -50,7 +55,7 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
   const [selectedState, setSelectedState] = useState<string>('Uttar Pradesh');
   const [selectedDistrict, setSelectedDistrict] = useState<string>('gorakhpur');
   const [selectedSector, setSelectedSector] = useState<string>('All Sectors');
-  const [selectedOccupationNco, setSelectedOccupationNco] = useState<string>('7126.0101'); // Solar PV
+  const [selectedOccupationNco, setSelectedOccupationNco] = useState<string>('7126.0101'); // Solar PV Installer
   const [forecastHorizon, setForecastHorizon] = useState<ForecastHorizon>('6M');
   const [datasetMode, setDatasetMode] = useState<'sih' | 'synthetic'>('sih');
   const [demoMode, setDemoMode] = useState<boolean>(false);
@@ -58,9 +63,22 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
   const [activeEvidence, setActiveEvidence] = useState<Recommendation | null>(null);
   const [copilotOpen, setCopilotOpen] = useState<boolean>(false);
   const [notificationOpen, setNotificationOpen] = useState<boolean>(false);
+  const [commandPaletteOpen, setCommandPaletteOpen] = useState<boolean>(false);
+  const [focusMode, setFocusMode] = useState<boolean>(false);
   const [alerts, setAlerts] = useState<EarlyWarningAlert[]>(EARLY_WARNING_ALERTS);
   const [recommendations, setRecommendations] = useState<Recommendation[]>(RECOMMENDATIONS);
   const [isOfflineFixture, setIsOfflineFixture] = useState<boolean>(false);
+
+  // Esc key exits Focus Mode
+  React.useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && focusMode) {
+        setFocusMode(false);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [focusMode]);
 
   React.useEffect(() => {
     fetch('/api/overview')
@@ -80,6 +98,8 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
   }, []);
 
   const t = translations[language];
+
+  const toggleFocusMode = () => setFocusMode(prev => !prev);
 
   const acknowledgeAlert = (id: string) => {
     setAlerts(prev => prev.map(a => a.id === id ? { ...a, acknowledged: true } : a));
@@ -116,6 +136,11 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
       setCopilotOpen,
       notificationOpen,
       setNotificationOpen,
+      commandPaletteOpen,
+      setCommandPaletteOpen,
+      focusMode,
+      setFocusMode,
+      toggleFocusMode,
       alerts,
       acknowledgeAlert,
       recommendations,

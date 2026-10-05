@@ -19,20 +19,20 @@ export const GlassPanel: React.FC<GlassPanelProps> = ({
   action
 }) => {
   return (
-    <section className={clsx('glass-panel rounded-3xl p-6 sm:p-7 relative overflow-hidden', className)}>
+    <section className={clsx('glass rounded-3xl p-6 sm:p-7 relative overflow-hidden', className)}>
       {/* Top subtle highlight */}
-      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white to-transparent pointer-events-none" />
+      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[var(--highlight)] to-transparent pointer-events-none" />
       
       {(title || action) && (
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6 pb-4 border-b border-slate-200/60">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6 pb-4 border-b border-[var(--border)]">
           <div>
             {title && (
-              <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-slate-900">
+              <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-[var(--text)]">
                 {title}
               </h2>
             )}
             {subtitle && (
-              <p className="text-xs sm:text-sm text-slate-500 mt-0.5">
+              <p className="text-xs sm:text-sm text-[var(--text-muted)] mt-0.5">
                 {subtitle}
               </p>
             )}

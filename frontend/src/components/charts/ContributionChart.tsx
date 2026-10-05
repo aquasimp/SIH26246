@@ -23,24 +23,24 @@ export const ContributionChart: React.FC<ContributionChartProps> = ({
 }) => {
   const getIcon = (type: ExplainabilityFactor['signalType']) => {
     switch (type) {
-      case 'vacancy': return <TrendingUp className="w-4 h-4 text-emerald-600" />;
-      case 'employer': return <Building2 className="w-4 h-4 text-blue-600" />;
-      case 'capex': return <Briefcase className="w-4 h-4 text-indigo-600" />;
-      case 'skill': return <Sparkles className="w-4 h-4 text-amber-600" />;
-      case 'seasonality': return <Calendar className="w-4 h-4 text-slate-500" />;
+      case 'vacancy': return <TrendingUp className="w-4 h-4 text-[var(--balanced)]" />;
+      case 'employer': return <Building2 className="w-4 h-4 text-[var(--brand)]" />;
+      case 'capex': return <Briefcase className="w-4 h-4 text-[var(--brand-secondary)]" />;
+      case 'skill': return <Sparkles className="w-4 h-4 text-[var(--warning)]" />;
+      case 'seasonality': return <Calendar className="w-4 h-4 text-[var(--text-faint)]" />;
     }
   };
 
   return (
     <div className="w-full">
       <div className="mb-4">
-        <h3 className="text-base font-bold text-slate-900 flex items-center gap-2">
+        <h3 className="text-base font-bold text-[var(--text)] flex items-center gap-2">
           <span>Why is demand changing for {occupationTitle}?</span>
-          <span className="text-[11px] font-semibold px-2 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">
+          <span className="text-[11px] font-mono font-semibold px-2 py-0.5 rounded-full bg-[var(--brand)]/10 text-[var(--brand)] border border-[var(--brand)]/20">
             Attribution & Factor Contribution
           </span>
         </h3>
-        <p className="text-xs text-slate-500 mt-1">
+        <p className="text-xs text-[var(--text-muted)] mt-1">
           Decomposition of regional macro-economic drivers, employer hiring activity, and seasonal shifts influencing the ML forecast.
         </p>
       </div>
@@ -53,28 +53,28 @@ export const ContributionChart: React.FC<ContributionChartProps> = ({
           return (
             <div
               key={index}
-              className="p-3.5 rounded-2xl bg-white/70 border border-slate-200/80 hover:bg-white transition-all shadow-xs"
+              className="p-3.5 rounded-2xl glass border border-[var(--border)] transition-all shadow-xs"
             >
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2">
                 <div className="flex items-center gap-2.5">
-                  <div className="p-1.5 rounded-xl bg-slate-100 shrink-0">
+                  <div className="p-1.5 rounded-xl glass-strong shrink-0">
                     {getIcon(factor.signalType)}
                   </div>
                   <div>
-                    <span className="text-xs sm:text-sm font-bold text-slate-800">
+                    <span className="text-xs sm:text-sm font-bold text-[var(--text)]">
                       {factor.name}
                     </span>
-                    <span className="text-[10px] text-slate-400 font-semibold uppercase tracking-wider ml-2">
+                    <span className="text-[10px] text-[var(--text-faint)] font-mono uppercase tracking-wider ml-2">
                       [{factor.signalType}]
                     </span>
                   </div>
                 </div>
 
                 <div className={clsx(
-                  'px-2.5 py-1 rounded-xl text-xs font-bold inline-flex items-center gap-1 self-start sm:self-auto font-mono',
+                  'px-2.5 py-1 rounded-xl text-xs font-bold inline-flex items-center gap-1 self-start sm:self-auto font-mono border',
                   isPositive
-                    ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
-                    : 'bg-red-50 text-red-700 border border-red-200'
+                    ? 'bg-[var(--balanced)]/10 text-[var(--balanced)] border-[var(--balanced)]/20'
+                    : 'bg-[var(--severe)]/10 text-[var(--severe)] border-[var(--severe)]/20'
                 )}>
                   {isPositive ? '+' : ''}{factor.impactPercent}%
                   {isPositive ? <TrendingUp className="w-3 h-3" /> : <TrendingDown className="w-3 h-3" />}
@@ -82,19 +82,19 @@ export const ContributionChart: React.FC<ContributionChartProps> = ({
               </div>
 
               {/* Progress bar visual */}
-              <div className="w-full h-2 rounded-full bg-slate-100 overflow-hidden relative mb-1.5">
+              <div className="w-full h-2 rounded-full bg-[var(--border)] overflow-hidden relative mb-1.5">
                 <div
                   className={clsx(
                     'h-full rounded-full transition-all duration-500',
                     isPositive 
-                      ? 'bg-gradient-to-r from-emerald-500 to-teal-500' 
-                      : 'bg-gradient-to-r from-red-500 to-orange-500'
+                      ? 'bg-[var(--balanced)]' 
+                      : 'bg-[var(--severe)]'
                   )}
                   style={{ width: `${Math.min(100, absVal * 2.5)}%` }}
                 />
               </div>
 
-              <p className="text-[11px] text-slate-600 leading-relaxed">
+              <p className="text-[11px] text-[var(--text-muted)] leading-relaxed">
                 {factor.description}
               </p>
             </div>

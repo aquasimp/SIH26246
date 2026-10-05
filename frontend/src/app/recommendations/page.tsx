@@ -4,10 +4,11 @@ import React from 'react';
 import Link from 'next/link';
 import { useApp } from '@/lib/store';
 import { FilterBar } from '@/components/layout/FilterBar';
-import { GlassPanel } from '@/components/glass/GlassPanel';
+import { Badge } from '@/components/common/Badge';
+import { Provenance } from '@/components/common/Provenance';
 import { RECOMMENDATIONS } from '@/lib/demoData';
 import { Recommendation } from '@/lib/types';
-import { clsx } from 'clsx';
+import { toast } from 'sonner';
 import { 
   Lightbulb, 
   ArrowRight, 
@@ -45,6 +46,12 @@ export default function RecommendationsPage() {
       ])
     ];
     downloadCSV('KaushalPulse_Recommended_Interventions_Dossier.csv', rows);
+    toast.success('Complete policy interventions dossier exported to CSV');
+  };
+
+  const handleApprove = (id: string, title: string) => {
+    approveRecommendation(id);
+    toast.success(`Draft policy intervention approved: ${id}`);
   };
 
   return (
@@ -53,21 +60,23 @@ export default function RecommendationsPage() {
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
         <div>
           <div className="flex items-center gap-2 mb-1.5">
-            <span className="px-2.5 py-0.5 rounded-full text-[11px] font-extrabold uppercase tracking-wider bg-emerald-100 text-emerald-800 border border-emerald-200">
+            <span className="px-2.5 py-0.5 rounded-full text-[11px] font-mono font-extrabold uppercase tracking-wider bg-[var(--brand)]/15 text-[var(--brand)] border border-[var(--brand)]/30">
               Government Decision Support Pipeline
             </span>
+            <Provenance source="Official SIH" />
           </div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-[var(--text)] tracking-tight">
             Recommended Policy Interventions
           </h1>
-          <p className="text-sm text-slate-600 mt-1 max-w-2xl leading-relaxed">
+          <p className="text-sm text-[var(--text-muted)] mt-1 max-w-2xl leading-relaxed">
             Algorithmic seat reallocation, new NSQF qualification rollouts, and employer co-investment blueprints ranked by expected labour deficit mitigation.
           </p>
         </div>
 
         <button
+          type="button"
           onClick={handleExportAll}
-          className="px-4 py-2 rounded-xl liquid-control text-xs sm:text-sm font-semibold text-slate-700 hover:text-slate-900 border border-slate-200 flex items-center gap-2 self-start md:self-auto cursor-pointer"
+          className="px-4 py-2 rounded-xl liquid-control text-xs sm:text-sm font-semibold text-[var(--text)] hover:bg-[var(--glass-strong)] border border-[var(--border)] flex items-center gap-2 self-start md:self-auto cursor-pointer"
         >
           <Download className="w-4 h-4" />
           <span>Export All Interventions</span>
@@ -76,38 +85,38 @@ export default function RecommendationsPage() {
 
       <FilterBar />
 
-      {/* Ranked Recommendation Feed (Sections 28 & 29) */}
+      {/* Ranked Recommendation Feed (§6.3) */}
       <div className="space-y-5">
         {recommendations.map((rec) => (
           <div
             key={rec.id}
-            className="p-6 rounded-3xl bg-white/90 border border-slate-200/90 shadow-sm flex flex-col justify-between hover:border-blue-300 transition-all relative overflow-hidden"
+            className="p-5 sm:p-6 rounded-3xl glass-strong border border-[var(--border)] shadow-md flex flex-col justify-between hover:border-[var(--brand)] transition-all relative overflow-hidden"
           >
-            {/* Top Rank Badge & Geography */}
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-slate-100 mb-4">
-              <div className="flex items-center gap-2.5">
-                <span className="w-9 h-9 rounded-xl bg-blue-600 text-white font-extrabold flex items-center justify-center font-mono text-sm shadow-sm shadow-blue-500/30">
+            {/* Top Rank Badge in Brand Ring & Geography (§6.3) */}
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-[var(--border)] mb-4">
+              <div className="flex items-center gap-3">
+                {/* Brand Ring for Rank Number (§6.3) */}
+                <div className="w-10 h-10 rounded-full border-2 border-[var(--brand)] bg-[var(--brand)]/10 text-[var(--brand)] font-mono font-extrabold flex items-center justify-center text-sm shadow-xs shrink-0">
                   #{String(rec.rank).padStart(2, '0')}
-                </span>
+                </div>
                 <div>
-                  <span className="text-xs font-bold text-slate-400 uppercase tracking-wider font-mono">
+                  <span className="text-xs font-bold text-[var(--text-faint)] uppercase tracking-wider font-mono">
                     {rec.id}
                   </span>
-                  <div className="text-sm font-bold text-slate-800">
+                  <div className="text-sm font-bold text-[var(--text)]">
                     {rec.district}, {rec.state}
                   </div>
                 </div>
               </div>
 
-              <div className="flex items-center gap-3">
-                <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 flex items-center gap-1 font-mono">
-                  <ShieldCheck className="w-3.5 h-3.5" />
+              <div className="flex items-center gap-2.5">
+                <Badge variant="balanced" size="sm">
                   Confidence: {rec.confidence}%
-                </span>
+                </Badge>
 
                 {rec.status === 'approved' && (
-                  <span className="text-xs font-bold px-3 py-1 rounded-full bg-blue-50 text-blue-700 border border-blue-200 flex items-center gap-1">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-blue-600" />
+                  <span className="text-xs font-bold px-3 py-1 rounded-full bg-[var(--brand)]/15 text-[var(--brand)] border border-[var(--brand)]/30 flex items-center gap-1 font-mono">
+                    <CheckCircle2 className="w-3.5 h-3.5" />
                     Draft Approved
                   </span>
                 )}
@@ -116,87 +125,89 @@ export default function RecommendationsPage() {
 
             {/* Recommendation Title & Rationale */}
             <div className="mb-4">
-              <h2 className="text-lg sm:text-xl font-extrabold text-slate-900 tracking-tight mb-1.5">
+              <h2 className="text-lg sm:text-xl font-extrabold text-[var(--text)] tracking-tight mb-1.5">
                 {rec.title}
               </h2>
-              <p className="text-xs sm:text-sm text-slate-600 leading-relaxed max-w-4xl">
+              <p className="text-xs sm:text-sm text-[var(--text-muted)] leading-relaxed max-w-4xl">
                 {rec.reason}
               </p>
             </div>
 
             {/* Reallocation Corridor Graphic (From Trade -> To Trade) */}
             {rec.fromTrade && (
-              <div className="p-3.5 rounded-2xl bg-slate-50/90 border border-slate-200/70 mb-4 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs">
+              <div className="p-3.5 rounded-2xl glass border border-[var(--border)] mb-4 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs">
                 <div className="flex-1 text-center sm:text-left">
-                  <span className="text-[10px] font-bold text-indigo-700 uppercase block">
-                    Donor Trade (Oversupplied)
+                  <span className="text-[10px] font-bold text-[var(--oversupply)] uppercase block font-mono">
+                    Capacity Donor Trade (Surplus)
                   </span>
-                  <strong className="text-slate-900 font-semibold">{rec.fromTrade}</strong>
-                  <span className="text-[10px] text-slate-500 font-mono block">NCO {rec.fromNco}</span>
+                  <strong className="text-[var(--text)] font-semibold">{rec.fromTrade}</strong>
+                  <span className="text-[10px] text-[var(--text-faint)] font-mono block">NCO {rec.fromNco}</span>
                 </div>
 
                 <div className="flex flex-col items-center shrink-0">
-                  <span className="px-2.5 py-0.5 rounded-md bg-amber-100 text-amber-900 font-extrabold text-[11px] font-mono">
+                  <span className="px-2.5 py-0.5 rounded-md bg-[var(--brand)]/15 text-[var(--brand)] font-extrabold text-[11px] font-mono border border-[var(--brand)]/30">
                     Shift {rec.recommendedSeats} Seats
                   </span>
-                  <ArrowRight className="w-5 h-5 text-slate-400 mt-1 hidden sm:block" />
+                  <ArrowRight className="w-4 h-4 text-[var(--text-faint)] mt-1 hidden sm:block" />
                 </div>
 
                 <div className="flex-1 text-center sm:text-right">
-                  <span className="text-[10px] font-bold text-orange-700 uppercase block">
+                  <span className="text-[10px] font-bold text-[var(--severe)] uppercase block font-mono">
                     Target Trade (Severe Shortage)
                   </span>
-                  <strong className="text-slate-900 font-semibold">{rec.toTrade}</strong>
-                  <span className="text-[10px] text-slate-500 font-mono block">NCO {rec.toNco}</span>
+                  <strong className="text-[var(--text)] font-semibold">{rec.toTrade}</strong>
+                  <span className="text-[10px] text-[var(--text-faint)] font-mono block">NCO {rec.toNco}</span>
                 </div>
               </div>
             )}
 
-            {/* Expected Impact Stats Grid */}
-            <div className="grid grid-cols-3 gap-3 p-3 rounded-2xl bg-white border border-slate-200/80 shadow-2xs mb-4 text-center">
+            {/* Expected Impact Stats Grid in aligned 3-column mini-grid (§6.3) */}
+            <div className="grid grid-cols-3 gap-3 p-3.5 rounded-2xl glass border border-[var(--border)] shadow-2xs mb-4 text-center">
               <div>
-                <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">
+                <span className="text-[10px] font-bold text-[var(--text-faint)] uppercase tracking-wider block">
                   Shortage Reduction
                 </span>
-                <span className="text-xl sm:text-2xl font-extrabold text-emerald-600 font-mono">
+                <span className="text-xl sm:text-2xl font-extrabold text-[var(--success)] font-mono tabular-nums">
                   -{rec.expectedImpact.gapReductionPercent}%
                 </span>
-                <span className="text-[10px] text-emerald-600 font-semibold block">Estimated Effect</span>
+                <span className="text-[10px] text-[var(--success)] font-semibold block">Estimated Closure</span>
               </div>
 
               <div>
-                <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">
+                <span className="text-[10px] font-bold text-[var(--text-faint)] uppercase tracking-wider block">
                   Supply Coverage
                 </span>
-                <span className="text-xl sm:text-2xl font-extrabold text-blue-600 font-mono">
+                <span className="text-xl sm:text-2xl font-extrabold text-[var(--brand)] font-mono tabular-nums">
                   +{rec.expectedImpact.supplyCoveragePercent}%
                 </span>
-                <span className="text-[10px] text-blue-600 font-semibold block">Employable Pool</span>
+                <span className="text-[10px] text-[var(--brand)] font-semibold block">Employable Pool</span>
               </div>
 
               <div>
-                <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">
-                  Intervention Budget
+                <span className="text-[10px] font-bold text-[var(--text-faint)] uppercase tracking-wider block">
+                  Package Cost
                 </span>
-                <span className="text-base sm:text-xl font-extrabold text-purple-700 font-mono">
+                <span className="text-base sm:text-xl font-extrabold text-[var(--text)] font-mono tabular-nums">
                   {formatINR(rec.expectedImpact.estimatedCostINR)}
                 </span>
-                <span className="text-[10px] text-purple-600 font-semibold block">Training Capex/Opex</span>
+                <span className="text-[10px] text-[var(--text-faint)] font-semibold block font-mono">₹6,500/seat retrofit</span>
               </div>
             </div>
 
-            {/* Bottom Actions Bar (Section 28: Simulate, Approve draft, Export, View evidence) */}
-            <div className="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-slate-100">
+            {/* Bottom Actions Bar (§6.3: Simulate, View Evidence, Export, Approve) */}
+            <div className="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-[var(--border)]">
               <div className="flex items-center gap-2">
                 <button
+                  type="button"
                   onClick={() => setActiveEvidence(rec)}
-                  className="px-3.5 py-2 rounded-xl liquid-control text-xs font-bold text-slate-700 hover:text-slate-900 border border-slate-200 flex items-center gap-1.5 cursor-pointer"
+                  className="px-3.5 py-2 rounded-xl liquid-control text-xs font-bold text-[var(--text)] hover:bg-[var(--glass-strong)] border border-[var(--border)] flex items-center gap-1.5 cursor-pointer"
                 >
-                  <Eye className="w-3.5 h-3.5 text-blue-600" />
+                  <Eye className="w-3.5 h-3.5 text-[var(--brand)]" />
                   <span>View Empirical Evidence</span>
                 </button>
 
                 <button
+                  type="button"
                   onClick={() => {
                     const rows = [
                       ['Policy Action ID', rec.id],
@@ -207,9 +218,11 @@ export default function RecommendationsPage() {
                       ['Confidence', `${rec.confidence}%`]
                     ];
                     downloadCSV(`MSDE_Action_${rec.id}.csv`, rows);
+                    toast.success(`Action brief for ${rec.id} downloaded`);
                   }}
-                  className="p-2 rounded-xl liquid-control text-slate-600 hover:text-slate-900 border border-slate-200 cursor-pointer"
+                  className="p-2 rounded-xl liquid-control text-[var(--text-muted)] hover:text-[var(--text)] cursor-pointer"
                   title="Export Action Brief"
+                  aria-label="Export Action Brief"
                 >
                   <Download className="w-4 h-4" />
                 </button>
@@ -217,23 +230,24 @@ export default function RecommendationsPage() {
 
               <div className="flex items-center gap-2">
                 <Link
-                  href="/scenarios"
-                  className="px-4 py-2 rounded-xl bg-amber-500 hover:bg-amber-600 text-white text-xs font-bold flex items-center gap-1.5 transition-all shadow-xs"
+                  href={`/scenarios?preset=rec0${rec.rank}`}
+                  className="px-4 py-2 rounded-xl bg-[var(--brand)] hover:opacity-90 text-white text-xs font-bold flex items-center gap-1.5 transition-all shadow-xs cursor-pointer"
                 >
-                  <Sliders className="w-4 h-4" />
+                  <Sliders className="w-4 h-4 text-amber-300" />
                   <span>Simulate in Studio</span>
                 </Link>
 
                 {rec.status !== 'approved' ? (
                   <button
-                    onClick={() => approveRecommendation(rec.id)}
-                    className="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold flex items-center gap-1.5 transition-all shadow-xs cursor-pointer"
+                    type="button"
+                    onClick={() => handleApprove(rec.id, rec.title)}
+                    className="px-4 py-2 rounded-xl bg-[var(--success)] hover:opacity-90 text-white text-xs font-bold flex items-center gap-1.5 transition-all shadow-xs cursor-pointer"
                   >
                     <CheckCircle2 className="w-4 h-4" />
                     <span>Approve Draft Action</span>
                   </button>
                 ) : (
-                  <span className="px-4 py-2 rounded-xl bg-slate-100 text-slate-600 text-xs font-bold">
+                  <span className="px-4 py-2 rounded-xl glass text-[var(--text-muted)] text-xs font-bold border border-[var(--border)]">
                     Draft Approved
                   </span>
                 )}
