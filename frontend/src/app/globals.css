@@ -8,6 +8,13 @@
     --radius-lg: 20px;
     --radius-xl: 28px;
 
+    /* Heading & Display Typography (§4.4) */
+    --font-display-stack: var(--font-display), "Archivo Narrow", "Arial Narrow", sans-serif;
+    --font-deva-display: var(--font-hi), "Noto Sans Devanagari", "Mukta", sans-serif;
+    --fs-display: clamp(2.75rem, 1.4rem + 5.6vw, 5.5rem);
+    --fs-h1: clamp(2.25rem, 1.2rem + 3.6vw, 4.25rem);
+    --fs-h2: clamp(1.625rem, 1.1rem + 1.6vw, 2.5rem);
+
     /* Base Surfaces */
     --bg: #F7F6F2;
     --bg-atmo-1: rgba(63, 81, 199, 0.07);
@@ -223,3 +230,52 @@ body::before {
 .animate-subtle-pulse {
   animation: subtle-pulse 3s infinite ease-in-out;
 }
+
+/* Heading & Display System (§4.4) */
+.display, .h1, .h2 {
+  font-family: var(--font-display-stack), var(--font-deva-display);
+  font-weight: 700;
+  text-transform: uppercase;
+  text-wrap: balance;
+  color: var(--text);
+  font-variant-numeric: lining-nums;
+}
+.display { font-size: var(--fs-display); line-height: 0.94; letter-spacing: -0.005em; max-width: 18ch; }
+.h1      { font-size: var(--fs-h1);      line-height: 0.98; letter-spacing: -0.003em; }
+.h2      { font-size: var(--fs-h2);      line-height: 1.02; }
+.eyebrow { font: 600 0.75rem/1 var(--font-mono); letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-faint); }
+
+/* Hindi typography overrides (§4.4) */
+:lang(hi) :is(.display, .h1, .h2) {
+  font-family: var(--font-deva-display), var(--font-display-stack);
+  text-transform: none;
+  letter-spacing: 0;
+  line-height: 1.28;
+  max-width: none;
+  font-weight: 800;
+  font-stretch: 87.5%;
+}
+:lang(hi) .display { font-size: calc(var(--fs-display) * 0.9); }
+:lang(hi) .eyebrow { text-transform: none; letter-spacing: 0; font-family: var(--font-deva-display); }
+
+/* Signal Rule (§4.5) */
+.signal-rule {
+  height: 1px;
+  background: linear-gradient(90deg, var(--brand) 0 28px, var(--border-strong) 28px);
+  transform-origin: left;
+}
+@supports (animation-timeline: view()) {
+  .signal-rule {
+    animation: rule-draw linear both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 60%;
+  }
+  @keyframes rule-draw {
+    from { transform: scaleX(0); }
+    to { transform: scaleX(1); }
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .signal-rule { animation: none; }
+}
+

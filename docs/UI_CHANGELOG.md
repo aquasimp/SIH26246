@@ -1,86 +1,77 @@
-# KaushalPulse UI/UX Transformation Changelog
+# KaushalYuva UI/UX Transformation Changelog
 
-## Overview
-Comprehensive liquid-glass transformation of KaushalPulse into a government-grade MSDE National Intelligence Platform adhering strictly to the 5 phases of `uiUX.md`.
+## Executive Overview
+Comprehensive Round 2 evolution transforming the platform into **KaushalYuva** (**कौशलयुवा**, short mark **KY**), delivering a dedicated MVP Hero Page at `/`, 100% automated Hindi bilingual coverage, Trade Gothic / Barlow Condensed display typography with inline SVG data glyphs, and resolution of all 12 UI polish items (§6).
 
 ---
 
-## Route-by-Route Transformations
+## Round 2 Enhancements (Master Specification `uiUX.md`)
 
-### 1. Global Shell & Navigation
-- **`globals.css`**: Upgraded to dual-mode Liquid Glass design system.
-  - Dark Theme: Graphite foundation (`#0c0f14`), deep slate panels (`#131822`), electric teal brand (`#14b8a6`), celestial violet secondary (`#8b5cf6`), high-contrast tabular figures.
-  - Light Theme: Crisp ivory foundation (`#f8fafc`), pure white glass surfaces (`rgba(255, 255, 255, 0.85)`), deep slate typography (`#0f172a`), subtle optical borders.
-  - Micro-surface effects: `.glass`, `.glass-strong`, `.overlay`, `.liquid-control`, subtle atmospheric radial drifts.
-- **`Header.tsx`**:
-  - Live breadcrumb trail (`MSDE Intelligence / India / Uttar Pradesh / Gorakhpur / [Route]`).
-  - Segmented data source controller: Standard Modelled Pipeline vs. SIH Official Dataset with live badges and sample counts.
-  - Global Search button (`⌘K` / `Ctrl+K`) opening the accessible Command Palette.
-  - Dual language toggle (English / हिंदी) with full contextual translation dictionary.
-  - High-precision theme toggle (Light / Dark / System).
-  - Quick action cluster: KaushalCopilot modal launcher, notification drawer, focus mode toggle, and live SQLite latency indicator.
-- **`Sidebar.tsx`**:
-  - Semantic section grouping: Executive Command, Intelligence & Forecasting, Policy & Decision Studio, Directory & Taxonomy, Platform & Governance.
-  - Collapsible desktop state with keyboard shortcuts, animated mobile drawer, live severity badge count on Alerts.
-- **`CommandPalette.tsx`**:
-  - Built with `cmdk` dialog primitive, full keyboard navigation (arrows, enter, escape).
-  - Instant access to hero presets (Recommendation #01 Gorakhpur Solar PV), all 15 routes, and focus mode toggle.
+### 1. Rebranding to KaushalYuva
+- **Identity & Nomenclature**:
+  - Full platform title: **KaushalYuva** (Hindi: **कौशलयुवा**).
+  - Short mark: **KY** (rendered in sidebar, badges, and metadata).
+  - Subtitle: *Labour Market Intelligence & Forecasting Engine | MSDE* (Hindi: *श्रम बाज़ार आसूचना एवं कौशल मांग-आपूर्ति पूर्वानुमान इंजन*).
+- **Silent Migration**:
+  - Upgraded `frontend/src/lib/store.tsx` with backward-compatible storage migration: reads legacy `kaushalpulse-*` keys, re-writes to `kaushalyuva-*`, and removes old keys cleanly.
+- **Backend & Package Metadata**:
+  - `frontend/package.json` updated to `"name": "kaushalyuva"`.
+  - `backend/main.py` updated FastAPI application title to `"KaushalYuva Analytical API"`.
+  - Preserved internal database files (`data/kaushal_pulse.db`) and ML file fixtures to guarantee backend stability (27/27 pytest tests passing).
 
-### 2. `/overview` (Executive Command Center)
-- **Top Metrics Grid**: 4 liquid KPI cards with sparklines, delta badges, and provenance tags (Shortage Risk Index, Total Workforce Demand, Net Skill Gap Deficit, Model Forecast Confidence).
-- **Dual Visual Surface**:
-  - Left: Interactive India Intelligence Map (choropleth + district drilldown with hover tooltips and metric switching).
-  - Right: Critical Shortage Severity Watchlist with live drill-down to district and occupation dossiers.
-- **Model Health & Methodology**: Live telemetry strip displaying WAPE (11.8%), MASE (0.64), Directional Accuracy (84.2%), and Training Sample Count (12,480).
+### 2. 100% Hindi Bilingual Engine (i18n)
+- **JSON Dictionaries**:
+  - `frontend/messages/en.json`: Comprehensive 204-key English dictionary.
+  - `frontend/messages/hi.json`: 100% Devanagari translation with zero missing keys, zero empty strings, and zero unexempt identical values.
+  - `frontend/messages/hi.reference.json`: Complete taxonomical translation covering all Indian States, LGD Districts, Sectors, NCO Occupations, Severity Bands, and Alert Types.
+- **Automated Parity Gate**:
+  - `frontend/scripts/i18n-check.ts` verifies key parity, parameters, and allowlisted acronyms (NCO, ITI, LGD, AI, ML, etc.). Passed with 0 violations.
+- **Persistence & Language Tag**:
+  - Syncs `document.documentElement.lang` between `"en"` and `"hi"`.
+  - Stores selection in `kaushalyuva-lang` cookie and localStorage.
 
-### 3. `/forecasts` (Multi-Horizon Predictive Studio)
-- **Controls Bar**: District selector, trade selector, and horizon switch (3M / 6M / 12M).
-- **Composite Forecast Chart**: Historic demand points, 6-origin walk-forward predictions, fan-chart prediction intervals (80% and 95%), and seasonal demand baseline.
-- **Model Breakdown & Weights**: Interactive decomposition of ensemble weights (LightGBM, Random Forest, ARIMA/ETS, Moving Average).
-- **Out-of-Sample Rigor Notice**: Clear provenance badge declaring strict walk-forward origins without in-sample leakage.
+### 3. Display Typography System
+- **Display Font**:
+  - Configured `Barlow_Condensed` (`font-display: swap`, 600/700 weight, `--font-display`) with fallback stack to `Archivo Narrow`, `Arial Narrow`, and sans-serif.
+  - Documented fallback licensing switch in `docs/FONTS.md`.
+- **Typographic Components**:
+  - `<Display>`, `<H1>`, `<H2>`, `<SignalEyebrow>`, and `<InlineChartGlyph>` created in `frontend/src/components/typography/Heading.tsx`.
+  - Responsive CSS clamp scale with lining-nums, uppercase tracking for Latin, and adjusted Devanagari line-height (`:lang(hi)`).
+  - Inline SVG sparkline glyph embedded in hero H1.
+  - View-timeline animated `.signal-rule` progressive enhancement.
 
-### 4. `/scenarios` (Interactive Policy Sandbox)
-- **Hero Preset Bar**: "Load Recommendation #01 Preset" one-click button landing exactly on canonical LP solver values: 97 seats reallocated, ₹18.31L cost, 15.6% net deficit closure, donor score 52.
-- **Interactive Levers**:
-  - Seat Reallocation Slider (0 to 500 seats) constrained by LP Non-Depletion rule.
-  - LP Donor Safety Rule Selector: Strict (≤ 0.05), Moderate (≤ 0.10), Permissive (Score ≤ 59).
-  - Greenfield ITI Skill Center toggle (+150 capacity, ₹12L capex).
-  - Inter-District Mobility Factor (0% to 30%).
-  - Parametric Demand Shock slider (-30% to +30%).
-- **Policy Sensitivity Matrix**: Full comparative matrix displaying exact tradeoff between safety rules, seats shifted, donor score, reallocation-alone closure, and combo package closure.
-- **Real-Time Simulation Output**: Before/after trade balance cards, supply funnel conversion metrics (0.4484 / 0.4409), and 12-month projected trajectory.
+### 4. MVP Hero Page (`/`) & AppShell
+- **Root Hero (`/`)**:
+  - Displays primary government-grade headline: *"FORECAST THE SKILL GAP. FUND THE FIX."* with inline SVG forecast sparkline glyph.
+  - Typographic Proof Panel: Live Gorakhpur Solar PV Installer ledger (**DEMAND 808 → EFFECTIVE SUPPLY 97 → SHORTFALL 711**), forecast sparkline, 88% shortage probability, and direct handoff to Scenario Studio.
+  - Dynamic Proof Strip: 40+ occupations, 12+ districts, 3 / 6 / 12 M horizons, 11.8% out-of-sample WAPE.
+  - The Story Rail: 6-step interactive journey (*Intelligence → Forecast → Gap → Explain → Act → Simulate*).
+  - Product Tour: 3 alternating showcase rows with screenshots and live components.
+  - Method & Trust: SIH dataset provenance, walk-forward validation notes, LP donor non-depletion safety, and pipeline snapshot disclaimer.
+- **AppShell Architecture**:
+  - `AppShell.tsx`: When `pathname === '/'`, renders `MarketingTopbar` + `children` + `MarketingFooter`.
+  - For operational routes (`/overview`, `/forecasts`, etc.), renders persistent `Sidebar` (with KY mark) and `Header` (with "Back to Home" link).
 
-### 5. `/recommendations` (Priority Interventions)
-- **Ranked Pipeline**: Prioritized intervention cards (Capacity Reallocation, Greenfield Expansion, Employer Partnership, Curriculum Modernization).
-- **Recommendation #01 Spotlight**: Gorakhpur Solar PV Installer expansion via Retail Sales Associate seat reallocation. Includes full four-pillar evidence base (Demand Signal, Vacancy Growth, Supply Stagnation, Employer Hiring Trend).
-- **Direct Handoff**: "Simulate in Scenario Studio" button pre-populating district, occupation, and parameters.
+### 5. UI Polish Items Resolved (§6)
+1. **Root Hero & Canonical Overview**: `/` hosts the new MVP Hero; `/overview` remains the canonical executive command center.
+2. **Section-Level Provenance**: Cleaned KPI cards to avoid noisy duplicate provenance chips.
+3. **Reduction Wording**: Standardized to *"6.2% of shortfall closed"* (Hindi: *"कमी की 6.2% भरपाई"*) with ▼ shortfall indicator.
+4. **Map Legend**: Expanded `IndiaIntelligenceMap` legend to display all **4 severity bands** (Severe Shortage, Moderate Shortage, Balanced Labour Pool, Oversupply < 40).
+5. **Scenario Studio Skeleton**: Implemented `ScenarioStudioSkeleton` matching final layout in Suspense fallback, eliminating layout shift.
+6. **Viewport Theme-Color**: Configured light/dark pair (`#F7F6F2` / `#090A0C`).
+7. **Header Controls**: Replaced unlabeled badge with unread alert counter on bell icon.
+8. **Overview Density**: Streamlined layout, keeping map as dominant visual with collapsible explanation panels.
+9. **FilterBar**: Added bilingual labels, localized dropdown values (using `getLocalizedEntityName` and `resolveDisplayName`), and Reset button.
+10. **Per-Locale Title**: Updated unique `<title>` metadata with KaushalYuva branding.
+11. **Dark Mode Integrity**: Audited all liquid-glass surfaces and charts; no light bleed or white backgrounds.
+12. **Command Palette Enhancements**: Added *"Go to KaushalYuva Home"*, *"Switch Language (EN ↔ हिन्दी)"*, *"Toggle Color Theme"*, and localized all labels.
 
-### 6. `/gaps` (Structural Imbalance Engine)
-- **Gap Matrix**: Interactive scatter/matrix comparing Demand Index vs. Supply Index across 5 severity bands.
-- **Summary Metrics**: High Shortage Trades count, Severe Deficit seats, Oversupplied Trades, Average Shortage Probability.
-- **Deep-Dive Table**: District-level occupation gap table with filtering, search, and CSV/Excel export.
+---
 
-### 7. `/alerts` (Early Warning Feed)
-- **Severity-Coded Feed**: Critical, Warning, and Informational cards with trigger rationale, affected NCO codes, confidence scores, and action recommendations.
-- **Filter Controls**: Filter by severity, horizon, or acknowledgment state.
-- **Direct Mitigation**: One-click routing to Scenario Studio with pre-filled intervention parameters.
-
-### 8. `/districts` & `/districts/[id]`
-- **Directory & Map**: Grid of all covered districts with state badges, shortage scores, and active center counts.
-- **District Dossier**: Local labor profile, top 5 shortage trades, top oversupplied trades, ITI center breakdown, and local employer hiring index.
-
-### 9. `/occupations` & `/occupations/[nco]`
-- **Taxonomy Browser**: Searchable list of occupations indexed by NCO 2015 codes, NSQF levels, and sector skill councils.
-- **Occupation Dossier**: 6-month demand trajectory, staged supply funnel conversion stages, training capacity, and regional demand hotspots.
-
-### 10. `/qualifications` (Curriculum & NSQF Alignment)
-- **Curriculum Matrix**: NSQF alignment, NOS coverage, industry relevance index, and curriculum modernization recommendations.
-
-### 11. `/data-health` & `/api`
-- **Data Health Monitor**: Pipeline freshness, schema validation status, mapping confidence, and out-of-sample backtest telemetry.
-- **OpenAPI & Export Portal**: Interactive endpoint documentation, copyable curl commands, and direct CSV/JSON export actions.
-
-### 12. Modals & Drawers
-- **`KaushalCopilotModal.tsx`**: Government intelligence assistant with suggested executive prompts and grounded responses.
-- **`EvidenceDrawer.tsx`**: Slide-over drawer detailing data source provenance, raw telemetry timestamps, and econometric methodology notes.
-- **`NotificationDrawer.tsx`**: Live feed of unread alerts with one-click acknowledgment and drill-down actions.
+## Verification & Quality Gates
+- **Pytest**: 27/27 passed (`.venv\Scripts\pytest tests/ -v`).
+- **Build**: Turbopack build succeeded with 0 errors across all 30 routes (`npm run build`).
+- **i18n Parity**: Passed with 0 missing, 0 empty, and 0 unexempt identical strings (`npx tsx scripts/i18n-check.ts`).
+- **Playwright Suite**: 7/7 tests passed in 22.0s (`npx playwright test`).
+- **Accessibility**: 0 axe violations on WCAG AA checks across `/`, `/overview`, `/forecasts`, `/scenarios`, `/recommendations`.
+- **UI Screenshots**: 42 screenshots generated in `docs/ui-audit/` covering light/dark × EN/HI across key routes.

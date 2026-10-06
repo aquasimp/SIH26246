@@ -1,15 +1,10 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, JetBrains_Mono, Noto_Sans_Devanagari } from "next/font/google";
+import { displayFont } from "@/fonts/display";
 import "./globals.css";
 import { Providers } from "./providers";
 import { AppProvider } from "@/lib/store";
-import { Sidebar } from "@/components/layout/Sidebar";
-import { Header } from "@/components/layout/Header";
-import { EvidenceDrawer } from "@/components/modals/EvidenceDrawer";
-import { KaushalCopilotModal } from "@/components/modals/KaushalCopilotModal";
-import { NotificationDrawer } from "@/components/modals/NotificationDrawer";
-import { CommandPaletteContainer } from "@/components/modals/CommandPaletteContainer";
-import { Toaster } from "sonner";
+import { AppShell } from "@/components/layout/AppShell";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -38,7 +33,7 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: "KaushalPulse — AI-Enabled Labour Market Intelligence & Skill Demand-Supply Forecasting Engine | MSDE",
+  title: "KaushalYuva — AI-Enabled Labour Market Intelligence & Skill Demand-Supply Forecasting Engine | MSDE",
   description: "Executive national intelligence platform predicting skill shortages, training oversupply, and policy interventions for Ministry of Skill Development and Entrepreneurship (MSDE).",
   icons: {
     icon: "/favicon.ico",
@@ -54,7 +49,7 @@ export default function RootLayout({
     <html 
       lang="en" 
       suppressHydrationWarning 
-      className={`${inter.variable} ${jetbrainsMono.variable} ${notoDevanagari.variable} scroll-smooth`}
+      className={`${inter.variable} ${jetbrainsMono.variable} ${notoDevanagari.variable} ${displayFont.variable} scroll-smooth`}
     >
       <body className="min-h-screen text-[var(--text)] bg-[var(--bg)] antialiased selection:bg-[var(--brand)] selection:text-white">
         {/* Skip to Content for WCAG AA compliance */}
@@ -67,25 +62,9 @@ export default function RootLayout({
 
         <Providers>
           <AppProvider>
-            <div className="flex min-h-screen w-full relative">
-              {/* Left Liquid Glass Sidebar */}
-              <Sidebar />
-
-              {/* Main Workspace Area */}
-              <div className="flex-1 flex flex-col min-w-0 transition-all">
-                <Header />
-                <main id="main-content" tabIndex={-1} className="flex-1 p-3 sm:p-6 lg:p-8 max-w-7xl w-full mx-auto outline-hidden">
-                  {children}
-                </main>
-              </div>
-            </div>
-
-            {/* Global Portals & Drawers */}
-            <CommandPaletteContainer />
-            <EvidenceDrawer />
-            <KaushalCopilotModal />
-            <NotificationDrawer />
-            <Toaster richColors position="bottom-right" />
+            <AppShell>
+              {children}
+            </AppShell>
           </AppProvider>
         </Providers>
       </body>

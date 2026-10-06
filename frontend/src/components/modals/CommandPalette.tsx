@@ -18,7 +18,9 @@ import {
   FileText, 
   Moon, 
   Sun,
-  Maximize2
+  Maximize2,
+  Home,
+  Languages
 } from 'lucide-react';
 
 interface CommandPaletteProps {
@@ -30,7 +32,7 @@ interface CommandPaletteProps {
 export function CommandPalette({ open, onOpenChange, onToggleFocusMode }: CommandPaletteProps) {
   const router = useRouter();
   const { theme, setTheme } = useTheme();
-  const { setSelectedDistrict, setSelectedOccupationNco } = useApp();
+  const { setSelectedDistrict, setSelectedOccupationNco, language, setLanguage, t } = useApp();
 
   // Listen for Ctrl+K / Cmd+K and Escape
   useEffect(() => {
@@ -55,11 +57,13 @@ export function CommandPalette({ open, onOpenChange, onToggleFocusMode }: Comman
 
   if (!open) return null;
 
+  const isHi = language === 'hi';
+
   return (
     <div
       role="dialog"
       aria-modal="true"
-      aria-label="Command Palette"
+      aria-label={isHi ? "कमांड पैलेट" : "Command Palette"}
       className="fixed inset-0 z-50 flex items-start justify-center pt-20 p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-150"
       onClick={() => onOpenChange(false)}
     >
@@ -67,11 +71,11 @@ export function CommandPalette({ open, onOpenChange, onToggleFocusMode }: Comman
         className="w-full max-w-2xl overlay rounded-2xl border border-[var(--border-strong)] shadow-2xl overflow-hidden animate-in zoom-in-95 duration-150"
         onClick={(e) => e.stopPropagation()}
       >
-        <Command label="National Intelligence Command Palette" className="w-full">
+        <Command label={isHi ? "राष्ट्रीय इंटेलिजेंस कमांड पैलेट" : "National Intelligence Command Palette"} className="w-full">
           <div className="flex items-center gap-3 px-4 py-3 border-b border-[var(--border)]">
             <Search className="w-4 h-4 text-[var(--text-faint)]" />
             <Command.Input
-              placeholder="Search intelligence, districts, NCO codes, policy presets... (Esc to close)"
+              placeholder={isHi ? "इंटेलिजेंस, ज़िले, NCO कोड, नीतियां खोजें... (बंद करने के लिए Esc)" : "Search intelligence, districts, NCO codes, policy presets... (Esc to close)"}
               className="w-full bg-transparent text-sm text-[var(--text)] placeholder:text-[var(--text-faint)] focus:outline-hidden"
               autoFocus
             />
@@ -82,11 +86,36 @@ export function CommandPalette({ open, onOpenChange, onToggleFocusMode }: Comman
 
           <Command.List className="max-h-96 overflow-y-auto p-2 text-xs space-y-1">
             <Command.Empty className="p-6 text-center text-sm text-[var(--text-muted)]">
-              No matching intelligence, districts, or actions found.
+              {isHi ? "कोई मेल खाता परिणाम नहीं मिला।" : "No matching intelligence, districts, or actions found."}
             </Command.Empty>
 
             {/* Quick Actions */}
-            <Command.Group heading={<span className="px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-[var(--text-faint)] block">Hero Presets & Actions</span>}>
+            <Command.Group heading={<span className="px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-[var(--text-faint)] block">{isHi ? "त्वरित कार्य व प्रीसेट" : "Quick Actions & Presets"}</span>}>
+              {/* Go to Home */}
+              <Command.Item
+                onSelect={() => handleSelect(() => router.push('/'))}
+                className="flex items-center gap-2.5 px-3 py-2 rounded-xl text-[var(--text)] hover:bg-[var(--glass-strong)] cursor-pointer aria-selected:bg-[var(--glass-strong)] transition-colors"
+              >
+                <Home className="w-4 h-4 text-[var(--brand)]" />
+                <div className="flex-1">
+                  <strong className="block text-[var(--text)]">{isHi ? "कौशलयुवा मुख्य पृष्ठ पर जाएं" : "Go to KaushalYuva Home"}</strong>
+                  <span className="text-[11px] text-[var(--text-muted)]">{isHi ? "एमवीपी लैंडिंग पृष्ठ व विश्लेषणात्मक लेजर" : "MVP landing page & typographic ledger"}</span>
+                </div>
+              </Command.Item>
+
+              {/* Switch Language */}
+              <Command.Item
+                onSelect={() => handleSelect(() => setLanguage(language === 'en' ? 'hi' : 'en'))}
+                className="flex items-center gap-2.5 px-3 py-2 rounded-xl text-[var(--text)] hover:bg-[var(--glass-strong)] cursor-pointer aria-selected:bg-[var(--glass-strong)] transition-colors"
+              >
+                <Languages className="w-4 h-4 text-[var(--brand)]" />
+                <div className="flex-1">
+                  <strong className="block text-[var(--text)]">{isHi ? "Switch to English" : "हिन्दी में बदलें"}</strong>
+                  <span className="text-[11px] text-[var(--text-muted)]">{isHi ? "Change language to English" : "Toggle platform language to Hindi"}</span>
+                </div>
+                <kbd className="text-[10px] font-mono text-[var(--text-faint)] bg-[var(--glass)] px-1.5 py-0.5 rounded border border-[var(--border)]">{language.toUpperCase()}</kbd>
+              </Command.Item>
+
               <Command.Item
                 onSelect={() => handleSelect(() => {
                   setSelectedDistrict('gorakhpur');
@@ -97,8 +126,8 @@ export function CommandPalette({ open, onOpenChange, onToggleFocusMode }: Comman
               >
                 <Sparkles className="w-4 h-4 text-amber-400" />
                 <div className="flex-1">
-                  <strong className="block text-[var(--text)]">Load Recommendation #01 Preset</strong>
-                  <span className="text-[11px] text-[var(--text-muted)]">97 seats • ₹18.31L cost • 6.2% alone • 15.6% combo closure • donor score 52</span>
+                  <strong className="block text-[var(--text)]">{isHi ? "अनुशंसा #01 प्रीसेट लोड करें" : "Load Recommendation #01 Preset"}</strong>
+                  <span className="text-[11px] text-[var(--text-muted)]">{isHi ? "97 सीटें • ₹18.31 लाख लागत • 6.2% एकल • 15.6% संयुक्त भरपाई • डोनर स्कोर 52" : "97 seats • ₹18.31L cost • 6.2% alone • 15.6% combo closure • donor score 52"}</span>
                 </div>
                 <kbd className="text-[10px] font-mono text-[var(--text-faint)] bg-[var(--glass)] px-1.5 py-0.5 rounded border border-[var(--border)]">Preset</kbd>
               </Command.Item>
@@ -111,8 +140,8 @@ export function CommandPalette({ open, onOpenChange, onToggleFocusMode }: Comman
               >
                 {theme === 'dark' ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4 text-blue-400" />}
                 <div className="flex-1">
-                  <strong className="block text-[var(--text)]">Toggle Color Theme</strong>
-                  <span className="text-[11px] text-[var(--text-muted)]">Switch between Graphite Dark and Ivory Light</span>
+                  <strong className="block text-[var(--text)]">{isHi ? "कलर थीम बदलें" : "Toggle Color Theme"}</strong>
+                  <span className="text-[11px] text-[var(--text-muted)]">{isHi ? "डार्क और लाइट थीम के बीच स्विच करें" : "Switch between Graphite Dark and Ivory Light"}</span>
                 </div>
               </Command.Item>
 
@@ -123,21 +152,21 @@ export function CommandPalette({ open, onOpenChange, onToggleFocusMode }: Comman
                 >
                   <Maximize2 className="w-4 h-4 text-[var(--brand)]" />
                   <div className="flex-1">
-                    <strong className="block text-[var(--text)]">Toggle Focus Mode</strong>
-                    <span className="text-[11px] text-[var(--text-muted)]">Maximize primary analytical surface for demonstration</span>
+                    <strong className="block text-[var(--text)]">{isHi ? "फोकस मोड टॉगल करें" : "Toggle Focus Mode"}</strong>
+                    <span className="text-[11px] text-[var(--text-muted)]">{isHi ? "विश्लेषणात्मक कार्यक्षेत्र को अधिकतम करें" : "Maximize primary analytical surface for demonstration"}</span>
                   </div>
                 </Command.Item>
               )}
             </Command.Group>
 
             {/* Navigation Routes */}
-            <Command.Group heading={<span className="px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-[var(--text-faint)] block mt-2">Intelligence Routes</span>}>
+            <Command.Group heading={<span className="px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-[var(--text-faint)] block mt-2">{isHi ? "इंटेलिजेंस मार्ग" : "Intelligence Routes"}</span>}>
               <Command.Item
                 onSelect={() => handleSelect(() => router.push('/overview'))}
                 className="flex items-center gap-2.5 px-3 py-2 rounded-xl text-[var(--text)] hover:bg-[var(--glass-strong)] cursor-pointer aria-selected:bg-[var(--glass-strong)]"
               >
                 <Compass className="w-4 h-4 text-[var(--brand)]" />
-                <span>Overview Dashboard</span>
+                <span>{t.nav.overview}</span>
               </Command.Item>
 
               <Command.Item
@@ -145,7 +174,7 @@ export function CommandPalette({ open, onOpenChange, onToggleFocusMode }: Comman
                 className="flex items-center gap-2.5 px-3 py-2 rounded-xl text-[var(--text)] hover:bg-[var(--glass-strong)] cursor-pointer aria-selected:bg-[var(--glass-strong)]"
               >
                 <FileText className="w-4 h-4 text-[var(--brand)]" />
-                <span>Demand Forecasts (3M / 6M / 12M Out-of-Sample)</span>
+                <span>{isHi ? "मांग पूर्वानुमान (3M / 6M / 12M आउट-ऑफ़-सैंपल)" : "Demand Forecasts (3M / 6M / 12M Out-of-Sample)"}</span>
               </Command.Item>
 
               <Command.Item
@@ -153,7 +182,7 @@ export function CommandPalette({ open, onOpenChange, onToggleFocusMode }: Comman
                 className="flex items-center gap-2.5 px-3 py-2 rounded-xl text-[var(--text)] hover:bg-[var(--glass-strong)] cursor-pointer aria-selected:bg-[var(--glass-strong)]"
               >
                 <ShieldAlert className="w-4 h-4 text-[var(--severe)]" />
-                <span>Skill Gaps & Structural Shortages</span>
+                <span>{isHi ? "कौशल अंतराल व संरचनात्मक कमियां" : "Skill Gaps & Structural Shortages"}</span>
               </Command.Item>
 
               <Command.Item
@@ -161,7 +190,7 @@ export function CommandPalette({ open, onOpenChange, onToggleFocusMode }: Comman
                 className="flex items-center gap-2.5 px-3 py-2 rounded-xl text-[var(--text)] hover:bg-[var(--glass-strong)] cursor-pointer aria-selected:bg-[var(--glass-strong)]"
               >
                 <Sparkles className="w-4 h-4 text-[var(--brand-secondary)]" />
-                <span>Government Priority Recommendations</span>
+                <span>{isHi ? "सरकारी प्राथमिकता अनुशंसाएं" : "Government Priority Recommendations"}</span>
               </Command.Item>
 
               <Command.Item
@@ -169,7 +198,7 @@ export function CommandPalette({ open, onOpenChange, onToggleFocusMode }: Comman
                 className="flex items-center gap-2.5 px-3 py-2 rounded-xl text-[var(--text)] hover:bg-[var(--glass-strong)] cursor-pointer aria-selected:bg-[var(--glass-strong)]"
               >
                 <Sliders className="w-4 h-4 text-amber-500" />
-                <span>Scenario Studio (Interactive Policy Sandbox)</span>
+                <span>{isHi ? "परिदृश्य स्टूडियो (इंटरैक्टिव नीति सैंडबॉक्स)" : "Scenario Studio (Interactive Policy Sandbox)"}</span>
               </Command.Item>
 
               <Command.Item
@@ -177,7 +206,7 @@ export function CommandPalette({ open, onOpenChange, onToggleFocusMode }: Comman
                 className="flex items-center gap-2.5 px-3 py-2 rounded-xl text-[var(--text)] hover:bg-[var(--glass-strong)] cursor-pointer aria-selected:bg-[var(--glass-strong)]"
               >
                 <MapPin className="w-4 h-4 text-[var(--brand)]" />
-                <span>District Intelligence Explorer</span>
+                <span>{isHi ? "ज़िला इंटेलिजेंस एक्सप्लोरर" : "District Intelligence Explorer"}</span>
               </Command.Item>
 
               <Command.Item
@@ -185,12 +214,12 @@ export function CommandPalette({ open, onOpenChange, onToggleFocusMode }: Comman
                 className="flex items-center gap-2.5 px-3 py-2 rounded-xl text-[var(--text)] hover:bg-[var(--glass-strong)] cursor-pointer aria-selected:bg-[var(--glass-strong)]"
               >
                 <Briefcase className="w-4 h-4 text-[var(--brand)]" />
-                <span>Occupations Directory & NCO Dossiers</span>
+                <span>{isHi ? "व्यवसाय निर्देशिका व NCO डोजियर" : "Occupations Directory & NCO Dossiers"}</span>
               </Command.Item>
             </Command.Group>
 
             {/* Districts Quick Jump */}
-            <Command.Group heading={<span className="px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-[var(--text-faint)] block mt-2">Districts</span>}>
+            <Command.Group heading={<span className="px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-[var(--text-faint)] block mt-2">{isHi ? "प्रमुख ज़िले" : "Districts"}</span>}>
               <Command.Item
                 onSelect={() => handleSelect(() => {
                   setSelectedDistrict('gorakhpur');
@@ -199,7 +228,7 @@ export function CommandPalette({ open, onOpenChange, onToggleFocusMode }: Comman
                 className="flex items-center gap-2.5 px-3 py-2 rounded-xl text-[var(--text)] hover:bg-[var(--glass-strong)] cursor-pointer aria-selected:bg-[var(--glass-strong)]"
               >
                 <MapPin className="w-3.5 h-3.5 text-[var(--severe)]" />
-                <span>Gorakhpur, Uttar Pradesh (Severe Shortage • Gap 94)</span>
+                <span>{isHi ? "गोरखपुर, उत्तर प्रदेश (गंभीर कमी • गैप 94)" : "Gorakhpur, Uttar Pradesh (Severe Shortage • Gap 94)"}</span>
               </Command.Item>
 
               <Command.Item
@@ -210,7 +239,7 @@ export function CommandPalette({ open, onOpenChange, onToggleFocusMode }: Comman
                 className="flex items-center gap-2.5 px-3 py-2 rounded-xl text-[var(--text)] hover:bg-[var(--glass-strong)] cursor-pointer aria-selected:bg-[var(--glass-strong)]"
               >
                 <MapPin className="w-3.5 h-3.5 text-[var(--brand)]" />
-                <span>Pune, Maharashtra (Automotive & EV Hub)</span>
+                <span>{isHi ? "पुणे, महाराष्ट्र (ऑटोमोटिव व ईवी हब)" : "Pune, Maharashtra (Automotive & EV Hub)"}</span>
               </Command.Item>
 
               <Command.Item
@@ -221,12 +250,12 @@ export function CommandPalette({ open, onOpenChange, onToggleFocusMode }: Comman
                 className="flex items-center gap-2.5 px-3 py-2 rounded-xl text-[var(--text)] hover:bg-[var(--glass-strong)] cursor-pointer aria-selected:bg-[var(--glass-strong)]"
               >
                 <MapPin className="w-3.5 h-3.5 text-[var(--brand)]" />
-                <span>Bengaluru Urban, Karnataka (AI & Electronics)</span>
+                <span>{isHi ? "बेंगलुरु अर्बन, कर्नाटक (एआई व इलेक्ट्रॉनिक्स)" : "Bengaluru Urban, Karnataka (AI & Electronics)"}</span>
               </Command.Item>
             </Command.Group>
 
             {/* Occupations Quick Jump */}
-            <Command.Group heading={<span className="px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-[var(--text-faint)] block mt-2">Key Occupations (NCO)</span>}>
+            <Command.Group heading={<span className="px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-[var(--text-faint)] block mt-2">{isHi ? "प्रमुख व्यवसाय (NCO)" : "Key Occupations (NCO)"}</span>}>
               <Command.Item
                 onSelect={() => handleSelect(() => {
                   setSelectedOccupationNco('7126.0101');
@@ -235,7 +264,7 @@ export function CommandPalette({ open, onOpenChange, onToggleFocusMode }: Comman
                 className="flex items-center gap-2.5 px-3 py-2 rounded-xl text-[var(--text)] hover:bg-[var(--glass-strong)] cursor-pointer aria-selected:bg-[var(--glass-strong)]"
               >
                 <Briefcase className="w-3.5 h-3.5 text-[var(--severe)]" />
-                <span>Solar PV Installer (NCO 7126.0101 • Severe Shortage)</span>
+                <span>{isHi ? "सोलर पीवी इंस्टॉलर (NCO 7126.0101 • गंभीर कमी)" : "Solar PV Installer (NCO 7126.0101 • Severe Shortage)"}</span>
               </Command.Item>
 
               <Command.Item
@@ -246,7 +275,7 @@ export function CommandPalette({ open, onOpenChange, onToggleFocusMode }: Comman
                 className="flex items-center gap-2.5 px-3 py-2 rounded-xl text-[var(--text)] hover:bg-[var(--glass-strong)] cursor-pointer aria-selected:bg-[var(--glass-strong)]"
               >
                 <Briefcase className="w-3.5 h-3.5 text-[var(--balanced)]" />
-                <span>Retail Sales Associate (NCO 5223.0101 • Donor Trade)</span>
+                <span>{isHi ? "रिटेल सेल्स एसोसिएट (NCO 5223.0101 • डोनर ट्रेड)" : "Retail Sales Associate (NCO 5223.0101 • Donor Trade)"}</span>
               </Command.Item>
 
               <Command.Item
@@ -257,7 +286,7 @@ export function CommandPalette({ open, onOpenChange, onToggleFocusMode }: Comman
                 className="flex items-center gap-2.5 px-3 py-2 rounded-xl text-[var(--text)] hover:bg-[var(--glass-strong)] cursor-pointer aria-selected:bg-[var(--glass-strong)]"
               >
                 <Briefcase className="w-3.5 h-3.5 text-blue-400" />
-                <span>EV Service Technician (NCO 7233.0102)</span>
+                <span>{isHi ? "ईवी सर्विस तकनीशियन (NCO 7233.0102)" : "EV Service Technician (NCO 7233.0102)"}</span>
               </Command.Item>
             </Command.Group>
           </Command.List>

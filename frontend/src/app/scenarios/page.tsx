@@ -32,7 +32,7 @@ import {
 
 function ScenarioStudioContent() {
   const searchParams = useSearchParams();
-  const { selectedOccupationNco, selectedDistrict, setSelectedOccupationNco, setSelectedDistrict } = useApp();
+  const { selectedOccupationNco, selectedDistrict, setSelectedOccupationNco, setSelectedDistrict, language, t } = useApp();
 
   // Scenario Levers State (§6.4)
   // Default values matching Gorakhpur Recommendation #01
@@ -219,11 +219,14 @@ function ScenarioStudioContent() {
             </div>
           </div>
 
-          {/* Deficit Reduction */}
+          {/* Shortfall Closed */}
           <div>
-            <span className="text-[10px] font-bold text-[var(--text-faint)] uppercase block">Deficit Reduction</span>
-            <div className="text-xl font-extrabold text-[var(--success)] font-mono tabular-nums">
-              -{simulation.gapReductionPercent}%
+            <span className="text-[10px] font-bold text-[var(--text-faint)] uppercase block">
+              {language === 'hi' ? 'कमी भरपाई' : 'Shortfall Closed'}
+            </span>
+            <div className="text-xl font-extrabold text-[var(--success)] font-mono tabular-nums flex items-center gap-1">
+              <span>▼</span>
+              <span>{language === 'hi' ? `कमी की ${simulation.gapReductionPercent}% भरपाई` : `${simulation.gapReductionPercent}% of shortfall closed`}</span>
             </div>
           </div>
 
@@ -828,9 +831,40 @@ function ScenarioStudioContent() {
   );
 }
 
+function ScenarioStudioSkeleton() {
+  return (
+    <div className="space-y-6 animate-pulse">
+      {/* Header skeleton */}
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-[var(--border)]">
+        <div className="space-y-2">
+          <div className="h-5 w-44 bg-[var(--border)] rounded-full" />
+          <div className="h-8 w-64 bg-[var(--border)] rounded-xl" />
+          <div className="h-4 w-96 max-w-full bg-[var(--border)] rounded-lg" />
+        </div>
+        <div className="flex gap-2">
+          <div className="h-9 w-48 bg-[var(--border)] rounded-xl" />
+          <div className="h-9 w-9 bg-[var(--border)] rounded-xl" />
+        </div>
+      </div>
+
+      {/* FilterBar placeholder */}
+      <div className="h-14 w-full bg-[var(--border)] rounded-2xl" />
+
+      {/* Hero Impact Summary Bar skeleton */}
+      <div className="h-20 w-full bg-[var(--border)] rounded-2xl" />
+
+      {/* Grid skeleton */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <div className="lg:col-span-5 2xl:col-span-4 h-96 bg-[var(--border)] rounded-3xl" />
+        <div className="lg:col-span-7 2xl:col-span-8 h-96 bg-[var(--border)] rounded-3xl" />
+      </div>
+    </div>
+  );
+}
+
 export default function ScenarioStudioPage() {
   return (
-    <Suspense fallback={<div className="p-8 text-center text-sm font-mono text-[var(--text-muted)]">Loading Scenario Studio...</div>}>
+    <Suspense fallback={<ScenarioStudioSkeleton />}>
       <ScenarioStudioContent />
     </Suspense>
   );

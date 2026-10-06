@@ -18,10 +18,11 @@ import { District } from '@/lib/types';
 type MapLayer = 'shortage' | 'demand' | 'supply' | 'oversupply' | 'centres';
 
 export const IndiaIntelligenceMap: React.FC = () => {
-  const { selectedDistrict, setSelectedDistrict, setSelectedState } = useApp();
+  const { selectedDistrict, setSelectedDistrict, setSelectedState, language, t } = useApp();
   const [activeLayer, setActiveLayer] = useState<MapLayer>('shortage');
   const [hoveredDistrict, setHoveredDistrict] = useState<District | null>(null);
   const palette = useChartPalette();
+  const isHi = language === 'hi';
 
   // SVG coordinate projection helper for our 16 districts
   // India bounds approximately: Lat 8 to 36, Lng 68 to 96
@@ -38,7 +39,8 @@ export const IndiaIntelligenceMap: React.FC = () => {
       case 'shortage':
         if (d.gapScore >= 75) return palette.severe;
         if (d.gapScore >= 60) return palette.moderate;
-        return palette.balanced;
+        if (d.gapScore >= 40) return palette.balanced;
+        return palette.oversupply;
       case 'demand':
         if (d.demandIndex >= 85) return palette.severe;
         if (d.demandIndex >= 70) return palette.moderate;
@@ -83,17 +85,17 @@ export const IndiaIntelligenceMap: React.FC = () => {
           <div className="flex items-center gap-2">
             <span className="text-xs font-bold uppercase tracking-wider text-[var(--text-muted)] flex items-center gap-1.5">
               <Layers className="w-3.5 h-3.5 text-[var(--brand)]" />
-              Intelligence Layer:
+              {isHi ? "इंटेलिजेंस लेयर:" : "Intelligence Layer:"}
             </span>
           </div>
 
           <div className="flex flex-wrap gap-1 rounded-xl p-1 glass border border-[var(--border)]">
             {[
-              { id: 'shortage', label: 'Shortage Severity' },
-              { id: 'demand', label: 'Demand Volume' },
-              { id: 'supply', label: 'Effective Supply' },
-              { id: 'oversupply', label: 'Oversupply' },
-              { id: 'centres', label: 'Training Centres' }
+              { id: 'shortage', label: isHi ? 'कमी की गंभीरता' : 'Shortage Severity' },
+              { id: 'demand', label: isHi ? 'मांग आयतन' : 'Demand Volume' },
+              { id: 'supply', label: isHi ? 'प्रभावी आपूर्ति' : 'Effective Supply' },
+              { id: 'oversupply', label: isHi ? 'अतिआपूर्ति' : 'Oversupply' },
+              { id: 'centres', label: isHi ? 'प्रशिक्षण केंद्र' : 'Training Centres' }
             ].map(layer => (
               <button
                 key={layer.id}
@@ -211,37 +213,41 @@ export const IndiaIntelligenceMap: React.FC = () => {
           </svg>
 
           {/* Interactive Map Legend Overlay */}
-          <div className="absolute bottom-3 left-3 p-3 rounded-2xl overlay border border-[var(--border)] text-[10px] space-y-1.5 shadow-lg max-w-[200px] backdrop-blur-md">
+          <div className="absolute bottom-3 left-3 p-3 rounded-2xl overlay border border-[var(--border)] text-[10px] space-y-1.5 shadow-lg max-w-[210px] backdrop-blur-md">
             <span className="font-bold text-[var(--text)] uppercase tracking-wider block">
-              {activeLayer === 'shortage' && 'Shortage Severity'}
-              {activeLayer === 'demand' && 'Demand Volume Index'}
-              {activeLayer === 'supply' && 'Effective Supply Index'}
-              {activeLayer === 'oversupply' && 'Oversupply Index'}
-              {activeLayer === 'centres' && 'Training Centres'}
+              {activeLayer === 'shortage' && (isHi ? 'कमी की गंभीरता' : 'Shortage Severity')}
+              {activeLayer === 'demand' && (isHi ? 'मांग आयतन सूचकांक' : 'Demand Volume Index')}
+              {activeLayer === 'supply' && (isHi ? 'प्रभावी आपूर्ति सूचकांक' : 'Effective Supply Index')}
+              {activeLayer === 'oversupply' && (isHi ? 'अतिआपूर्ति सूचकांक' : 'Oversupply Index')}
+              {activeLayer === 'centres' && (isHi ? 'प्रशिक्षण केंद्र' : 'Training Centres')}
             </span>
 
             {activeLayer === 'shortage' && (
               <div className="space-y-1">
                 <div className="flex items-center gap-1.5 text-[var(--text-muted)]">
                   <span className="w-2.5 h-2.5 rounded-full bg-[var(--severe)] shrink-0" />
-                  <span>Severe Shortage (Gap &gt; 75)</span>
+                  <span>{isHi ? 'गंभीर कमी (गैप > 75)' : 'Severe Shortage (Gap > 75)'}</span>
                 </div>
                 <div className="flex items-center gap-1.5 text-[var(--text-muted)]">
                   <span className="w-2.5 h-2.5 rounded-full bg-[var(--moderate)] shrink-0" />
-                  <span>Moderate Shortage (60–75)</span>
+                  <span>{isHi ? 'मध्यम कमी (60–75)' : 'Moderate Shortage (60–75)'}</span>
                 </div>
                 <div className="flex items-center gap-1.5 text-[var(--text-muted)]">
                   <span className="w-2.5 h-2.5 rounded-full bg-[var(--balanced)] shrink-0" />
-                  <span>Balanced Labour Pool (&lt; 60)</span>
+                  <span>{isHi ? 'संतुलित श्रम पूल (40–60)' : 'Balanced Labour Pool (40–60)'}</span>
+                </div>
+                <div className="flex items-center gap-1.5 text-[var(--text-muted)]">
+                  <span className="w-2.5 h-2.5 rounded-full bg-[var(--oversupply)] shrink-0" />
+                  <span>{isHi ? 'अतिआपूर्ति (गैप < 40)' : 'Oversupply (Gap < 40)'}</span>
                 </div>
               </div>
             )}
 
             {activeLayer !== 'shortage' && (
               <div className="flex items-center justify-between text-[9px] text-[var(--text-faint)] font-mono pt-0.5">
-                <span>Low</span>
+                <span>{isHi ? 'निम्न' : 'Low'}</span>
                 <span className="h-1.5 w-16 rounded-full bg-gradient-to-r from-[var(--balanced)] via-[var(--moderate)] to-[var(--severe)]" />
-                <span>High</span>
+                <span>{isHi ? 'उच्च' : 'High'}</span>
               </div>
             )}
           </div>
@@ -258,7 +264,7 @@ export const IndiaIntelligenceMap: React.FC = () => {
               <div className="flex items-start justify-between gap-3 mb-4 pb-3 border-b border-[var(--border)]">
                 <div>
                   <span className="text-[10px] font-bold text-[var(--brand)] uppercase tracking-widest block font-mono">
-                    Selected Geography
+                    {isHi ? 'चयनित भूगोल' : 'Selected Geography'}
                   </span>
                   <h3 className="text-xl font-extrabold text-[var(--text)] tracking-tight">
                     {d.name}
@@ -276,49 +282,49 @@ export const IndiaIntelligenceMap: React.FC = () => {
               <div className="grid grid-cols-2 gap-2.5 mb-4">
                 <div className="p-3 rounded-2xl glass border border-[var(--border)]">
                   <span className="text-[10px] font-bold text-[var(--text-faint)] uppercase tracking-wider block">
-                    Solar Gap Score
+                    {isHi ? 'सोलर गैप स्कोर' : 'Solar Gap Score'}
                   </span>
                   <div className="text-2xl font-extrabold text-[var(--severe)] mt-0.5 font-mono tabular-nums">
                     {d.gapScore}
                   </div>
                   <span className="text-[10px] text-[var(--severe)] font-bold">
-                    Severe Shortage
+                    {isHi ? 'गंभीर कमी' : 'Severe Shortage'}
                   </span>
                 </div>
 
                 <div className="p-3 rounded-2xl glass border border-[var(--border)]">
                   <span className="text-[10px] font-bold text-[var(--text-faint)] uppercase tracking-wider block">
-                    6M Shortage Risk
+                    {isHi ? '6M कमी जोखिम' : '6M Shortage Risk'}
                   </span>
                   <div className="text-2xl font-extrabold text-[var(--text)] mt-0.5 font-mono tabular-nums">
                     {d.shortageProbability6M}%
                   </div>
                   <span className="text-[10px] text-[var(--text-muted)] font-semibold">
-                    Probability
+                    {isHi ? 'संभावना' : 'Probability'}
                   </span>
                 </div>
 
                 <div className="p-3 rounded-2xl glass border border-[var(--border)]">
                   <span className="text-[10px] font-bold text-[var(--text-faint)] uppercase tracking-wider block">
-                    Training Capacity
+                    {isHi ? 'प्रशिक्षण क्षमता' : 'Training Capacity'}
                   </span>
                   <div className="text-sm font-bold text-[var(--text)] mt-0.5 font-mono tabular-nums">
-                    {d.id === 'gorakhpur' ? '217 Solar / 916 Retail' : `${d.totalTrainingSeats} Active Seats`}
+                    {d.id === 'gorakhpur' ? (isHi ? '217 सोलर / 916 रिटेल' : '217 Solar / 916 Retail') : `${d.totalTrainingSeats} ${isHi ? 'सक्रिय सीटें' : 'Active Seats'}`}
                   </div>
                   <span className="text-[10px] text-[var(--text-muted)] font-mono">
-                    {d.trainingCentresCount} Centres • {d.totalTrainingSeats} Seats
+                    {d.trainingCentresCount} {isHi ? 'केंद्र' : 'Centres'} • {d.totalTrainingSeats} {isHi ? 'सीटें' : 'Seats'}
                   </span>
                 </div>
 
                 <div className="p-3 rounded-2xl glass border border-[var(--border)]">
                   <span className="text-[10px] font-bold text-[var(--text-faint)] uppercase tracking-wider block">
-                    Active Employers
+                    {isHi ? 'सक्रिय नियोक्ता' : 'Active Employers'}
                   </span>
                   <div className="text-lg font-bold text-[var(--text)] mt-0.5 font-mono tabular-nums">
                     {d.activeEmployers}
                   </div>
                   <span className="text-[10px] text-[var(--success)] font-semibold">
-                    Hiring Verified
+                    {isHi ? 'नियुक्ति सत्यापित' : 'Hiring Verified'}
                   </span>
                 </div>
               </div>
@@ -328,13 +334,13 @@ export const IndiaIntelligenceMap: React.FC = () => {
                 <div>
                   <span className="text-[11px] font-bold text-[var(--severe)] uppercase tracking-wider block mb-1.5 flex items-center gap-1">
                     <AlertCircle className="w-3.5 h-3.5 text-[var(--severe)]" />
-                    Top Shortage Trades:
+                    {isHi ? 'शीर्ष कमी वाले ट्रेड्स:' : 'Top Shortage Trades:'}
                   </span>
                   <div className="space-y-1">
                     {d.topShortageTrades.map((t, idx) => (
                       <div key={idx} className="text-xs font-semibold text-[var(--text)] py-1 px-2.5 rounded-xl glass border border-[var(--severe)]/20 flex items-center justify-between">
                         <span className="truncate">{t}</span>
-                        <span className="text-[10px] text-[var(--severe)] font-mono font-bold shrink-0 ml-1">Deficit</span>
+                        <span className="text-[10px] text-[var(--severe)] font-mono font-bold shrink-0 ml-1">{isHi ? 'घाटा' : 'Deficit'}</span>
                       </div>
                     ))}
                   </div>
@@ -343,13 +349,13 @@ export const IndiaIntelligenceMap: React.FC = () => {
                 <div>
                   <span className="text-[11px] font-bold text-[var(--oversupply)] uppercase tracking-wider block mb-1.5 flex items-center gap-1">
                     <TrendingUp className="w-3.5 h-3.5 text-[var(--oversupply)]" />
-                    Oversupplied Trades:
+                    {isHi ? 'अतिआपूर्ति वाले ट्रेड्स:' : 'Oversupplied Trades:'}
                   </span>
                   <div className="space-y-1">
                     {d.topOversuppliedTrades.map((t, idx) => (
                       <div key={idx} className="text-xs font-semibold text-[var(--text)] py-1 px-2.5 rounded-xl glass border border-[var(--oversupply)]/20 flex items-center justify-between">
                         <span className="truncate">{t}</span>
-                        <span className="text-[10px] text-[var(--oversupply)] font-mono font-bold shrink-0 ml-1">Excess</span>
+                        <span className="text-[10px] text-[var(--oversupply)] font-mono font-bold shrink-0 ml-1">{isHi ? 'अधिशेष' : 'Excess'}</span>
                       </div>
                     ))}
                   </div>
@@ -361,7 +367,7 @@ export const IndiaIntelligenceMap: React.FC = () => {
               href={`/districts/${d.id}`}
               className="w-full py-2 px-3 rounded-xl bg-[var(--brand)] hover:opacity-90 text-white text-xs font-bold flex items-center justify-center gap-1.5 transition-all shadow-xs cursor-pointer"
             >
-              <span>Explore Complete {d.name} Dossier</span>
+              <span>{isHi ? `पूर्ण ${d.name} डोजियर देखें` : `Explore Complete ${d.name} Dossier`}</span>
               <ChevronRight className="w-4 h-4" />
             </Link>
           </div>

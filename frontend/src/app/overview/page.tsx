@@ -27,7 +27,7 @@ import {
 import { downloadCSV } from '@/lib/exportUtils';
 
 export default function OverviewPage() {
-  const { t, setActiveEvidence, setSelectedDistrict, setSelectedOccupationNco } = useApp();
+  const { t, setActiveEvidence, setSelectedDistrict, setSelectedOccupationNco, language } = useApp();
 
   const metrics = useMemo(() => {
     const totalDemand = OCCUPATIONS.reduce((acc, o) => acc + o.currentDemand, 0);
@@ -341,19 +341,25 @@ export default function OverviewPage() {
                 {/* Score & Impact Stats */}
                 <div className="grid grid-cols-3 gap-2 p-2.5 rounded-xl glass border border-[var(--border)] mb-3 text-center">
                   <div>
-                    <span className="text-[10px] text-[var(--text-faint)] font-bold uppercase tracking-wider block">Seats</span>
+                    <span className="text-[10px] text-[var(--text-faint)] font-bold uppercase tracking-wider block">
+                      {language === 'hi' ? 'सीटें' : 'Seats'}
+                    </span>
                     <strong className="text-xs sm:text-sm font-bold text-[var(--text)] font-mono tabular-nums">
                       {rec.recommendedSeats}
                     </strong>
                   </div>
                   <div>
-                    <span className="text-[10px] text-[var(--text-faint)] font-bold uppercase tracking-wider block">Deficit Reduction</span>
+                    <span className="text-[10px] text-[var(--text-faint)] font-bold uppercase tracking-wider block">
+                      {language === 'hi' ? 'कमी भरपाई' : 'Shortfall Closed'}
+                    </span>
                     <strong className="text-xs sm:text-sm font-bold text-[var(--success)] font-mono tabular-nums">
-                      -{rec.expectedImpact.gapReductionPercent}%
+                      ▼ {language === 'hi' ? `कमी की ${rec.expectedImpact.gapReductionPercent}% भरपाई` : `${rec.expectedImpact.gapReductionPercent}% closed`}
                     </strong>
                   </div>
                   <div>
-                    <span className="text-[10px] text-[var(--text-faint)] font-bold uppercase tracking-wider block">Target Trade</span>
+                    <span className="text-[10px] text-[var(--text-faint)] font-bold uppercase tracking-wider block">
+                      {language === 'hi' ? 'लक्षित ट्रेड' : 'Target Trade'}
+                    </span>
                     <strong className="text-xs sm:text-sm font-bold text-[var(--brand)] truncate block">
                       {rec.toTrade}
                     </strong>

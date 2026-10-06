@@ -1,130 +1,145 @@
+/**
+ * KaushalYuva Internationalization (i18n) Engine (§3)
+ * Full bilingual support (English + 100% Hindi) backed by JSON dictionaries and reference taxonomy.
+ */
+
+import enDict from '../../messages/en.json';
+import hiDict from '../../messages/hi.json';
+import hiRef from '../../messages/hi.reference.json';
+
 export type Language = 'en' | 'hi';
+
+export interface ReferenceData {
+  states: Record<string, string>;
+  districts: Record<string, string>;
+  sectors: Record<string, string>;
+  occupations: Record<string, string>;
+  severityBands: Record<string, string>;
+  alertTypes: Record<string, string>;
+}
+
+export const referenceData: ReferenceData = hiRef;
 
 export const translations = {
   en: {
-    appTitle: 'KaushalPulse',
-    appSubtitle: 'Labour Market Intelligence',
-    nationalIntelligence: 'National Labour Market Intelligence',
-    heroSubtitle: 'See where demand is rising, where training capacity is falling behind, and what MSDE should act on next.',
-    nav: {
-      overview: 'Overview',
-      intelligence: 'Labour Intelligence',
-      forecasts: 'Forecasts',
-      gaps: 'Skill Gaps',
-      alerts: 'Early Warnings',
-      recommendations: 'Recommendations',
-      scenarios: 'Scenario Studio',
-      districts: 'Districts',
-      occupations: 'Occupations',
-      qualifications: 'Qualifications',
-      dataHealth: 'Data & Model Health',
-      apiExports: 'API & Exports',
-      settings: 'Settings'
-    },
+    ...enDict,
+    // Backward compatibility mappings for existing components
+    appTitle: enDict.brand.name,
+    appSubtitle: enDict.brand.descriptor,
+    nationalIntelligence: enDict.overview.title,
+    heroSubtitle: enDict.hero.subhead,
     metrics: {
-      demand: 'Projected Demand',
-      effectiveSupply: 'Effective Supply',
-      netGap: 'Net Labour Gap',
+      demand: enDict.glossary.demand,
+      effectiveSupply: enDict.glossary.effectiveSupply,
+      netGap: enDict.overview.kpis.netDeficit,
       atRiskTrades: 'At-Risk Trades',
-      earlyWarnings: 'Active Alerts',
+      earlyWarnings: enDict.overview.kpis.activeAlerts,
       recommendations: 'Priority Actions',
-      gapScore: 'Gap Score',
-      confidence: 'Confidence',
+      gapScore: enDict.glossary.gapScore,
+      confidence: enDict.glossary.confidence,
       shortageProb: '6M Shortage Probability'
     },
     status: {
-      severeShortage: 'Severe Shortage',
-      moderateShortage: 'Moderate Shortage',
-      balanced: 'Balanced',
-      moderateOversupply: 'Moderate Oversupply',
-      severeOversupply: 'Severe Oversupply',
-      demoDataset: 'Demo Dataset',
+      severeShortage: enDict.glossary.severeShortage,
+      moderateShortage: enDict.glossary.moderateShortage,
+      balanced: enDict.glossary.balanced,
+      moderateOversupply: enDict.glossary.moderateOversupply,
+      severeOversupply: enDict.glossary.severeOversupply,
+      demoDataset: enDict.glossary.demoDataset,
       publicAggregate: 'Public Aggregate',
       plannedFeed: 'Planned Government Feed'
     },
     actions: {
-      simulate: 'Simulate',
-      viewEvidence: 'View Evidence',
+      simulate: enDict.glossary.simulate,
+      viewEvidence: enDict.common.viewEvidence,
       exportAction: 'Export Action',
       approveDraft: 'Approve Draft',
-      acknowledge: 'Acknowledge',
-      investigate: 'Investigate',
-      downloadCsv: 'Download CSV',
-      downloadXlsx: 'Download XLSX',
-      copyEndpoint: 'Copy API Endpoint',
+      acknowledge: enDict.common.acknowledge,
+      investigate: enDict.common.investigate,
+      downloadCsv: enDict.common.downloadCsv,
+      downloadXlsx: enDict.common.downloadXlsx,
+      copyEndpoint: enDict.common.copyEndpoint,
       askCopilot: 'Ask Kaushal Copilot'
-    },
-    copilot: {
-      title: 'Kaushal Copilot',
-      subtitle: 'MSDE Policy & Forecasting Intelligence Assistant',
-      placeholder: 'Ask about district shortages, seat reallocations, or forecasting drivers...',
-      prompt1: 'Which occupations are likely to face shortages in Gorakhpur in next 6 months?',
-      prompt2: 'Why is Solar PV Installer showing a severe shortage?',
-      prompt3: 'Where should Uttar Pradesh increase training capacity?',
-      prompt4: 'What happens if we move 500 seats from retail to solar?'
     }
   },
   hi: {
-    appTitle: 'कौशलपल्स',
-    appSubtitle: 'श्रम बाजार बुद्धिमत्ता मंच',
-    nationalIntelligence: 'राष्ट्रीय श्रम बाजार बुद्धिमत्ता',
-    heroSubtitle: 'देखें कि मांग कहाँ बढ़ रही है, प्रशिक्षण क्षमता कहाँ पिछड़ रही है, और एमएसडीई को आगे क्या कदम उठाना चाहिए।',
-    nav: {
-      overview: 'सिंहावलोकन',
-      intelligence: 'श्रम बुद्धिमत्ता',
-      forecasts: 'मांग-आपूर्ति पूर्वानुमान',
-      gaps: 'कौशल अंतराल',
-      alerts: 'प्रारंभिक चेतावनी केंद्र',
-      recommendations: 'अनुशंसित नीतियां',
-      scenarios: 'सिनेरियो स्टूडियो',
-      districts: 'जिला बुद्धिमत्ता',
-      occupations: 'व्यवसाय एवं ट्रेड्स',
-      qualifications: 'योग्यता (NSQF)',
-      dataHealth: 'डेटा एवं मॉडल स्वास्थ्य',
-      apiExports: 'एपीआई और निर्यात',
-      settings: 'सेटिंग्स'
-    },
+    ...hiDict,
+    // Backward compatibility mappings for existing components
+    appTitle: hiDict.brand.name,
+    appSubtitle: hiDict.brand.descriptor,
+    nationalIntelligence: hiDict.overview.title,
+    heroSubtitle: hiDict.hero.subhead,
     metrics: {
-      demand: 'प्रत्याशित मांग',
-      effectiveSupply: 'प्रभावी आपूर्ति',
-      netGap: 'शुद्ध श्रम अंतराल',
+      demand: hiDict.glossary.demand,
+      effectiveSupply: hiDict.glossary.effectiveSupply,
+      netGap: hiDict.overview.kpis.netDeficit,
       atRiskTrades: 'जोखिम में ट्रेड्स',
-      earlyWarnings: 'सक्रिय चेतावनियाँ',
+      earlyWarnings: hiDict.overview.kpis.activeAlerts,
       recommendations: 'प्राथमिक कार्य',
-      gapScore: 'गैप स्कोर',
-      confidence: 'विश्वसनीयता',
+      gapScore: hiDict.glossary.gapScore,
+      confidence: hiDict.glossary.confidence,
       shortageProb: '6-माह कमी संभावना'
     },
     status: {
-      severeShortage: 'गंभीर कमी',
-      moderateShortage: 'मध्यम कमी',
-      balanced: 'संतुलित',
-      moderateOversupply: 'मध्यम अतिआपूर्ति',
-      severeOversupply: 'अत्यधिक अतिआपूर्ति',
-      demoDataset: 'डेमो डेटासेट',
+      severeShortage: hiDict.glossary.severeShortage,
+      moderateShortage: hiDict.glossary.moderateShortage,
+      balanced: hiDict.glossary.balanced,
+      moderateOversupply: hiDict.glossary.moderateOversupply,
+      severeOversupply: hiDict.glossary.severeOversupply,
+      demoDataset: hiDict.glossary.demoDataset,
       publicAggregate: 'सार्वजनिक संकलन',
       plannedFeed: 'प्रस्तावित सरकारी फीड'
     },
     actions: {
-      simulate: 'सिम्युलेट करें',
-      viewEvidence: 'साक्ष्य देखें',
+      simulate: hiDict.glossary.simulate,
+      viewEvidence: hiDict.common.viewEvidence,
       exportAction: 'कार्रवाई निर्यात करें',
       approveDraft: 'प्रारूप स्वीकृत करें',
-      acknowledge: 'स्वीकार करें',
-      investigate: 'जांच करें',
-      downloadCsv: 'सीएसवी डाउनलोड करें',
-      downloadXlsx: 'एक्सेल डाउनलोड करें',
-      copyEndpoint: 'एपीआई कॉपी करें',
+      acknowledge: hiDict.common.acknowledge,
+      investigate: hiDict.common.investigate,
+      downloadCsv: hiDict.common.downloadCsv,
+      downloadXlsx: hiDict.common.downloadXlsx,
+      copyEndpoint: hiDict.common.copyEndpoint,
       askCopilot: 'कौशल कोपायलट से पूछें'
-    },
-    copilot: {
-      title: 'कौशल कोपायलट',
-      subtitle: 'एमएसडीई नीति एवं पूर्वानुमान सहायक',
-      placeholder: 'जिले में कमी, सीट पुनर्वितरण, या पूर्वानुमान के बारे में पूछें...',
-      prompt1: 'गोरखपुर में अगले 6 महीनों में किन व्यवसायों में कमी आने की संभावना है?',
-      prompt2: 'गोरखपुर में सोलर इंस्टॉलर की कमी क्यों है?',
-      prompt3: 'उत्तर प्रदेश को प्रशिक्षण क्षमता कहाँ बढ़ानी चाहिए?',
-      prompt4: 'यदि हम रिटेल से 500 सीटें सोलर में स्थानांतरित करें तो क्या होगा?'
     }
   }
 };
+
+/**
+ * Resolves localized name for state, district, sector, occupation, or severity band
+ */
+export function getLocalizedEntityName(
+  type: keyof ReferenceData, 
+  key: string | number, 
+  lang: Language = 'en', 
+  fallback?: string
+): string {
+  const strKey = String(key);
+  if (lang === 'hi') {
+    const hiMap = referenceData[type];
+    if (hiMap && hiMap[strKey]) {
+      return hiMap[strKey];
+    }
+  }
+  return fallback || strKey;
+}
+
+/**
+ * Normalizes entity display string based on current language
+ */
+export function resolveDisplayName(
+  item: { title?: string; name?: string; titleHi?: string; nameHi?: string; ncoCode?: string; lgdCode?: number },
+  lang: Language = 'en'
+): string {
+  if (lang === 'hi') {
+    if (item.titleHi) return item.titleHi;
+    if (item.nameHi) return item.nameHi;
+    if (item.ncoCode && referenceData.occupations[item.ncoCode]) {
+      return referenceData.occupations[item.ncoCode];
+    }
+    if (item.lgdCode && referenceData.districts[String(item.lgdCode)]) {
+      return referenceData.districts[String(item.lgdCode)];
+    }
+  }
+  return item.title || item.name || '';
+}

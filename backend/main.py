@@ -46,7 +46,7 @@ GLOBAL_MODEL_DRIVERS = [
 TOP_DRIVERS = [d["feature"] for d in GLOBAL_MODEL_DRIVERS]
 
 app = FastAPI(
-    title="KaushalPulse Analytical API",
+    title="KaushalYuva Analytical API",
     description="MSDE Production Labour Market Forecasting & Decision-Support System",
     version="2.1.0"
 )

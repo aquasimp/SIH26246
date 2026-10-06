@@ -1,5 +1,5 @@
-import OverviewPage from './overview/page';
+import { HeroPage } from '@/components/marketing/HeroPage';
 
 export default function Home() {
-  return <OverviewPage />;
+  return <HeroPage />;
 }

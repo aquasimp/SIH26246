@@ -1,10 +1,31 @@
 import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 
-test.describe('KaushalPulse Scenario Studio & UI Quality Suite', () => {
+test.describe('KaushalYuva Scenario Studio & UI Quality Suite', () => {
+  test('Hero Page: Root / renders display headline, proof ledger (808/97/711), and proof strip', async ({ page }) => {
+    await page.goto('/');
+    await expect(page).toHaveTitle(/KaushalYuva/);
+
+    // Hero H1
+    const h1 = page.locator('h1').first();
+    await expect(h1).toBeVisible();
+    await expect(h1).toContainText('FORECAST THE SKILL GAP');
+
+    // Proof panel ledger
+    await expect(page.locator('text=808').first()).toBeVisible();
+    await expect(page.locator('text=97').first()).toBeVisible();
+    await expect(page.locator('text=711').first()).toBeVisible();
+    await expect(page.locator('text=88%').first()).toBeVisible();
+
+    // Proof strip
+    await expect(page.locator('text=40+').first()).toBeVisible();
+    await expect(page.locator('text=12+').first()).toBeVisible();
+    await expect(page.locator('text=11.8%').first()).toBeVisible();
+  });
+
   test('Scenario Studio: Load Recommendation #01 Preset enforces exact 97 seats, ₹18.31L, 15.6% combo, donor 52', async ({ page }) => {
     await page.goto('/scenarios');
-    await expect(page).toHaveTitle(/KaushalPulse/);
+    await expect(page).toHaveTitle(/KaushalYuva/);
 
     // Locate and click the preset button
     const presetBtn = page.locator('button', { hasText: 'Load Recommendation #01 Preset' });
@@ -51,7 +72,7 @@ test.describe('KaushalPulse Scenario Studio & UI Quality Suite', () => {
     expect(lightClass === null || !lightClass.includes('dark')).toBeTruthy();
   });
 
-  test('Command Palette: Opens on trigger and allows quick route search', async ({ page }) => {
+  test('Command Palette: Opens on trigger and allows quick route search & home navigation', async ({ page }) => {
     await page.goto('/overview');
 
     // Find Command Palette trigger button
@@ -63,6 +84,9 @@ test.describe('KaushalPulse Scenario Studio & UI Quality Suite', () => {
     const cmdDialog = page.locator('[role="dialog"]');
     await expect(cmdDialog).toBeVisible();
 
+    // Check home navigation item
+    await expect(page.locator('text=Go to KaushalYuva Home')).toBeVisible();
+
     // Type "Scenario" and verify jump option appears
     const input = page.locator('input[placeholder*="Search intelligence"]').first();
     await input.fill('Scenario');
@@ -73,17 +97,40 @@ test.describe('KaushalPulse Scenario Studio & UI Quality Suite', () => {
     await expect(cmdDialog).toBeHidden();
   });
 
+  test('Hindi Bilingual Switch & Crawl: Switches to Hindi and displays Devanagari copy', async ({ page }) => {
+    await page.goto('/');
+
+    // Switch to Hindi
+    const hiBtn = page.locator('button', { hasText: 'हिन्दी' }).first();
+    await expect(hiBtn).toBeVisible();
+    await hiBtn.click();
+
+    await page.waitForTimeout(400);
+
+    // Verify html lang is "hi"
+    const html = page.locator('html');
+    await expect(html).toHaveAttribute('lang', 'hi');
+
+    // Verify hero translated headline
+    const h1 = page.locator('h1').first();
+    await expect(h1).toContainText('कौशल अंतराल का पूर्वानुमान');
+
+    // Go to overview in Hindi
+    await page.goto('/overview');
+    await page.waitForTimeout(400);
+    await expect(page.locator('h1').first()).toBeVisible();
+  });
+
   test('Accessibility: WCAG AA automated compliance on key routes', async ({ page }) => {
-    const routes = ['/overview', '/forecasts', '/scenarios', '/recommendations'];
+    const routes = ['/', '/overview', '/forecasts', '/scenarios', '/recommendations'];
 
     for (const route of routes) {
       await page.goto(route);
-      // Wait for content to render
       await page.waitForSelector('h1');
 
       const accessibilityScanResults = await new AxeBuilder({ page })
         .withTags(['wcag2a', 'wcag2aa'])
-        .disableRules(['color-contrast']) // color-contrast on dynamic canvas/custom SVGs can produce false positives; design tokens audited directly
+        .disableRules(['color-contrast']) // custom liquid glass token contrast verified directly
         .analyze();
 
       expect(accessibilityScanResults.violations).toEqual([]);

@@ -69,6 +69,49 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
   const [recommendations, setRecommendations] = useState<Recommendation[]>(RECOMMENDATIONS);
   const [isOfflineFixture, setIsOfflineFixture] = useState<boolean>(false);
 
+  // One-time silent migration from kaushalpulse-* to kaushalyuva-* storage keys (§2)
+  React.useEffect(() => {
+    try {
+      if (typeof window !== 'undefined') {
+        const keysToMigrate: string[] = [];
+        for (let i = 0; i < localStorage.length; i++) {
+          const key = localStorage.key(i);
+          if (key && key.startsWith('kaushalpulse-')) {
+            keysToMigrate.push(key);
+          }
+        }
+        keysToMigrate.forEach(oldKey => {
+          const newKey = oldKey.replace('kaushalpulse-', 'kaushalyuva-');
+          const val = localStorage.getItem(oldKey);
+          if (val !== null) {
+            localStorage.setItem(newKey, val);
+            localStorage.removeItem(oldKey);
+          }
+        });
+
+        // Initialize language from storage or document lang
+        const savedLang = (localStorage.getItem('kaushalyuva-lang') || 
+                           document.documentElement.lang) as Language;
+        if (savedLang === 'en' || savedLang === 'hi') {
+          setLanguage(savedLang);
+        }
+      }
+    } catch {
+      // Storage access restricted in private browsing
+    }
+  }, []);
+
+  const handleSetLanguage = (lang: Language) => {
+    setLanguage(lang);
+    try {
+      localStorage.setItem('kaushalyuva-lang', lang);
+      document.cookie = `kaushalyuva-lang=${lang}; path=/; max-age=31536000; SameSite=Lax`;
+      if (typeof document !== 'undefined') {
+        document.documentElement.lang = lang;
+      }
+    } catch {}
+  };
+
   // Esc key exits Focus Mode
   React.useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -83,7 +126,7 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
   React.useEffect(() => {
     fetch('/api/overview')
       .then(res => {
-        const src = res.headers.get('X-KaushalPulse-Source');
+        const src = res.headers.get('X-KaushalYuva-Source') || res.headers.get('X-KaushalPulse-Source');
         if (src === 'offline-fixture') {
           setIsOfflineFixture(true);
         } else {
@@ -112,7 +155,7 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
   return (
     <AppContext.Provider value={{
       language,
-      setLanguage,
+      setLanguage: handleSetLanguage,
       t,
       selectedState,
       setSelectedState,

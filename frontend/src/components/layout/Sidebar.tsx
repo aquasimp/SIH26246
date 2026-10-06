@@ -36,7 +36,7 @@ interface NavItem {
 export const Sidebar: React.FC = () => {
   const pathname = usePathname();
   const [collapsed, setCollapsed] = useState(false);
-  const { t, alerts, recommendations, setCopilotOpen, focusMode } = useApp();
+  const { t, alerts, recommendations, setCopilotOpen, focusMode, language } = useApp();
 
   // Below 1366px viewport width, default to collapsed icon rail (§5.1)
   useEffect(() => {
@@ -62,7 +62,7 @@ export const Sidebar: React.FC = () => {
 
   const navGroups: { title: string; items: NavItem[] }[] = [
     {
-      title: 'INTELLIGENCE',
+      title: language === 'hi' ? 'इंटेलिजेंस' : 'INTELLIGENCE',
       items: [
         { href: '/overview', label: t.nav.overview, icon: LayoutDashboard },
         { href: '/intelligence', label: t.nav.intelligence, icon: TrendingUp },
@@ -71,7 +71,7 @@ export const Sidebar: React.FC = () => {
       ]
     },
     {
-      title: 'ACTION',
+      title: language === 'hi' ? 'कार्रवाई' : 'ACTION',
       items: [
         { 
           href: '/alerts', 
@@ -96,7 +96,7 @@ export const Sidebar: React.FC = () => {
       ]
     },
     {
-      title: 'EXPLORE',
+      title: language === 'hi' ? 'अन्वेषण' : 'EXPLORE',
       items: [
         { href: '/districts', label: t.nav.districts, icon: MapPin },
         { href: '/occupations', label: t.nav.occupations, icon: Briefcase },
@@ -104,7 +104,7 @@ export const Sidebar: React.FC = () => {
       ]
     },
     {
-      title: 'SYSTEM',
+      title: language === 'hi' ? 'सिस्टम' : 'SYSTEM',
       items: [
         { href: '/data-health', label: t.nav.dataHealth, icon: ShieldCheck },
         { href: '/api', label: t.nav.apiExports, icon: DownloadCloud },
@@ -124,9 +124,9 @@ export const Sidebar: React.FC = () => {
         {/* Top Brand & Header */}
         <div className="flex flex-col min-h-0">
           <div className="flex items-center justify-between px-2 pt-1 pb-3 border-b border-[var(--border)]">
-            <Link href="/overview" className="flex items-center gap-2.5 group">
+            <Link href="/" className="flex items-center gap-2.5 group" title={language === 'hi' ? 'कौशलयुवा होम' : 'KaushalYuva Home'}>
               <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-[var(--brand)] to-blue-600 flex items-center justify-center text-white shadow-md shadow-[var(--brand)]/20 shrink-0 group-hover:scale-105 transition-transform font-mono font-extrabold text-sm tracking-wider">
-                KP
+                KY
               </div>
               {!collapsed && (
                 <div className="flex flex-col min-w-0">
@@ -221,11 +221,11 @@ export const Sidebar: React.FC = () => {
                   </span>
                 </div>
                 <span className="text-[9px] font-mono px-1 py-0.2 bg-[var(--brand)]/15 text-[var(--brand)] font-bold rounded border border-[var(--brand)]/20">
-                  Grounded
+                  {language === 'hi' ? 'सत्यापित' : 'Grounded'}
                 </span>
               </div>
               <p className="text-[10px] text-[var(--text-muted)] leading-tight mb-2">
-                Bilingual policy & forecast assistant over current API.
+                {language === 'hi' ? 'वर्तमान विश्लेषणात्मक एपीआई पर आधारित द्विभाषी नीति व पूर्वानुमान सहायक।' : 'Bilingual policy & forecast assistant over current API.'}
               </p>
               <button
                 type="button"
