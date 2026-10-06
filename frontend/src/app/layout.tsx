@@ -1,29 +1,10 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, JetBrains_Mono, Noto_Sans_Devanagari } from "next/font/google";
-import { displayFont } from "@/fonts/display";
+import { displayFont, khandFont, notoDevanagariFont, monoFont } from "@/fonts/display";
 import "./globals.css";
 import { Providers } from "./providers";
 import { AppProvider } from "@/lib/store";
 import { AppShell } from "@/components/layout/AppShell";
-
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-sans",
-  display: "swap",
-});
-
-const jetbrainsMono = JetBrains_Mono({
-  subsets: ["latin"],
-  variable: "--font-mono",
-  display: "swap",
-});
-
-const notoDevanagari = Noto_Sans_Devanagari({
-  subsets: ["devanagari"],
-  variable: "--font-hi",
-  weight: ["400", "500", "600", "700"],
-  display: "swap",
-});
+import { cookies } from "next/headers";
 
 export const viewport: Viewport = {
   themeColor: [
@@ -40,8 +21,6 @@ export const metadata: Metadata = {
   },
 };
 
-import { cookies } from "next/headers";
-
 export default async function RootLayout({
   children,
 }: Readonly<{
@@ -54,7 +33,7 @@ export default async function RootLayout({
     <html 
       lang={lang} 
       suppressHydrationWarning 
-      className={`${inter.variable} ${jetbrainsMono.variable} ${notoDevanagari.variable} ${displayFont.variable} scroll-smooth`}
+      className={`${displayFont.variable} ${khandFont.variable} ${notoDevanagariFont.variable} ${monoFont.variable} scroll-smooth`}
     >
       <body className="min-h-screen text-[var(--text)] bg-[var(--bg)] antialiased selection:bg-[var(--brand)] selection:text-white">
         {/* Skip to Content for WCAG AA compliance */}
@@ -62,11 +41,11 @@ export default async function RootLayout({
           href="#main-content" 
           className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-50 focus:px-4 focus:py-2 focus:bg-[var(--surface-solid)] focus:text-[var(--brand)] focus:border focus:border-[var(--brand)] focus:rounded-xl focus:shadow-2xl focus:font-bold text-xs"
         >
-          Skip to main content
+          {lang === 'hi' ? 'मुख्य सामग्री पर जाएं' : 'Skip to main content'}
         </a>
 
         <Providers>
-          <AppProvider>
+          <AppProvider initialLanguage={lang}>
             <AppShell>
               {children}
             </AppShell>

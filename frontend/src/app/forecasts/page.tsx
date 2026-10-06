@@ -8,6 +8,7 @@ import { Badge } from '@/components/common/Badge';
 import { Provenance } from '@/components/common/Provenance';
 import { OCCUPATIONS, DATA_HEALTH_METRIC } from '@/lib/demoData';
 import { OUT_OF_SAMPLE_BENCHMARKS } from '@/lib/benchmarkMetrics';
+import { getLocalizedEntityName } from '@/lib/i18n';
 
 export default function ForecastPage() {
   const { 
@@ -34,7 +35,7 @@ export default function ForecastPage() {
             <span className="px-2.5 py-0.5 rounded-full text-[11px] font-mono font-extrabold uppercase tracking-wider bg-[var(--brand)]/15 text-[var(--brand)] border border-[var(--brand)]/30">
               {isHi ? 'अर्थमितीय पूर्वानुमान इंजन' : 'Econometric Predictive Engine'}
             </span>
-            <Provenance source="Official SIH" />
+            <Provenance source="SIH dummy dataset" />
           </div>
           <h1 className="text-2xl sm:text-3xl font-extrabold text-[var(--text)] tracking-tight">
             {isHi ? 'मांग और आपूर्ति पूर्वानुमान' : 'Demand & Supply Forecast'}
@@ -83,7 +84,7 @@ export default function ForecastPage() {
             </h2>
             <p className="text-xs text-[var(--text-muted)]">
               {isHi
-                ? `ऐतिहासिक वास्तविक डेटा (2024–2026) बनाम ${selectedDistrict}, ${selectedState} में ${forecastHorizon} अग्रिम प्रक्षेपण।`
+                ? `ऐतिहासिक वास्तविक डेटा (2024–2026) बनाम ${getLocalizedEntityName('districts', selectedDistrict, 'hi')}, ${getLocalizedEntityName('states', selectedState, 'hi')} में ${forecastHorizon} अग्रिम प्रक्षेपण।`
                 : `Historical actuals (2024–2026) vs. ${forecastHorizon} forward projection in ${selectedDistrict}, ${selectedState}.`}
             </p>
           </div>

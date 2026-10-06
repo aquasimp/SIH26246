@@ -3,7 +3,10 @@
 import React from 'react';
 import { Database, Sparkles, Layers, Radio } from 'lucide-react';
 
+import { useApp } from '@/lib/store';
+
 export type ProvenanceSource = 
+  | 'SIH dummy dataset'
   | 'Official SIH' 
   | 'Synthetic Demo' 
   | 'Public Aggregate' 
@@ -16,8 +19,8 @@ export type ProvenanceSource =
   | 'future';
 
 export interface ProvenanceProps {
-  source?: ProvenanceSource;
-  type?: ProvenanceSource;
+  source?: ProvenanceSource | string;
+  type?: ProvenanceSource | string;
   note?: string;
   compact?: boolean;
   className?: string;
@@ -30,35 +33,37 @@ export function Provenance({
   compact = false, 
   className = '' 
 }: ProvenanceProps) {
-  const raw = String(type || source || 'Official SIH').toLowerCase();
+  const { language } = useApp();
+  const isHi = language === 'hi';
+  const raw = String(type || source || 'SIH dummy dataset').toLowerCase();
 
-  let label = 'Official SIH';
+  let label = isHi ? 'SIH डमी डेटासेट' : 'SIH dummy dataset';
   let Icon = Database;
-  let colorClass = 'bg-[var(--brand)]/10 text-[var(--brand)] border-[var(--brand)]/20';
+  let colorClass = 'bg-amber-500/10 text-amber-700 dark:text-amber-400 border-amber-500/25';
 
   if (raw.includes('synth') || raw.includes('demo')) {
-    label = 'Synthetic Demo';
-    Icon = Sparkles;
-    colorClass = 'bg-purple-500/10 text-purple-400 border-purple-500/20';
+    label = isHi ? 'SIH डमी डेटासेट' : 'SIH dummy dataset';
+    Icon = Database;
+    colorClass = 'bg-amber-500/10 text-amber-700 dark:text-amber-400 border-amber-500/25';
   } else if (raw.includes('aggregate') || raw.includes('public')) {
-    label = 'Public Aggregate';
+    label = isHi ? 'सार्वजनिक संकलन' : 'Public Aggregate';
     Icon = Layers;
     colorClass = 'bg-[var(--brand-secondary)]/10 text-[var(--brand-secondary)] border-[var(--brand-secondary)]/20';
   } else if (raw.includes('future') || raw.includes('feed')) {
-    label = 'Future Feed';
+    label = isHi ? 'भावी सरकारी फ़ीड' : 'Future Feed';
     Icon = Radio;
-    colorClass = 'bg-amber-500/10 text-amber-400 border-amber-500/20';
+    colorClass = 'bg-blue-500/10 text-blue-400 border-blue-500/20';
   }
 
   const displayText = note ? (compact ? note : `${label} • ${note}`) : label;
 
   return (
     <span
-      className={`inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[10px] font-semibold border backdrop-blur-xs transition-colors ${colorClass} ${className}`}
-      title={`Data Provenance: ${label}${note ? ` (${note})` : ''}`}
+      className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-semibold border backdrop-blur-xs transition-colors ${colorClass} ${className}`}
+      title={`${isHi ? 'डेटा उत्पत्ति:' : 'Data Provenance:'} ${label}${note ? ` (${note})` : ''}`}
     >
       <Icon className="w-2.5 h-2.5 shrink-0" />
-      <span className="tracking-wide uppercase font-mono text-[9px]">{displayText}</span>
+      <span className="tracking-wide font-mono text-[9px]">{displayText}</span>
     </span>
   );
 }

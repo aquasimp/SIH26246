@@ -8,12 +8,17 @@
     --radius-lg: 20px;
     --radius-xl: 28px;
 
-    /* Heading & Display Typography (§4.4) */
-    --font-display-stack: var(--font-display), "Archivo Narrow", "Arial Narrow", sans-serif;
-    --font-deva-display: var(--font-hi), "Noto Sans Devanagari", "Mukta", sans-serif;
-    --fs-display: clamp(2.75rem, 1.4rem + 5.6vw, 5.5rem);
-    --fs-h1: clamp(2.25rem, 1.2rem + 3.6vw, 4.25rem);
-    --fs-h2: clamp(1.625rem, 1.1rem + 1.6vw, 2.5rem);
+    /* Typography stacks (§C) */
+    --font-display-stack: var(--font-archivo), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    --font-deva-headings: var(--font-khand), "Noto Sans Devanagari", sans-serif;
+    --font-deva-body: var(--font-noto-devanagari), sans-serif;
+
+    /* Fluid Type Scale */
+    --fs-hero: clamp(2.75rem, 6vw, 5rem);
+    --fs-h1: clamp(2.25rem, 5vw, 4rem);
+    --fs-h2: clamp(1.5rem, 2.5vw, 2.25rem);
+    --fs-body: 1rem;
+    --fs-caption: 0.8125rem;
 
     /* Base Surfaces */
     --bg: #F7F6F2;
@@ -35,25 +40,28 @@
     --text-muted: #434A57;
     --text-faint: #5E6573;
 
-    /* Brand & Accents */
+    /* Brand & Accent (reserved for CTAs and key figures) */
     --brand: #3F51C7;
     --brand-secondary: #12818A;
     --ring: rgba(63, 81, 199, 0.45);
     --shadow: 0 1px 2px rgba(20, 23, 28, 0.05), 0 10px 30px rgba(20, 23, 28, 0.06);
 
-    /* Semantic Status (WCAG AA accessible on ivory) */
-    --severe: #C62828;
-    --moderate: #955800;
-    --balanced: #0B7A55;
-    --oversupply: #1D5FC4;
-    --warning: #955800;
-    --success: #0B7A55;
+    /* Severity Colours reserved for bands (orange shortage, blue surplus) - NO red/green pairs */
+    --shortage: #D97706;   /* Orange shortage */
+    --shortage-bg: rgba(217, 119, 6, 0.08);
+    --surplus: #2563EB;    /* Blue surplus */
+    --surplus-bg: rgba(37, 99, 235, 0.08);
+    --severe: #D97706;     /* Reserved orange */
+    --moderate: #F59E0B;   /* Amber */
+    --balanced: #475569;   /* Neutral balanced slate */
+    --oversupply: #2563EB; /* Blue surplus */
+    --warning: #D97706;
+    --success: #3F51C7;
     --forecast: #3F51C7;
   }
 
   .dark {
     color-scheme: dark;
-    /* Graphite scale: #090A0C, #0F1115, #14171C, #1A1E24 */
     --bg: #090A0C;
     --bg-atmo-1: rgba(140, 156, 245, 0.07);
     --bg-atmo-2: rgba(95, 196, 201, 0.05);
@@ -63,29 +71,30 @@
     --surface-solid: #14171C;
     --surface-muted: #1A1E24;
 
-    /* Borders & Highlights */
     --border: rgba(255, 255, 255, 0.08);
     --border-strong: rgba(255, 255, 255, 0.16);
     --highlight: rgba(255, 255, 255, 0.08);
 
-    /* Text */
     --text: #E9ECF1;
     --text-muted: #A7AEBB;
     --text-faint: #7D8593;
 
-    /* Brand & Accents */
     --brand: #8C9CF5;
     --brand-secondary: #5FC4C9;
     --ring: rgba(140, 156, 245, 0.55);
     --shadow: 0 14px 44px rgba(0, 0, 0, 0.55);
 
-    /* Semantic Status (WCAG AA accessible on graphite) */
-    --severe: #F2706B;
-    --moderate: #E9B44C;
-    --balanced: #4FC79A;
-    --oversupply: #6FA8F0;
-    --warning: #E9B44C;
-    --success: #4FC79A;
+    /* Dark Mode Severity Bands */
+    --shortage: #F59E0B;
+    --shortage-bg: rgba(245, 158, 11, 0.12);
+    --surplus: #60A5FA;
+    --surplus-bg: rgba(96, 165, 250, 0.12);
+    --severe: #F59E0B;
+    --moderate: #FBBF24;
+    --balanced: #94A3B8;
+    --oversupply: #60A5FA;
+    --warning: #F59E0B;
+    --success: #8C9CF5;
     --forecast: #8C9CF5;
   }
 }
@@ -93,7 +102,11 @@
 body {
   background-color: var(--bg);
   color: var(--text);
-  font-family: var(--font-sans), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-family: var(--font-display-stack);
+  font-variation-settings: "wdth" 100;
+  font-weight: 400;
+  font-size: var(--fs-body);
+  line-height: 1.5;
   min-height: 100vh;
   margin: 0;
   padding: 0;
@@ -102,11 +115,29 @@ body {
   transition: background-color 0.25s ease, color 0.25s ease;
 }
 
-[lang="hi"] body {
-  font-family: var(--font-hi), var(--font-sans), sans-serif;
+/* Hindi typography via :lang(hi) */
+:lang(hi) body {
+  font-family: var(--font-deva-body);
+  line-height: 1.65;
+  font-synthesis: none;
 }
 
-/* Atmosphere: fixed layer, extremely slow drift, transform-only, no neon blobs */
+:lang(hi) :is(h1, h2, h3, h4, .display, .h1, .h2, .hero-heading) {
+  font-family: var(--font-deva-headings);
+  font-weight: 700;
+  text-transform: none !important;
+  letter-spacing: normal !important;
+  line-height: 1.35 !important;
+  font-synthesis: none;
+}
+
+:lang(hi) .eyebrow {
+  text-transform: none !important;
+  letter-spacing: normal !important;
+  font-family: var(--font-deva-body) !important;
+}
+
+/* Atmosphere background */
 body::before {
   content: "";
   position: fixed;
@@ -137,7 +168,7 @@ body::before {
   }
 }
 
-/* Liquid Glass Surface Tokens (§4.5) */
+/* Glass Surface Tokens */
 .glass, .glass-strong, .overlay {
   border: 1px solid var(--border);
   border-radius: var(--radius);
@@ -194,12 +225,105 @@ body::before {
   box-shadow: 0 0 0 2px var(--ring);
 }
 
-/* Tabular figures for intelligence dashboards */
+/* Headings Typography (§C) */
+.hero-heading {
+  font-family: var(--font-display-stack);
+  font-stretch: 72%;
+  font-variation-settings: "wdth" 72;
+  font-weight: 800;
+  font-size: var(--fs-hero);
+  line-height: 0.95;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+}
+
+.h1 {
+  font-family: var(--font-display-stack);
+  font-stretch: 72%;
+  font-variation-settings: "wdth" 72;
+  font-weight: 800;
+  font-size: var(--fs-h1);
+  line-height: 0.95;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+}
+
+.h2 {
+  font-family: var(--font-display-stack);
+  font-stretch: 75%;
+  font-variation-settings: "wdth" 75;
+  font-weight: 800;
+  font-size: var(--fs-h2);
+  line-height: 1.02;
+  letter-spacing: -0.01em;
+  text-transform: none; /* uppercase ONLY for hero H1 and eyebrows */
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.eyebrow-bullet {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  background-color: var(--brand);
+  border-radius: 1px;
+}
+
+/* Number-forward headlines (§C) */
+.number-forward {
+  font-size: 1.35em;
+  color: var(--brand);
+  border-bottom: 3px solid var(--brand);
+  padding-bottom: 1px;
+  display: inline-block;
+  line-height: 1;
+}
+
+/* KPI numerals: Archivo wdth 75, weight 700, tabular-nums */
+.kpi-numeral {
+  font-family: var(--font-display-stack);
+  font-variation-settings: "wdth" 75;
+  font-stretch: 75%;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
 .tabular-nums {
   font-variant-numeric: tabular-nums;
 }
 
-/* Accessible focus ring */
+/* Hero H1 width animation (wdth 62 -> 72 over 400ms) */
+@keyframes hero-width-expand {
+  from {
+    font-variation-settings: "wdth" 62;
+  }
+  to {
+    font-variation-settings: "wdth" 72;
+  }
+}
+
+.hero-h1-animate {
+  animation: hero-width-expand 400ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-h1-animate {
+    animation: none;
+    font-variation-settings: "wdth" 72;
+  }
+}
+
+/* Focus outline */
 :focus-visible {
   outline: 2px solid var(--brand);
   outline-offset: 2px;
@@ -220,62 +344,3 @@ body::before {
 ::-webkit-scrollbar-thumb:hover {
   background: var(--text-faint);
 }
-
-/* Subtle pulse */
-@keyframes subtle-pulse {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.85; transform: scale(1.02); }
-}
-
-.animate-subtle-pulse {
-  animation: subtle-pulse 3s infinite ease-in-out;
-}
-
-/* Heading & Display System (§4.4) */
-.display, .h1, .h2 {
-  font-family: var(--font-display-stack), var(--font-deva-display);
-  font-weight: 700;
-  text-transform: uppercase;
-  text-wrap: balance;
-  color: var(--text);
-  font-variant-numeric: lining-nums;
-}
-.display { font-size: var(--fs-display); line-height: 0.94; letter-spacing: -0.005em; max-width: 18ch; }
-.h1      { font-size: var(--fs-h1);      line-height: 0.98; letter-spacing: -0.003em; }
-.h2      { font-size: var(--fs-h2);      line-height: 1.02; }
-.eyebrow { font: 600 0.75rem/1 var(--font-mono); letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-faint); }
-
-/* Hindi typography overrides (§4.4) */
-:lang(hi) :is(.display, .h1, .h2) {
-  font-family: var(--font-deva-display), var(--font-display-stack);
-  text-transform: none;
-  letter-spacing: 0;
-  line-height: 1.28;
-  max-width: none;
-  font-weight: 800;
-  font-stretch: 87.5%;
-}
-:lang(hi) .display { font-size: calc(var(--fs-display) * 0.9); }
-:lang(hi) .eyebrow { text-transform: none; letter-spacing: 0; font-family: var(--font-deva-display); }
-
-/* Signal Rule (§4.5) */
-.signal-rule {
-  height: 1px;
-  background: linear-gradient(90deg, var(--brand) 0 28px, var(--border-strong) 28px);
-  transform-origin: left;
-}
-@supports (animation-timeline: view()) {
-  .signal-rule {
-    animation: rule-draw linear both;
-    animation-timeline: view();
-    animation-range: entry 0% entry 60%;
-  }
-  @keyframes rule-draw {
-    from { transform: scaleX(0); }
-    to { transform: scaleX(1); }
-  }
-}
-@media (prefers-reduced-motion: reduce) {
-  .signal-rule { animation: none; }
-}
-

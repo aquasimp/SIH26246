@@ -2,26 +2,27 @@
 
 import React from 'react';
 import { useApp } from '@/lib/store';
-import { Activity } from 'lucide-react';
+import { EXPORT_METADATA } from '@/lib/demoData';
 
 export function SystemStatusLine({ className = '' }: { className?: string }) {
-  const { datasetMode } = useApp();
+  const { language } = useApp();
+  const isHi = language === 'hi';
 
   return (
     <div
       className={`flex items-center flex-wrap gap-2 text-[10px] font-mono text-[var(--text-faint)] py-1.5 px-3 rounded-xl glass border border-[var(--border)] w-fit ${className}`}
     >
-      <span className="font-bold text-[var(--brand)]">RUN-SIH-001</span>
+      <span className="font-bold text-[var(--brand)]">{EXPORT_METADATA.runId}</span>
       <span>•</span>
-      <span className="uppercase">{datasetMode === 'sih' ? 'SIH Dataset Snapshot' : 'Demo Dataset'}</span>
+      <span>{isHi ? 'SIH डमी डेटासेट' : EXPORT_METADATA.dataSource}</span>
       <span>•</span>
-      <span>Model v2.4 (Tri-Blend)</span>
+      <span>v2.1.0</span>
       <span>•</span>
-      <span>Last run: 2h ago</span>
+      <span>{isHi ? '04 अक्टूबर 2026 · डेटा अक्टूबर 2024 तक' : '04 Oct 2026 · data through Oct 2024'}</span>
       <span>•</span>
-      <span className="inline-flex items-center gap-1 font-semibold text-[var(--success)]">
-        <span className="w-1.5 h-1.5 rounded-full bg-[var(--success)] animate-pulse" />
-        Systems Operational
+      <span className="inline-flex items-center gap-1 font-semibold text-[var(--brand)]">
+        <span className="w-1.5 h-1.5 rounded-full bg-[var(--brand)] animate-pulse" />
+        {isHi ? 'प्रणाली सक्रिय' : 'Systems Operational'}
       </span>
     </div>
   );

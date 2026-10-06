@@ -105,21 +105,33 @@ export const translations = {
   }
 };
 
+export const stateNameToHi: Record<string, string> = {
+  'Gujarat': 'गुजरात',
+  'Karnataka': 'कर्नाटक',
+  'Maharashtra': 'महाराष्ट्र',
+  'Tamil Nadu': 'तमिलनाडु',
+  'Uttar Pradesh': 'उत्तर प्रदेश'
+};
+
 export const districtNameToHi: Record<string, string> = {
   'Gorakhpur': 'गोरखपुर',
   'Lucknow': 'लखनऊ',
   'Varanasi': 'वाराणसी',
-  'Gautam Buddha Nagar': 'गौतम बुद्ध नगर (नोएडा)',
+  'Gautam Buddha Nagar': 'गौतम बुद्ध नगर',
+  'Kanpur Nagar': 'कानपुर नगर',
   'Pune': 'पुणे',
   'Nagpur': 'नागपुर',
   'Chhatrapati Sambhajinagar': 'छत्रपति संभाजीनगर',
-  'Nashik': 'नाशिक',
+  'Nashik': 'नासिक',
   'Bengaluru Urban': 'बेंगलुरु शहरी',
   'Mysuru': 'मैसूरु',
-  'Dakshina Kannada': 'दक्षिण कन्नड़ (मंगलुरु)',
+  'Dharwad': 'धारवाड़',
+  'Dakshina Kannada': 'दक्षिण कन्नड़',
   'Ahmedabad': 'अहमदाबाद',
   'Surat': 'सूरत',
-  'Vadodara': 'वडोदरा'
+  'Vadodara': 'वडोदरा',
+  'Rajkot': 'राजकोट',
+  'Coimbatore': 'कोयंबटूर'
 };
 
 /**
@@ -133,8 +145,15 @@ export function getLocalizedEntityName(
 ): string {
   const strKey = String(key);
   if (lang === 'hi') {
-    if (type === 'districts' && districtNameToHi[strKey]) {
-      return districtNameToHi[strKey];
+    if (type === 'districts') {
+      if (districtNameToHi[strKey]) return districtNameToHi[strKey];
+      const match = Object.entries(districtNameToHi).find(([k]) => k.toLowerCase() === strKey.toLowerCase());
+      if (match) return match[1];
+    }
+    if (type === 'states') {
+      if (stateNameToHi[strKey]) return stateNameToHi[strKey];
+      const match = Object.entries(stateNameToHi).find(([k]) => k.toLowerCase() === strKey.toLowerCase());
+      if (match) return match[1];
     }
     const hiMap = referenceData[type];
     if (hiMap && hiMap[strKey]) {
@@ -217,7 +236,10 @@ export const localizedSkills: Record<string, string> = {
   'SOC Alert Triage': 'एसओसी अलर्ट ट्राइएज',
   'Network Packet Analysis (Wireshark)': 'नेटवर्क पैकेट विश्लेषण (वायरशार्क)',
   'Endpoint Detection & Response (EDR)': 'एंडपॉइंट डिटेक्शन एवं रिस्पॉन्स (ईडीआर)',
-  'Vulnerability Remediation': 'भेद्यता निवारण'
+  'Vulnerability Remediation': 'भेद्यता निवारण',
+  'Technical Diagnostics': 'तकनीकी निदान',
+  'Standard Compliance': 'मानक अनुपालन',
+  'Preventive Maintenance': 'निवारक रखरखाव'
 };
 
 export function localizeSkill(skill: string, lang: Language = 'en'): string {

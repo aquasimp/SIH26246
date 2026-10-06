@@ -131,14 +131,14 @@ export const Header: React.FC = () => {
             className="hidden xl:flex items-center gap-1.5 text-xs px-2.5 py-1 rounded-xl glass border border-[var(--border)] text-[var(--text-muted)] font-mono text-[11px]"
             title={language === 'hi' ? 'स्नैपशॉट: RUN-SIH-001 • मॉडल v2.4 • बेसलाइन: सीज़नल नेईव' : 'Snapshot: RUN-SIH-001 • Model v2.4 (Tri-Model Blend) • Baseline: Seasonal Naive'}
           >
-            <span className="w-1.5 h-1.5 rounded-full bg-[var(--success)] animate-pulse" />
-            <span>{language === 'hi' ? 'अंतिम रन ' : 'Last run '}<strong>RUN-SIH-001</strong> · {language === 'hi' ? '2 घंटे पूर्व' : '2h ago'}</span>
+            <span className="w-1.5 h-1.5 rounded-full bg-[var(--brand)] animate-pulse" />
+            <span>{language === 'hi' ? 'रन ' : 'Run '}<strong>RUN-SIH-001</strong> · {language === 'hi' ? '04 अक्तूबर 2026 · डेटा अक्तूबर 2024 तक' : '04 Oct 2026 · data through Oct 2024'}</span>
           </div>
 
           {/* Offline Fixture Indicator */}
           {isOfflineFixture && (
-            <div className="flex items-center gap-1 text-[11px] px-2 py-0.5 rounded-lg bg-amber-500/15 text-amber-500 border border-amber-500/30 font-bold font-mono" title={language === 'hi' ? 'स्थानीय नियतात्मक डेटा' : 'Serving local deterministic fixture data'}>
-              <span>{language === 'hi' ? 'फिक्सचर डेटा' : 'Fixture Data'}</span>
+            <div className="flex items-center gap-1 text-[11px] px-2 py-0.5 rounded-lg bg-amber-500/15 text-amber-600 dark:text-amber-400 border border-amber-500/30 font-bold font-mono" title={language === 'hi' ? 'रन RUN-SIH-001 से पूर्व-गणना' : 'Precomputed from run RUN-SIH-001'}>
+              <span>{language === 'hi' ? 'रन RUN-SIH-001 से पूर्व-गणना' : 'Precomputed from run RUN-SIH-001'}</span>
             </div>
           )}
 

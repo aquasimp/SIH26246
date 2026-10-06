@@ -33,6 +33,8 @@ export interface TimePoint {
   baselineNaive?: number;
 }
 
+export type TimeSeriesPoint = TimePoint;
+
 export interface ExplainabilityFactor {
   name: string;
   impactPercent: number; // e.g. +31
@@ -41,10 +43,12 @@ export interface ExplainabilityFactor {
 }
 
 export interface Occupation {
+  id: string;
   ncoCode: string;       // e.g. '7126.0101'
   title: string;         // e.g. 'Solar PV Installer'
   titleHi?: string;
   sector: string;        // e.g. 'Green Jobs & Renewable Energy'
+  sectorHi?: string;
   nsqfLevel: number;     // e.g. 4
   currentDemand: number; // e.g. 820
   growthRate6M: number;  // e.g. 21.4 (percent)
@@ -52,7 +56,9 @@ export interface Occupation {
   gapScore: number;      // 0-100 (e.g. 84)
   severity: GapSeverity;
   shortageProbability6M: number; // 0-100 (e.g. 71)
+  forecastDemand3M: number;
   forecastDemand6M: number;      // e.g. 1020
+  forecastDemand12M: number;
   demandPressureIndex: number;  // 0-100 (e.g. 91)
   confidence: number;            // 0-100 (e.g. 78)
   employerCount: number;         // e.g. 46
@@ -62,6 +68,7 @@ export interface Occupation {
   keySkills: string[];
   qualifications: string[];      // Qualification Pack IDs
   timeSeries: TimePoint[];
+  historicalData: TimePoint[];
   explainability: ExplainabilityFactor[];
   whyThisScore?: {
     demandGrowth6M: number;
@@ -86,6 +93,7 @@ export interface District {
   totalTrainingSeats: number;
   topShortageTrades: string[];
   topOversuppliedTrades: string[];
+  capacitySurplusTrades?: string[];
   activeEmployers: number;
   coordinates: [number, number]; // [lat, lng]
 }
@@ -112,6 +120,13 @@ export interface EarlyWarningAlert {
   wastedSeats?: number;   // e.g. 536 seats
   timestamp: string;
   acknowledged: boolean;
+  datasetChip?: string;
+  derivation?: string;
+  metrics?: {
+    demandGrowth: string;
+    vacancyVolume: number;
+    leadTimeDays: number;
+  };
 }
 
 export interface Recommendation {
@@ -131,6 +146,8 @@ export interface Recommendation {
   recommendedSeats: number;
   reason: string;
   reasonHi?: string;
+  datasetChip?: string;
+  derivation?: string;
   evidence: {
     demandSignal: string;
     vacancyGrowth: string;
@@ -233,15 +250,28 @@ export interface BacktestHorizonRow {
 }
 
 export interface DataHealthMetric {
-  sourcesConnected: number;
-  sourcesTotal: number;
-  freshnessPercent: number;
-  mappingConfidencePercent: number;
-  forecastConfidencePercent: number;
-  dataQualityPercent: number;
-  lastRunTimestamp: string;
-  lastRunId: string;
-  models: {
+  sourcesConnected?: number;
+  sourcesTotal?: number;
+  freshnessPercent?: number;
+  mappingConfidencePercent?: number;
+  forecastConfidencePercent?: number;
+  dataQualityPercent?: number;
+  lastRunTimestamp?: string;
+  lastRunId?: string;
+  totalRecords?: number;
+  totalDistricts?: number;
+  totalStates?: number;
+  totalTrades?: number;
+  dataThrough?: string;
+  lastIngestDate?: string;
+  pipelineRunId?: string;
+  datasetMode?: string;
+  dataSource?: string;
+  wapeBaseline?: number;
+  wapeLightgbm?: number;
+  errorReductionPercent?: number;
+  dataHash?: string;
+  models?: {
     name: string;
     wape: number;
     mae: number;
@@ -249,7 +279,7 @@ export interface DataHealthMetric {
     status: 'optimal' | 'healthy' | 'retraining';
   }[];
   backtestHorizons?: BacktestHorizonRow[];
-  sources: {
+  sources?: {
     name: string;
     type: 'Public Aggregate' | 'Demo Dataset' | 'Planned Government Feed';
     status: 'Active' | 'Synced' | 'Pending';

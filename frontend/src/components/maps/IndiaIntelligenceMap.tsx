@@ -14,6 +14,7 @@ import {
   Database
 } from 'lucide-react';
 import { District } from '@/lib/types';
+import { getLocalizedEntityName, stateNameToHi } from '@/lib/i18n';
 
 type MapLayer = 'shortage' | 'demand' | 'supply' | 'oversupply' | 'centres';
 
@@ -135,11 +136,12 @@ export const IndiaIntelligenceMap: React.FC = () => {
             <g stroke={palette.brand} strokeWidth="1.2" strokeDasharray="4 4" opacity="0.45">
               {/* Purvanchal Energy Corridor: Gorakhpur to Varanasi */}
               <line x1="395" y1="185" x2="390" y2="205" />
-              {/* Western Industrial Corridor: Pune to Mumbai to Nashik */}
-              <line x1="210" y1="290" x2="195" y2="280" />
-              <line x1="195" y1="280" x2="205" y2="265" />
-              {/* Southern Tech Corridor: Bengaluru to Mysuru */}
+              {/* Western Corridor: Pune to Chhatrapati Sambhajinagar to Nashik */}
+              <line x1="210" y1="290" x2="225" y2="260" />
+              <line x1="225" y1="260" x2="205" y2="265" />
+              {/* Southern Tech Corridor: Bengaluru to Mysuru to Coimbatore */}
               <line x1="240" y1="380" x2="230" y2="395" />
+              <line x1="230" y1="395" x2="238" y2="420" />
             </g>
 
             {/* Interactive District Nodes */}
@@ -148,6 +150,7 @@ export const IndiaIntelligenceMap: React.FC = () => {
               const color = getDistrictColor(d);
               const r = getDistrictRadius(d);
               const isSelected = d.id === selectedDistrict;
+              const displayName = isHi && d.nameHi ? d.nameHi : d.name;
 
               return (
                 <g
@@ -205,7 +208,7 @@ export const IndiaIntelligenceMap: React.FC = () => {
                     fontWeight={isSelected ? 'bold' : '600'}
                     className="pointer-events-none drop-shadow-xs font-sans tracking-tight"
                   >
-                    {d.name}
+                    {displayName}
                   </text>
                 </g>
               );
@@ -257,6 +260,7 @@ export const IndiaIntelligenceMap: React.FC = () => {
       {/* Right Selected District Intelligence Panel (§4.1, §6.1) */}
       {(() => {
         const d = DISTRICTS.find(item => item.id === selectedDistrict) || DISTRICTS[0];
+        const displayName = isHi && d.nameHi ? d.nameHi : d.name;
 
         return (
           <div className="w-full xl:w-96 rounded-3xl glass-strong p-5 border border-[var(--border)] shadow-md flex flex-col justify-between">
@@ -267,10 +271,10 @@ export const IndiaIntelligenceMap: React.FC = () => {
                     {isHi ? 'चयनित भूगोल' : 'Selected Geography'}
                   </span>
                   <h3 className="text-xl font-extrabold text-[var(--text)] tracking-tight">
-                    {d.name}
+                    {displayName}
                   </h3>
                   <span className="text-xs text-[var(--text-muted)] font-medium">
-                    {d.state} (LGD Code: {d.lgdCode})
+                    {isHi ? (stateNameToHi[d.state] || d.state) : d.state} ({isHi ? 'LGD कोड' : 'LGD Code'}: {d.lgdCode})
                   </span>
                 </div>
                 <div className="p-2.5 rounded-2xl glass text-[var(--brand)] border border-[var(--border)]">
@@ -323,8 +327,8 @@ export const IndiaIntelligenceMap: React.FC = () => {
                   <div className="text-lg font-bold text-[var(--text)] mt-0.5 font-mono tabular-nums">
                     {d.activeEmployers}
                   </div>
-                  <span className="text-[10px] text-[var(--success)] font-semibold">
-                    {isHi ? 'नियुक्ति सत्यापित' : 'Hiring Verified'}
+                  <span className="text-[10px] text-[var(--text-muted)] font-semibold">
+                    {isHi ? 'रिपोर्ट की गई नियुक्ति (डमी डेटासेट)' : 'Reported hiring (dummy dataset)'}
                   </span>
                 </div>
               </div>
@@ -339,7 +343,7 @@ export const IndiaIntelligenceMap: React.FC = () => {
                   <div className="space-y-1">
                     {d.topShortageTrades.map((t, idx) => (
                       <div key={idx} className="text-xs font-semibold text-[var(--text)] py-1 px-2.5 rounded-xl glass border border-[var(--severe)]/20 flex items-center justify-between">
-                        <span className="truncate">{t}</span>
+                        <span className="truncate">{isHi ? getLocalizedEntityName('occupations', t, 'hi') : t}</span>
                         <span className="text-[10px] text-[var(--severe)] font-mono font-bold shrink-0 ml-1">{isHi ? 'घाटा' : 'Deficit'}</span>
                       </div>
                     ))}
@@ -349,13 +353,13 @@ export const IndiaIntelligenceMap: React.FC = () => {
                 <div>
                   <span className="text-[11px] font-bold text-[var(--oversupply)] uppercase tracking-wider block mb-1.5 flex items-center gap-1">
                     <TrendingUp className="w-3.5 h-3.5 text-[var(--oversupply)]" />
-                    {isHi ? 'अतिआपूर्ति वाले ट्रेड्स:' : 'Oversupplied Trades:'}
+                    {isHi ? 'क्षमता अधिशेष (सीटें):' : 'Capacity surplus (seats):'}
                   </span>
                   <div className="space-y-1">
-                    {d.topOversuppliedTrades.map((t, idx) => (
+                    {(d.capacitySurplusTrades || d.topOversuppliedTrades || []).map((t: string, idx: number) => (
                       <div key={idx} className="text-xs font-semibold text-[var(--text)] py-1 px-2.5 rounded-xl glass border border-[var(--oversupply)]/20 flex items-center justify-between">
-                        <span className="truncate">{t}</span>
-                        <span className="text-[10px] text-[var(--oversupply)] font-mono font-bold shrink-0 ml-1">{isHi ? 'अधिशेष' : 'Excess'}</span>
+                        <span className="truncate">{isHi ? getLocalizedEntityName('occupations', t, 'hi') : t}</span>
+                        <span className="text-[10px] text-[var(--oversupply)] font-mono font-bold shrink-0 ml-1">{isHi ? 'अधिशेष' : 'Surplus'}</span>
                       </div>
                     ))}
                   </div>
@@ -367,7 +371,7 @@ export const IndiaIntelligenceMap: React.FC = () => {
               href={`/districts/${d.id}`}
               className="w-full py-2 px-3 rounded-xl bg-[var(--brand)] hover:opacity-90 text-white text-xs font-bold flex items-center justify-center gap-1.5 transition-all shadow-xs cursor-pointer"
             >
-              <span>{isHi ? `पूर्ण ${d.name} डोजियर देखें` : `Explore Complete ${d.name} Dossier`}</span>
+              <span>{isHi ? `पूर्ण ${displayName} डोजियर देखें` : `Explore Complete ${displayName} Dossier`}</span>
               <ChevronRight className="w-4 h-4" />
             </Link>
           </div>

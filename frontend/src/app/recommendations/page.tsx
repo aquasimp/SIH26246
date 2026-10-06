@@ -8,6 +8,7 @@ import { Badge } from '@/components/common/Badge';
 import { Provenance } from '@/components/common/Provenance';
 import { RECOMMENDATIONS } from '@/lib/demoData';
 import { Recommendation } from '@/lib/types';
+import { getLocalizedEntityName } from '@/lib/i18n';
 import { toast } from 'sonner';
 import { 
   Lightbulb, 
@@ -47,7 +48,7 @@ export default function RecommendationsPage() {
       ])
     ];
     downloadCSV('KaushalYuva_Recommended_Interventions_Dossier.csv', rows);
-    toast.success(isHi ? 'पूर्ण नीतिगत हस्तक्षेप डोजियर CSV में निर्यात हुआ' : 'Complete policy interventions dossier exported to CSV');
+    toast.success(isHi ? `${recommendations.length} नीतिगत हस्तक्षेप CSV में निर्यात किए गए` : `Exported ${recommendations.length} policy interventions to CSV`);
   };
 
   const handleApprove = (id: string, title: string) => {
@@ -64,7 +65,7 @@ export default function RecommendationsPage() {
             <span className="px-2.5 py-0.5 rounded-full text-[11px] font-mono font-extrabold uppercase tracking-wider bg-[var(--brand)]/15 text-[var(--brand)] border border-[var(--brand)]/30">
               {isHi ? 'सरकारी निर्णय सहायता पाइपलाइन' : 'Government Decision Support Pipeline'}
             </span>
-            <Provenance source="Official SIH" />
+            <Provenance source="SIH dummy dataset" />
           </div>
           <h1 className="text-2xl sm:text-3xl font-extrabold text-[var(--text)] tracking-tight">
             {isHi ? 'अनुशंसित नीतिगत हस्तक्षेप' : 'Recommended Policy Interventions'}
@@ -103,11 +104,23 @@ export default function RecommendationsPage() {
                   #{String(rec.rank).padStart(2, '0')}
                 </div>
                 <div>
-                  <span className="text-xs font-bold text-[var(--text-faint)] uppercase tracking-wider font-mono">
-                    {rec.id}
-                  </span>
-                  <div className="text-sm font-bold text-[var(--text)]">
-                    {rec.district}, {rec.state}
+                  <div className="flex items-center gap-2">
+                    <span className="text-xs font-bold text-[var(--text-faint)] uppercase tracking-wider font-mono">
+                      {rec.id}
+                    </span>
+                    {/* Dataset derivation chip */}
+                    <span className={`px-2 py-0.5 rounded-full text-[10px] font-mono font-bold border ${
+                      rec.id === 'REC-01'
+                        ? 'bg-blue-500/10 text-blue-700 dark:text-blue-300 border-blue-500/25'
+                        : 'bg-amber-500/10 text-amber-700 dark:text-amber-400 border-amber-500/25'
+                    }`}>
+                      {rec.id === 'REC-01'
+                        ? (isHi ? 'LP अनुकूलन · SIH डमी डेटासेट' : 'LP Optimization · SIH dummy dataset')
+                        : (isHi ? 'उदाहरणात्मक, मॉडल आउटपुट नहीं · SIH डमी डेटासेट' : 'Illustrative, not model output · SIH dummy dataset')}
+                    </span>
+                  </div>
+                  <div className="text-sm font-bold text-[var(--text)] mt-0.5">
+                    {isHi ? `${getLocalizedEntityName('districts', rec.district, 'hi')}, ${getLocalizedEntityName('states', rec.state, 'hi')}` : `${rec.district}, ${rec.state}`}
                   </div>
                 </div>
               </div>
@@ -225,7 +238,7 @@ export default function RecommendationsPage() {
                       ['Confidence', `${rec.confidence}%`]
                     ];
                     downloadCSV(`MSDE_Action_${rec.id}.csv`, rows);
-                    toast.success(isHi ? `कार्यवाही संक्षिप्त डाउनलोड हुई: ${rec.id}` : `Action brief for ${rec.id} downloaded`);
+                    toast.success(isHi ? `कार्यवाही संक्षिप्त डाउनलोड हुई: ${rec.id} (${rec.recommendedSeats} सीटें)` : `Action brief for ${rec.id} (${rec.recommendedSeats} seats) downloaded`);
                   }}
                   className="p-2 rounded-xl liquid-control text-[var(--text-muted)] hover:text-[var(--text)] cursor-pointer"
                   title={isHi ? 'कार्यवाही संक्षिप्त निर्यात' : 'Export Action Brief'}

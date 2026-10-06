@@ -133,10 +133,12 @@ test.describe('Judge Audit: 100% Hindi Localization Deep Crawl', () => {
         let currentNode = walker.nextNode();
         while (currentNode) {
           const rawText = currentNode.textContent?.trim() || '';
-          // Look for words with English alphabetic characters
-          const latinWords = rawText.match(/[A-Za-z]{3,}/g) || [];
+          // Look for tokens containing English alphabetic characters
+          const latinWords = rawText.match(/[A-Za-z0-9_\-\./#]{3,}/g) || [];
           for (const word of latinWords) {
-            results.push(word);
+            if (/[A-Za-z]/.test(word)) {
+              results.push(word);
+            }
           }
           currentNode = walker.nextNode();
         }
@@ -162,10 +164,12 @@ test.describe('Judge Audit: Canonical 10-Step Demo Path Verification', () => {
     await expect(page).toHaveTitle(/KaushalYuva/);
     await expect(page.locator('h1').first()).toBeVisible();
 
-    // Verify proof panel numbers
+    // Verify proof panel numbers and live top alert hero
     await expect(page.locator('text=808').first()).toBeVisible();
     await expect(page.locator('text=97').first()).toBeVisible();
     await expect(page.locator('text=711').first()).toBeVisible();
+    await expect(page.locator('text=SIH dummy dataset').first()).toBeVisible();
+    await expect(page.locator('text=RUN-SIH-001').first()).toBeVisible();
 
     // 2. Click "Open Dashboard" to land on /overview
     const openDashBtn = page.locator('a', { hasText: 'Open Dashboard' }).first();
@@ -189,6 +193,9 @@ test.describe('Judge Audit: Canonical 10-Step Demo Path Verification', () => {
     await expect(page.locator('h1').first()).toBeVisible();
     const rec1 = page.locator('text=#01').first();
     await expect(rec1).toBeVisible();
+    await expect(page.locator('text=97').first()).toBeVisible();
+    await expect(page.locator('text=6.2%').first()).toBeVisible();
+    await expect(page.locator('text=Illustrative, not model output').first()).toBeVisible();
 
     // 7. Click Simulate in Scenario Studio
     const simBtn = page.locator('a, button', { hasText: 'Simulate in Scenario Studio' }).first();
@@ -199,7 +206,7 @@ test.describe('Judge Audit: Canonical 10-Step Demo Path Verification', () => {
       await page.goto('/scenarios?preset=rec01');
     }
 
-    // 8. Scenario Studio lands on preset
+    // 8. Scenario Studio lands on preset with exact Strict-default figures
     await expect(page.locator('text=97 seats').first()).toBeVisible();
     await expect(page.locator('text=15.6%').first()).toBeVisible();
     await expect(page.locator('text=₹18.31L').first()).toBeVisible();
@@ -211,5 +218,13 @@ test.describe('Judge Audit: Canonical 10-Step Demo Path Verification', () => {
     // 10. Export Action button is clickable
     const exportBtn = page.locator('button', { hasText: 'Export' }).first();
     await expect(exportBtn).toBeVisible();
+
+    // 11. Geographic & Trade Directory Reconciliation Assertions
+    await page.goto('/districts');
+    await expect(page.locator('text=16').first()).toBeVisible();
+
+    await page.goto('/occupations');
+    await expect(page.locator('text=16').first()).toBeVisible();
   });
 });
+

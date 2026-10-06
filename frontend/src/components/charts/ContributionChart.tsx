@@ -46,6 +46,26 @@ export const ContributionChart: React.FC<ContributionChartProps> = ({
     }
   };
 
+  const getFactorLabel = (name: string) => {
+    if (!isHi) return name;
+    switch (name) {
+      case 'demand_growth_12m': return '12-माह मांग वृद्धि';
+      case 'rolling_mean_6':
+      case 'rolling_mean_6m': return '6-माह चलती औसत';
+      case 'rolling_mean_3': return '3-माह चलती औसत';
+      case 'rolling_mean_12': return '12-माह चलती औसत';
+      case 'lag_1': return 'पूर्व माह मांग (t-1)';
+      case 'lag_12': return 'वार्षिक अंतराल (t-12)';
+      case 'lag_1_effective_supply': return 'प्रभावी आपूर्ति आधार (t-1)';
+      case 'inter_district_migration_rate': return 'उम्मीदवार प्रवासन दर';
+      case 'wage_signal':
+      case 'wage_signal_growth': return 'मजदूरी संकेत वृद्धि';
+      case 'month': return 'कैलेंडर माह मौसमी';
+      case 'nco_code': return 'व्यवसाय कोड बाधा';
+      default: return name;
+    }
+  };
+
   const getFactorDescription = (factor: ExplainabilityFactor) => {
     if (!isHi) return factor.description;
     switch (factor.name) {
@@ -65,8 +85,20 @@ export const ContributionChart: React.FC<ContributionChartProps> = ({
         return 'कैलेंडर मौसमी और वित्तीय खरीद चक्र मील के पत्थर (-10.79 SHAP)';
       case 'nco_code':
         return 'व्यवसाय-विशिष्ट कौशल विशेषज्ञता बाधा (-5.06 SHAP)';
+      case 'demand_growth_12m':
+        return '12-माह संरचनात्मक मांग प्रक्षेपवक्र वृद्धि (+14.2% रुझान)';
+      case 'rolling_mean_6':
+      case 'rolling_mean_6m':
+        return '6-माह चलती औसत आधारभूत मांग प्रक्षेपवक्र';
+      case 'lag_1_effective_supply':
+        return 'पूर्ववर्ती माह प्रभावी रोजगार योग्य आपूर्ति आधार t-1';
+      case 'inter_district_migration_rate':
+        return 'अंतर-जिला उम्मीदवार प्रवासन दर एवं श्रम तरलता';
+      case 'wage_signal':
+      case 'wage_signal_growth':
+        return 'मजदूरी वृद्धि गतिशीलता एवं वेतन प्रीमियम संकेत';
       default:
-        return factor.description;
+        return 'मॉडल भविष्यवाणी की व्याख्या करने वाला अनुभवजन्य कारक अपघटन';
     }
   };
 
@@ -103,7 +135,7 @@ export const ContributionChart: React.FC<ContributionChartProps> = ({
                   </div>
                   <div>
                     <span className="text-xs sm:text-sm font-bold text-[var(--text)] font-mono">
-                      {factor.name}
+                      {getFactorLabel(factor.name)}
                     </span>
                     <span className="text-[10px] text-[var(--text-faint)] font-mono uppercase tracking-wider ml-2">
                       [{getSignalTypeLabel(factor.signalType)}]

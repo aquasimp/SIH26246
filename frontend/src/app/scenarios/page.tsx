@@ -52,7 +52,7 @@ function ScenarioStudioContent() {
   const [seatPercentAdjustment, setSeatPercentAdjustment] = useState<number>(0); // 0%
   const [demandShockPercent, setDemandShockPercent] = useState<number>(0); // 0%
   const [newCentreActive, setNewCentreActive] = useState<boolean>(true); // ON (+150 seats, ₹12L)
-  const [mobilityFactorPercent, setMobilityFactorPercent] = useState<number>(10); // +10%
+  const [mobilityFactorPercent, setMobilityFactorPercent] = useState<number>(0); // 0%
   const [donorSafetyRule, setDonorSafetyRule] = useState<number>(0.05); // 0.05 (Strict, default), 0.10, 0.1895
   const [whyModalOpen, setWhyModalOpen] = useState<boolean>(false);
 
@@ -100,7 +100,7 @@ function ScenarioStudioContent() {
     setSeatPercentAdjustment(0);
     setDemandShockPercent(0);
     setNewCentreActive(true); // +150 greenfield lab seats (+₹12L)
-    setMobilityFactorPercent(10); // +10% mobility on added supply
+    setMobilityFactorPercent(0); // 0% default
     setDonorSafetyRule(0.05); // Strict default
     toast.success(isHi ? 'सिफ़ारिश #01 प्रीसेट लोड: 97 सीटें • ₹18.31L • 15.6% भरपाई' : 'Recommendation #01 preset loaded: 97 seats • ₹18.31L • 15.6% closure');
   };
@@ -147,7 +147,7 @@ function ScenarioStudioContent() {
             <span className="px-2.5 py-0.5 rounded-full text-[11px] font-mono font-extrabold uppercase tracking-wider bg-amber-500/15 text-amber-500 border border-amber-500/30">
               {isHi ? 'इंटरैक्टिव नीति सैंडबॉक्स' : 'Interactive Policy Sandbox'}
             </span>
-            <Provenance source="Official SIH" />
+            <Provenance source="SIH dummy dataset" />
           </div>
           <h1 className="text-2xl sm:text-4xl font-extrabold text-[var(--text)] tracking-tight">
             {isHi ? 'परिदृश्य स्टूडियो' : 'Scenario Studio'}
@@ -802,10 +802,10 @@ function ScenarioStudioContent() {
             <div className="flex items-center justify-between">
               <span className="font-bold text-[var(--text)] uppercase text-[10px] tracking-wider font-mono">
                 {isHi 
-                  ? 'वास्तविक दाता विश्लेषण (जिला और राज्य स्कैन — आधिकारिक SIH डेटासेट)' 
-                  : 'Real Donor Analysis (District & State Scan — Official SIH Dataset)'}
+                  ? 'वास्तविक दाता विश्लेषण (ज़िला एवं राज्य स्कैन — SIH डमी डेटासेट)' 
+                  : 'Real Donor Analysis (District & State Scan — SIH dummy dataset)'}
               </span>
-              <Provenance source="Official SIH" />
+              <Provenance source="SIH dummy dataset" />
             </div>
             <p className="text-[var(--text-muted)] leading-relaxed text-[11px]">
               {isHi ? (

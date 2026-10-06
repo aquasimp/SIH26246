@@ -22,6 +22,7 @@ import {
 } from 'lucide-react';
 import { downloadCSV } from '@/lib/exportUtils';
 import { getLocalizedEntityName } from '@/lib/i18n';
+import { toast } from 'sonner';
 
 export default function AlertsPage() {
   const { alerts, acknowledgeAlert, language } = useApp();
@@ -58,6 +59,7 @@ export default function AlertsPage() {
       ])
     ];
     downloadCSV('KaushalYuva_Early_Warnings.csv', rows);
+    toast.success(isHi ? `${alerts.length} चेतावनी संकेत CSV में निर्यात किए गए` : `Exported ${alerts.length} early warning alerts to CSV`);
   };
 
   const getSeverityBadgeText = (sev: string) => {
@@ -104,8 +106,8 @@ export default function AlertsPage() {
       <div className="p-4 rounded-2xl glass border border-[var(--border-strong)] flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
         <div className="space-y-1">
           <div className="flex items-center gap-2 flex-wrap">
-            <span className="px-2 py-0.5 rounded text-[10px] font-extrabold uppercase bg-[var(--severe)] text-white tracking-wider font-mono">
-              {isHi ? 'आधिकारिक SIH स्कैन' : 'Official SIH Scan'}
+            <span className="px-2 py-0.5 rounded text-[10px] font-extrabold uppercase bg-[var(--brand)] text-white tracking-wider font-mono">
+              {isHi ? 'SIH डमी डेटासेट स्कैन' : 'SIH Dummy Dataset Scan'}
             </span>
             <span className="font-bold text-[var(--text)]">
               {isHi ? '16 जिलों में 35 सक्रिय विसंगतियां पाई गईं' : '35 Active Anomalies Detected across 16 Districts'}

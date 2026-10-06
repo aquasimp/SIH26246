@@ -24,6 +24,7 @@ import {
 } from 'lucide-react';
 import { downloadCSV } from '@/lib/exportUtils';
 import { getLocalizedEntityName } from '@/lib/i18n';
+import { toast } from 'sonner';
 
 export default function SkillGapsPage() {
   const { selectedOccupationNco, setSelectedOccupationNco, selectedDistrict, language } = useApp();
@@ -60,6 +61,7 @@ export default function SkillGapsPage() {
       ])
     ];
     downloadCSV('KaushalPulse_Skill_Gap_Severity_Registry.csv', rows);
+    toast.success(isHi ? `${OCCUPATIONS.length} व्यवसायों की कौशल अंतर रजिस्ट्री CSV में निर्यात की गई` : `Exported ${OCCUPATIONS.length} occupations to skill gap registry CSV`);
   };
 
   const filteredList = OCCUPATIONS.filter(o => {
@@ -219,29 +221,47 @@ export default function SkillGapsPage() {
         const netVelocityMismatch = Number((demandGrowth6M - supplyGrowth6M).toFixed(1));
         const isShortage = isSolar ? true : isRetail ? false : netVelocityMismatch > 0;
 
+        const getFeatureLabel = (feature: string) => {
+          if (!isHi) return feature;
+          switch (feature) {
+            case 'rolling_mean_3': return '3-माह चलती औसत';
+            case 'rolling_mean_12': return '12-माह चलती औसत';
+            case 'rolling_mean_6': return '6-माह चलती औसत';
+            case 'rolling_std_6': return '6-माह रिक्ति अस्थिरता';
+            case 'lag_1': return 'पूर्व माह मांग';
+            case 'lag_12': return 'वार्षिक अंतराल';
+            case 'month': return 'कैलेंडर माह प्रभाव';
+            case 'nco_code': return 'व्यवसाय कोड प्रभाव';
+            case 'demand_growth_12m': return '12-माह मांग विस्तार';
+            case 'demand_growth_3m': return '3-माह मांग विस्तार';
+            case 'lag_1_wage_signal': return 'स्थानीय पारिश्रमिक संकेत';
+            default: return feature;
+          }
+        };
+
         // Per-prediction local TreeSHAP drivers using STRICT real feature names from feature_schema.json
         const localShapDrivers = isSolar ? [
           { rank: 1, feature: 'rolling_mean_3', shapValue: 108.91, direction: 'positive', desc: isHi ? 'अल्पकालिक मूविंग एवरेज बेसलाइन मांग' : 'Short-term moving average baseline demand' },
-          { rank: 2, feature: 'lag_1', shapValue: 102.25, direction: 'positive', desc: isHi ? 'पूर्व माह भर्ती आदेश बेसलाइन (t-1)' : 'Preceding month recruitment order baseline (t-1)' },
+          { rank: 2, feature: 'lag_1', shapValue: 102.25, direction: 'positive', desc: isHi ? 'पूर्व माह भर्ती आदेश बेसलाइन' : 'Preceding month recruitment order baseline (t-1)' },
           { rank: 3, feature: 'rolling_mean_12', shapValue: 100.45, direction: 'positive', desc: isHi ? 'वार्षिक मूविंग एवरेज श्रम मांग' : 'Annualized moving average labour demand' },
-          { rank: 4, feature: 'lag_12', shapValue: 21.95, direction: 'positive', desc: isHi ? 'गत वर्ष समान माह मौसमी आधार (t-12)' : 'Prior-year same-month seasonal anchor (t-12)' },
+          { rank: 4, feature: 'lag_12', shapValue: 21.95, direction: 'positive', desc: isHi ? 'गत वर्ष समान माह मौसमी आधार' : 'Prior-year same-month seasonal anchor (t-12)' },
           { rank: 5, feature: 'month', shapValue: -10.79, direction: 'negative', desc: isHi ? 'कैलेंडर मौसमी चक्र एवं वित्तीय खरीद पड़ाव' : 'Calendar seasonality and fiscal procurement milestones' }
         ] : isRetail ? [
-          { rank: 1, feature: 'lag_1', shapValue: -34.21, direction: 'negative', desc: isHi ? 'पूर्व माह भर्ती आदेश बेसलाइन (t-1)' : 'Preceding month recruitment order baseline (t-1)' },
+          { rank: 1, feature: 'lag_1', shapValue: -34.21, direction: 'negative', desc: isHi ? 'पूर्व माह भर्ती आदेश बेसलाइन' : 'Preceding month recruitment order baseline (t-1)' },
           { rank: 2, feature: 'rolling_mean_12', shapValue: -16.61, direction: 'negative', desc: isHi ? 'वार्षिक मूविंग एवरेज श्रम मांग' : 'Annualized moving average labour demand' },
           { rank: 3, feature: 'month', shapValue: -12.79, direction: 'negative', desc: isHi ? 'कैलेंडर मौसमी चक्र एवं वित्तीय खरीद पड़ाव' : 'Calendar seasonality and fiscal procurement milestones' },
           { rank: 4, feature: 'rolling_mean_3', shapValue: -9.86, direction: 'negative', desc: isHi ? 'अल्पकालिक मूविंग एवरेज बेसलाइन मांग' : 'Short-term moving average baseline demand' },
           { rank: 5, feature: 'nco_code', shapValue: -5.06, direction: 'negative', desc: isHi ? 'व्यवसाय-विशिष्ट कौशल विशेषज्ञता बाधा' : 'Occupation-specific skill specialization barrier' }
         ] : [
-          { rank: 1, feature: 'lag_1', shapValue: 42.15, direction: 'positive', desc: isHi ? 'पूर्व माह भर्ती आदेश बेसलाइन (t-1)' : 'Preceding month recruitment order baseline (t-1)' },
+          { rank: 1, feature: 'lag_1', shapValue: 42.15, direction: 'positive', desc: isHi ? 'पूर्व माह भर्ती आदेश बेसलाइन' : 'Preceding month recruitment order baseline (t-1)' },
           { rank: 2, feature: 'demand_growth_12m', shapValue: 28.30, direction: 'positive', desc: isHi ? 'संरचनात्मक दीर्घकालिक वार्षिक मांग विस्तार दर' : 'Structural long-term annual demand expansion rate' },
           { rank: 3, feature: 'rolling_mean_6', shapValue: 19.45, direction: 'positive', desc: isHi ? '6 माह मूविंग एवरेज रोजगार बेसलाइन' : '6-month moving average employment baseline' },
           { rank: 4, feature: 'month', shapValue: -8.12, direction: 'negative', desc: isHi ? 'कैलेंडर मौसमी चक्र एवं वित्तीय खरीद पड़ाव' : 'Calendar seasonality and fiscal procurement milestones' },
-          { rank: 5, feature: 'lag_1_wage_signal', shapValue: 6.50, direction: 'positive', desc: isHi ? 'विलंबित स्थानीय पारिश्रमिक दर प्रीमियम (t-1 माह)' : 'Lagged local compensation rate premium (t-1 month)' }
+          { rank: 5, feature: 'lag_1_wage_signal', shapValue: 6.50, direction: 'positive', desc: isHi ? 'विलंबित स्थानीय पारिश्रमिक दर प्रीमियम' : 'Lagged local compensation rate premium (t-1 month)' }
         ];
 
         const qualitativeContext = isSolar
-          ? (isHi ? 'पूर्वांचल में जमीनी स्तर पर मांग में तेजी पीएम सूर्य घर मुफ्त बिजली योजना के तहत आवासीय रूफटॉप को अपनाने से प्रेरित है।' : 'Ground-level demand acceleration in Purvanchal is driven by residential rooftop adoption under PM Surya Ghar Muft Bijli Yojana.')
+          ? (isHi ? 'पूर्वांचल में जमीनी स्तर पर मांग में तेजी सौर ऊर्जा और रूफटॉप सोलर स्थापना से प्रेरित है [SIH डमी डेटासेट]।' : 'Ground-level demand acceleration in Purvanchal is driven by solar power and rooftop installation projects [SIH dummy dataset].')
           : isRetail
           ? (isHi ? 'खुदरा रोजगार में संकुचन स्वचालित पूर्ति केंद्रों और क्विक-कॉमर्स डार्क स्टोर्स में स्थानांतरण से प्रभावित है।' : 'Retail employment contraction is influenced by migration to automated fulfillment hubs and quick-commerce dark stores.')
           : (isHi ? 'भर्ती रुझान औद्योगिक पूंजीगत व्यय और सार्वजनिक अवसंरचना निष्पादन कार्यक्रम से प्रभावित हैं।' : 'Hiring trends influenced by industrial capex and public infrastructure execution schedules.');
@@ -251,7 +271,7 @@ export default function SkillGapsPage() {
           { rank: 2, feature: 'demand_growth_12m', importance: 746, desc: isHi ? 'संरचनात्मक दीर्घकालिक वार्षिक मांग विस्तार दर' : 'Structural long-term annual demand expansion rate' },
           { rank: 3, feature: 'rolling_std_6', importance: 718, desc: isHi ? '6 माह रिक्ति अस्थिरता एवं संविदा क्लस्टरिंग आयाम' : '6-month vacancy volatility & contract clustering amplitude' },
           { rank: 4, feature: 'demand_growth_3m', importance: 673, desc: isHi ? 'हालिया त्रैमासिक भर्ती त्वरण' : 'Recent quarterly recruitment hiring acceleration' },
-          { rank: 5, feature: 'lag_1_wage_signal', importance: 506, desc: isHi ? 'विलंबित स्थानीय पारिश्रमिक दर प्रीमियम (t-1 माह)' : 'Lagged local compensation rate premium (t-1 month)' }
+          { rank: 5, feature: 'lag_1_wage_signal', importance: 506, desc: isHi ? 'विलंबित स्थानीय पारिश्रमिक दर प्रीमियम' : 'Lagged local compensation rate premium (t-1 month)' }
         ];
 
         return (
@@ -263,7 +283,7 @@ export default function SkillGapsPage() {
               {/* 1. Dynamic Velocity Mismatch Decomposition */}
               <div className="p-4 rounded-2xl glass border border-[var(--border)] shadow-xs space-y-3">
                 <span className="text-[11px] font-bold text-[var(--text-faint)] uppercase tracking-wider block font-mono">
-                  {isHi ? '1. वेग अपघटन (t बनाम t-6)' : '1. Velocity Decomposition (t vs t-6)'}
+                  {isHi ? '1. वेग अपघटन (वर्तमान बनाम 6 माह पूर्व)' : '1. Velocity Decomposition (t vs t-6)'}
                 </span>
                 <div className="grid grid-cols-3 gap-2 text-center">
                   <div className="p-2.5 rounded-xl bg-orange-500/10 border border-orange-500/20">
@@ -348,7 +368,7 @@ export default function SkillGapsPage() {
                           <span className="w-4 h-4 rounded glass text-[var(--text-faint)] font-mono font-bold text-[9px] flex items-center justify-center">
                             #{d.rank}
                           </span>
-                          <span className="font-mono font-bold text-[var(--text)] text-[11px]">{d.feature}</span>
+                          <span className="font-mono font-bold text-[var(--text)] text-[11px]">{getFeatureLabel(d.feature)}</span>
                         </div>
                         <span className={clsx(
                           'font-mono text-[10px] font-extrabold px-1.5 py-0.2 rounded border',
@@ -388,7 +408,7 @@ export default function SkillGapsPage() {
                           #{d.rank}
                         </span>
                         <div>
-                          <span className="font-mono font-bold text-[var(--text)] text-[11px]">{d.feature}</span>
+                          <span className="font-mono font-bold text-[var(--text)] text-[11px]">{getFeatureLabel(d.feature)}</span>
                           <span className="text-[9px] text-[var(--text-faint)] block leading-tight">{d.desc}</span>
                         </div>
                       </div>

@@ -233,7 +233,7 @@ export const ForecastChart: React.FC<ForecastChartProps> = ({
                 fontWeight="700"
                 fill={palette.textMuted}
               >
-                Historical Actuals
+                {isHi ? 'ऐतिहासिक वास्तविक डेटा' : 'Historical Actuals'}
               </text>
               <text
                 x={getX(23) + 8}
@@ -243,7 +243,7 @@ export const ForecastChart: React.FC<ForecastChartProps> = ({
                 fontWeight="700"
                 fill={palette.brand}
               >
-                {horizon} Projection →
+                {isHi ? `${horizon} प्रक्षेपण →` : `${horizon} Projection →`}
               </text>
             </g>
           )}

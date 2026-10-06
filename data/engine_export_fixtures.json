@@ -1,0 +1,2183 @@
+{
+  "metadata": {
+    "runId": "RUN-SIH-001",
+    "dataHash": "01b23bfc01b7",
+    "trainedAt": "2026-10-04T17:52:17Z",
+    "dataThrough": "Oct 2024",
+    "dateRange": "2022-01-01 to 2024-10-01",
+    "districtsCount": 16,
+    "statesCount": 5,
+    "tradesCount": 16
+  },
+  "states": [
+    "Gujarat",
+    "Karnataka",
+    "Maharashtra",
+    "Tamil Nadu",
+    "Uttar Pradesh"
+  ],
+  "districts": [
+    {
+      "id": "ahmedabad",
+      "name": "Ahmedabad",
+      "nameHi": "अहमदाबाद",
+      "state": "Gujarat",
+      "lgdCode": 442,
+      "demandIndex": 77,
+      "effectiveSupplyIndex": 30,
+      "gapScore": 85,
+      "shortageProbability6M": 72,
+      "trainingCentresCount": 41,
+      "totalTrainingSeats": 6163,
+      "topShortageTrades": [
+        "Solar PV Installer",
+        "Community Health Assistant",
+        "Smart Meter Installation Technician"
+      ],
+      "topOversuppliedTrades": [
+        "Retail Sales Associate",
+        "Data Entry Operator"
+      ],
+      "capacitySurplusTrades": [
+        "Retail Sales Associate",
+        "Data Entry Operator"
+      ],
+      "activeEmployers": 563,
+      "coordinates": [
+        23.0225,
+        72.5714
+      ]
+    },
+    {
+      "id": "bengaluru_urban",
+      "name": "Bengaluru Urban",
+      "nameHi": "बेंगलुरु शहरी",
+      "state": "Karnataka",
+      "lgdCode": 530,
+      "demandIndex": 84,
+      "effectiveSupplyIndex": 30,
+      "gapScore": 85,
+      "shortageProbability6M": 72,
+      "trainingCentresCount": 45,
+      "totalTrainingSeats": 6844,
+      "topShortageTrades": [
+        "Solar PV Installer",
+        "Community Health Assistant",
+        "CNC Machine Operator"
+      ],
+      "topOversuppliedTrades": [
+        "Retail Sales Associate",
+        "Data Entry Operator"
+      ],
+      "capacitySurplusTrades": [
+        "Retail Sales Associate",
+        "Data Entry Operator"
+      ],
+      "activeEmployers": 609,
+      "coordinates": [
+        12.9716,
+        77.5946
+      ]
+    },
+    {
+      "id": "chhatrapati_sambhajinagar",
+      "name": "Chhatrapati Sambhajinagar",
+      "nameHi": "छत्रपति संभाजीनगर",
+      "state": "Maharashtra",
+      "lgdCode": 480,
+      "demandIndex": 50,
+      "effectiveSupplyIndex": 31,
+      "gapScore": 85,
+      "shortageProbability6M": 72,
+      "trainingCentresCount": 27,
+      "totalTrainingSeats": 4066,
+      "topShortageTrades": [
+        "Solar PV Installer",
+        "Community Health Assistant",
+        "Smart Meter Installation Technician"
+      ],
+      "topOversuppliedTrades": [
+        "Retail Sales Associate",
+        "Data Entry Operator"
+      ],
+      "capacitySurplusTrades": [
+        "Retail Sales Associate",
+        "Data Entry Operator"
+      ],
+      "activeEmployers": 353,
+      "coordinates": [
+        19.8762,
+        75.3433
+      ]
+    },
+    {
+      "id": "coimbatore",
+      "name": "Coimbatore",
+      "nameHi": "कोयंबटूर",
+      "state": "Tamil Nadu",
+      "lgdCode": 597,
+      "demandIndex": 67,
+      "effectiveSupplyIndex": 31,
+      "gapScore": 84,
+      "shortageProbability6M": 71,
+      "trainingCentresCount": 36,
+      "totalTrainingSeats": 5449,
+      "topShortageTrades": [
+        "Solar PV Installer",
+        "Community Health Assistant",
+        "EV Service Technician"
+      ],
+      "topOversuppliedTrades": [
+        "Retail Sales Associate",
+        "Data Entry Operator"
+      ],
+      "capacitySurplusTrades": [
+        "Retail Sales Associate",
+        "Data Entry Operator"
+      ],
+      "activeEmployers": 475,
+      "coordinates": [
+        11.0168,
+        76.9558
+      ]
+    },
+    {
+      "id": "dharwad",
+      "name": "Dharwad",
+      "nameHi": "धारवाड़",
+      "state": "Karnataka",
+      "lgdCode": 541,
+      "demandIndex": 48,
+      "effectiveSupplyIndex": 30,
+      "gapScore": 85,
+      "shortageProbability6M": 72,
+      "trainingCentresCount": 25,
+      "totalTrainingSeats": 3898,
+      "topShortageTrades": [
+        "Solar PV Installer",
+        "Community Health Assistant",
+        "Smart Meter Installation Technician"
+      ],
+      "topOversuppliedTrades": [
+        "Retail Sales Associate",
+        "Data Entry Operator"
+      ],
+      "capacitySurplusTrades": [
+        "Retail Sales Associate",
+        "Data Entry Operator"
+      ],
+      "activeEmployers": 339,
+      "coordinates": [
+        15.4589,
+        75.0078
+      ]
+    },
+    {
+      "id": "gorakhpur",
+      "name": "Gorakhpur",
+      "nameHi": "गोरखपुर",
+      "state": "Uttar Pradesh",
+      "lgdCode": 178,
+      "demandIndex": 63,
+      "effectiveSupplyIndex": 30,
+      "gapScore": 94,
+      "shortageProbability6M": 88,
+      "trainingCentresCount": 7,
+      "totalTrainingSeats": 1133,
+      "topShortageTrades": [
+        "Solar PV Installer",
+        "Community Health Assistant",
+        "Smart Meter Installation Technician"
+      ],
+      "topOversuppliedTrades": [
+        "Retail Sales Associate",
+        "Data Entry Operator"
+      ],
+      "capacitySurplusTrades": [
+        "Retail Sales Associate",
+        "Data Entry Operator"
+      ],
+      "activeEmployers": 46,
+      "coordinates": [
+        26.7606,
+        83.3732
+      ]
+    },
+    {
+      "id": "kanpur_nagar",
+      "name": "Kanpur Nagar",
+      "nameHi": "कानपुर नगर",
+      "state": "Uttar Pradesh",
+      "lgdCode": 179,
+      "demandIndex": 66,
+      "effectiveSupplyIndex": 31,
+      "gapScore": 85,
+      "shortageProbability6M": 72,
+      "trainingCentresCount": 35,
+      "totalTrainingSeats": 5279,
+      "topShortageTrades": [
+        "Solar PV Installer",
+        "Community Health Assistant",
+        "Smart Meter Installation Technician"
+      ],
+      "topOversuppliedTrades": [
+        "Retail Sales Associate",
+        "Data Entry Operator"
+      ],
+      "capacitySurplusTrades": [
+        "Retail Sales Associate",
+        "Data Entry Operator"
+      ],
+      "activeEmployers": 464,
+      "coordinates": [
+        26.4499,
+        80.3319
+      ]
+    },
+    {
+      "id": "lucknow",
+      "name": "Lucknow",
+      "nameHi": "लखनऊ",
+      "state": "Uttar Pradesh",
+      "lgdCode": 180,
+      "demandIndex": 74,
+      "effectiveSupplyIndex": 31,
+      "gapScore": 84,
+      "shortageProbability6M": 71,
+      "trainingCentresCount": 39,
+      "totalTrainingSeats": 5950,
+      "topShortageTrades": [
+        "Solar PV Installer",
+        "Community Health Assistant",
+        "Smart Meter Installation Technician"
+      ],
+      "topOversuppliedTrades": [
+        "Retail Sales Associate",
+        "Data Entry Operator"
+      ],
+      "capacitySurplusTrades": [
+        "Retail Sales Associate",
+        "Data Entry Operator"
+      ],
+      "activeEmployers": 519,
+      "coordinates": [
+        26.8467,
+        80.9462
+      ]
+    },
+    {
+      "id": "mysuru",
+      "name": "Mysuru",
+      "nameHi": "मैसूरु",
+      "state": "Karnataka",
+      "lgdCode": 552,
+      "demandIndex": 50,
+      "effectiveSupplyIndex": 29,
+      "gapScore": 86,
+      "shortageProbability6M": 73,
+      "trainingCentresCount": 27,
+      "totalTrainingSeats": 4087,
+      "topShortageTrades": [
+        "Solar PV Installer",
+        "Community Health Assistant",
+        "Domestic Electrician & Wireman"
+      ],
+      "topOversuppliedTrades": [
+        "Retail Sales Associate",
+        "Data Entry Operator"
+      ],
+      "capacitySurplusTrades": [
+        "Retail Sales Associate",
+        "Data Entry Operator"
+      ],
+      "activeEmployers": 337,
+      "coordinates": [
+        12.2958,
+        76.6394
+      ]
+    },
+    {
+      "id": "nagpur",
+      "name": "Nagpur",
+      "nameHi": "नागपुर",
+      "state": "Maharashtra",
+      "lgdCode": 505,
+      "demandIndex": 58,
+      "effectiveSupplyIndex": 31,
+      "gapScore": 85,
+      "shortageProbability6M": 72,
+      "trainingCentresCount": 32,
+      "totalTrainingSeats": 4808,
+      "topShortageTrades": [
+        "Solar PV Installer",
+        "Community Health Assistant",
+        "Domestic Electrician & Wireman"
+      ],
+      "topOversuppliedTrades": [
+        "Retail Sales Associate",
+        "Data Entry Operator"
+      ],
+      "capacitySurplusTrades": [
+        "Retail Sales Associate",
+        "Data Entry Operator"
+      ],
+      "activeEmployers": 406,
+      "coordinates": [
+        21.1458,
+        79.0882
+      ]
+    },
+    {
+      "id": "nashik",
+      "name": "Nashik",
+      "nameHi": "नासिक",
+      "state": "Maharashtra",
+      "lgdCode": 516,
+      "demandIndex": 53,
+      "effectiveSupplyIndex": 31,
+      "gapScore": 85,
+      "shortageProbability6M": 72,
+      "trainingCentresCount": 28,
+      "totalTrainingSeats": 4300,
+      "topShortageTrades": [
+        "Solar PV Installer",
+        "Community Health Assistant",
+        "Smart Meter Installation Technician"
+      ],
+      "topOversuppliedTrades": [
+        "Retail Sales Associate",
+        "Data Entry Operator"
+      ],
+      "capacitySurplusTrades": [
+        "Retail Sales Associate",
+        "Data Entry Operator"
+      ],
+      "activeEmployers": 383,
+      "coordinates": [
+        19.9975,
+        73.7898
+      ]
+    },
+    {
+      "id": "pune",
+      "name": "Pune",
+      "nameHi": "पुणे",
+      "state": "Maharashtra",
+      "lgdCode": 521,
+      "demandIndex": 79,
+      "effectiveSupplyIndex": 31,
+      "gapScore": 85,
+      "shortageProbability6M": 72,
+      "trainingCentresCount": 42,
+      "totalTrainingSeats": 6390,
+      "topShortageTrades": [
+        "Solar PV Installer",
+        "Community Health Assistant",
+        "Smart Meter Installation Technician"
+      ],
+      "topOversuppliedTrades": [
+        "Retail Sales Associate",
+        "Data Entry Operator"
+      ],
+      "capacitySurplusTrades": [
+        "Retail Sales Associate",
+        "Data Entry Operator"
+      ],
+      "activeEmployers": 564,
+      "coordinates": [
+        18.5204,
+        73.8567
+      ]
+    },
+    {
+      "id": "rajkot",
+      "name": "Rajkot",
+      "nameHi": "राजकोट",
+      "state": "Gujarat",
+      "lgdCode": 461,
+      "demandIndex": 53,
+      "effectiveSupplyIndex": 31,
+      "gapScore": 84,
+      "shortageProbability6M": 71,
+      "trainingCentresCount": 29,
+      "totalTrainingSeats": 4359,
+      "topShortageTrades": [
+        "Solar PV Installer",
+        "Community Health Assistant",
+        "Smart Meter Installation Technician"
+      ],
+      "topOversuppliedTrades": [
+        "Retail Sales Associate",
+        "Data Entry Operator"
+      ],
+      "capacitySurplusTrades": [
+        "Retail Sales Associate",
+        "Data Entry Operator"
+      ],
+      "activeEmployers": 366,
+      "coordinates": [
+        22.3039,
+        70.8022
+      ]
+    },
+    {
+      "id": "surat",
+      "name": "Surat",
+      "nameHi": "सूरत",
+      "state": "Gujarat",
+      "lgdCode": 467,
+      "demandIndex": 71,
+      "effectiveSupplyIndex": 29,
+      "gapScore": 85,
+      "shortageProbability6M": 72,
+      "trainingCentresCount": 38,
+      "totalTrainingSeats": 5728,
+      "topShortageTrades": [
+        "Solar PV Installer",
+        "Community Health Assistant",
+        "Domestic Electrician & Wireman"
+      ],
+      "topOversuppliedTrades": [
+        "Retail Sales Associate",
+        "Data Entry Operator"
+      ],
+      "capacitySurplusTrades": [
+        "Retail Sales Associate",
+        "Data Entry Operator"
+      ],
+      "activeEmployers": 503,
+      "coordinates": [
+        21.1702,
+        72.8311
+      ]
+    },
+    {
+      "id": "vadodara",
+      "name": "Vadodara",
+      "nameHi": "वडोदरा",
+      "state": "Gujarat",
+      "lgdCode": 468,
+      "demandIndex": 56,
+      "effectiveSupplyIndex": 31,
+      "gapScore": 85,
+      "shortageProbability6M": 72,
+      "trainingCentresCount": 30,
+      "totalTrainingSeats": 4551,
+      "topShortageTrades": [
+        "Solar PV Installer",
+        "Community Health Assistant",
+        "Domestic Electrician & Wireman"
+      ],
+      "topOversuppliedTrades": [
+        "Retail Sales Associate",
+        "Data Entry Operator"
+      ],
+      "capacitySurplusTrades": [
+        "Retail Sales Associate",
+        "Data Entry Operator"
+      ],
+      "activeEmployers": 392,
+      "coordinates": [
+        22.3072,
+        73.1812
+      ]
+    },
+    {
+      "id": "varanasi",
+      "name": "Varanasi",
+      "nameHi": "वाराणसी",
+      "state": "Uttar Pradesh",
+      "lgdCode": 198,
+      "demandIndex": 55,
+      "effectiveSupplyIndex": 32,
+      "gapScore": 84,
+      "shortageProbability6M": 71,
+      "trainingCentresCount": 30,
+      "totalTrainingSeats": 4580,
+      "topShortageTrades": [
+        "Solar PV Installer",
+        "Community Health Assistant",
+        "Domestic Electrician & Wireman"
+      ],
+      "topOversuppliedTrades": [
+        "Retail Sales Associate",
+        "Data Entry Operator"
+      ],
+      "capacitySurplusTrades": [
+        "Retail Sales Associate",
+        "Data Entry Operator"
+      ],
+      "activeEmployers": 380,
+      "coordinates": [
+        25.3176,
+        82.9739
+      ]
+    }
+  ],
+  "occupations": [
+    {
+      "id": "ai_ml_data_annotation_specialist",
+      "ncoCode": "2512.0101",
+      "title": "AI/ML Data Annotation Specialist",
+      "titleHi": "एआई/एमएल डेटा एनोटेशन विशेषज्ञ",
+      "sector": "IT-ITeS & Digital Services",
+      "sectorHi": "आईटी-आईटीईएस और डिजिटल सेवाएं",
+      "nsqfLevel": 4,
+      "currentDemand": 506,
+      "growthRate6M": 7.9,
+      "effectiveSupply": 27,
+      "gapScore": 97,
+      "severity": "Severe Shortage",
+      "shortageProbability6M": 82,
+      "forecastDemand3M": 526,
+      "forecastDemand6M": 546,
+      "forecastDemand12M": 582,
+      "demandPressureIndex": 60,
+      "confidence": 84,
+      "employerCount": 28,
+      "averageWageINR": 28000,
+      "stagedSupply": {
+        "trainingSeats": 57,
+        "enrolled": 54,
+        "certified": 47,
+        "availableLabour": 38,
+        "effectiveEmployableSupply": 27,
+        "seatUtilizationRate": 0.9474,
+        "certificationRate": 0.8704,
+        "laborParticipationRate": 0.8085,
+        "employabilityFactor": 0.83
+      },
+      "districtConcentrations": [
+        {
+          "district": "Gorakhpur",
+          "state": "Uttar Pradesh",
+          "demand": 506
+        }
+      ],
+      "keySkills": [
+        "Technical Diagnostics",
+        "Standard Compliance",
+        "Preventive Maintenance"
+      ],
+      "qualifications": [
+        "QP-2512-V1.0"
+      ],
+      "timeSeries": [],
+      "explainability": [
+        {
+          "name": "lag_1",
+          "impactPercent": 42,
+          "description": "Prior month hiring momentum baseline",
+          "signalType": "vacancy"
+        },
+        {
+          "name": "demand_growth_12m",
+          "impactPercent": 28,
+          "description": "12-month structural demand trajectory",
+          "signalType": "capex"
+        },
+        {
+          "name": "lag_1_effective_supply",
+          "impactPercent": 18,
+          "description": "Inter-district candidate migration rate",
+          "signalType": "employer"
+        }
+      ],
+      "whyThisScore": {
+        "demandGrowth6M": 7.9,
+        "supplyGrowth6M": 2.4,
+        "netVelocityMismatch": 5.5,
+        "localShapDrivers": [
+          {
+            "feature": "lag_1_demand",
+            "shap_value": 42.15,
+            "abs_impact": 42.15,
+            "direction": "positive",
+            "desc": "Prior month hiring baseline"
+          },
+          {
+            "feature": "annual_growth",
+            "shap_value": 28.3,
+            "abs_impact": 28.3,
+            "direction": "positive",
+            "desc": "Long-term sectoral growth"
+          }
+        ],
+        "globalModelDrivers": [
+          {
+            "rank": 1,
+            "feature": "calendar_seasonality",
+            "importance": 781,
+            "desc": "Seasonal hiring cycle"
+          },
+          {
+            "rank": 2,
+            "feature": "demand_growth_12m",
+            "importance": 746,
+            "desc": "Structural annual expansion"
+          }
+        ]
+      }
+    },
+    {
+      "id": "data_entry_operator",
+      "ncoCode": "4132.0101",
+      "title": "Data Entry Operator",
+      "titleHi": "डेटा एंट्री ऑपरेटर",
+      "sector": "IT-ITeS & Digital Services",
+      "sectorHi": "आईटी-आईटीईएस और डिजिटल सेवाएं",
+      "nsqfLevel": 4,
+      "currentDemand": 420,
+      "growthRate6M": 8.1,
+      "effectiveSupply": 411,
+      "gapScore": 51,
+      "severity": "Balanced",
+      "shortageProbability6M": 43,
+      "forecastDemand3M": 437,
+      "forecastDemand6M": 454,
+      "forecastDemand12M": 483,
+      "demandPressureIndex": 54,
+      "confidence": 88,
+      "employerCount": 23,
+      "averageWageINR": 28000,
+      "stagedSupply": {
+        "trainingSeats": 913,
+        "enrolled": 812,
+        "certified": 716,
+        "availableLabour": 587,
+        "effectiveEmployableSupply": 411,
+        "seatUtilizationRate": 0.8894,
+        "certificationRate": 0.8818,
+        "laborParticipationRate": 0.8198,
+        "employabilityFactor": 0.45
+      },
+      "districtConcentrations": [
+        {
+          "district": "Gorakhpur",
+          "state": "Uttar Pradesh",
+          "demand": 420
+        }
+      ],
+      "keySkills": [
+        "Technical Diagnostics",
+        "Standard Compliance",
+        "Preventive Maintenance"
+      ],
+      "qualifications": [
+        "QP-4132-V1.0"
+      ],
+      "timeSeries": [],
+      "explainability": [
+        {
+          "name": "lag_1",
+          "impactPercent": 42,
+          "description": "Prior month hiring momentum baseline",
+          "signalType": "vacancy"
+        },
+        {
+          "name": "demand_growth_12m",
+          "impactPercent": 28,
+          "description": "12-month structural demand trajectory",
+          "signalType": "capex"
+        },
+        {
+          "name": "lag_1_effective_supply",
+          "impactPercent": 18,
+          "description": "Inter-district candidate migration rate",
+          "signalType": "employer"
+        }
+      ],
+      "whyThisScore": {
+        "demandGrowth6M": 8.1,
+        "supplyGrowth6M": 2.4,
+        "netVelocityMismatch": 5.7,
+        "localShapDrivers": [
+          {
+            "feature": "lag_1_demand",
+            "shap_value": 42.15,
+            "abs_impact": 42.15,
+            "direction": "positive",
+            "desc": "Prior month hiring baseline"
+          },
+          {
+            "feature": "annual_growth",
+            "shap_value": 28.3,
+            "abs_impact": 28.3,
+            "direction": "positive",
+            "desc": "Long-term sectoral growth"
+          }
+        ],
+        "globalModelDrivers": [
+          {
+            "rank": 1,
+            "feature": "calendar_seasonality",
+            "importance": 781,
+            "desc": "Seasonal hiring cycle"
+          },
+          {
+            "rank": 2,
+            "feature": "demand_growth_12m",
+            "importance": 746,
+            "desc": "Structural annual expansion"
+          }
+        ]
+      }
+    },
+    {
+      "id": "retail_sales_associate",
+      "ncoCode": "5223.0101",
+      "title": "Retail Sales Associate",
+      "titleHi": "रिटेल सेल्स एसोसिएट",
+      "sector": "Retail & E-Commerce",
+      "sectorHi": "खुदरा और ई-कॉमर्स",
+      "nsqfLevel": 4,
+      "currentDemand": 380,
+      "growthRate6M": -2.6,
+      "effectiveSupply": 404,
+      "gapScore": 47,
+      "severity": "Balanced",
+      "shortageProbability6M": 15,
+      "forecastDemand3M": 375,
+      "forecastDemand6M": 370,
+      "forecastDemand12M": 365,
+      "demandPressureIndex": 48,
+      "confidence": 88,
+      "employerCount": 52,
+      "averageWageINR": 18500,
+      "stagedSupply": {
+        "trainingSeats": 916,
+        "enrolled": 782,
+        "certified": 704,
+        "availableLabour": 577,
+        "effectiveEmployableSupply": 404,
+        "seatUtilizationRate": 0.8537,
+        "certificationRate": 0.9003,
+        "laborParticipationRate": 0.8196,
+        "employabilityFactor": 0.449
+      },
+      "districtConcentrations": [
+        {
+          "district": "Gorakhpur",
+          "state": "Uttar Pradesh",
+          "demand": 380
+        }
+      ],
+      "keySkills": [
+        "Technical Diagnostics",
+        "Standard Compliance",
+        "Preventive Maintenance"
+      ],
+      "qualifications": [
+        "QP-5223-V1.0"
+      ],
+      "timeSeries": [],
+      "explainability": [
+        {
+          "name": "lag_1",
+          "impactPercent": 42,
+          "description": "Prior month hiring momentum baseline",
+          "signalType": "vacancy"
+        },
+        {
+          "name": "demand_growth_12m",
+          "impactPercent": 28,
+          "description": "12-month structural demand trajectory",
+          "signalType": "capex"
+        },
+        {
+          "name": "lag_1_effective_supply",
+          "impactPercent": 18,
+          "description": "Inter-district candidate migration rate",
+          "signalType": "employer"
+        }
+      ],
+      "whyThisScore": {
+        "demandGrowth6M": -2.6,
+        "supplyGrowth6M": 2.4,
+        "netVelocityMismatch": -5.0,
+        "localShapDrivers": [
+          {
+            "feature": "lag_1_demand",
+            "shap_value": 42.15,
+            "abs_impact": 42.15,
+            "direction": "positive",
+            "desc": "Prior month hiring baseline"
+          },
+          {
+            "feature": "annual_growth",
+            "shap_value": 28.3,
+            "abs_impact": 28.3,
+            "direction": "positive",
+            "desc": "Long-term sectoral growth"
+          }
+        ],
+        "globalModelDrivers": [
+          {
+            "rank": 1,
+            "feature": "calendar_seasonality",
+            "importance": 781,
+            "desc": "Seasonal hiring cycle"
+          },
+          {
+            "rank": 2,
+            "feature": "demand_growth_12m",
+            "importance": 746,
+            "desc": "Structural annual expansion"
+          }
+        ]
+      }
+    },
+    {
+      "id": "community_health_assistant",
+      "ncoCode": "5321.0101",
+      "title": "Community Health Assistant",
+      "titleHi": "सामुदायिक स्वास्थ्य सहायक",
+      "sector": "Healthcare & Allied Services",
+      "sectorHi": "स्वास्थ्य देखभाल और संबद्ध सेवाएं",
+      "nsqfLevel": 4,
+      "currentDemand": 836,
+      "growthRate6M": 8.0,
+      "effectiveSupply": 167,
+      "gapScore": 90,
+      "severity": "Severe Shortage",
+      "shortageProbability6M": 76,
+      "forecastDemand3M": 869,
+      "forecastDemand6M": 903,
+      "forecastDemand12M": 961,
+      "demandPressureIndex": 87,
+      "confidence": 84,
+      "employerCount": 46,
+      "averageWageINR": 28000,
+      "stagedSupply": {
+        "trainingSeats": 342,
+        "enrolled": 321,
+        "certified": 292,
+        "availableLabour": 239,
+        "effectiveEmployableSupply": 167,
+        "seatUtilizationRate": 0.9386,
+        "certificationRate": 0.9097,
+        "laborParticipationRate": 0.8185,
+        "employabilityFactor": 0.849
+      },
+      "districtConcentrations": [
+        {
+          "district": "Gorakhpur",
+          "state": "Uttar Pradesh",
+          "demand": 836
+        }
+      ],
+      "keySkills": [
+        "Technical Diagnostics",
+        "Standard Compliance",
+        "Preventive Maintenance"
+      ],
+      "qualifications": [
+        "QP-5321-V1.0"
+      ],
+      "timeSeries": [],
+      "explainability": [
+        {
+          "name": "lag_1",
+          "impactPercent": 42,
+          "description": "Prior month hiring momentum baseline",
+          "signalType": "vacancy"
+        },
+        {
+          "name": "demand_growth_12m",
+          "impactPercent": 28,
+          "description": "12-month structural demand trajectory",
+          "signalType": "capex"
+        },
+        {
+          "name": "lag_1_effective_supply",
+          "impactPercent": 18,
+          "description": "Inter-district candidate migration rate",
+          "signalType": "employer"
+        }
+      ],
+      "whyThisScore": {
+        "demandGrowth6M": 8.0,
+        "supplyGrowth6M": 2.4,
+        "netVelocityMismatch": 5.6,
+        "localShapDrivers": [
+          {
+            "feature": "lag_1_demand",
+            "shap_value": 42.15,
+            "abs_impact": 42.15,
+            "direction": "positive",
+            "desc": "Prior month hiring baseline"
+          },
+          {
+            "feature": "annual_growth",
+            "shap_value": 28.3,
+            "abs_impact": 28.3,
+            "direction": "positive",
+            "desc": "Long-term sectoral growth"
+          }
+        ],
+        "globalModelDrivers": [
+          {
+            "rank": 1,
+            "feature": "calendar_seasonality",
+            "importance": 781,
+            "desc": "Seasonal hiring cycle"
+          },
+          {
+            "rank": 2,
+            "feature": "demand_growth_12m",
+            "importance": 746,
+            "desc": "Structural annual expansion"
+          }
+        ]
+      }
+    },
+    {
+      "id": "solar_pv_installer",
+      "ncoCode": "7126.0101",
+      "title": "Solar PV Installer",
+      "titleHi": "सोलर पीवी इंस्टॉलर",
+      "sector": "Green Jobs & Renewable Energy",
+      "sectorHi": "हरित नौकरियां और नवीकरणीय ऊर्जा",
+      "nsqfLevel": 4,
+      "currentDemand": 808,
+      "growthRate6M": -0.1,
+      "effectiveSupply": 97,
+      "gapScore": 94,
+      "severity": "Severe Shortage",
+      "shortageProbability6M": 88,
+      "forecastDemand3M": 840,
+      "forecastDemand6M": 825,
+      "forecastDemand12M": 960,
+      "demandPressureIndex": 94,
+      "confidence": 82,
+      "employerCount": 46,
+      "averageWageINR": 23500,
+      "stagedSupply": {
+        "trainingSeats": 217,
+        "enrolled": 204,
+        "certified": 170,
+        "availableLabour": 139,
+        "effectiveEmployableSupply": 97,
+        "seatUtilizationRate": 0.9401,
+        "certificationRate": 0.8333,
+        "laborParticipationRate": 0.8176,
+        "employabilityFactor": 0.7
+      },
+      "districtConcentrations": [
+        {
+          "district": "Gorakhpur",
+          "state": "Uttar Pradesh",
+          "demand": 808
+        }
+      ],
+      "keySkills": [
+        "Technical Diagnostics",
+        "Standard Compliance",
+        "Preventive Maintenance"
+      ],
+      "qualifications": [
+        "QP-7126-V1.0"
+      ],
+      "timeSeries": [],
+      "explainability": [
+        {
+          "name": "lag_1",
+          "impactPercent": 42,
+          "description": "Prior month hiring momentum baseline",
+          "signalType": "vacancy"
+        },
+        {
+          "name": "demand_growth_12m",
+          "impactPercent": 28,
+          "description": "12-month structural demand trajectory",
+          "signalType": "capex"
+        },
+        {
+          "name": "lag_1_effective_supply",
+          "impactPercent": 18,
+          "description": "Inter-district candidate migration rate",
+          "signalType": "employer"
+        }
+      ],
+      "whyThisScore": {
+        "demandGrowth6M": -0.1,
+        "supplyGrowth6M": 2.4,
+        "netVelocityMismatch": -2.5,
+        "localShapDrivers": [
+          {
+            "feature": "lag_1_demand",
+            "shap_value": 42.15,
+            "abs_impact": 42.15,
+            "direction": "positive",
+            "desc": "Prior month hiring baseline"
+          },
+          {
+            "feature": "annual_growth",
+            "shap_value": 28.3,
+            "abs_impact": 28.3,
+            "direction": "positive",
+            "desc": "Long-term sectoral growth"
+          }
+        ],
+        "globalModelDrivers": [
+          {
+            "rank": 1,
+            "feature": "calendar_seasonality",
+            "importance": 781,
+            "desc": "Seasonal hiring cycle"
+          },
+          {
+            "rank": 2,
+            "feature": "demand_growth_12m",
+            "importance": 746,
+            "desc": "Structural annual expansion"
+          }
+        ]
+      }
+    },
+    {
+      "id": "solar_pump_technician",
+      "ncoCode": "7126.0201",
+      "title": "Solar Pump Technician",
+      "titleHi": "सोलर पंप तकनीशियन",
+      "sector": "Agriculture & Farm Tech",
+      "sectorHi": "कृषि और कृषि तकनीक",
+      "nsqfLevel": 4,
+      "currentDemand": 456,
+      "growthRate6M": 7.9,
+      "effectiveSupply": 50,
+      "gapScore": 95,
+      "severity": "Severe Shortage",
+      "shortageProbability6M": 81,
+      "forecastDemand3M": 474,
+      "forecastDemand6M": 492,
+      "forecastDemand12M": 524,
+      "demandPressureIndex": 56,
+      "confidence": 84,
+      "employerCount": 25,
+      "averageWageINR": 28000,
+      "stagedSupply": {
+        "trainingSeats": 113,
+        "enrolled": 109,
+        "certified": 89,
+        "availableLabour": 72,
+        "effectiveEmployableSupply": 50,
+        "seatUtilizationRate": 0.9646,
+        "certificationRate": 0.8165,
+        "laborParticipationRate": 0.809,
+        "employabilityFactor": 0.843
+      },
+      "districtConcentrations": [
+        {
+          "district": "Gorakhpur",
+          "state": "Uttar Pradesh",
+          "demand": 456
+        }
+      ],
+      "keySkills": [
+        "Technical Diagnostics",
+        "Standard Compliance",
+        "Preventive Maintenance"
+      ],
+      "qualifications": [
+        "QP-7126-V1.0"
+      ],
+      "timeSeries": [],
+      "explainability": [
+        {
+          "name": "lag_1",
+          "impactPercent": 42,
+          "description": "Prior month hiring momentum baseline",
+          "signalType": "vacancy"
+        },
+        {
+          "name": "demand_growth_12m",
+          "impactPercent": 28,
+          "description": "12-month structural demand trajectory",
+          "signalType": "capex"
+        },
+        {
+          "name": "lag_1_effective_supply",
+          "impactPercent": 18,
+          "description": "Inter-district candidate migration rate",
+          "signalType": "employer"
+        }
+      ],
+      "whyThisScore": {
+        "demandGrowth6M": 7.9,
+        "supplyGrowth6M": 2.4,
+        "netVelocityMismatch": 5.5,
+        "localShapDrivers": [
+          {
+            "feature": "lag_1_demand",
+            "shap_value": 42.15,
+            "abs_impact": 42.15,
+            "direction": "positive",
+            "desc": "Prior month hiring baseline"
+          },
+          {
+            "feature": "annual_growth",
+            "shap_value": 28.3,
+            "abs_impact": 28.3,
+            "direction": "positive",
+            "desc": "Long-term sectoral growth"
+          }
+        ],
+        "globalModelDrivers": [
+          {
+            "rank": 1,
+            "feature": "calendar_seasonality",
+            "importance": 781,
+            "desc": "Seasonal hiring cycle"
+          },
+          {
+            "rank": 2,
+            "feature": "demand_growth_12m",
+            "importance": 746,
+            "desc": "Structural annual expansion"
+          }
+        ]
+      }
+    },
+    {
+      "id": "cold_storage_and_hvac_mechanic",
+      "ncoCode": "7127.0101",
+      "title": "Cold Storage & HVAC Mechanic",
+      "titleHi": "कोल्ड स्टोरेज एवं एचवीएसी मैकेनिक",
+      "sector": "Food Processing & Cold Chain",
+      "sectorHi": "खाद्य प्रसंस्करण और कोल्ड चेन",
+      "nsqfLevel": 4,
+      "currentDemand": 351,
+      "growthRate6M": 8.0,
+      "effectiveSupply": 52,
+      "gapScore": 93,
+      "severity": "Severe Shortage",
+      "shortageProbability6M": 79,
+      "forecastDemand3M": 365,
+      "forecastDemand6M": 379,
+      "forecastDemand12M": 404,
+      "demandPressureIndex": 48,
+      "confidence": 84,
+      "employerCount": 19,
+      "averageWageINR": 28000,
+      "stagedSupply": {
+        "trainingSeats": 119,
+        "enrolled": 104,
+        "certified": 92,
+        "availableLabour": 75,
+        "effectiveEmployableSupply": 52,
+        "seatUtilizationRate": 0.8739,
+        "certificationRate": 0.8846,
+        "laborParticipationRate": 0.8152,
+        "employabilityFactor": 0.848
+      },
+      "districtConcentrations": [
+        {
+          "district": "Gorakhpur",
+          "state": "Uttar Pradesh",
+          "demand": 351
+        }
+      ],
+      "keySkills": [
+        "Technical Diagnostics",
+        "Standard Compliance",
+        "Preventive Maintenance"
+      ],
+      "qualifications": [
+        "QP-7127-V1.0"
+      ],
+      "timeSeries": [],
+      "explainability": [
+        {
+          "name": "lag_1",
+          "impactPercent": 42,
+          "description": "Prior month hiring momentum baseline",
+          "signalType": "vacancy"
+        },
+        {
+          "name": "demand_growth_12m",
+          "impactPercent": 28,
+          "description": "12-month structural demand trajectory",
+          "signalType": "capex"
+        },
+        {
+          "name": "lag_1_effective_supply",
+          "impactPercent": 18,
+          "description": "Inter-district candidate migration rate",
+          "signalType": "employer"
+        }
+      ],
+      "whyThisScore": {
+        "demandGrowth6M": 8.0,
+        "supplyGrowth6M": 2.4,
+        "netVelocityMismatch": 5.6,
+        "localShapDrivers": [
+          {
+            "feature": "lag_1_demand",
+            "shap_value": 42.15,
+            "abs_impact": 42.15,
+            "direction": "positive",
+            "desc": "Prior month hiring baseline"
+          },
+          {
+            "feature": "annual_growth",
+            "shap_value": 28.3,
+            "abs_impact": 28.3,
+            "direction": "positive",
+            "desc": "Long-term sectoral growth"
+          }
+        ],
+        "globalModelDrivers": [
+          {
+            "rank": 1,
+            "feature": "calendar_seasonality",
+            "importance": 781,
+            "desc": "Seasonal hiring cycle"
+          },
+          {
+            "rank": 2,
+            "feature": "demand_growth_12m",
+            "importance": 746,
+            "desc": "Structural annual expansion"
+          }
+        ]
+      }
+    },
+    {
+      "id": "drone_maintenance_technician",
+      "ncoCode": "7212.0101",
+      "title": "Drone Maintenance Technician",
+      "titleHi": "ड्रोन रखरखाव तकनीशियन",
+      "sector": "Aerospace & Drone Tech",
+      "sectorHi": "एयरोस्पेस और ड्रोन तकनीक",
+      "nsqfLevel": 4,
+      "currentDemand": 288,
+      "growthRate6M": 8.0,
+      "effectiveSupply": 10,
+      "gapScore": 98,
+      "severity": "Severe Shortage",
+      "shortageProbability6M": 83,
+      "forecastDemand3M": 300,
+      "forecastDemand6M": 311,
+      "forecastDemand12M": 331,
+      "demandPressureIndex": 43,
+      "confidence": 84,
+      "employerCount": 16,
+      "averageWageINR": 28000,
+      "stagedSupply": {
+        "trainingSeats": 26,
+        "enrolled": 24,
+        "certified": 19,
+        "availableLabour": 15,
+        "effectiveEmployableSupply": 10,
+        "seatUtilizationRate": 0.9231,
+        "certificationRate": 0.7917,
+        "laborParticipationRate": 0.7895,
+        "employabilityFactor": 0.842
+      },
+      "districtConcentrations": [
+        {
+          "district": "Gorakhpur",
+          "state": "Uttar Pradesh",
+          "demand": 288
+        }
+      ],
+      "keySkills": [
+        "Technical Diagnostics",
+        "Standard Compliance",
+        "Preventive Maintenance"
+      ],
+      "qualifications": [
+        "QP-7212-V1.0"
+      ],
+      "timeSeries": [],
+      "explainability": [
+        {
+          "name": "lag_1",
+          "impactPercent": 42,
+          "description": "Prior month hiring momentum baseline",
+          "signalType": "vacancy"
+        },
+        {
+          "name": "demand_growth_12m",
+          "impactPercent": 28,
+          "description": "12-month structural demand trajectory",
+          "signalType": "capex"
+        },
+        {
+          "name": "lag_1_effective_supply",
+          "impactPercent": 18,
+          "description": "Inter-district candidate migration rate",
+          "signalType": "employer"
+        }
+      ],
+      "whyThisScore": {
+        "demandGrowth6M": 8.0,
+        "supplyGrowth6M": 2.4,
+        "netVelocityMismatch": 5.6,
+        "localShapDrivers": [
+          {
+            "feature": "lag_1_demand",
+            "shap_value": 42.15,
+            "abs_impact": 42.15,
+            "direction": "positive",
+            "desc": "Prior month hiring baseline"
+          },
+          {
+            "feature": "annual_growth",
+            "shap_value": 28.3,
+            "abs_impact": 28.3,
+            "direction": "positive",
+            "desc": "Long-term sectoral growth"
+          }
+        ],
+        "globalModelDrivers": [
+          {
+            "rank": 1,
+            "feature": "calendar_seasonality",
+            "importance": 781,
+            "desc": "Seasonal hiring cycle"
+          },
+          {
+            "rank": 2,
+            "feature": "demand_growth_12m",
+            "importance": 746,
+            "desc": "Structural annual expansion"
+          }
+        ]
+      }
+    },
+    {
+      "id": "automotive_assembly_fitter",
+      "ncoCode": "7231.0101",
+      "title": "Automotive Assembly Fitter",
+      "titleHi": "ऑटोमोटिव असेंबली फिटर",
+      "sector": "Automotive & Electric Mobility",
+      "sectorHi": "ऑटोमोटिव और इलेक्ट्रिक मोबिलिटी",
+      "nsqfLevel": 4,
+      "currentDemand": 665,
+      "growthRate6M": 8.0,
+      "effectiveSupply": 260,
+      "gapScore": 80,
+      "severity": "Severe Shortage",
+      "shortageProbability6M": 68,
+      "forecastDemand3M": 692,
+      "forecastDemand6M": 718,
+      "forecastDemand12M": 765,
+      "demandPressureIndex": 73,
+      "confidence": 85,
+      "employerCount": 36,
+      "averageWageINR": 28000,
+      "stagedSupply": {
+        "trainingSeats": 582,
+        "enrolled": 505,
+        "certified": 454,
+        "availableLabour": 372,
+        "effectiveEmployableSupply": 260,
+        "seatUtilizationRate": 0.8677,
+        "certificationRate": 0.899,
+        "laborParticipationRate": 0.8194,
+        "employabilityFactor": 0.65
+      },
+      "districtConcentrations": [
+        {
+          "district": "Gorakhpur",
+          "state": "Uttar Pradesh",
+          "demand": 665
+        }
+      ],
+      "keySkills": [
+        "Technical Diagnostics",
+        "Standard Compliance",
+        "Preventive Maintenance"
+      ],
+      "qualifications": [
+        "QP-7231-V1.0"
+      ],
+      "timeSeries": [],
+      "explainability": [
+        {
+          "name": "lag_1",
+          "impactPercent": 42,
+          "description": "Prior month hiring momentum baseline",
+          "signalType": "vacancy"
+        },
+        {
+          "name": "demand_growth_12m",
+          "impactPercent": 28,
+          "description": "12-month structural demand trajectory",
+          "signalType": "capex"
+        },
+        {
+          "name": "lag_1_effective_supply",
+          "impactPercent": 18,
+          "description": "Inter-district candidate migration rate",
+          "signalType": "employer"
+        }
+      ],
+      "whyThisScore": {
+        "demandGrowth6M": 8.0,
+        "supplyGrowth6M": 2.4,
+        "netVelocityMismatch": 5.6,
+        "localShapDrivers": [
+          {
+            "feature": "lag_1_demand",
+            "shap_value": 42.15,
+            "abs_impact": 42.15,
+            "direction": "positive",
+            "desc": "Prior month hiring baseline"
+          },
+          {
+            "feature": "annual_growth",
+            "shap_value": 28.3,
+            "abs_impact": 28.3,
+            "direction": "positive",
+            "desc": "Long-term sectoral growth"
+          }
+        ],
+        "globalModelDrivers": [
+          {
+            "rank": 1,
+            "feature": "calendar_seasonality",
+            "importance": 781,
+            "desc": "Seasonal hiring cycle"
+          },
+          {
+            "rank": 2,
+            "feature": "demand_growth_12m",
+            "importance": 746,
+            "desc": "Structural annual expansion"
+          }
+        ]
+      }
+    },
+    {
+      "id": "ev_service_technician",
+      "ncoCode": "7233.0102",
+      "title": "EV Service Technician",
+      "titleHi": "ईवी सर्विस तकनीशियन",
+      "sector": "Automotive & Electric Mobility",
+      "sectorHi": "ऑटोमोटिव और इलेक्ट्रिक मोबिलिटी",
+      "nsqfLevel": 4,
+      "currentDemand": 586,
+      "growthRate6M": 8.0,
+      "effectiveSupply": 58,
+      "gapScore": 95,
+      "severity": "Severe Shortage",
+      "shortageProbability6M": 81,
+      "forecastDemand3M": 609,
+      "forecastDemand6M": 633,
+      "forecastDemand12M": 674,
+      "demandPressureIndex": 67,
+      "confidence": 84,
+      "employerCount": 32,
+      "averageWageINR": 28000,
+      "stagedSupply": {
+        "trainingSeats": 141,
+        "enrolled": 126,
+        "certified": 102,
+        "availableLabour": 83,
+        "effectiveEmployableSupply": 58,
+        "seatUtilizationRate": 0.8936,
+        "certificationRate": 0.8095,
+        "laborParticipationRate": 0.8137,
+        "employabilityFactor": 0.843
+      },
+      "districtConcentrations": [
+        {
+          "district": "Gorakhpur",
+          "state": "Uttar Pradesh",
+          "demand": 586
+        }
+      ],
+      "keySkills": [
+        "Technical Diagnostics",
+        "Standard Compliance",
+        "Preventive Maintenance"
+      ],
+      "qualifications": [
+        "QP-7233-V1.0"
+      ],
+      "timeSeries": [],
+      "explainability": [
+        {
+          "name": "lag_1",
+          "impactPercent": 42,
+          "description": "Prior month hiring momentum baseline",
+          "signalType": "vacancy"
+        },
+        {
+          "name": "demand_growth_12m",
+          "impactPercent": 28,
+          "description": "12-month structural demand trajectory",
+          "signalType": "capex"
+        },
+        {
+          "name": "lag_1_effective_supply",
+          "impactPercent": 18,
+          "description": "Inter-district candidate migration rate",
+          "signalType": "employer"
+        }
+      ],
+      "whyThisScore": {
+        "demandGrowth6M": 8.0,
+        "supplyGrowth6M": 2.4,
+        "netVelocityMismatch": 5.6,
+        "localShapDrivers": [
+          {
+            "feature": "lag_1_demand",
+            "shap_value": 42.15,
+            "abs_impact": 42.15,
+            "direction": "positive",
+            "desc": "Prior month hiring baseline"
+          },
+          {
+            "feature": "annual_growth",
+            "shap_value": 28.3,
+            "abs_impact": 28.3,
+            "direction": "positive",
+            "desc": "Long-term sectoral growth"
+          }
+        ],
+        "globalModelDrivers": [
+          {
+            "rank": 1,
+            "feature": "calendar_seasonality",
+            "importance": 781,
+            "desc": "Seasonal hiring cycle"
+          },
+          {
+            "rank": 2,
+            "feature": "demand_growth_12m",
+            "importance": 746,
+            "desc": "Structural annual expansion"
+          }
+        ]
+      }
+    },
+    {
+      "id": "smart_meter_installation_technician",
+      "ncoCode": "7233.0201",
+      "title": "Smart Meter Installation Technician",
+      "titleHi": "स्मार्ट मीटर इंस्टॉलेशन तकनीशियन",
+      "sector": "Green Jobs & Renewable Energy",
+      "sectorHi": "हरित नौकरियां और नवीकरणीय ऊर्जा",
+      "nsqfLevel": 4,
+      "currentDemand": 603,
+      "growthRate6M": 8.0,
+      "effectiveSupply": 48,
+      "gapScore": 96,
+      "severity": "Severe Shortage",
+      "shortageProbability6M": 82,
+      "forecastDemand3M": 627,
+      "forecastDemand6M": 651,
+      "forecastDemand12M": 693,
+      "demandPressureIndex": 68,
+      "confidence": 84,
+      "employerCount": 33,
+      "averageWageINR": 28000,
+      "stagedSupply": {
+        "trainingSeats": 109,
+        "enrolled": 94,
+        "certified": 83,
+        "availableLabour": 68,
+        "effectiveEmployableSupply": 48,
+        "seatUtilizationRate": 0.8624,
+        "certificationRate": 0.883,
+        "laborParticipationRate": 0.8193,
+        "employabilityFactor": 0.843
+      },
+      "districtConcentrations": [
+        {
+          "district": "Gorakhpur",
+          "state": "Uttar Pradesh",
+          "demand": 603
+        }
+      ],
+      "keySkills": [
+        "Technical Diagnostics",
+        "Standard Compliance",
+        "Preventive Maintenance"
+      ],
+      "qualifications": [
+        "QP-7233-V1.0"
+      ],
+      "timeSeries": [],
+      "explainability": [
+        {
+          "name": "lag_1",
+          "impactPercent": 42,
+          "description": "Prior month hiring momentum baseline",
+          "signalType": "vacancy"
+        },
+        {
+          "name": "demand_growth_12m",
+          "impactPercent": 28,
+          "description": "12-month structural demand trajectory",
+          "signalType": "capex"
+        },
+        {
+          "name": "lag_1_effective_supply",
+          "impactPercent": 18,
+          "description": "Inter-district candidate migration rate",
+          "signalType": "employer"
+        }
+      ],
+      "whyThisScore": {
+        "demandGrowth6M": 8.0,
+        "supplyGrowth6M": 2.4,
+        "netVelocityMismatch": 5.6,
+        "localShapDrivers": [
+          {
+            "feature": "lag_1_demand",
+            "shap_value": 42.15,
+            "abs_impact": 42.15,
+            "direction": "positive",
+            "desc": "Prior month hiring baseline"
+          },
+          {
+            "feature": "annual_growth",
+            "shap_value": 28.3,
+            "abs_impact": 28.3,
+            "direction": "positive",
+            "desc": "Long-term sectoral growth"
+          }
+        ],
+        "globalModelDrivers": [
+          {
+            "rank": 1,
+            "feature": "calendar_seasonality",
+            "importance": 781,
+            "desc": "Seasonal hiring cycle"
+          },
+          {
+            "rank": 2,
+            "feature": "demand_growth_12m",
+            "importance": 746,
+            "desc": "Structural annual expansion"
+          }
+        ]
+      }
+    },
+    {
+      "id": "domestic_electrician_and_wireman",
+      "ncoCode": "7411.0101",
+      "title": "Domestic Electrician & Wireman",
+      "titleHi": "घरेलू इलेक्ट्रीशियन एवं वायरमैन",
+      "sector": "Construction & Infrastructure",
+      "sectorHi": "निर्माण और बुनियादी ढांचा",
+      "nsqfLevel": 4,
+      "currentDemand": 914,
+      "growthRate6M": 8.0,
+      "effectiveSupply": 407,
+      "gapScore": 78,
+      "severity": "Severe Shortage",
+      "shortageProbability6M": 66,
+      "forecastDemand3M": 951,
+      "forecastDemand6M": 987,
+      "forecastDemand12M": 1051,
+      "demandPressureIndex": 93,
+      "confidence": 86,
+      "employerCount": 50,
+      "averageWageINR": 28000,
+      "stagedSupply": {
+        "trainingSeats": 793,
+        "enrolled": 757,
+        "certified": 710,
+        "availableLabour": 582,
+        "effectiveEmployableSupply": 407,
+        "seatUtilizationRate": 0.9546,
+        "certificationRate": 0.9379,
+        "laborParticipationRate": 0.8197,
+        "employabilityFactor": 0.649
+      },
+      "districtConcentrations": [
+        {
+          "district": "Gorakhpur",
+          "state": "Uttar Pradesh",
+          "demand": 914
+        }
+      ],
+      "keySkills": [
+        "Technical Diagnostics",
+        "Standard Compliance",
+        "Preventive Maintenance"
+      ],
+      "qualifications": [
+        "QP-7411-V1.0"
+      ],
+      "timeSeries": [],
+      "explainability": [
+        {
+          "name": "lag_1",
+          "impactPercent": 42,
+          "description": "Prior month hiring momentum baseline",
+          "signalType": "vacancy"
+        },
+        {
+          "name": "demand_growth_12m",
+          "impactPercent": 28,
+          "description": "12-month structural demand trajectory",
+          "signalType": "capex"
+        },
+        {
+          "name": "lag_1_effective_supply",
+          "impactPercent": 18,
+          "description": "Inter-district candidate migration rate",
+          "signalType": "employer"
+        }
+      ],
+      "whyThisScore": {
+        "demandGrowth6M": 8.0,
+        "supplyGrowth6M": 2.4,
+        "netVelocityMismatch": 5.6,
+        "localShapDrivers": [
+          {
+            "feature": "lag_1_demand",
+            "shap_value": 42.15,
+            "abs_impact": 42.15,
+            "direction": "positive",
+            "desc": "Prior month hiring baseline"
+          },
+          {
+            "feature": "annual_growth",
+            "shap_value": 28.3,
+            "abs_impact": 28.3,
+            "direction": "positive",
+            "desc": "Long-term sectoral growth"
+          }
+        ],
+        "globalModelDrivers": [
+          {
+            "rank": 1,
+            "feature": "calendar_seasonality",
+            "importance": 781,
+            "desc": "Seasonal hiring cycle"
+          },
+          {
+            "rank": 2,
+            "feature": "demand_growth_12m",
+            "importance": 746,
+            "desc": "Structural annual expansion"
+          }
+        ]
+      }
+    },
+    {
+      "id": "industrial_automation_technician",
+      "ncoCode": "7412.0201",
+      "title": "Industrial Automation Technician",
+      "titleHi": "औद्योगिक स्वचालन तकनीशियन",
+      "sector": "Electronics & Hardware",
+      "sectorHi": "इलेक्ट्रॉनिक्स और हार्डवेयर",
+      "nsqfLevel": 4,
+      "currentDemand": 479,
+      "growthRate6M": 7.9,
+      "effectiveSupply": 69,
+      "gapScore": 93,
+      "severity": "Severe Shortage",
+      "shortageProbability6M": 79,
+      "forecastDemand3M": 498,
+      "forecastDemand6M": 517,
+      "forecastDemand12M": 551,
+      "demandPressureIndex": 58,
+      "confidence": 84,
+      "employerCount": 26,
+      "averageWageINR": 28000,
+      "stagedSupply": {
+        "trainingSeats": 162,
+        "enrolled": 137,
+        "certified": 121,
+        "availableLabour": 99,
+        "effectiveEmployableSupply": 69,
+        "seatUtilizationRate": 0.8457,
+        "certificationRate": 0.8832,
+        "laborParticipationRate": 0.8182,
+        "employabilityFactor": 0.843
+      },
+      "districtConcentrations": [
+        {
+          "district": "Gorakhpur",
+          "state": "Uttar Pradesh",
+          "demand": 479
+        }
+      ],
+      "keySkills": [
+        "Technical Diagnostics",
+        "Standard Compliance",
+        "Preventive Maintenance"
+      ],
+      "qualifications": [
+        "QP-7412-V1.0"
+      ],
+      "timeSeries": [],
+      "explainability": [
+        {
+          "name": "lag_1",
+          "impactPercent": 42,
+          "description": "Prior month hiring momentum baseline",
+          "signalType": "vacancy"
+        },
+        {
+          "name": "demand_growth_12m",
+          "impactPercent": 28,
+          "description": "12-month structural demand trajectory",
+          "signalType": "capex"
+        },
+        {
+          "name": "lag_1_effective_supply",
+          "impactPercent": 18,
+          "description": "Inter-district candidate migration rate",
+          "signalType": "employer"
+        }
+      ],
+      "whyThisScore": {
+        "demandGrowth6M": 7.9,
+        "supplyGrowth6M": 2.4,
+        "netVelocityMismatch": 5.5,
+        "localShapDrivers": [
+          {
+            "feature": "lag_1_demand",
+            "shap_value": 42.15,
+            "abs_impact": 42.15,
+            "direction": "positive",
+            "desc": "Prior month hiring baseline"
+          },
+          {
+            "feature": "annual_growth",
+            "shap_value": 28.3,
+            "abs_impact": 28.3,
+            "direction": "positive",
+            "desc": "Long-term sectoral growth"
+          }
+        ],
+        "globalModelDrivers": [
+          {
+            "rank": 1,
+            "feature": "calendar_seasonality",
+            "importance": 781,
+            "desc": "Seasonal hiring cycle"
+          },
+          {
+            "rank": 2,
+            "feature": "demand_growth_12m",
+            "importance": 746,
+            "desc": "Structural annual expansion"
+          }
+        ]
+      }
+    },
+    {
+      "id": "cnc_machine_operator",
+      "ncoCode": "8151.0101",
+      "title": "CNC Machine Operator",
+      "titleHi": "सीएनसी मशीन ऑपरेटर",
+      "sector": "Capital Goods & Precision Engineering",
+      "sectorHi": "पूंजीगत सामान और सटीक इंजीनियरिंग",
+      "nsqfLevel": 4,
+      "currentDemand": 707,
+      "growthRate6M": 8.1,
+      "effectiveSupply": 186,
+      "gapScore": 87,
+      "severity": "Severe Shortage",
+      "shortageProbability6M": 74,
+      "forecastDemand3M": 735,
+      "forecastDemand6M": 764,
+      "forecastDemand12M": 813,
+      "demandPressureIndex": 77,
+      "confidence": 85,
+      "employerCount": 39,
+      "averageWageINR": 28000,
+      "stagedSupply": {
+        "trainingSeats": 416,
+        "enrolled": 353,
+        "certified": 324,
+        "availableLabour": 265,
+        "effectiveEmployableSupply": 186,
+        "seatUtilizationRate": 0.8486,
+        "certificationRate": 0.9178,
+        "laborParticipationRate": 0.8179,
+        "employabilityFactor": 0.849
+      },
+      "districtConcentrations": [
+        {
+          "district": "Gorakhpur",
+          "state": "Uttar Pradesh",
+          "demand": 707
+        }
+      ],
+      "keySkills": [
+        "Technical Diagnostics",
+        "Standard Compliance",
+        "Preventive Maintenance"
+      ],
+      "qualifications": [
+        "QP-8151-V1.0"
+      ],
+      "timeSeries": [],
+      "explainability": [
+        {
+          "name": "lag_1",
+          "impactPercent": 42,
+          "description": "Prior month hiring momentum baseline",
+          "signalType": "vacancy"
+        },
+        {
+          "name": "demand_growth_12m",
+          "impactPercent": 28,
+          "description": "12-month structural demand trajectory",
+          "signalType": "capex"
+        },
+        {
+          "name": "lag_1_effective_supply",
+          "impactPercent": 18,
+          "description": "Inter-district candidate migration rate",
+          "signalType": "employer"
+        }
+      ],
+      "whyThisScore": {
+        "demandGrowth6M": 8.1,
+        "supplyGrowth6M": 2.4,
+        "netVelocityMismatch": 5.7,
+        "localShapDrivers": [
+          {
+            "feature": "lag_1_demand",
+            "shap_value": 42.15,
+            "abs_impact": 42.15,
+            "direction": "positive",
+            "desc": "Prior month hiring baseline"
+          },
+          {
+            "feature": "annual_growth",
+            "shap_value": 28.3,
+            "abs_impact": 28.3,
+            "direction": "positive",
+            "desc": "Long-term sectoral growth"
+          }
+        ],
+        "globalModelDrivers": [
+          {
+            "rank": 1,
+            "feature": "calendar_seasonality",
+            "importance": 781,
+            "desc": "Seasonal hiring cycle"
+          },
+          {
+            "rank": 2,
+            "feature": "demand_growth_12m",
+            "importance": 746,
+            "desc": "Structural annual expansion"
+          }
+        ]
+      }
+    },
+    {
+      "id": "sewing_machine_operator",
+      "ncoCode": "8153.0101",
+      "title": "Sewing Machine Operator",
+      "titleHi": "सिलाई मशीन ऑपरेटर",
+      "sector": "Textiles & Handlooms",
+      "sectorHi": "कपड़ा और हथकरघा",
+      "nsqfLevel": 4,
+      "currentDemand": 385,
+      "growthRate6M": 8.1,
+      "effectiveSupply": 204,
+      "gapScore": 74,
+      "severity": "Moderate Shortage",
+      "shortageProbability6M": 63,
+      "forecastDemand3M": 400,
+      "forecastDemand6M": 416,
+      "forecastDemand12M": 443,
+      "demandPressureIndex": 51,
+      "confidence": 86,
+      "employerCount": 21,
+      "averageWageINR": 28000,
+      "stagedSupply": {
+        "trainingSeats": 480,
+        "enrolled": 436,
+        "certified": 356,
+        "availableLabour": 291,
+        "effectiveEmployableSupply": 204,
+        "seatUtilizationRate": 0.9083,
+        "certificationRate": 0.8165,
+        "laborParticipationRate": 0.8174,
+        "employabilityFactor": 0.449
+      },
+      "districtConcentrations": [
+        {
+          "district": "Gorakhpur",
+          "state": "Uttar Pradesh",
+          "demand": 385
+        }
+      ],
+      "keySkills": [
+        "Technical Diagnostics",
+        "Standard Compliance",
+        "Preventive Maintenance"
+      ],
+      "qualifications": [
+        "QP-8153-V1.0"
+      ],
+      "timeSeries": [],
+      "explainability": [
+        {
+          "name": "lag_1",
+          "impactPercent": 42,
+          "description": "Prior month hiring momentum baseline",
+          "signalType": "vacancy"
+        },
+        {
+          "name": "demand_growth_12m",
+          "impactPercent": 28,
+          "description": "12-month structural demand trajectory",
+          "signalType": "capex"
+        },
+        {
+          "name": "lag_1_effective_supply",
+          "impactPercent": 18,
+          "description": "Inter-district candidate migration rate",
+          "signalType": "employer"
+        }
+      ],
+      "whyThisScore": {
+        "demandGrowth6M": 8.1,
+        "supplyGrowth6M": 2.4,
+        "netVelocityMismatch": 5.7,
+        "localShapDrivers": [
+          {
+            "feature": "lag_1_demand",
+            "shap_value": 42.15,
+            "abs_impact": 42.15,
+            "direction": "positive",
+            "desc": "Prior month hiring baseline"
+          },
+          {
+            "feature": "annual_growth",
+            "shap_value": 28.3,
+            "abs_impact": 28.3,
+            "direction": "positive",
+            "desc": "Long-term sectoral growth"
+          }
+        ],
+        "globalModelDrivers": [
+          {
+            "rank": 1,
+            "feature": "calendar_seasonality",
+            "importance": 781,
+            "desc": "Seasonal hiring cycle"
+          },
+          {
+            "rank": 2,
+            "feature": "demand_growth_12m",
+            "importance": 746,
+            "desc": "Structural annual expansion"
+          }
+        ]
+      }
+    },
+    {
+      "id": "warehouse_logistics_executive",
+      "ncoCode": "9333.0101",
+      "title": "Warehouse Logistics Executive",
+      "titleHi": "वेयरहाउस लॉजिस्टिक्स एक्जीक्यूटिव",
+      "sector": "Logistics & Supply Chain",
+      "sectorHi": "लॉजिस्टिक्स और आपूर्ति श्रृंखला",
+      "nsqfLevel": 4,
+      "currentDemand": 603,
+      "growthRate6M": 8.0,
+      "effectiveSupply": 250,
+      "gapScore": 79,
+      "severity": "Severe Shortage",
+      "shortageProbability6M": 67,
+      "forecastDemand3M": 627,
+      "forecastDemand6M": 651,
+      "forecastDemand12M": 693,
+      "demandPressureIndex": 68,
+      "confidence": 86,
+      "employerCount": 33,
+      "averageWageINR": 28000,
+      "stagedSupply": {
+        "trainingSeats": 535,
+        "enrolled": 488,
+        "certified": 436,
+        "availableLabour": 357,
+        "effectiveEmployableSupply": 250,
+        "seatUtilizationRate": 0.9121,
+        "certificationRate": 0.8934,
+        "laborParticipationRate": 0.8188,
+        "employabilityFactor": 0.649
+      },
+      "districtConcentrations": [
+        {
+          "district": "Gorakhpur",
+          "state": "Uttar Pradesh",
+          "demand": 603
+        }
+      ],
+      "keySkills": [
+        "Technical Diagnostics",
+        "Standard Compliance",
+        "Preventive Maintenance"
+      ],
+      "qualifications": [
+        "QP-9333-V1.0"
+      ],
+      "timeSeries": [],
+      "explainability": [
+        {
+          "name": "lag_1",
+          "impactPercent": 42,
+          "description": "Prior month hiring momentum baseline",
+          "signalType": "vacancy"
+        },
+        {
+          "name": "demand_growth_12m",
+          "impactPercent": 28,
+          "description": "12-month structural demand trajectory",
+          "signalType": "capex"
+        },
+        {
+          "name": "lag_1_effective_supply",
+          "impactPercent": 18,
+          "description": "Inter-district candidate migration rate",
+          "signalType": "employer"
+        }
+      ],
+      "whyThisScore": {
+        "demandGrowth6M": 8.0,
+        "supplyGrowth6M": 2.4,
+        "netVelocityMismatch": 5.6,
+        "localShapDrivers": [
+          {
+            "feature": "lag_1_demand",
+            "shap_value": 42.15,
+            "abs_impact": 42.15,
+            "direction": "positive",
+            "desc": "Prior month hiring baseline"
+          },
+          {
+            "feature": "annual_growth",
+            "shap_value": 28.3,
+            "abs_impact": 28.3,
+            "direction": "positive",
+            "desc": "Long-term sectoral growth"
+          }
+        ],
+        "globalModelDrivers": [
+          {
+            "rank": 1,
+            "feature": "calendar_seasonality",
+            "importance": 781,
+            "desc": "Seasonal hiring cycle"
+          },
+          {
+            "rank": 2,
+            "feature": "demand_growth_12m",
+            "importance": 746,
+            "desc": "Structural annual expansion"
+          }
+        ]
+      }
+    }
+  ]
+}

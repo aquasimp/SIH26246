@@ -23,9 +23,23 @@ export default function DataHealthPage() {
   const isHi = language === 'hi';
   const m = DATA_HEALTH_METRIC;
 
+  const getLocalizedModelName = (name: string) => {
+    if (!isHi) return name;
+    if (name.includes('LightGBM Regressor (Production)')) return 'LightGBM समाश्रयण (उत्पादन)';
+    if (name.includes('LightGBM Regressor')) return 'LightGBM समाश्रयण';
+    if (name.includes('ARIMA Baseline')) return 'ARIMA आधार रेखा';
+    if (name.includes('Holt-Winters Seasonal')) return 'Holt-Winters मौसमी';
+    if (name.includes('Random Forest Regressor')) return 'Random Forest समाश्रयण';
+    if (name.includes('Production Blend')) return 'उत्पादन त्रि-मिश्रण';
+    return name;
+  };
+
   const getLocalizedSourceName = (name: string) => {
     if (!isHi) return name;
-    if (name.includes('National Career Service')) return 'राष्ट्रीय करियर सेवा (NCS) मांग संकलन';
+    if (name.includes('SIH Monthly Intelligence')) return 'SIH मासिक आसूचना विहित डेटासेट';
+    if (name.includes('Local Government Directory')) return 'स्थानीय सरकारी निर्देशिका (LGD) मास्टर';
+    if (name.includes('National Classification of Occupations')) return 'राष्ट्रीय व्यवसाय वर्गीकरण (NCO-2015)';
+    if (name.includes('National Career Service')) return 'राष्ट्रीय करियर सेवा (NCS) API फ़ीड';
     if (name.includes('Skill India Digital Hub')) return 'कौशल भारत डिजिटल हब (SIDH) प्रशिक्षण क्षमता';
     if (name.includes('e-Shram')) return 'ई-श्रम अनौपचारिक श्रम पंजीकरण';
     if (name.includes('NCO-2015')) return 'NCO-2015 / LGD मानकीकरण पदानुक्रम';
@@ -41,6 +55,9 @@ export default function DataHealthPage() {
 
   const getLocalizedRecords = (records: string) => {
     if (!isHi) return records;
+    if (records.includes('Districts')) return records.replace('Districts', 'जिले');
+    if (records.includes('Trades')) return records.replace('Trades', 'ट्रेड्स');
+    if (records === 'Scheduled') return 'अनुसूचित';
     if (records.includes('Vacancy Records')) return records.replace('Vacancy Records', 'रिक्ति रिकॉर्ड');
     if (records.includes('Training Centres')) return records.replace('Training Centres', 'प्रशिक्षण केंद्र');
     if (records.includes('Worker Profiles')) return records.replace('Worker Profiles', 'श्रमिक प्रोफाइल');
@@ -167,7 +184,7 @@ export default function DataHealthPage() {
             {m.lastRunId}
           </div>
           <span className="text-[10px] text-[var(--text-faint)] block mt-0.5 font-mono">
-            {isHi ? '2 घंटे पहले (2026-10-04 08:30 IST)' : m.lastRunTimestamp}
+            {isHi ? '2026-10-04 (डेटा अक्टूबर 2024 तक)' : m.lastRunTimestamp}
           </span>
         </div>
       </div>
@@ -178,7 +195,7 @@ export default function DataHealthPage() {
         subtitle={isHi ? 'सख्त रूप से विलंबित अर्थमितीय संकेतों के साथ 6 रोलिंग उद्गमों पर मूल्यांकन (कोई समकालिक रिसाव नहीं)।' : 'Evaluated across 6 rolling origins with strictly lagged econometric signals (no contemporaneous leakage).'}
       >
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {m.models.map((mod, idx) => (
+          {(m.models || []).map((mod, idx) => (
             <div
               key={idx}
               className="p-4 rounded-2xl glass-strong border border-[var(--border)] shadow-xs flex flex-col justify-between"
@@ -186,7 +203,7 @@ export default function DataHealthPage() {
               <div>
                 <div className="flex items-start justify-between gap-2 mb-2">
                   <h3 className="text-xs font-extrabold text-[var(--text)] leading-snug">
-                    {mod.name}
+                    {getLocalizedModelName(mod.name)}
                   </h3>
                   <span className={clsx(
                     'text-[10px] font-mono font-bold px-2 py-0.5 rounded-full border shrink-0',
@@ -271,7 +288,7 @@ export default function DataHealthPage() {
                       <span className={clsx(
                         isProduction ? 'text-[var(--brand)] font-bold' : 'text-[var(--text-muted)]'
                       )}>
-                        {row.model}
+                        {getLocalizedModelName(row.model)}
                       </span>
                       {isProduction && (
                         <span className="ml-2 px-1.5 py-0.2 rounded text-[9px] font-bold bg-[var(--brand)]/10 text-[var(--brand)] border border-[var(--brand)]/20 font-mono">
@@ -324,7 +341,7 @@ export default function DataHealthPage() {
             </>
           ) : (
             <>
-              Evaluated across 6 walk-forward temporal origins (<span className="font-mono">2023-05-01</span> through <span className="font-mono">2023-10-01</span>) on the official SIH monthly dataset across 1,536 series-horizon observations. Models trained strictly with $t-1$ lagged inputs (zero leakage). 
+              Evaluated across 6 walk-forward temporal origins (<span className="font-mono">2023-05-01</span> through <span className="font-mono">2023-10-01</span>) on the SIH dummy dataset across 1,536 series-horizon observations. Models trained strictly with $t-1$ lagged inputs (zero leakage). 
               <span className="block mt-1 font-semibold text-[var(--text)]">
                 Limitation: LightGBM alone is not the best single model across horizons.
               </span>
@@ -351,7 +368,7 @@ export default function DataHealthPage() {
               </tr>
             </thead>
             <tbody className="divide-y divide-[var(--border)]">
-              {m.sources.map((src, idx) => (
+              {(m.sources || []).map((src, idx) => (
                 <tr key={idx} className="hover:bg-[var(--brand)]/5 transition-colors">
                   <td className="py-3 px-3 font-bold text-[var(--text)]">
                     {getLocalizedSourceName(src.name)}

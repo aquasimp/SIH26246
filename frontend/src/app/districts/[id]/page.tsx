@@ -91,8 +91,8 @@ export default function DistrictDetailPage({ params }: { params: Promise<{ id: s
           </div>
 
           <h1 className="text-3xl sm:text-4xl font-extrabold text-[var(--text)] tracking-tight flex items-center gap-3">
-            {d.name}
-            {d.nameHi && <span className="text-xl sm:text-2xl text-[var(--text-faint)] font-normal">({d.nameHi})</span>}
+            {isHi && d.nameHi ? d.nameHi : d.name}
+            {!isHi && d.nameHi && <span className="text-xl sm:text-2xl text-[var(--text-faint)] font-normal">({d.nameHi})</span>}
           </h1>
 
           <p className="text-xs sm:text-sm text-[var(--text-muted)] mt-1 max-w-2xl leading-relaxed">
@@ -200,7 +200,7 @@ export default function DistrictDetailPage({ params }: { params: Promise<{ id: s
                   </span>
                   <div>
                     <strong className="text-xs sm:text-sm font-bold text-[var(--text)] block">
-                      {trade}
+                      {isHi ? getLocalizedEntityName('occupations', trade, 'hi') : trade}
                     </strong>
                     <span className="text-[10px] text-[var(--severe)] font-semibold">
                       {isHi ? 'तत्काल सीट पुनर्वितरण की आवश्यकता वाला घाटा' : 'Deficit requiring urgent seat reallocation'}
@@ -221,8 +221,8 @@ export default function DistrictDetailPage({ params }: { params: Promise<{ id: s
 
         {/* Top Oversupplied Trades */}
         <GlassPanel
-          title={isHi ? 'जिले में शीर्ष अधिशेष व्यवसाय' : 'Top Oversupplied Trades in District'}
-          subtitle={isHi ? 'स्थानीय औद्योगिक अवशोषण से अधिक पुराने प्रशिक्षण कार्यक्रम।' : 'Legacy training programmes exceeding local industrial absorption.'}
+          title={isHi ? 'जिले में क्षमता अधिशेष व्यवसाय (सीटें)' : 'District Capacity Surplus Trades (Seats)'}
+          subtitle={isHi ? 'स्थानीय औद्योगिक अवशोषण से अधिक प्रशिक्षण क्षमता।' : 'Training capacity exceeds local baseline allocation.'}
         >
           <div className="space-y-3">
             {d.topOversuppliedTrades.map((trade, idx) => (
@@ -236,7 +236,7 @@ export default function DistrictDetailPage({ params }: { params: Promise<{ id: s
                   </span>
                   <div>
                     <strong className="text-xs sm:text-sm font-bold text-[var(--text)] block">
-                      {trade}
+                      {isHi ? getLocalizedEntityName('occupations', trade, 'hi') : trade}
                     </strong>
                     <span className="text-[10px] text-[var(--oversupply)] font-semibold">
                       {isHi ? 'उम्मीदवार प्लेसमेंट दर ४५% से कम हो रही है' : 'Candidate placement rate falling below 45%'}

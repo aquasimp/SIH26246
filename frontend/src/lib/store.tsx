@@ -50,8 +50,9 @@ interface AppContextType {
 
 const AppContext = createContext<AppContextType | undefined>(undefined);
 
-export const AppProvider = ({ children }: { children: ReactNode }) => {
+export const AppProvider = ({ children, initialLanguage }: { children: ReactNode; initialLanguage?: Language }) => {
   const [language, setLanguage] = useState<Language>(() => {
+    if (initialLanguage === 'en' || initialLanguage === 'hi') return initialLanguage;
     if (typeof window !== 'undefined') {
       const match = document.cookie.match(/(?:^|; )kaushalyuva-lang=([^;]*)/);
       const cookieLang = match ? decodeURIComponent(match[1]) : null;

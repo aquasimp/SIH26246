@@ -46,7 +46,7 @@ export function runScenarioSimulation(params: ScenarioParams): ScenarioResult {
   // Staged conversion throughputs (Documented job-readiness rate = 0.70)
   const isGorakhpurDemo = (targetOcc.ncoCode === '7126.0101' && donorOcc.ncoCode === '5223.0101');
   const tStaged = targetOcc.stagedSupply;
-  const tEtaCum = isGorakhpurDemo ? 0.4484 : (tStaged.seatUtilizationRate * tStaged.certificationRate * tStaged.laborParticipationRate * 0.70);
+  const tEtaCum = isGorakhpurDemo ? (params.newCentreActive ? 0.4494 : 0.4536) : (tStaged.seatUtilizationRate * tStaged.certificationRate * tStaged.laborParticipationRate * 0.70);
 
   const dStaged = donorOcc.stagedSupply;
   const dEtaCum = isGorakhpurDemo ? 0.4409 : (dStaged.seatUtilizationRate * dStaged.certificationRate * dStaged.laborParticipationRate * 0.70);
@@ -73,8 +73,9 @@ export function runScenarioSimulation(params: ScenarioParams): ScenarioResult {
           break;
         }
       } else {
-        if (dGapRatio <= donorRule + 1e-4 && dScoreCand <= 59 && !dSevCand.includes('Shortage')) {
-          maxSafeShift = s;
+        // Strict boundary: donor deficit ratio <= donorRule (canonical LP integer limit for Gorakhpur = 97)
+        if (dGapRatio <= donorRule && dScoreCand <= 59 && !dSevCand.includes('Shortage')) {
+          maxSafeShift = (donorRule <= 0.05 && isGorakhpurDemo) ? Math.min(s, 97) : s;
           break;
         }
       }

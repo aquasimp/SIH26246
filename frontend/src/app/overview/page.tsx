@@ -21,6 +21,8 @@ import {
   AlertOctagon
 } from 'lucide-react';
 import { downloadCSV } from '@/lib/exportUtils';
+import { toast } from 'sonner';
+import { getLocalizedEntityName } from '@/lib/i18n';
 
 export default function OverviewPage() {
   const { t, setActiveEvidence, setSelectedDistrict, setSelectedOccupationNco, language } = useApp();
@@ -32,14 +34,14 @@ export default function OverviewPage() {
     const netShortfall = Math.max(0, totalDemand - totalEffectiveSupply);
     const atRiskTrades = OCCUPATIONS.filter(o => o.gapScore >= 75 || o.gapScore <= 25).length;
     return {
-      demandFormatted: (totalDemand / 1000).toFixed(1) + 'K',
-      supplyFormatted: (totalEffectiveSupply / 1000).toFixed(1) + 'K',
-      shortfallFormatted: (netShortfall / 1000).toFixed(1) + 'K',
+      demandFormatted: isHi ? totalDemand.toLocaleString('hi-IN') : (totalDemand / 1000).toFixed(1) + 'K',
+      supplyFormatted: isHi ? totalEffectiveSupply.toLocaleString('hi-IN') : (totalEffectiveSupply / 1000).toFixed(1) + 'K',
+      shortfallFormatted: isHi ? netShortfall.toLocaleString('hi-IN') : (netShortfall / 1000).toFixed(1) + 'K',
       atRiskCount: atRiskTrades,
       activeAlertsCount: 35, // 35 verified anomalies from alert engine (§4.1)
       recommendationsCount: RECOMMENDATIONS.length
     };
-  }, []);
+  }, [isHi]);
 
   const handleExportAction = (rec: typeof RECOMMENDATIONS[0]) => {
     const rows = [
@@ -53,6 +55,7 @@ export default function OverviewPage() {
       ['Status', rec.status]
     ];
     downloadCSV(`MSDE_Action_${rec.id}_${rec.district}.csv`, rows);
+    toast.success(isHi ? `कार्यवाही संक्षिप्त निर्यात: ${rec.id} (${rec.recommendedSeats} सीटें)` : `Exported action brief for ${rec.id} (${rec.recommendedSeats} seats)`);
   };
 
   return (
@@ -64,7 +67,8 @@ export default function OverviewPage() {
             <span className="px-2.5 py-0.5 rounded-full text-[11px] font-mono font-extrabold uppercase tracking-wider bg-[var(--brand)]/15 text-[var(--brand)] border border-[var(--brand)]/30">
               {isHi ? 'राष्ट्रीय श्रम खुफिया डैशबोर्ड' : 'National Intelligence Dashboard'}
             </span>
-            <Provenance source="Official SIH" />
+            {/* ONE page-level dataset chip */}
+            <Provenance source="SIH dummy dataset" />
           </div>
           <h1 className="text-2xl sm:text-4xl font-extrabold text-[var(--text)] tracking-tight">
             {t.nationalIntelligence}
@@ -95,7 +99,6 @@ export default function OverviewPage() {
           value={metrics.demandFormatted}
           delta={{ value: '+18.6%', isPositive: true, label: isHi ? '6M वृद्धि' : '6M Growth' }}
           scope={isHi ? 'राष्ट्रीय रिक्तियां' : 'National Vacancies'}
-          provenance="Official SIH"
           trend={[12, 14, 15, 16, 17, 18.6]}
         />
 
@@ -104,7 +107,6 @@ export default function OverviewPage() {
           value={metrics.supplyFormatted}
           delta={{ value: isHi ? 'चरणबद्ध पूल' : 'Staged Pool', isNeutral: true, label: isHi ? '0.70 तत्परता' : '0.70 Readiness' }}
           scope={isHi ? 'प्रमाणित एवं सक्रिय' : 'Certified & Active'}
-          provenance="Official SIH"
           trend={[6.8, 7.1, 7.4, 7.8, 8.1, 8.3]}
         />
 
@@ -115,7 +117,6 @@ export default function OverviewPage() {
           delta={{ value: isHi ? 'राष्ट्रीय घाटा' : 'National Deficit', isPositive: false, label: isHi ? 'अधूरी आवश्यकता' : 'Unmet Need' }}
           scope={isHi ? 'पूर्वांचल और गलियारे' : 'Purvanchal & Corridors'}
           severity="severe"
-          provenance="Official SIH"
           trend={[8.2, 8.9, 9.4, 9.8, 10.1, 10.3]}
         />
 
@@ -125,7 +126,6 @@ export default function OverviewPage() {
           delta={{ value: isHi ? 'असंतुलन' : 'Imbalance', isPositive: false, label: isHi ? 'स्कोर >75 / <25' : 'Score >75 / <25' }}
           scope={isHi ? 'NCO विशेषज्ञताएं' : 'NCO Specializations'}
           severity="moderate"
-          provenance="Official SIH"
           trend={[2, 3, 3, 4, 4, 4]}
         />
 
@@ -137,7 +137,6 @@ export default function OverviewPage() {
             delta={{ value: isHi ? 'अलर्ट इंजन' : 'Alert Engine', isPositive: false, label: isHi ? '35 विसंगतियां' : '35 Anomalies' }}
             scope={isHi ? 'गंभीर कमी #1' : 'Critical Shortage #1'}
             severity="severe"
-            provenance="Official SIH"
             trend={[28, 30, 32, 34, 35, 35]}
             className="hover:border-[var(--severe)] cursor-pointer"
           />
@@ -150,7 +149,6 @@ export default function OverviewPage() {
             delta={{ value: isHi ? 'रैंक की गई कार्रवाइयां' : 'Ranked Actions', isPositive: true, label: isHi ? 'हस्तक्षेप' : 'Interventions' }}
             scope={isHi ? 'स्वीकृति लंबित' : 'Pending Approval'}
             severity="balanced"
-            provenance="Official SIH"
             trend={[2, 3, 4, 4, 4, 4]}
             className="hover:border-[var(--brand)] cursor-pointer"
           />
@@ -276,28 +274,7 @@ export default function OverviewPage() {
         </div>
       </div>
 
-      {/* Strategic Anchor: Why This Matters */}
-      <div className="px-4 py-3 rounded-2xl glass border border-amber-500/30 text-amber-500/90 shadow-2xs flex items-center justify-between gap-3">
-        <div className="flex items-center gap-2.5">
-          <div className="p-1.5 rounded-xl bg-amber-500/20 text-amber-400 shrink-0">
-            <Lightbulb className="w-4 h-4" />
-          </div>
-          <p className="text-xs sm:text-sm text-[var(--text)] font-medium leading-relaxed">
-            <strong className="font-bold uppercase tracking-wide mr-1.5 text-amber-500 font-mono">
-              {isHi ? 'यह क्यों महत्वपूर्ण है:' : 'Why This Matters:'}
-            </strong>
-            {isHi 
-              ? 'यदि प्रशिक्षण क्षमता की योजना भविष्योन्मुखी मांग संकेतों के बिना बनाई जाती है, तो जिले कम रोजगार अवशोषण वाले पारंपरिक व्यवसायों को वित्तपोषित करते रहेंगे, जबकि उच्च-विकास क्षेत्र गंभीर रूप से कर्मचारियों की कमी से जूझते रहेंगे।'
-              : 'If training capacity is planned without forward-looking demand signals, districts continue funding legacy trades with low hiring absorption while high-growth sectors remain critically understaffed.'}
-          </p>
-        </div>
-        <Link
-          href="/scenarios?preset=rec01"
-          className="hidden md:flex items-center gap-1 text-xs font-bold text-amber-500 hover:underline shrink-0"
-        >
-          <span>{isHi ? 'समाधान का अनुकरण करें →' : 'Simulate Fix →'}</span>
-        </Link>
-      </div>
+
 
       {/* Main Hero Visual: India Intelligence Map (§5.8, §6.1) */}
       <div className="p-5 sm:p-6 rounded-3xl glass-strong border border-[var(--border)] shadow-md space-y-4">
@@ -313,8 +290,7 @@ export default function OverviewPage() {
             </p>
           </div>
           <div className="flex items-center gap-2 text-xs font-mono text-[var(--text-faint)]">
-            <Provenance source="Official SIH" />
-            <span>{isHi ? 'NCS + SID गलियारे' : 'NCS + SID Corridors'}</span>
+            <Provenance source="SIH dummy dataset" />
           </div>
         </div>
         <IndiaIntelligenceMap />
@@ -355,7 +331,7 @@ export default function OverviewPage() {
                       #{String(rec.rank).padStart(2, '0')}
                     </span>
                     <span className="text-xs font-bold text-[var(--text-muted)] uppercase tracking-wider font-mono">
-                      {rec.district}, {rec.state}
+                      {isHi ? `${getLocalizedEntityName('districts', rec.district, 'hi')}, ${getLocalizedEntityName('states', rec.state, 'hi')}` : `${rec.district}, ${rec.state}`}
                     </span>
                   </div>
                   <Badge variant="balanced" size="sm">

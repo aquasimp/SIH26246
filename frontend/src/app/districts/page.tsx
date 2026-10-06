@@ -123,12 +123,12 @@ export default function DistrictsOverviewPage() {
                     </span>
                     {d.trainingCentresCount} {isHi ? 'केंद्र' : 'Centres'} ({d.totalTrainingSeats} {isHi ? 'सीटें' : 'Seats'})
                   </div>
-                  <div className="truncate">
-                    <span className="font-semibold text-[var(--severe)]">
-                      {isHi ? 'शीर्ष घाटा: ' : 'Top Deficit: '}
-                    </span>
-                    {d.topShortageTrades[0]}
-                  </div>
+                    <div className="truncate">
+                      <span className="font-semibold text-[var(--severe)]">
+                        {isHi ? 'शीर्ष घाटा: ' : 'Top Deficit: '}
+                      </span>
+                      {isHi ? getLocalizedEntityName('occupations', d.topShortageTrades[0], 'hi') : d.topShortageTrades[0]}
+                    </div>
                 </div>
               </div>
 

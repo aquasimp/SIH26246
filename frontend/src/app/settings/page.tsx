@@ -27,7 +27,7 @@ export default function SettingsPage() {
         <div className="flex items-center gap-2 mb-2">
           <Provenance type="official" note={isHi ? 'सिस्टम प्रशासन और वातावरण' : 'System Administration & Environment'} />
           <span className="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold uppercase tracking-wider bg-[var(--brand)]/10 text-[var(--brand)] border border-[var(--brand)]/20">
-            Runtime v1.0
+            {isHi ? 'रनटाइम v1.0' : 'Runtime v1.0'}
           </span>
         </div>
         <h1 className="text-2xl sm:text-3xl font-extrabold text-[var(--text)] tracking-tight">
@@ -128,8 +128,8 @@ export default function SettingsPage() {
                     : 'liquid-control text-[var(--text-muted)] hover:text-[var(--text)]'
                 )}
               >
-                <div className="text-base font-extrabold">English</div>
-                <span className="text-[10px] opacity-80">{isHi ? 'डिफ़ॉल्ट इंटरफ़ेस' : 'Default Interface'}</span>
+                <div className="text-base font-extrabold">{isHi ? 'अंग्रेजी' : 'English'}</div>
+                <span className="text-[10px] opacity-80">{isHi ? 'मानक इंटरफ़ेस' : 'Default Interface'}</span>
               </button>
 
               <button
@@ -141,7 +141,7 @@ export default function SettingsPage() {
                     : 'liquid-control text-[var(--text-muted)] hover:text-[var(--text)]'
                 )}
               >
-                <div className="text-base font-extrabold">हिन्दी (Hindi)</div>
+                <div className="text-base font-extrabold">हिन्दी</div>
                 <span className="text-[10px] opacity-80">{isHi ? 'भारतीय भाषा इंटरफ़ेस' : 'भारतीय भाषा इंटरफ़ेस'}</span>
               </button>
             </div>
