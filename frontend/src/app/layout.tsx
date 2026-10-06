@@ -40,14 +40,19 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+import { cookies } from "next/headers";
+
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const cookieStore = await cookies();
+  const lang = cookieStore.get("kaushalyuva-lang")?.value === "hi" ? "hi" : "en";
+
   return (
     <html 
-      lang="en" 
+      lang={lang} 
       suppressHydrationWarning 
       className={`${inter.variable} ${jetbrainsMono.variable} ${notoDevanagari.variable} ${displayFont.variable} scroll-smooth`}
     >

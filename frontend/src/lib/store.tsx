@@ -51,7 +51,20 @@ interface AppContextType {
 const AppContext = createContext<AppContextType | undefined>(undefined);
 
 export const AppProvider = ({ children }: { children: ReactNode }) => {
-  const [language, setLanguage] = useState<Language>('en');
+  const [language, setLanguage] = useState<Language>(() => {
+    if (typeof window !== 'undefined') {
+      const match = document.cookie.match(/(?:^|; )kaushalyuva-lang=([^;]*)/);
+      const cookieLang = match ? decodeURIComponent(match[1]) : null;
+      if (cookieLang === 'en' || cookieLang === 'hi') return cookieLang;
+      try {
+        const local = localStorage.getItem('kaushalyuva-lang');
+        if (local === 'en' || local === 'hi') return local;
+      } catch {}
+      const docLang = (typeof document !== 'undefined' ? document.documentElement.lang : null) as Language;
+      if (docLang === 'en' || docLang === 'hi') return docLang;
+    }
+    return 'en';
+  });
   const [selectedState, setSelectedState] = useState<string>('Uttar Pradesh');
   const [selectedDistrict, setSelectedDistrict] = useState<string>('gorakhpur');
   const [selectedSector, setSelectedSector] = useState<string>('All Sectors');

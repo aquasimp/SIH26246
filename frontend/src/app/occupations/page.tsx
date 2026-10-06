@@ -6,46 +6,55 @@ import { useApp } from '@/lib/store';
 import { FilterBar } from '@/components/layout/FilterBar';
 import { GlassPanel } from '@/components/glass/GlassPanel';
 import { Provenance } from '@/components/common/Provenance';
-import { OCCUPATIONS, SECTORS } from '@/lib/demoData';
+import { OCCUPATIONS } from '@/lib/demoData';
+import { getLocalizedEntityName, localizeSkill } from '@/lib/i18n';
 import { clsx } from 'clsx';
 import { 
-  Briefcase, 
   Search, 
-  ChevronRight, 
-  ArrowUpRight, 
-  ArrowDownRight, 
-  Sparkles, 
-  Layers, 
-  Award
+  ChevronRight
 } from 'lucide-react';
 
 export default function OccupationsOverviewPage() {
-  const { selectedSector, setSelectedSector } = useApp();
+  const { selectedSector, language } = useApp();
+  const isHi = language === 'hi';
   const [searchTerm, setSearchTerm] = useState('');
 
   const filteredOccupations = OCCUPATIONS.filter(o => {
     const matchesSector = selectedSector === 'All Sectors' || o.sector === selectedSector;
     const matchesSearch = o.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                          (o.titleHi && o.titleHi.toLowerCase().includes(searchTerm.toLowerCase())) ||
                           o.ncoCode.includes(searchTerm) ||
                           o.sector.toLowerCase().includes(searchTerm.toLowerCase());
     return matchesSector && matchesSearch;
   });
+
+  const getLocalizedSeverity = (severity: string) => {
+    if (!isHi) return severity;
+    const lower = severity.toLowerCase();
+    if (lower.includes('severe') && lower.includes('shortage')) return 'गंभीर कमी';
+    if (lower.includes('moderate') && lower.includes('shortage')) return 'मध्यम कमी';
+    if (lower.includes('severe') && lower.includes('oversupply')) return 'गंभीर अधिशेष';
+    if (lower.includes('balanced')) return 'संतुलित';
+    return severity;
+  };
 
   return (
     <div className="space-y-6">
       {/* Title */}
       <div>
         <div className="flex items-center gap-2 mb-2">
-          <Provenance type="official" note="NCO-2015 Classification" />
+          <Provenance type="official" note={isHi ? 'NCO-2015 वर्गीकरण' : 'NCO-2015 Classification'} />
           <span className="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold uppercase tracking-wider bg-[var(--brand)]/10 text-[var(--brand)] border border-[var(--brand)]/20">
-            Standardized Roles
+            {isHi ? 'मानकीकृत भूमिकाएं' : 'Standardized Roles'}
           </span>
         </div>
         <h1 className="text-2xl sm:text-3xl font-extrabold text-[var(--text)] tracking-tight">
-          Occupational Standard & Trade Directory
+          {isHi ? 'व्यावसायिक मानक और व्यापार निर्देशिका' : 'Occupational Standard & Trade Directory'}
         </h1>
         <p className="text-xs sm:text-sm text-[var(--text-muted)] mt-1 max-w-2xl leading-relaxed">
-          Standardized National Classification of Occupations (NCO) mapped directly to National Skills Qualification Framework (NSQF) levels and staged pipeline cohorts.
+          {isHi 
+            ? 'राष्ट्रीय कौशल योग्यता ढांचा (NSQF) स्तरों और चरणबद्ध पाइपलाइन समूहों से सीधे जुड़े मानकीकृत राष्ट्रीय व्यवसाय वर्गीकरण (NCO)।'
+            : 'Standardized National Classification of Occupations (NCO) mapped directly to National Skills Qualification Framework (NSQF) levels and staged pipeline cohorts.'}
         </p>
       </div>
 
@@ -53,14 +62,14 @@ export default function OccupationsOverviewPage() {
 
       {/* Directory Grid */}
       <GlassPanel
-        title="Standardized Occupations & Trades"
-        subtitle="Explore detailed demand, staged supply pipelines, and predictive factor attributions."
+        title={isHi ? 'मानकीकृत व्यवसाय और ट्रेड' : 'Standardized Occupations & Trades'}
+        subtitle={isHi ? 'विस्तृत मांग, चरणबद्ध आपूर्ति पाइपलाइनों और भविष्य कहनेवाला कारक विशेषताओं का अन्वेषण करें।' : 'Explore detailed demand, staged supply pipelines, and predictive factor attributions.'}
         action={
           <div className="relative w-64">
             <Search className="w-3.5 h-3.5 text-[var(--text-faint)] absolute left-3 top-1/2 -translate-y-1/2" />
             <input
               type="text"
-              placeholder="Search by title or NCO code..."
+              placeholder={isHi ? 'शीर्षक या NCO कोड द्वारा खोजें...' : 'Search by title or NCO code...'}
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               className="w-full text-xs pl-8 pr-3 py-1.5 rounded-xl liquid-control text-[var(--text)] focus:outline-none"
@@ -87,40 +96,48 @@ export default function OccupationsOverviewPage() {
                     occ.severity === 'Severe Oversupply' ? 'bg-[var(--oversupply)]/10 text-[var(--oversupply)] border-[var(--oversupply)]/20' :
                     'bg-[var(--balanced)]/10 text-[var(--balanced)] border-[var(--balanced)]/20'
                   )}>
-                    {occ.severity}
+                    {getLocalizedSeverity(occ.severity)}
                   </span>
                 </div>
 
                 <h3 className="text-base font-extrabold text-[var(--text)] group-hover:text-[var(--brand)] transition-colors">
-                  {occ.title}
+                  {isHi && occ.titleHi ? occ.titleHi : occ.title}
                 </h3>
                 <span className="text-xs text-[var(--text-muted)] font-medium block mb-3">
-                  {occ.sector} (NSQF Level {occ.nsqfLevel})
+                  {getLocalizedEntityName('sectors', occ.sector, language, occ.sector)} (NSQF {isHi ? 'स्तर' : 'Level'} {occ.nsqfLevel})
                 </span>
 
                 <div className="grid grid-cols-3 gap-2 text-xs mb-3 text-center">
                   <div className="p-2 rounded-lg glass-strong border border-[var(--border)]">
-                    <span className="text-[9px] text-[var(--text-faint)] block font-semibold uppercase">Demand</span>
+                    <span className="text-[9px] text-[var(--text-faint)] block font-semibold uppercase">
+                      {isHi ? 'मांग' : 'Demand'}
+                    </span>
                     <strong className="text-[var(--text)] font-mono">{occ.currentDemand.toLocaleString()}</strong>
                   </div>
                   <div className="p-2 rounded-lg glass-strong border border-[var(--border)]">
-                    <span className="text-[9px] text-[var(--text-faint)] block font-semibold uppercase">Supply</span>
+                    <span className="text-[9px] text-[var(--text-faint)] block font-semibold uppercase">
+                      {isHi ? 'आपूर्ति' : 'Supply'}
+                    </span>
                     <strong className="text-[var(--text)] font-mono">{occ.effectiveSupply.toLocaleString()}</strong>
                   </div>
                   <div className="p-2 rounded-lg glass-strong border border-[var(--border)]">
-                    <span className="text-[9px] text-[var(--text-faint)] block font-semibold uppercase">Gap Score</span>
+                    <span className="text-[9px] text-[var(--text-faint)] block font-semibold uppercase">
+                      {isHi ? 'अंतर स्कोर' : 'Gap Score'}
+                    </span>
                     <strong className="text-[var(--severe)] font-mono">{occ.gapScore}</strong>
                   </div>
                 </div>
 
                 <div className="text-[11px] text-[var(--text-muted)] mb-2">
-                  <span className="font-semibold text-[var(--text)]">Top Skills: </span>
-                  {occ.keySkills.slice(0, 2).join(', ')}...
+                  <span className="font-semibold text-[var(--text)]">
+                    {isHi ? 'शीर्ष कौशल:' : 'Top Skills:'}{' '}
+                  </span>
+                  {occ.keySkills.slice(0, 2).map(s => isHi ? localizeSkill(s, 'hi') : s).join(', ')}...
                 </div>
               </div>
 
               <div className="pt-2 border-t border-[var(--border)] flex items-center justify-between text-xs font-bold text-[var(--brand)] group-hover:translate-x-0.5 transition-transform">
-                <span>View Staged Pipeline & Forecast</span>
+                <span>{isHi ? 'चरणबद्ध पाइपलाइन और पूर्वानुमान देखें' : 'View Staged Pipeline & Forecast'}</span>
                 <ChevronRight className="w-4 h-4" />
               </div>
             </Link>

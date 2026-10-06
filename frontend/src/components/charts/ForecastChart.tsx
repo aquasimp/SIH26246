@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import { useApp } from '@/lib/store';
 import { TimePoint, ForecastHorizon } from '@/lib/types';
 import { OUT_OF_SAMPLE_BENCHMARKS } from '@/lib/benchmarkMetrics';
 import { useChartPalette } from '@/lib/useChartPalette';
@@ -21,6 +22,8 @@ export const ForecastChart: React.FC<ForecastChartProps> = ({
   model,
   onModelChange
 }) => {
+  const { language } = useApp();
+  const isHi = language === 'hi';
   const [hoverIndex, setHoverIndex] = useState<number | null>(null);
   const palette = useChartPalette();
   const benchmark = OUT_OF_SAMPLE_BENCHMARKS[horizon];
@@ -115,13 +118,15 @@ export const ForecastChart: React.FC<ForecastChartProps> = ({
             {occupationTitle}
           </span>
           <span className="text-[11px] font-mono px-2 py-0.5 rounded-full bg-[var(--brand)]/15 text-[var(--brand)] font-bold border border-[var(--brand)]/30">
-            {horizon} Horizon
+            {horizon} {isHi ? 'क्षितिज' : 'Horizon'}
           </span>
         </div>
 
         {/* Model Switcher with Verified Out-Of-Sample WAPE (§4.1) */}
         <div className="flex items-center gap-2">
-          <span className="text-[11px] font-semibold text-[var(--text-faint)]">Model Architecture:</span>
+          <span className="text-[11px] font-semibold text-[var(--text-faint)]">
+            {isHi ? 'मॉडल वास्तुकला:' : 'Model Architecture:'}
+          </span>
           <div className="glass inline-flex items-center rounded-xl p-0.5 border border-[var(--border)] text-xs">
             <button
               type="button"
@@ -133,7 +138,7 @@ export const ForecastChart: React.FC<ForecastChartProps> = ({
               }`}
             >
               <Sparkles className="w-3 h-3 text-amber-300" />
-              <span>{horizon === '12M' ? 'Tri-Model Blend' : 'LightGBM'} (WAPE {benchmark.wape}%)</span>
+              <span>{horizon === '12M' ? (isHi ? 'त्रि-मॉडल मिश्रण' : 'Tri-Model Blend') : 'LightGBM'} (WAPE {benchmark.wape}%)</span>
             </button>
             <button
               type="button"
@@ -144,7 +149,7 @@ export const ForecastChart: React.FC<ForecastChartProps> = ({
                   : 'text-[var(--text-muted)] hover:text-[var(--text)]'
               }`}
             >
-              <span>Seasonal Naive ({benchmark.naiveWape}%)</span>
+              <span>{isHi ? 'सीज़नल नेईव' : 'Seasonal Naive'} ({benchmark.naiveWape}%)</span>
             </button>
           </div>
         </div>
@@ -377,20 +382,20 @@ export const ForecastChart: React.FC<ForecastChartProps> = ({
             <div className="font-bold text-[var(--text)] flex items-center justify-between gap-4 border-b border-[var(--border)] pb-1">
               <span>{activePoint.month}</span>
               <span className="text-[10px] text-[var(--text-faint)]">
-                {hoverIndex < 24 ? 'Historical Actual' : `${horizon} Forecast`}
+                {hoverIndex < 24 ? (isHi ? 'ऐतिहासिक वास्तविक' : 'Historical Actual') : `${horizon} ${isHi ? 'पूर्वानुमान' : 'Forecast'}`}
               </span>
             </div>
 
             <div className="space-y-1 text-[11px]">
               <div className="flex justify-between gap-4 text-[var(--severe)] font-semibold">
-                <span>Demand:</span>
+                <span>{isHi ? 'मांग:' : 'Demand:'}</span>
                 <span className="tabular-nums font-bold">
                   {(activePoint.forecastDemand || activePoint.historicalDemand)?.toLocaleString()}
                 </span>
               </div>
 
               <div className="flex justify-between gap-4 text-[var(--balanced)] font-semibold">
-                <span>Supply:</span>
+                <span>{isHi ? 'आपूर्ति:' : 'Supply:'}</span>
                 <span className="tabular-nums font-bold">
                   {activePoint.effectiveSupply?.toLocaleString()}
                 </span>
@@ -398,7 +403,7 @@ export const ForecastChart: React.FC<ForecastChartProps> = ({
 
               {activePoint.forecastDemand && (
                 <div className="flex justify-between gap-4 text-[var(--brand)] text-[10px] pt-0.5 border-t border-[var(--border)]">
-                  <span>95% CI Range:</span>
+                  <span>{isHi ? '95% विश्वास अंतराल सीमा:' : '95% CI Range:'}</span>
                   <span className="tabular-nums">
                     {activePoint.ciLower} – {activePoint.ciUpper}
                   </span>
@@ -414,27 +419,27 @@ export const ForecastChart: React.FC<ForecastChartProps> = ({
         <div className="flex items-center flex-wrap gap-4 font-mono text-[11px]">
           <div className="flex items-center gap-1.5">
             <span className="w-3.5 h-1 bg-[var(--severe)] rounded" />
-            <span>Historical Actuals</span>
+            <span>{isHi ? 'ऐतिहासिक वास्तविक' : 'Historical Actuals'}</span>
           </div>
 
           <div className="flex items-center gap-1.5">
             <span className="w-3.5 h-1 bg-[var(--brand)] rounded border-b border-dashed" />
-            <span>Forecast Demand</span>
+            <span>{isHi ? 'अनुमानित मांग' : 'Forecast Demand'}</span>
           </div>
 
           <div className="flex items-center gap-1.5">
             <span className="w-3.5 h-1 bg-[var(--balanced)] rounded" />
-            <span>Staged Supply (0.70 Readiness)</span>
+            <span>{isHi ? 'चरणबद्ध आपूर्ति (0.70 तत्परता)' : 'Staged Supply (0.70 Readiness)'}</span>
           </div>
 
           <div className="flex items-center gap-1.5">
-            <span className="w-3 h-3 rounded bg-[var(--brand)]/20 border border-[var(--brand)]/30" />
-            <span>80% & 95% Confidence Band</span>
+            <span className="w-3.5 h-3 rounded bg-[var(--brand)]/20 border border-[var(--brand)]/30" />
+            <span>{isHi ? '80% एवं 95% विश्वास अंतराल बैंड' : '80% & 95% Confidence Band'}</span>
           </div>
         </div>
 
         <div className="text-[10px] font-mono text-[var(--text-faint)]">
-          Walk-Forward Validation: WAPE <strong className="text-[var(--text)]">{benchmark.wape}%</strong> (vs. Naive {benchmark.naiveWape}%)
+          {isHi ? 'वॉक-फॉरवर्ड सत्यापन: WAPE' : 'Walk-Forward Validation: WAPE'} <strong className="text-[var(--text)]">{benchmark.wape}%</strong> ({isHi ? 'नेईव तुलना:' : 'vs. Naive'} {benchmark.naiveWape}%)
         </div>
       </div>
     </div>

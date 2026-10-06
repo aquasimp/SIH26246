@@ -14,23 +14,23 @@ export function MarketingTopbar() {
     <header className="sticky top-0 z-40 w-full glass-strong border-b border-[var(--border)] backdrop-blur-xl">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
         {/* Brand Lockup (§2) */}
-        <Link href="/" className="flex items-center gap-3 group focus:outline-hidden">
-          <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-[var(--brand)] to-blue-600 flex items-center justify-center text-white shadow-md shadow-[var(--brand)]/20 shrink-0 font-mono font-extrabold text-sm tracking-wider group-hover:scale-105 transition-transform">
+        <Link href="/" className="flex items-center gap-2 sm:gap-3 group focus:outline-hidden min-w-0 shrink">
+          <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-gradient-to-tr from-[var(--brand)] to-blue-600 flex items-center justify-center text-white shadow-md shadow-[var(--brand)]/20 shrink-0 font-mono font-extrabold text-xs sm:text-sm tracking-wider group-hover:scale-105 transition-transform">
             {siteConfig.mark}
           </div>
-          <div className="flex flex-col">
-            <span className="text-base font-extrabold tracking-tight text-[var(--text)] leading-tight flex items-center gap-1.5 font-display">
+          <div className="flex flex-col min-w-0">
+            <span className="text-sm sm:text-base font-extrabold tracking-tight text-[var(--text)] leading-tight flex items-center gap-1.5 font-display truncate">
               {language === 'hi' ? siteConfig.nameHi : siteConfig.name}
               <span className="w-1.5 h-1.5 rounded-full bg-[var(--success)] animate-pulse shrink-0" />
             </span>
-            <span className="text-[10px] font-semibold text-[var(--text-faint)] tracking-wider uppercase">
+            <span className="hidden sm:block text-[10px] font-semibold text-[var(--text-faint)] tracking-wider uppercase truncate">
               {language === 'hi' ? siteConfig.taglineHi.slice(0, 24) : 'Labour Market Intelligence'}
             </span>
           </div>
         </Link>
 
         {/* Navigation Links */}
-        <nav aria-label="Marketing Navigation" className="hidden md:flex items-center gap-6 text-xs font-semibold text-[var(--text-muted)]">
+        <nav aria-label="Marketing Navigation" className="hidden lg:flex items-center gap-6 text-xs font-semibold text-[var(--text-muted)]">
           <Link 
             href="/overview" 
             className="flex items-center gap-1.5 hover:text-[var(--text)] transition-colors py-1"
@@ -55,19 +55,19 @@ export function MarketingTopbar() {
         </nav>
 
         {/* Right Controls: Language, Theme, Open Dashboard CTA */}
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-1.5 sm:gap-3 shrink-0">
           {/* Language Switcher */}
           <div 
             role="radiogroup" 
             aria-label="Language selector"
-            className="glass inline-flex items-center rounded-full p-0.5 border border-[var(--border)] text-xs font-bold"
+            className="glass inline-flex items-center rounded-full p-0.5 border border-[var(--border)] text-[11px] sm:text-xs font-bold"
           >
             <button
               type="button"
               role="radio"
               aria-checked={language === 'en'}
               onClick={() => setLanguage('en')}
-              className={`px-2.5 py-1 rounded-full transition-all cursor-pointer ${
+              className={`px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full transition-all cursor-pointer ${
                 language === 'en' 
                   ? 'bg-[var(--glass-strong)] text-[var(--brand)] shadow-xs font-extrabold border border-[var(--border-strong)]' 
                   : 'text-[var(--text-faint)] hover:text-[var(--text)]'
@@ -80,7 +80,7 @@ export function MarketingTopbar() {
               role="radio"
               aria-checked={language === 'hi'}
               onClick={() => setLanguage('hi')}
-              className={`px-2.5 py-1 rounded-full transition-all cursor-pointer ${
+              className={`px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full transition-all cursor-pointer ${
                 language === 'hi' 
                   ? 'bg-[var(--glass-strong)] text-[var(--brand)] shadow-xs font-extrabold border border-[var(--border-strong)]' 
                   : 'text-[var(--text-faint)] hover:text-[var(--text)]'
@@ -96,10 +96,11 @@ export function MarketingTopbar() {
           {/* Open Dashboard CTA */}
           <Link
             href="/overview"
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[var(--brand)] hover:bg-[var(--brand)]/90 text-white text-xs font-bold shadow-md shadow-[var(--brand)]/20 transition-all cursor-pointer"
+            className="inline-flex items-center gap-1 sm:gap-2 px-2.5 py-1.5 sm:px-4 sm:py-2 rounded-xl bg-[var(--brand)] hover:bg-[var(--brand)]/90 text-white text-[11px] sm:text-xs font-bold shadow-md shadow-[var(--brand)]/20 transition-all cursor-pointer shrink-0"
           >
-            <span>{language === 'hi' ? 'डैशबोर्ड खोलें' : 'Open Dashboard'}</span>
-            <ArrowRight className="w-3.5 h-3.5" />
+            <span className="hidden sm:inline">{language === 'hi' ? 'डैशबोर्ड खोलें' : 'Open Dashboard'}</span>
+            <span className="sm:hidden">{language === 'hi' ? 'डैशबोर्ड' : 'Dashboard'}</span>
+            <ArrowRight className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
           </Link>
         </div>
       </div>

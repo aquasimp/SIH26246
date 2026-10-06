@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import { useApp } from '@/lib/store';
 import { ExplainabilityFactor } from '@/lib/types';
 import { clsx } from 'clsx';
 import { 
@@ -21,6 +22,9 @@ export const ContributionChart: React.FC<ContributionChartProps> = ({
   factors,
   occupationTitle
 }) => {
+  const { language } = useApp();
+  const isHi = language === 'hi';
+
   const getIcon = (type: ExplainabilityFactor['signalType']) => {
     switch (type) {
       case 'vacancy': return <TrendingUp className="w-4 h-4 text-[var(--balanced)]" />;
@@ -31,17 +35,54 @@ export const ContributionChart: React.FC<ContributionChartProps> = ({
     }
   };
 
+  const getSignalTypeLabel = (type: ExplainabilityFactor['signalType']) => {
+    if (!isHi) return type;
+    switch (type) {
+      case 'vacancy': return 'रिक्ति संकेत';
+      case 'employer': return 'नियोक्ता आदेश';
+      case 'capex': return 'पूंजीगत व्यय';
+      case 'skill': return 'कौशल बाधा';
+      case 'seasonality': return 'मौसमी बदलाव';
+    }
+  };
+
+  const getFactorDescription = (factor: ExplainabilityFactor) => {
+    if (!isHi) return factor.description;
+    switch (factor.name) {
+      case 'rolling_mean_3':
+        return 'अल्पकालिक 3-माह चलती औसत आधारभूत मांग (+108.91 SHAP)';
+      case 'lag_1':
+        return factor.impactPercent >= 0 
+          ? 'पूर्ववर्ती माह भर्ती आदेश आधार रेखा t-1 (+102.25 SHAP)'
+          : 'पूर्ववर्ती माह भर्ती आदेश आधार रेखा t-1 (-34.21 SHAP)';
+      case 'rolling_mean_12':
+        return factor.impactPercent >= 0
+          ? 'वार्षिक 12-माह चलती औसत श्रम मांग (+100.45 SHAP)'
+          : 'वार्षिक 12-माह चलती औसत श्रम मांग (-16.61 SHAP)';
+      case 'lag_12':
+        return 'पूर्व वर्ष समान माह मौसमी आधार t-12 (+21.95 SHAP)';
+      case 'month':
+        return 'कैलेंडर मौसमी और वित्तीय खरीद चक्र मील के पत्थर (-10.79 SHAP)';
+      case 'nco_code':
+        return 'व्यवसाय-विशिष्ट कौशल विशेषज्ञता बाधा (-5.06 SHAP)';
+      default:
+        return factor.description;
+    }
+  };
+
   return (
     <div className="w-full">
       <div className="mb-4">
         <h3 className="text-base font-bold text-[var(--text)] flex items-center gap-2">
-          <span>Why is demand changing for {occupationTitle}?</span>
+          <span>{isHi ? `${occupationTitle} के लिए मांग क्यों बदल रही है?` : `Why is demand changing for ${occupationTitle}?`}</span>
           <span className="text-[11px] font-mono font-semibold px-2 py-0.5 rounded-full bg-[var(--brand)]/10 text-[var(--brand)] border border-[var(--brand)]/20">
-            Attribution & Factor Contribution
+            {isHi ? 'कारक योगदान और विशेषता' : 'Attribution & Factor Contribution'}
           </span>
         </h3>
         <p className="text-xs text-[var(--text-muted)] mt-1">
-          Decomposition of regional macro-economic drivers, employer hiring activity, and seasonal shifts influencing the ML forecast.
+          {isHi
+            ? 'क्षेत्रीय व्यापक-आर्थिक चालकों, नियोक्ता भर्ती गतिविधि और मौसमी बदलावों का अनुभवजन्य कारक अपघटन।'
+            : 'Decomposition of regional macro-economic drivers, employer hiring activity, and seasonal shifts influencing the ML forecast.'}
         </p>
       </div>
 
@@ -61,11 +102,11 @@ export const ContributionChart: React.FC<ContributionChartProps> = ({
                     {getIcon(factor.signalType)}
                   </div>
                   <div>
-                    <span className="text-xs sm:text-sm font-bold text-[var(--text)]">
+                    <span className="text-xs sm:text-sm font-bold text-[var(--text)] font-mono">
                       {factor.name}
                     </span>
                     <span className="text-[10px] text-[var(--text-faint)] font-mono uppercase tracking-wider ml-2">
-                      [{factor.signalType}]
+                      [{getSignalTypeLabel(factor.signalType)}]
                     </span>
                   </div>
                 </div>
@@ -95,7 +136,7 @@ export const ContributionChart: React.FC<ContributionChartProps> = ({
               </div>
 
               <p className="text-[11px] text-[var(--text-muted)] leading-relaxed">
-                {factor.description}
+                {getFactorDescription(factor)}
               </p>
             </div>
           );

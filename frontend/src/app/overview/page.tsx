@@ -8,26 +8,23 @@ import { IndiaIntelligenceMap } from '@/components/maps/IndiaIntelligenceMap';
 import { KpiCard } from '@/components/common/KpiCard';
 import { Badge } from '@/components/common/Badge';
 import { Provenance } from '@/components/common/Provenance';
-import { OCCUPATIONS, RECOMMENDATIONS, DISTRICTS } from '@/lib/demoData';
+import { OCCUPATIONS, RECOMMENDATIONS } from '@/lib/demoData';
 import { 
-  TrendingUp, 
-  TrendingDown, 
   AlertTriangle, 
   Lightbulb, 
-  ArrowUpRight, 
   ArrowDownRight,
   Sparkles, 
   Download, 
   Sliders, 
   ChevronRight, 
   Eye,
-  CheckCircle2,
   AlertOctagon
 } from 'lucide-react';
 import { downloadCSV } from '@/lib/exportUtils';
 
 export default function OverviewPage() {
   const { t, setActiveEvidence, setSelectedDistrict, setSelectedOccupationNco, language } = useApp();
+  const isHi = language === 'hi';
 
   const metrics = useMemo(() => {
     const totalDemand = OCCUPATIONS.reduce((acc, o) => acc + o.currentDemand, 0);
@@ -59,13 +56,13 @@ export default function OverviewPage() {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 min-w-0 max-w-full overflow-hidden">
       {/* Hero Header (§6.1) */}
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
         <div>
           <div className="flex items-center gap-2 mb-2">
             <span className="px-2.5 py-0.5 rounded-full text-[11px] font-mono font-extrabold uppercase tracking-wider bg-[var(--brand)]/15 text-[var(--brand)] border border-[var(--brand)]/30">
-              National Intelligence Dashboard
+              {isHi ? 'राष्ट्रीय श्रम खुफिया डैशबोर्ड' : 'National Intelligence Dashboard'}
             </span>
             <Provenance source="Official SIH" />
           </div>
@@ -83,7 +80,7 @@ export default function OverviewPage() {
             className="px-4 py-2 rounded-xl bg-[var(--brand)] hover:opacity-90 text-white text-xs sm:text-sm font-bold shadow-md shadow-[var(--brand)]/20 flex items-center gap-2 transition-all cursor-pointer"
           >
             <Sliders className="w-4 h-4 text-amber-300" />
-            <span>Open Scenario Studio</span>
+            <span>{isHi ? 'परिदृश्य स्टूडियो खोलें' : 'Open Scenario Studio'}</span>
           </Link>
         </div>
       </div>
@@ -96,8 +93,8 @@ export default function OverviewPage() {
         <KpiCard
           label={t.metrics.demand}
           value={metrics.demandFormatted}
-          delta={{ value: '+18.6%', isPositive: true, label: '6M Growth' }}
-          scope="National Vacancies"
+          delta={{ value: '+18.6%', isPositive: true, label: isHi ? '6M वृद्धि' : '6M Growth' }}
+          scope={isHi ? 'राष्ट्रीय रिक्तियां' : 'National Vacancies'}
           provenance="Official SIH"
           trend={[12, 14, 15, 16, 17, 18.6]}
         />
@@ -105,18 +102,18 @@ export default function OverviewPage() {
         <KpiCard
           label={t.metrics.effectiveSupply}
           value={metrics.supplyFormatted}
-          delta={{ value: 'Staged Pool', isNeutral: true, label: '0.70 Readiness' }}
-          scope="Certified & Active"
+          delta={{ value: isHi ? 'चरणबद्ध पूल' : 'Staged Pool', isNeutral: true, label: isHi ? '0.70 तत्परता' : '0.70 Readiness' }}
+          scope={isHi ? 'प्रमाणित एवं सक्रिय' : 'Certified & Active'}
           provenance="Official SIH"
           trend={[6.8, 7.1, 7.4, 7.8, 8.1, 8.3]}
         />
 
         {/* Structural Shortfall: positive number, never negative (§4.3) */}
         <KpiCard
-          label="Structural Shortfall"
+          label={isHi ? 'ढांचागत कमी' : 'Structural Shortfall'}
           value={metrics.shortfallFormatted}
-          delta={{ value: 'National Deficit', isPositive: false, label: 'Unmet Need' }}
-          scope="Purvanchal & Corridors"
+          delta={{ value: isHi ? 'राष्ट्रीय घाटा' : 'National Deficit', isPositive: false, label: isHi ? 'अधूरी आवश्यकता' : 'Unmet Need' }}
+          scope={isHi ? 'पूर्वांचल और गलियारे' : 'Purvanchal & Corridors'}
           severity="severe"
           provenance="Official SIH"
           trend={[8.2, 8.9, 9.4, 9.8, 10.1, 10.3]}
@@ -125,8 +122,8 @@ export default function OverviewPage() {
         <KpiCard
           label={t.metrics.atRiskTrades}
           value={metrics.atRiskCount}
-          delta={{ value: 'Imbalance', isPositive: false, label: 'Score >75 / <25' }}
-          scope="NCO Specializations"
+          delta={{ value: isHi ? 'असंतुलन' : 'Imbalance', isPositive: false, label: isHi ? 'स्कोर >75 / <25' : 'Score >75 / <25' }}
+          scope={isHi ? 'NCO विशेषज्ञताएं' : 'NCO Specializations'}
           severity="moderate"
           provenance="Official SIH"
           trend={[2, 3, 3, 4, 4, 4]}
@@ -135,10 +132,10 @@ export default function OverviewPage() {
         {/* Early Warnings: synced to 35 alert engine anomalies (§4.1) */}
         <Link href="/alerts" className="block focus-visible:outline-hidden">
           <KpiCard
-            label="Intelligence Signals"
+            label={isHi ? 'खुफिया संकेत' : 'Intelligence Signals'}
             value={metrics.activeAlertsCount}
-            delta={{ value: 'Alert Engine', isPositive: false, label: '35 Anomalies' }}
-            scope="Critical Shortage #1"
+            delta={{ value: isHi ? 'अलर्ट इंजन' : 'Alert Engine', isPositive: false, label: isHi ? '35 विसंगतियां' : '35 Anomalies' }}
+            scope={isHi ? 'गंभीर कमी #1' : 'Critical Shortage #1'}
             severity="severe"
             provenance="Official SIH"
             trend={[28, 30, 32, 34, 35, 35]}
@@ -150,8 +147,8 @@ export default function OverviewPage() {
           <KpiCard
             label={t.metrics.recommendations}
             value={metrics.recommendationsCount}
-            delta={{ value: 'Ranked Actions', isPositive: true, label: 'Interventions' }}
-            scope="Pending Approval"
+            delta={{ value: isHi ? 'रैंक की गई कार्रवाइयां' : 'Ranked Actions', isPositive: true, label: isHi ? 'हस्तक्षेप' : 'Interventions' }}
+            scope={isHi ? 'स्वीकृति लंबित' : 'Pending Approval'}
             severity="balanced"
             provenance="Official SIH"
             trend={[2, 3, 4, 4, 4, 4]}
@@ -169,13 +166,23 @@ export default function OverviewPage() {
           <div className="text-xs space-y-0.5">
             <div className="font-bold text-[var(--text)] flex items-center gap-2">
               <span className="uppercase text-[10px] font-mono font-extrabold text-[var(--severe)] bg-[var(--severe)]/10 px-2 py-0.5 rounded border border-[var(--severe)]/20">
-                ACTION REQUIRED
+                {isHi ? 'कार्रवाई आवश्यक' : 'ACTION REQUIRED'}
               </span>
               <span>•</span>
-              <span className="font-semibold text-sm">Gorakhpur · Solar PV Installer (NCO 7126.0101)</span>
+              <span className="font-semibold text-sm">
+                {isHi ? 'गोरखपुर · सोलर पीवी इंस्टॉलर (NCO 7126.0101)' : 'Gorakhpur · Solar PV Installer (NCO 7126.0101)'}
+              </span>
             </div>
             <p className="text-[var(--text-muted)] text-[11px] leading-relaxed">
-              Projected 6M shortage probability is <strong className="text-[var(--severe)] font-mono">88%</strong> (Shortfall: 711 candidates). Recommended intervention: Reallocate <strong className="text-[var(--brand)] font-mono">97 seats</strong> from Retail Sales Associate (saving ₹6.3L vs new capacity).
+              {isHi ? (
+                <>
+                  अनुमानित 6M कमी की संभावना <strong className="text-[var(--severe)] font-mono">88%</strong> है (कमी: 711 उम्मीदवार)। अनुशंसित हस्तक्षेप: रिटेल सेल्स एसोसिएट से <strong className="text-[var(--brand)] font-mono">97 सीटें</strong> पुनर्आवंटित करें (नई क्षमता के मुकाबले ₹6.3 लाख की बचत)।
+                </>
+              ) : (
+                <>
+                  Projected 6M shortage probability is <strong className="text-[var(--severe)] font-mono">88%</strong> (Shortfall: 711 candidates). Recommended intervention: Reallocate <strong className="text-[var(--brand)] font-mono">97 seats</strong> from Retail Sales Associate (saving ₹6.3L vs new capacity).
+                </>
+              )}
             </p>
           </div>
         </div>
@@ -185,14 +192,14 @@ export default function OverviewPage() {
             href="/districts/gorakhpur"
             className="px-3 py-1.5 rounded-xl liquid-control text-xs font-bold text-[var(--text)] hover:bg-[var(--glass-strong)] transition-all cursor-pointer"
           >
-            Investigate
+            {isHi ? 'जांच करें' : 'Investigate'}
           </Link>
           <Link
             href="/scenarios?preset=rec01"
             className="px-3.5 py-1.5 rounded-xl bg-[var(--brand)] hover:opacity-90 text-white text-xs font-bold flex items-center gap-1.5 transition-all shadow-xs cursor-pointer"
           >
             <Sliders className="w-3.5 h-3.5 text-amber-300" />
-            <span>Simulate Fix</span>
+            <span>{isHi ? 'समाधान का अनुकरण' : 'Simulate Fix'}</span>
           </Link>
         </div>
       </div>
@@ -205,7 +212,7 @@ export default function OverviewPage() {
               <Sparkles className="w-3.5 h-3.5" />
             </span>
             <span className="text-xs font-bold uppercase tracking-wider text-[var(--text)] font-mono">
-              What Changed in Current Pipeline Run?
+              {isHi ? 'वर्तमान पाइपलाइन रन में क्या बदला?' : 'What Changed in Current Pipeline Run?'}
             </span>
           </div>
 
@@ -218,10 +225,16 @@ export default function OverviewPage() {
                 setSelectedOccupationNco('7126.0101');
               }}
               className="px-3 py-1.5 rounded-xl glass hover:border-[var(--severe)] text-[var(--text)] font-medium flex items-center gap-1.5 transition-all cursor-pointer border border-[var(--border)]"
-              title="Solar PV Installer demand velocity: -0.1% 6M (t-6 to t)"
+              title={isHi ? 'सोलर पीवी इंस्टॉलर मांग वेग: -0.1% 6M' : 'Solar PV Installer demand velocity: -0.1% 6M (t-6 to t)'}
             >
               <ArrowDownRight className="w-3.5 h-3.5 text-[var(--severe)]" />
-              <span><strong>Solar PV Installer</strong> demand growth <strong>-0.1%</strong> in Gorakhpur (acute shortfall persists)</span>
+              <span>
+                {isHi ? (
+                  <><strong>सोलर पीवी इंस्टॉलर</strong> मांग वृद्धि <strong>-0.1%</strong> गोरखपुर में (तीव्र कमी बरकरार)</>
+                ) : (
+                  <><strong>Solar PV Installer</strong> demand growth <strong>-0.1%</strong> in Gorakhpur (acute shortfall persists)</>
+                )}
+              </span>
             </button>
 
             {/* Canonical Retail velocity: -10.0% (§4.1) */}
@@ -232,20 +245,32 @@ export default function OverviewPage() {
                 setSelectedOccupationNco('5223.0101');
               }}
               className="px-3 py-1.5 rounded-xl glass hover:border-[var(--border-strong)] text-[var(--text)] font-medium flex items-center gap-1.5 transition-all cursor-pointer border border-[var(--border)]"
-              title="Retail Sales Associate demand velocity: -10.0% 6M (t-6 to t)"
+              title={isHi ? 'रिटेल सेल्स एसोसिएट मांग वेग: -10.0% 6M' : 'Retail Sales Associate demand velocity: -10.0% 6M (t-6 to t)'}
             >
               <ArrowDownRight className="w-3.5 h-3.5 text-[var(--text-faint)]" />
-              <span><strong>Retail Sales Associate</strong> softened <strong>-10.0%</strong> (physical capacity surplus)</span>
+              <span>
+                {isHi ? (
+                  <><strong>रिटेल सेल्स एसोसिएट</strong> मांग <strong>-10.0%</strong> नरम हुई (भौतिक क्षमता अधिशेष)</>
+                ) : (
+                  <><strong>Retail Sales Associate</strong> softened <strong>-10.0%</strong> (physical capacity surplus)</>
+                )}
+              </span>
             </button>
 
             {/* Canonical Gorakhpur Shortage Probability: 88% (§4.1) */}
             <Link
               href="/alerts"
               className="px-3 py-1.5 rounded-xl glass border border-[var(--severe)]/30 text-[var(--text)] hover:border-[var(--severe)] font-medium flex items-center gap-1.5 transition-all"
-              title="Gorakhpur shortage probability reached 88%"
+              title={isHi ? 'गोरखपुर कमी संभावना 88% पहुंची' : 'Gorakhpur shortage probability reached 88%'}
             >
               <AlertTriangle className="w-3.5 h-3.5 text-[var(--severe)]" />
-              <span><strong>Gorakhpur</strong> shortage risk reached <strong>88%</strong> probability</span>
+              <span>
+                {isHi ? (
+                  <><strong>गोरखपुर</strong> में कमी का जोखिम <strong>88%</strong> संभावना पर पहुंचा</>
+                ) : (
+                  <><strong>Gorakhpur</strong> shortage risk reached <strong>88%</strong> probability</>
+                )}
+              </span>
             </Link>
           </div>
         </div>
@@ -258,15 +283,19 @@ export default function OverviewPage() {
             <Lightbulb className="w-4 h-4" />
           </div>
           <p className="text-xs sm:text-sm text-[var(--text)] font-medium leading-relaxed">
-            <strong className="font-bold uppercase tracking-wide mr-1.5 text-amber-500 font-mono">Why This Matters:</strong>
-            If training capacity is planned without forward-looking demand signals, districts continue funding legacy trades with low hiring absorption while high-growth sectors remain critically understaffed.
+            <strong className="font-bold uppercase tracking-wide mr-1.5 text-amber-500 font-mono">
+              {isHi ? 'यह क्यों महत्वपूर्ण है:' : 'Why This Matters:'}
+            </strong>
+            {isHi 
+              ? 'यदि प्रशिक्षण क्षमता की योजना भविष्योन्मुखी मांग संकेतों के बिना बनाई जाती है, तो जिले कम रोजगार अवशोषण वाले पारंपरिक व्यवसायों को वित्तपोषित करते रहेंगे, जबकि उच्च-विकास क्षेत्र गंभीर रूप से कर्मचारियों की कमी से जूझते रहेंगे।'
+              : 'If training capacity is planned without forward-looking demand signals, districts continue funding legacy trades with low hiring absorption while high-growth sectors remain critically understaffed.'}
           </p>
         </div>
         <Link
           href="/scenarios?preset=rec01"
           className="hidden md:flex items-center gap-1 text-xs font-bold text-amber-500 hover:underline shrink-0"
         >
-          <span>Simulate Fix →</span>
+          <span>{isHi ? 'समाधान का अनुकरण करें →' : 'Simulate Fix →'}</span>
         </Link>
       </div>
 
@@ -275,15 +304,17 @@ export default function OverviewPage() {
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-[var(--border)]">
           <div>
             <h2 className="text-lg font-extrabold text-[var(--text)] tracking-tight">
-              National Labour Market Geospatial Intelligence
+              {isHi ? 'राष्ट्रीय श्रम बाजार भू-स्थानिक खुफिया' : 'National Labour Market Geospatial Intelligence'}
             </h2>
             <p className="text-xs text-[var(--text-muted)]">
-              Interactive geographic overlay of structural shortages, vacancy pressures, and training infrastructure across state corridors.
+              {isHi 
+                ? 'राज्य गलियारों में ढांचागत कमी, रिक्ति दबाव और प्रशिक्षण बुनियादी ढांचे का इंटरैक्टिव भौगोलिक ओवरले।'
+                : 'Interactive geographic overlay of structural shortages, vacancy pressures, and training infrastructure across state corridors.'}
             </p>
           </div>
           <div className="flex items-center gap-2 text-xs font-mono text-[var(--text-faint)]">
             <Provenance source="Official SIH" />
-            <span>NCS + SID Corridors</span>
+            <span>{isHi ? 'NCS + SID गलियारे' : 'NCS + SID Corridors'}</span>
           </div>
         </div>
         <IndiaIntelligenceMap />
@@ -294,22 +325,24 @@ export default function OverviewPage() {
         <div className="flex items-center justify-between pb-3 border-b border-[var(--border)]">
           <div>
             <h2 className="text-lg font-extrabold text-[var(--text)] tracking-tight">
-              Top Priority Policy Interventions (Ranked)
+              {isHi ? 'शीर्ष प्राथमिकता नीतिगत हस्तक्षेप (रैंक किए गए)' : 'Top Priority Policy Interventions (Ranked)'}
             </h2>
             <p className="text-xs text-[var(--text-muted)]">
-              Targeted government capacity reallocations recommended by the Labour Market Intelligence engine.
+              {isHi 
+                ? 'श्रम बाजार खुफिया इंजन द्वारा अनुशंसित लक्षित सरकारी क्षमता पुनर्आवंटन।'
+                : 'Targeted government capacity reallocations recommended by the Labour Market Intelligence engine.'}
             </p>
           </div>
           <Link
             href="/recommendations"
             className="text-xs font-bold text-[var(--brand)] hover:underline flex items-center gap-1"
           >
-            <span>View All 4 Recommended Interventions</span>
+            <span>{isHi ? 'सभी 4 अनुशंसित हस्तक्षेप देखें' : 'View All 4 Recommended Interventions'}</span>
             <ChevronRight className="w-4 h-4" />
           </Link>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
           {RECOMMENDATIONS.slice(0, 2).map((rec) => (
             <div
               key={rec.id}
@@ -326,23 +359,23 @@ export default function OverviewPage() {
                     </span>
                   </div>
                   <Badge variant="balanced" size="sm">
-                    Confidence: {rec.confidence}%
+                    {isHi ? `विश्वास: ${rec.confidence}%` : `Confidence: ${rec.confidence}%`}
                   </Badge>
                 </div>
 
                 <h3 className="text-base font-bold text-[var(--text)] mb-1">
-                  {rec.title}
+                  {isHi && rec.titleHi ? rec.titleHi : rec.title}
                 </h3>
 
                 <p className="text-xs text-[var(--text-muted)] mb-3 leading-relaxed">
-                  {rec.reason}
+                  {isHi && rec.reasonHi ? rec.reasonHi : rec.reason}
                 </p>
 
                 {/* Score & Impact Stats */}
                 <div className="grid grid-cols-3 gap-2 p-2.5 rounded-xl glass border border-[var(--border)] mb-3 text-center">
                   <div>
                     <span className="text-[10px] text-[var(--text-faint)] font-bold uppercase tracking-wider block">
-                      {language === 'hi' ? 'सीटें' : 'Seats'}
+                      {isHi ? 'सीटें' : 'Seats'}
                     </span>
                     <strong className="text-xs sm:text-sm font-bold text-[var(--text)] font-mono tabular-nums">
                       {rec.recommendedSeats}
@@ -350,18 +383,18 @@ export default function OverviewPage() {
                   </div>
                   <div>
                     <span className="text-[10px] text-[var(--text-faint)] font-bold uppercase tracking-wider block">
-                      {language === 'hi' ? 'कमी भरपाई' : 'Shortfall Closed'}
+                      {isHi ? 'कमी भरपाई' : 'Shortfall Closed'}
                     </span>
                     <strong className="text-xs sm:text-sm font-bold text-[var(--success)] font-mono tabular-nums">
-                      ▼ {language === 'hi' ? `कमी की ${rec.expectedImpact.gapReductionPercent}% भरपाई` : `${rec.expectedImpact.gapReductionPercent}% closed`}
+                      ▼ {isHi ? `कमी की ${rec.expectedImpact.gapReductionPercent}% भरपाई` : `${rec.expectedImpact.gapReductionPercent}% closed`}
                     </strong>
                   </div>
                   <div>
                     <span className="text-[10px] text-[var(--text-faint)] font-bold uppercase tracking-wider block">
-                      {language === 'hi' ? 'लक्षित ट्रेड' : 'Target Trade'}
+                      {isHi ? 'लक्षित व्यवसाय' : 'Target Trade'}
                     </span>
                     <strong className="text-xs sm:text-sm font-bold text-[var(--brand)] truncate block">
-                      {rec.toTrade}
+                      {isHi && rec.toTradeHi ? rec.toTradeHi : rec.toTrade}
                     </strong>
                   </div>
                 </div>
@@ -375,7 +408,7 @@ export default function OverviewPage() {
                   className="px-3 py-1.5 rounded-xl liquid-control text-xs font-bold text-[var(--text)] hover:bg-[var(--glass-strong)] flex items-center gap-1.5 cursor-pointer"
                 >
                   <Eye className="w-3.5 h-3.5 text-[var(--brand)]" />
-                  <span>View Evidence</span>
+                  <span>{isHi ? 'साक्ष्य देखें' : 'View Evidence'}</span>
                 </button>
 
                 <div className="flex items-center gap-2">
@@ -383,7 +416,8 @@ export default function OverviewPage() {
                     type="button"
                     onClick={() => handleExportAction(rec)}
                     className="p-1.5 rounded-xl liquid-control text-[var(--text-muted)] hover:text-[var(--text)] cursor-pointer"
-                    title="Export Action Brief CSV"
+                    title={isHi ? 'कार्यवाही संक्षिप्त CSV निर्यात' : 'Export Action Brief CSV'}
+                    aria-label={isHi ? 'कार्यवाही संक्षिप्त CSV निर्यात' : 'Export Action Brief CSV'}
                   >
                     <Download className="w-4 h-4" />
                   </button>
@@ -393,7 +427,7 @@ export default function OverviewPage() {
                     className="px-3.5 py-1.5 rounded-xl bg-[var(--brand)] hover:opacity-90 text-white text-xs font-bold flex items-center gap-1.5 transition-all shadow-xs cursor-pointer"
                   >
                     <Sliders className="w-3.5 h-3.5 text-amber-300" />
-                    <span>Simulate</span>
+                    <span>{isHi ? 'सिम्युलेट' : 'Simulate'}</span>
                   </Link>
                 </div>
               </div>

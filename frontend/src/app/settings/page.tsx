@@ -18,22 +18,25 @@ import {
 
 export default function SettingsPage() {
   const { demoMode, setDemoMode, language, setLanguage, t } = useApp();
+  const isHi = language === 'hi';
 
   return (
     <div className="space-y-6">
       {/* Title */}
       <div>
         <div className="flex items-center gap-2 mb-2">
-          <Provenance type="official" note="System Administration & Environment" />
+          <Provenance type="official" note={isHi ? 'सिस्टम प्रशासन और वातावरण' : 'System Administration & Environment'} />
           <span className="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold uppercase tracking-wider bg-[var(--brand)]/10 text-[var(--brand)] border border-[var(--brand)]/20">
             Runtime v1.0
           </span>
         </div>
         <h1 className="text-2xl sm:text-3xl font-extrabold text-[var(--text)] tracking-tight">
-          Settings & Engine Configuration
+          {isHi ? 'सेटिंग्स और इंजन कॉन्फ़िगरेशन' : 'Settings & Engine Configuration'}
         </h1>
         <p className="text-xs sm:text-sm text-[var(--text-muted)] mt-1 max-w-2xl leading-relaxed">
-          Configure deterministic evaluation runtime modes, offline demo constraints, language preferences, and algorithmic weighting thresholds.
+          {isHi 
+            ? 'नियतात्मक मूल्यांकन रनटाइम मोड, ऑफ़लाइन डेमो प्रतिबंध, भाषा प्राथमिकताएं और एल्गोरिदमिक भार सीमाएं कॉन्फ़िगर करें।'
+            : 'Configure deterministic evaluation runtime modes, offline demo constraints, language preferences, and algorithmic weighting thresholds.'}
         </p>
       </div>
 
@@ -48,10 +51,10 @@ export default function SettingsPage() {
                 </div>
                 <div>
                   <h3 className="text-base font-bold text-[var(--text)]">
-                    Offline Hackathon Demo Mode
+                    {isHi ? 'ऑफ़लाइन हैकथॉन डेमो मोड' : 'Offline Hackathon Demo Mode'}
                   </h3>
                   <span className="text-[10px] text-[var(--text-faint)] font-mono">
-                    Deterministic Seeded Sandbox
+                    {isHi ? 'नियतात्मक सैंडबॉक्स' : 'Deterministic Seeded Sandbox'}
                   </span>
                 </div>
               </div>
@@ -63,26 +66,28 @@ export default function SettingsPage() {
                   demoMode ? 'bg-[var(--warning)] text-white shadow-xs' : 'liquid-control text-[var(--text-muted)]'
                 )}
               >
-                {demoMode ? 'ENABLED [ON]' : 'DISABLED'}
+                {demoMode ? (isHi ? 'सक्रिय [चालू]' : 'ENABLED [ON]') : (isHi ? 'निष्क्रिय' : 'DISABLED')}
               </button>
             </div>
 
             <p className="text-xs text-[var(--text-muted)] leading-relaxed mb-4">
-              When enabled, KaushalPulse uses guaranteed offline deterministic datasets across Gorakhpur, Lucknow, Pune, and Bengaluru, ensuring 100% reproducible scenarios without external network API variance.
+              {isHi 
+                ? 'सक्षम होने पर, कौशलयुवा गोरखपुर, लखनऊ, पुणे और बेंगलुरु में गारंटीकृत ऑफ़लाइन नियतात्मक डेटासेट का उपयोग करता है, जिससे बाहरी नेटवर्क API भिन्नता के बिना 100% पुनरुत्पादनीय परिदृश्य सुनिश्चित होते हैं।'
+                : 'When enabled, KaushalYuva uses guaranteed offline deterministic datasets across Gorakhpur, Lucknow, Pune, and Bengaluru, ensuring 100% reproducible scenarios without external network API variance.'}
             </p>
 
             <div className="space-y-1.5 text-xs text-[var(--text)] bg-[var(--warning)]/10 p-3.5 rounded-xl border border-[var(--warning)]/20">
               <div className="flex items-center gap-1.5 font-semibold text-[var(--warning)]">
                 <CheckCircle2 className="w-3.5 h-3.5" />
-                <span>Deterministic reproducible results for SIH jury</span>
+                <span>{isHi ? 'SIH जूरी के लिए नियतात्मक पुनरुत्पादनीय परिणाम' : 'Deterministic reproducible results for SIH jury'}</span>
               </div>
               <div className="flex items-center gap-1.5 font-semibold text-[var(--warning)]">
                 <CheckCircle2 className="w-3.5 h-3.5" />
-                <span>Visible 'Demo Dataset' watermark active</span>
+                <span>{isHi ? 'दृश्यमान डेमो डेटासेट वॉटरमार्क सक्रिय' : "Visible 'Demo Dataset' watermark active"}</span>
               </div>
               <div className="flex items-center gap-1.5 font-semibold text-[var(--warning)]">
                 <CheckCircle2 className="w-3.5 h-3.5" />
-                <span>Zero external network latency dependency</span>
+                <span>{isHi ? 'शून्य बाहरी नेटवर्क लेटेंसी निर्भरता' : 'Zero external network latency dependency'}</span>
               </div>
             </div>
           </div>
@@ -98,17 +103,19 @@ export default function SettingsPage() {
                 </div>
                 <div>
                   <h3 className="text-base font-bold text-[var(--text)]">
-                    Bilingual Language Localization
+                    {isHi ? 'द्विभाषी भाषा स्थानीयकरण' : 'Bilingual Language Localization'}
                   </h3>
                   <span className="text-[10px] text-[var(--text-faint)] font-mono">
-                    English & हिन्दी Interface
+                    {isHi ? 'अंग्रेजी और हिन्दी इंटरफ़ेस' : 'English & हिन्दी Interface'}
                   </span>
                 </div>
               </div>
             </div>
 
             <p className="text-xs text-[var(--text-muted)] leading-relaxed mb-4">
-              Toggle complete system dictionary between English and Hindi for ministerial planner presentations and district ground officer access.
+              {isHi
+                ? 'मंत्रालयीय योजनाकारों और जिला अधिकारियों के लिए संपूर्ण सिस्टम शब्दकोश बदलें।'
+                : 'Toggle complete system dictionary between English and Hindi for ministerial planner presentations and district ground officer access.'}
             </p>
 
             <div className="grid grid-cols-2 gap-3">
@@ -122,7 +129,7 @@ export default function SettingsPage() {
                 )}
               >
                 <div className="text-base font-extrabold">English</div>
-                <span className="text-[10px] opacity-80">Default Interface</span>
+                <span className="text-[10px] opacity-80">{isHi ? 'डिफ़ॉल्ट इंटरफ़ेस' : 'Default Interface'}</span>
               </button>
 
               <button
@@ -135,7 +142,7 @@ export default function SettingsPage() {
                 )}
               >
                 <div className="text-base font-extrabold">हिन्दी (Hindi)</div>
-                <span className="text-[10px] opacity-80">भारतीय भाषा इंटरफ़ेस</span>
+                <span className="text-[10px] opacity-80">{isHi ? 'भारतीय भाषा इंटरफ़ेस' : 'भारतीय भाषा इंटरफ़ेस'}</span>
               </button>
             </div>
           </div>
@@ -149,37 +156,53 @@ export default function SettingsPage() {
             </div>
             <div>
               <h3 className="text-base font-bold text-[var(--text)]">
-                Model Hyperparameters & Staged Pipeline Factors
+                {isHi ? 'मॉडल हाइपरपैरामीटर और चरणबद्ध आपूर्ति कारक' : 'Model Hyperparameters & Staged Pipeline Factors'}
               </h3>
               <span className="text-[10px] text-[var(--text-faint)] font-mono">
-                Pipeline Weights: Staged Supply Conversion Formula
+                {isHi ? 'पाइपलाइन वेट: चरणबद्ध आपूर्ति रूपांतरण सूत्र' : 'Pipeline Weights: Staged Supply Conversion Formula'}
               </span>
             </div>
           </div>
 
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-xs">
             <div className="p-3.5 rounded-xl glass-strong border border-[var(--border)]">
-              <span className="text-[10px] text-[var(--text-faint)] font-bold uppercase block font-mono">Seat Utilization</span>
+              <span className="text-[10px] text-[var(--text-faint)] font-bold uppercase block font-mono">
+                {isHi ? 'सीट उपयोग' : 'Seat Utilization'}
+              </span>
               <strong className="text-base font-bold text-[var(--text)] font-mono">92%</strong>
-              <span className="text-[10px] text-[var(--text-muted)] block mt-0.5">Enrolled / Total Seats</span>
+              <span className="text-[10px] text-[var(--text-muted)] block mt-0.5">
+                {isHi ? 'नामांकित / कुल सीटें' : 'Enrolled / Total Seats'}
+              </span>
             </div>
 
             <div className="p-3.5 rounded-xl glass-strong border border-[var(--border)]">
-              <span className="text-[10px] text-[var(--text-faint)] font-bold uppercase block font-mono">Certification Rate</span>
+              <span className="text-[10px] text-[var(--text-faint)] font-bold uppercase block font-mono">
+                {isHi ? 'प्रमाणन दर' : 'Certification Rate'}
+              </span>
               <strong className="text-base font-bold text-[var(--text)] font-mono">88%</strong>
-              <span className="text-[10px] text-[var(--text-muted)] block mt-0.5">Assessed & Passed</span>
+              <span className="text-[10px] text-[var(--text-muted)] block mt-0.5">
+                {isHi ? 'मूल्यांकन और उत्तीर्ण' : 'Assessed & Passed'}
+              </span>
             </div>
 
             <div className="p-3.5 rounded-xl glass-strong border border-[var(--border)]">
-              <span className="text-[10px] text-[var(--text-faint)] font-bold uppercase block font-mono">Labor Participation</span>
+              <span className="text-[10px] text-[var(--text-faint)] font-bold uppercase block font-mono">
+                {isHi ? 'श्रम भागीदारी' : 'Labor Participation'}
+              </span>
               <strong className="text-base font-bold text-[var(--text)] font-mono">82%</strong>
-              <span className="text-[10px] text-[var(--text-muted)] block mt-0.5">Active Job Seekers</span>
+              <span className="text-[10px] text-[var(--text-muted)] block mt-0.5">
+                {isHi ? 'सक्रिय नौकरी चाहने वाले' : 'Active Job Seekers'}
+              </span>
             </div>
 
             <div className="p-3.5 rounded-xl glass-strong border border-[var(--border)]">
-              <span className="text-[10px] text-[var(--text-faint)] font-bold uppercase block font-mono">Employability Factor</span>
+              <span className="text-[10px] text-[var(--text-faint)] font-bold uppercase block font-mono">
+                {isHi ? 'रोजगार योग्यता कारक' : 'Employability Factor'}
+              </span>
               <strong className="text-base font-bold text-[var(--balanced)] font-mono">78%</strong>
-              <span className="text-[10px] text-[var(--text-muted)] block mt-0.5">Effective Employable</span>
+              <span className="text-[10px] text-[var(--text-muted)] block mt-0.5">
+                {isHi ? 'प्रभावी रोजगार योग्य' : 'Effective Employable'}
+              </span>
             </div>
           </div>
         </div>

@@ -121,7 +121,9 @@ export function HeroPage() {
                     <TrendingUp className="w-3.5 h-3.5 text-[var(--brand)]" />
                     <span>{t.hero.proofPanel.shortageProbability}</span>
                   </span>
-                  <span className="font-mono text-[10px] text-[var(--text-faint)]">Gap 94/100</span>
+                  <span className="font-mono text-[10px] text-[var(--text-faint)]">
+                    {language === 'hi' ? 'अंतर 94/100' : 'Gap 94/100'}
+                  </span>
                 </div>
 
                 {/* SVG Visual Sparkline */}
@@ -199,19 +201,19 @@ export function HeroPage() {
       {/* 3. The Story Rail (§5.1) */}
       <section className="w-full max-w-7xl px-4 sm:px-6 lg:px-8 py-20 space-y-12">
         <div className="text-center max-w-2xl mx-auto space-y-2">
-          <H2 index="02" eyebrow="METHODOLOGY CYCLE" className="text-center justify-center">
+          <H2 index="02" eyebrow={language === 'hi' ? 'कार्यप्रणाली चक्र' : 'METHODOLOGY CYCLE'} className="text-center justify-center">
             {t.hero.story.title}
           </H2>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-4">
           {[
-            { step: '01', icon: Compass, title: 'Intelligence', desc: t.hero.story.step1, link: '/overview' },
-            { step: '02', icon: TrendingUp, title: 'Forecast', desc: t.hero.story.step2, link: '/forecasts' },
-            { step: '03', icon: BarChart3, title: 'Gap', desc: t.hero.story.step3, link: '/gaps' },
-            { step: '04', icon: Sparkles, title: 'Explain', desc: t.hero.story.step4, link: '/occupations/7126.0101' },
-            { step: '05', icon: ShieldAlert, title: 'Act', desc: t.hero.story.step5, link: '/recommendations' },
-            { step: '06', icon: Sliders, title: 'Simulate', desc: t.hero.story.step6, link: '/scenarios' }
+            { step: '01', icon: Compass, title: language === 'hi' ? 'आसूचना' : 'Intelligence', desc: t.hero.story.step1, link: '/overview' },
+            { step: '02', icon: TrendingUp, title: language === 'hi' ? 'पूर्वानुमान' : 'Forecast', desc: t.hero.story.step2, link: '/forecasts' },
+            { step: '03', icon: BarChart3, title: language === 'hi' ? 'कौशल अंतराल' : 'Gap', desc: t.hero.story.step3, link: '/gaps' },
+            { step: '04', icon: Sparkles, title: language === 'hi' ? 'व्याख्या' : 'Explain', desc: t.hero.story.step4, link: '/occupations/7126.0101' },
+            { step: '05', icon: ShieldAlert, title: language === 'hi' ? 'कार्रवाई' : 'Act', desc: t.hero.story.step5, link: '/recommendations' },
+            { step: '06', icon: Sliders, title: language === 'hi' ? 'सिमुलेशन' : 'Simulate', desc: t.hero.story.step6, link: '/scenarios' }
           ].map((item) => (
             <Link
               key={item.step}
@@ -241,7 +243,7 @@ export function HeroPage() {
       {/* 4. Product Tour (§5.1) */}
       <section className="w-full max-w-7xl px-4 sm:px-6 lg:px-8 py-16 space-y-16">
         <div className="text-center max-w-2xl mx-auto space-y-2">
-          <H2 index="03" eyebrow="PRODUCT ARCHITECTURE">
+          <H2 index="03" eyebrow={language === 'hi' ? 'उत्पाद संरचना' : 'PRODUCT ARCHITECTURE'}>
             {language === 'hi' ? 'बुद्धिमत्ता सूट की क्षमताएँ' : 'Core Analytical Capabilities'}
           </H2>
         </div>
@@ -269,23 +271,23 @@ export function HeroPage() {
             </div>
             <div className="lg:col-span-6 p-6 rounded-2xl glass border border-[var(--border)] space-y-3 font-mono text-xs">
               <div className="flex justify-between text-[11px] text-[var(--text-faint)] border-b border-[var(--border)] pb-2">
-                <span>Model Architecture</span>
-                <span>Out-of-Sample Weight</span>
+                <span>{language === 'hi' ? 'मॉडल आर्किटेक्चर' : 'Model Architecture'}</span>
+                <span>{language === 'hi' ? 'आउट-ऑफ-सैंपल भार' : 'Out-of-Sample Weight'}</span>
               </div>
               <div className="flex justify-between items-center py-1">
-                <span>LightGBM Gradient Booster</span>
+                <span>{language === 'hi' ? 'LightGBM ग्रेडिएंट बूस्टर' : 'LightGBM Gradient Booster'}</span>
                 <span className="font-bold text-[var(--brand)]">48.2%</span>
               </div>
               <div className="flex justify-between items-center py-1">
-                <span>Random Forest Regressor</span>
+                <span>{language === 'hi' ? 'रैंडम फ़ॉरेस्ट रिग्रेसर' : 'Random Forest Regressor'}</span>
                 <span className="font-bold text-[var(--brand)]">26.4%</span>
               </div>
               <div className="flex justify-between items-center py-1">
-                <span>Exponential Smoothing (ETS)</span>
+                <span>{language === 'hi' ? 'एक्सपोनेंशियल स्मूथिंग (ETS)' : 'Exponential Smoothing (ETS)'}</span>
                 <span className="font-bold text-[var(--brand)]">15.1%</span>
               </div>
               <div className="flex justify-between items-center py-1">
-                <span>Seasonal Rolling Baseline</span>
+                <span>{language === 'hi' ? 'सीज़नल रोलिंग बेसलाइन' : 'Seasonal Rolling Baseline'}</span>
                 <span className="font-bold text-[var(--brand)]">10.3%</span>
               </div>
             </div>
@@ -295,24 +297,42 @@ export function HeroPage() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center p-8 rounded-3xl glass-strong border border-[var(--border)]">
             <div className="lg:col-span-6 order-2 lg:order-1 p-6 rounded-2xl glass border border-[var(--border)] space-y-4">
               <div className="flex justify-between items-center pb-2 border-b border-[var(--border)]">
-                <span className="text-xs font-bold text-[var(--text)]">LP Solver Constraint Verification</span>
-                <Badge variant="balanced" size="sm">Optimal</Badge>
+                <span className="text-xs font-bold text-[var(--text)]">
+                  {language === 'hi' ? 'LP सॉल्वर सीमा सत्यापन' : 'LP Solver Constraint Verification'}
+                </span>
+                <Badge variant="balanced" size="sm">
+                  {language === 'hi' ? 'इष्टतम' : 'Optimal'}
+                </Badge>
               </div>
               <div className="space-y-2 text-xs font-mono">
                 <div className="flex justify-between">
-                  <span className="text-[var(--text-faint)]">Requested Seat Shift:</span>
-                  <span className="text-[var(--text)] font-bold">500 Seats</span>
+                  <span className="text-[var(--text-faint)]">
+                    {language === 'hi' ? 'अनुरोधित सीट स्थानांतरण:' : 'Requested Seat Shift:'}
+                  </span>
+                  <span className="text-[var(--text)] font-bold">
+                    {language === 'hi' ? '500 सीटें' : '500 Seats'}
+                  </span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-[var(--text-faint)]">LP Donor Safe Bound (&le; 0.05):</span>
-                  <span className="text-[var(--brand)] font-bold">97 Seats (Capped)</span>
+                  <span className="text-[var(--text-faint)]">
+                    {language === 'hi' ? 'LP दाता सुरक्षित सीमा (≤ 0.05):' : 'LP Donor Safe Bound (≤ 0.05):'}
+                  </span>
+                  <span className="text-[var(--brand)] font-bold">
+                    {language === 'hi' ? '97 सीटें (कैप्ड)' : '97 Seats (Capped)'}
+                  </span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-[var(--text-faint)]">Donor Post-Transfer Score:</span>
-                  <span className="text-[var(--success)] font-bold">52 / 100 (Balanced)</span>
+                  <span className="text-[var(--text-faint)]">
+                    {language === 'hi' ? 'दाता स्थानांतरण-उपरांत स्कोर:' : 'Donor Post-Transfer Score:'}
+                  </span>
+                  <span className="text-[var(--success)] font-bold">
+                    {language === 'hi' ? '52 / 100 (संतुलित)' : '52 / 100 (Balanced)'}
+                  </span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-[var(--text-faint)]">Shortfall Closed (Combo):</span>
+                  <span className="text-[var(--text-faint)]">
+                    {language === 'hi' ? 'कमी पूर्णता (कॉम्बो):' : 'Shortfall Closed (Combo):'}
+                  </span>
                   <span className="text-[var(--brand)] font-bold">15.6%</span>
                 </div>
               </div>
@@ -344,7 +364,7 @@ export function HeroPage() {
         <div className="p-8 sm:p-12 rounded-3xl glass-strong border border-[var(--border)] space-y-8">
           <div className="max-w-xl space-y-2">
             <span className="text-xs font-mono font-bold text-[var(--brand)] uppercase tracking-wider">
-              GOVERNANCE & TRUST
+              {language === 'hi' ? 'शासन एवं विश्वसनीयता' : 'GOVERNANCE & TRUST'}
             </span>
             <h2 className="text-2xl font-extrabold text-[var(--text)]">
               {t.hero.trust.title}

@@ -3,21 +3,20 @@
 import React, { useState } from 'react';
 import { GlassPanel } from '@/components/glass/GlassPanel';
 import { Provenance } from '@/components/common/Provenance';
-import { OCCUPATIONS, DISTRICTS, RECOMMENDATIONS, EARLY_WARNING_ALERTS } from '@/lib/demoData';
+import { OCCUPATIONS, DISTRICTS, RECOMMENDATIONS } from '@/lib/demoData';
 import { downloadCSV, downloadJSON } from '@/lib/exportUtils';
+import { useApp } from '@/lib/store';
 import { 
   DownloadCloud, 
   Copy, 
   Check, 
-  Terminal, 
-  Code, 
-  FileSpreadsheet, 
-  Database, 
-  ArrowRight
+  FileSpreadsheet
 } from 'lucide-react';
 import { clsx } from 'clsx';
 
 export default function ApiExportsPage() {
+  const { language } = useApp();
+  const isHi = language === 'hi';
   const [activeTab, setActiveTab] = useState<'forecast' | 'gap' | 'recommendation' | 'district' | 'occupation'>('forecast');
   const [copied, setCopied] = useState(false);
 
@@ -37,8 +36,8 @@ export default function ApiExportsPage() {
         return {
           status: 'success',
           pipeline_run: 'RUN-2026-10-04-001',
-          occupation: { nco: '7126.0101', title: 'Solar PV Installer' },
-          district: { name: 'Gorakhpur', lgd_code: 178 },
+          occupation: { nco: '7126.0101', title: isHi ? 'सोलर पीवी इंस्टॉलर' : 'Solar PV Installer' },
+          district: { name: isHi ? 'गोरखपुर' : 'Gorakhpur', lgd_code: 178 },
           horizon: '6M',
           model: 'Tri-Model Ensemble Blend (LightGBM + Theta + ETS)',
           confidence: 0.78,
@@ -48,11 +47,11 @@ export default function ApiExportsPage() {
       case 'gap':
         return {
           status: 'success',
-          district: 'Gorakhpur',
+          district: isHi ? 'गोरखपुर' : 'Gorakhpur',
           summary: { shortage_count: 124, balanced_count: 416, oversupply_count: 87 },
           top_gaps: OCCUPATIONS.slice(0, 3).map(o => ({
             nco: o.ncoCode,
-            title: o.title,
+            title: isHi && o.titleHi ? o.titleHi : o.title,
             current_demand: o.currentDemand,
             effective_supply: o.effectiveSupply,
             gap_score: o.gapScore,
@@ -80,7 +79,7 @@ export default function ApiExportsPage() {
   };
 
   const handleCopy = () => {
-    navigator.clipboard.writeText(`curl -X GET "https://kaushalpulse.msde.gov.in${getEndpoint().replace('GET ', '')}" -H "Authorization: Bearer msde_demo_token"`);
+    navigator.clipboard.writeText(`curl -X GET "https://kaushalyuva.msde.gov.in${getEndpoint().replace('GET ', '')}" -H "Authorization: Bearer msde_demo_token"`);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
@@ -88,39 +87,49 @@ export default function ApiExportsPage() {
   const handleDownloadCsv = () => {
     const data = getSampleJson();
     const rows = [
-      ['KaushalPulse Export Payload', activeTab.toUpperCase()],
+      ['KaushalYuva Export Payload', activeTab.toUpperCase()],
       ['Timestamp', new Date().toISOString()],
       ['Payload Raw', JSON.stringify(data)]
     ];
-    downloadCSV(`KaushalPulse_${activeTab}_export.csv`, rows);
+    downloadCSV(`KaushalYuva_${activeTab}_export.csv`, rows);
   };
 
   const handleDownloadJson = () => {
-    downloadJSON(`KaushalPulse_${activeTab}_export.json`, getSampleJson());
+    downloadJSON(`KaushalYuva_${activeTab}_export.json`, getSampleJson());
   };
+
+  const tabs = [
+    { id: 'forecast', label: isHi ? '1. पूर्वानुमान एपीआई' : '1. Forecast API' },
+    { id: 'gap', label: isHi ? '2. अंतर खुफिया एपीआई' : '2. Gap Intelligence API' },
+    { id: 'recommendation', label: isHi ? '3. सिफारिश एपीआई' : '3. Recommendation API' },
+    { id: 'district', label: isHi ? '4. जिला एपीआई' : '4. District API' },
+    { id: 'occupation', label: isHi ? '5. व्यवसाय एपीआई' : '5. Occupation API' }
+  ];
 
   return (
     <div className="space-y-6">
       {/* Title */}
       <div>
         <div className="flex items-center gap-2 mb-2">
-          <Provenance type="official" note="Open Government Data & Integration" />
+          <Provenance type="official" note={isHi ? 'ओपन सरकारी डेटा और एकीकरण' : 'Open Government Data & Integration'} />
           <span className="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold uppercase tracking-wider bg-[var(--brand)]/10 text-[var(--brand)] border border-[var(--brand)]/20">
             REST v1.0
           </span>
         </div>
         <h1 className="text-2xl sm:text-3xl font-extrabold text-[var(--text)] tracking-tight">
-          API & Data Exports Console
+          {isHi ? 'एपीआई और डेटा निर्यात कंसोल' : 'API & Data Exports Console'}
         </h1>
         <p className="text-xs sm:text-sm text-[var(--text-muted)] mt-1 max-w-2xl leading-relaxed">
-          Programmatic REST endpoints and structured data export facilities enabling inter-departmental integration with Skill India Digital Hub and state skill portals.
+          {isHi 
+            ? 'कौशल भारत डिजिटल हब (SIDH) और राज्य कौशल पोर्टलों के साथ अंतर-विभागीय एकीकरण सक्षम करने वाले प्रोग्रामेटिक REST एंडपॉइंट्स।' 
+            : 'Programmatic REST endpoints and structured data export facilities enabling inter-departmental integration with Skill India Digital Hub and state skill portals.'}
         </p>
       </div>
 
       {/* API Navigator & Interactive Console (Section 32) */}
       <GlassPanel
-        title="Interactive Labour Intelligence API Explorer"
-        subtitle="Live payloads conforming to Open Data standards."
+        title={isHi ? 'इंटरएक्टिव श्रम खुफिया एपीआई एक्सप्लोरर' : 'Interactive Labour Intelligence API Explorer'}
+        subtitle={isHi ? 'ओपन डेटा मानकों के अनुरूप लाइव पेलोड।' : 'Live payloads conforming to Open Data standards.'}
         action={
           <div className="flex items-center gap-2">
             <button
@@ -128,27 +137,21 @@ export default function ApiExportsPage() {
               className="px-3 py-1.5 rounded-xl liquid-control text-xs font-bold flex items-center gap-1.5 cursor-pointer shadow-xs"
             >
               <FileSpreadsheet className="w-3.5 h-3.5 text-[var(--balanced)]" />
-              <span>Download CSV</span>
+              <span>{isHi ? 'CSV डाउनलोड' : 'Download CSV'}</span>
             </button>
             <button
               onClick={handleDownloadJson}
               className="px-3 py-1.5 rounded-xl bg-[var(--brand)] hover:opacity-90 text-white text-xs font-bold flex items-center gap-1.5 transition-all shadow-xs cursor-pointer"
             >
               <DownloadCloud className="w-3.5 h-3.5" />
-              <span>Download JSON</span>
+              <span>{isHi ? 'JSON डाउनलोड' : 'Download JSON'}</span>
             </button>
           </div>
         }
       >
         {/* Navigation Pills */}
         <div className="flex flex-wrap gap-2 pb-4 mb-4 border-b border-[var(--border)]">
-          {[
-            { id: 'forecast', label: '1. Forecast API' },
-            { id: 'gap', label: '2. Gap Intelligence API' },
-            { id: 'recommendation', label: '3. Recommendation API' },
-            { id: 'district', label: '4. District API' },
-            { id: 'occupation', label: '5. Occupation API' }
-          ].map(tab => (
+          {tabs.map(tab => (
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id as any)}
@@ -170,9 +173,9 @@ export default function ApiExportsPage() {
             <span className="px-2 py-0.5 rounded-md bg-[var(--balanced)] text-white font-extrabold text-[10px]">
               GET
             </span>
-            <span className="text-[var(--balanced)] truncate font-semibold">
-              https://kaushalpulse.msde.gov.in{getEndpoint().replace('GET ', '')}
-            </span>
+            <code className="text-[var(--balanced)] truncate font-semibold font-mono bg-transparent border-0 p-0">
+              https://kaushalyuva.msde.gov.in{getEndpoint().replace('GET ', '')}
+            </code>
           </div>
 
           <button
@@ -180,7 +183,7 @@ export default function ApiExportsPage() {
             className="px-3 py-1 rounded-xl liquid-control text-[var(--text)] text-xs font-bold flex items-center gap-1.5 transition-all shrink-0 cursor-pointer"
           >
             {copied ? <Check className="w-3.5 h-3.5 text-[var(--balanced)]" /> : <Copy className="w-3.5 h-3.5" />}
-            <span>{copied ? 'cURL Copied!' : 'Copy cURL'}</span>
+            <span>{copied ? (isHi ? 'cURL कॉपी हो गया!' : 'cURL Copied!') : (isHi ? 'cURL कॉपी करें' : 'Copy cURL')}</span>
           </button>
         </div>
 

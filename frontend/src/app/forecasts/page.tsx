@@ -8,16 +8,6 @@ import { Badge } from '@/components/common/Badge';
 import { Provenance } from '@/components/common/Provenance';
 import { OCCUPATIONS, DATA_HEALTH_METRIC } from '@/lib/demoData';
 import { OUT_OF_SAMPLE_BENCHMARKS } from '@/lib/benchmarkMetrics';
-import { 
-  Sparkles, 
-  ShieldCheck, 
-  CheckCircle2,
-  Calendar,
-  Layers,
-  ArrowRight,
-  TrendingUp,
-  Activity
-} from 'lucide-react';
 
 export default function ForecastPage() {
   const { 
@@ -26,9 +16,10 @@ export default function ForecastPage() {
     setForecastHorizon,
     selectedDistrict,
     selectedState,
-    datasetMode 
+    language
   } = useApp();
 
+  const isHi = language === 'hi';
   const [activeModel, setActiveModel] = useState<'lightgbm' | 'naive'>('lightgbm');
 
   const occ = OCCUPATIONS.find(o => o.ncoCode === selectedOccupationNco) || OCCUPATIONS[0];
@@ -41,21 +32,25 @@ export default function ForecastPage() {
         <div>
           <div className="flex items-center gap-2 mb-1.5">
             <span className="px-2.5 py-0.5 rounded-full text-[11px] font-mono font-extrabold uppercase tracking-wider bg-[var(--brand)]/15 text-[var(--brand)] border border-[var(--brand)]/30">
-              Econometric Predictive Engine
+              {isHi ? 'अर्थमितीय पूर्वानुमान इंजन' : 'Econometric Predictive Engine'}
             </span>
             <Provenance source="Official SIH" />
           </div>
           <h1 className="text-2xl sm:text-3xl font-extrabold text-[var(--text)] tracking-tight">
-            Demand & Supply Forecast
+            {isHi ? 'मांग और आपूर्ति पूर्वानुमान' : 'Demand & Supply Forecast'}
           </h1>
           <p className="text-sm text-[var(--text-muted)] mt-1 max-w-2xl leading-relaxed">
-            Multi-horizon machine learning forecasting of trade demand versus staged employable labour supply. Sourced dynamically from verified out-of-sample backtests.
+            {isHi 
+              ? 'व्यवसाय मांग बनाम चरणबद्ध रोजगार योग्य श्रम आपूर्ति का बहु-क्षितिज मशीन लर्निंग पूर्वानुमान। सत्यापित आउट-ऑफ-सैंपल बैकटेस्ट से गतिशील रूप से प्राप्त।'
+              : 'Multi-horizon machine learning forecasting of trade demand versus staged employable labour supply. Sourced dynamically from verified out-of-sample backtests.'}
           </p>
         </div>
 
         {/* Horizon Quick Selector (§6.2) */}
         <div className="flex items-center gap-2 self-start md:self-auto">
-          <span className="text-xs font-bold text-[var(--text-faint)]">Horizon:</span>
+          <span className="text-xs font-bold text-[var(--text-faint)]">
+            {isHi ? 'क्षितिज:' : 'Horizon:'}
+          </span>
           <div className="glass inline-flex items-center rounded-xl p-0.5 border border-[var(--border)] text-xs">
             {(['3M', '6M', '12M'] as const).map((hz) => (
               <button
@@ -82,25 +77,29 @@ export default function ForecastPage() {
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-[var(--border)]">
           <div>
             <h2 className="text-lg font-extrabold text-[var(--text)]">
-              Forecast Trajectory: {occ.title} ({occ.ncoCode})
+              {isHi 
+                ? `पूर्वानुमान प्रक्षेपवक्र: ${occ.titleHi || occ.title} (${occ.ncoCode})`
+                : `Forecast Trajectory: ${occ.title} (${occ.ncoCode})`}
             </h2>
             <p className="text-xs text-[var(--text-muted)]">
-              Historical actuals (2024–2026) vs. {forecastHorizon} forward projection in {selectedDistrict}, {selectedState}.
+              {isHi
+                ? `ऐतिहासिक वास्तविक डेटा (2024–2026) बनाम ${selectedDistrict}, ${selectedState} में ${forecastHorizon} अग्रिम प्रक्षेपण।`
+                : `Historical actuals (2024–2026) vs. ${forecastHorizon} forward projection in ${selectedDistrict}, ${selectedState}.`}
             </p>
           </div>
           <div className="flex items-center gap-2">
             <Badge variant="balanced" size="sm">
-              Confidence: {occ.confidence}%
+              {isHi ? `विश्वसनीयता: ${occ.confidence}%` : `Confidence: ${occ.confidence}%`}
             </Badge>
             <span className="text-[10px] font-mono text-[var(--text-faint)]">
-              Run: {DATA_HEALTH_METRIC.lastRunId}
+              {isHi ? 'रन:' : 'Run:'} {DATA_HEALTH_METRIC.lastRunId}
             </span>
           </div>
         </div>
 
         <ForecastChart
           data={occ.timeSeries}
-          occupationTitle={occ.title}
+          occupationTitle={isHi && occ.titleHi ? occ.titleHi : occ.title}
           horizon={forecastHorizon}
           model={activeModel}
           onModelChange={setActiveModel}
@@ -108,29 +107,33 @@ export default function ForecastPage() {
       </div>
 
       {/* Dynamic Model Performance & Architecture Cards (§4.1, §6.2) */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
         {/* Card 1: Production Ensemble */}
         <div className="p-5 rounded-2xl glass-strong border border-[var(--brand)]/40 shadow-sm flex flex-col justify-between">
           <div>
-            <div className="flex items-center justify-between gap-2 mb-2">
+            <div className="flex flex-wrap items-center justify-between gap-1.5 mb-2">
               <span className="text-[10px] font-mono font-extrabold uppercase px-2 py-0.5 rounded-full bg-[var(--brand)]/15 text-[var(--brand)] border border-[var(--brand)]/30">
-                Primary Architecture
+                {isHi ? 'प्राथमिक वास्तुकला' : 'Primary Architecture'}
               </span>
-              <span className="text-xs font-mono text-[var(--text-faint)]">
-                {benchmark.sampleCount} Test Origins
+              <span className="text-xs font-mono text-[var(--text-faint)] truncate">
+                {isHi ? `${benchmark.sampleCount} टेस्ट ओरिजिन` : `${benchmark.sampleCount} Test Origins`}
               </span>
             </div>
             <h3 className="text-base font-extrabold text-[var(--text)]">
-              {benchmark.primaryModel}
+              {isHi ? (benchmark.primaryModel.includes('Blend') ? 'त्रि-मॉडल मिश्रण (LightGBM + ARIMA + ETS)' : 'LightGBM रीग्रेसर') : benchmark.primaryModel}
             </h3>
             <p className="text-xs text-[var(--text-muted)] mt-1 leading-relaxed">
-              Fitted strictly on Origins 1–3 and backtested out-of-sample on Origins 4–6 without temporal feature leakage.
+              {isHi 
+                ? 'उत्पत्ति 1-3 पर प्रशिक्षित और बिना टेम्पोरल लीकेज के उत्पत्ति 4-6 पर आउट-ऑफ-सैंपल परीक्षण किया गया।'
+                : 'Fitted strictly on Origins 1–3 and backtested out-of-sample on Origins 4–6 without temporal feature leakage.'}
             </p>
           </div>
 
           <div className="mt-4 pt-3 border-t border-[var(--border)] flex items-center justify-between font-mono">
             <div>
-              <span className="text-[10px] text-[var(--text-faint)] uppercase font-bold block">WAPE Error</span>
+              <span className="text-[10px] text-[var(--text-faint)] uppercase font-bold block">
+                {isHi ? 'WAPE त्रुटि' : 'WAPE Error'}
+              </span>
               <span className="text-2xl font-extrabold text-[var(--brand)] tabular-nums">
                 {benchmark.wape}%
               </span>
@@ -145,25 +148,29 @@ export default function ForecastPage() {
         {/* Card 2: Seasonal Naive Benchmark (§4.1 Seasonal Naive worse at every horizon) */}
         <div className="p-5 rounded-2xl glass border border-[var(--border)] shadow-xs flex flex-col justify-between">
           <div>
-            <div className="flex items-center justify-between gap-2 mb-2">
+            <div className="flex flex-wrap items-center justify-between gap-1.5 mb-2">
               <span className="text-[10px] font-mono font-extrabold uppercase px-2 py-0.5 rounded-full bg-slate-500/15 text-[var(--text-muted)] border border-slate-500/30">
-                Baseline Benchmark
+                {isHi ? 'आधारभूत बेंचमार्क' : 'Baseline Benchmark'}
               </span>
-              <span className="text-xs font-mono text-[var(--text-faint)]">
-                12M Lag
+              <span className="text-xs font-mono text-[var(--text-faint)] truncate">
+                {isHi ? '12M अंतराल' : '12M Lag'}
               </span>
             </div>
             <h3 className="text-base font-extrabold text-[var(--text)]">
-              Seasonal Naive Benchmark
+              {isHi ? 'मौसमी सरल (नेईव) बेंचमार्क' : 'Seasonal Naive Benchmark'}
             </h3>
             <p className="text-xs text-[var(--text-muted)] mt-1 leading-relaxed">
-              Standard government baseline repeating prior-year cyclical demand. Fails to adjust for accelerated industrial demand.
+              {isHi 
+                ? 'पूर्व-वर्ष की चक्रीय मांग दोहराने वाला मानक सरकारी आधारभूत मॉडल। तीव्र औद्योगिक मांग के समायोजन में असमर्थ।'
+                : 'Standard government baseline repeating prior-year cyclical demand. Fails to adjust for accelerated industrial demand.'}
             </p>
           </div>
 
           <div className="mt-4 pt-3 border-t border-[var(--border)] flex items-center justify-between font-mono">
             <div>
-              <span className="text-[10px] text-[var(--text-faint)] uppercase font-bold block">WAPE Error</span>
+              <span className="text-[10px] text-[var(--text-faint)] uppercase font-bold block">
+                {isHi ? 'WAPE त्रुटि' : 'WAPE Error'}
+              </span>
               <span className="text-2xl font-extrabold text-[var(--text-muted)] tabular-nums">
                 {benchmark.naiveWape}%
               </span>
@@ -178,31 +185,37 @@ export default function ForecastPage() {
         {/* Card 3: Calibration & Coverage */}
         <div className="p-5 rounded-2xl glass border border-[var(--border)] shadow-xs flex flex-col justify-between">
           <div>
-            <div className="flex items-center justify-between gap-2 mb-2">
+            <div className="flex flex-wrap items-center justify-between gap-1.5 mb-2">
               <span className="text-[10px] font-mono font-extrabold uppercase px-2 py-0.5 rounded-full bg-[var(--success)]/15 text-[var(--success)] border border-[var(--success)]/30">
-                Coverage Calibration
+                {isHi ? 'कवरेज अंशांकन' : 'Coverage Calibration'}
               </span>
-              <span className="text-xs font-mono text-[var(--text-faint)]">
-                Pinball Loss Validated
+              <span className="text-xs font-mono text-[var(--text-faint)] truncate">
+                {isHi ? 'पिनबॉल हानि मान्य' : 'Pinball Loss Validated'}
               </span>
             </div>
             <h3 className="text-base font-extrabold text-[var(--text)]">
-              Prediction Intervals (80% & 95%)
+              {isHi ? 'भविष्यवाणी अंतराल (80% और 95%)' : 'Prediction Intervals (80% & 95%)'}
             </h3>
             <p className="text-xs text-[var(--text-muted)] mt-1 leading-relaxed">
-              Empirical coverage matches theoretical nominal intervals closely, ensuring actionable uncertainty bounds for planners.
+              {isHi 
+                ? 'अनुभवजन्य कवरेज सैद्धांतिक नाममात्र अंतरालों से निकटता से मेल खाती है, जो योजनाकारों के लिए अनिश्चितता सीमाएं सुनिश्चित करती है।'
+                : 'Empirical coverage matches theoretical nominal intervals closely, ensuring actionable uncertainty bounds for planners.'}
             </p>
           </div>
 
           <div className="mt-4 pt-3 border-t border-[var(--border)] flex items-center justify-between font-mono">
             <div>
-              <span className="text-[10px] text-[var(--text-faint)] uppercase font-bold block">95% Coverage</span>
+              <span className="text-[10px] text-[var(--text-faint)] uppercase font-bold block">
+                {isHi ? '95% कवरेज' : '95% Coverage'}
+              </span>
               <span className="text-2xl font-extrabold text-[var(--success)] tabular-nums">
                 {benchmark.coverage95}%
               </span>
             </div>
             <div className="text-right">
-              <span className="text-[10px] text-[var(--text-faint)] uppercase font-bold block">80% Coverage</span>
+              <span className="text-[10px] text-[var(--text-faint)] uppercase font-bold block">
+                {isHi ? '80% कवरेज' : '80% Coverage'}
+              </span>
               <span className="text-base font-bold text-[var(--text)] tabular-nums">
                 {benchmark.coverage80}%
               </span>

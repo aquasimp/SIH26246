@@ -2,46 +2,46 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import { useApp } from '@/lib/store';
 import { FilterBar } from '@/components/layout/FilterBar';
 import { GlassPanel } from '@/components/glass/GlassPanel';
 import { Provenance } from '@/components/common/Provenance';
 import { OCCUPATIONS } from '@/lib/demoData';
-import { clsx } from 'clsx';
+import { localizeSkill, localizeQualification } from '@/lib/i18n';
 import { 
-  Award, 
-  Layers, 
-  ArrowRight, 
   CheckCircle2, 
-  AlertTriangle, 
-  Sparkles, 
-  Building2, 
-  Search, 
-  BookOpen
+  Search 
 } from 'lucide-react';
 
 export default function QualificationsPage() {
+  const { language } = useApp();
+  const isHi = language === 'hi';
   const [searchTerm, setSearchTerm] = useState('');
 
-  const filtered = OCCUPATIONS.filter(o => 
-    o.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    o.qualifications.some(q => q.toLowerCase().includes(searchTerm.toLowerCase()))
-  );
+  const filtered = OCCUPATIONS.filter(o => {
+    const titleMatch = o.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      (o.titleHi && o.titleHi.toLowerCase().includes(searchTerm.toLowerCase()));
+    const qualMatch = o.qualifications.some(q => q.toLowerCase().includes(searchTerm.toLowerCase()));
+    return titleMatch || qualMatch;
+  });
 
   return (
     <div className="space-y-6">
       {/* Title */}
       <div>
         <div className="flex items-center gap-2 mb-2">
-          <Provenance type="official" note="NQR Curriculum Standards" />
+          <Provenance type="official" note={isHi ? 'NQR पाठ्यक्रम मानक' : 'NQR Curriculum Standards'} />
           <span className="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold uppercase tracking-wider bg-purple-500/10 text-purple-400 border border-purple-500/20">
-            NSQF Levels 1-8
+            NSQF {isHi ? 'स्तर 1-8' : 'Levels 1-8'}
           </span>
         </div>
         <h1 className="text-2xl sm:text-3xl font-extrabold text-[var(--text)] tracking-tight">
-          Qualification & NSQF Intelligence
+          {isHi ? 'योग्यता और NSQF इंटेलिजेंस' : 'Qualification & NSQF Intelligence'}
         </h1>
         <p className="text-xs sm:text-sm text-[var(--text-muted)] mt-1 max-w-2xl leading-relaxed">
-          Full traceability chain mapping Occupations → NCO Codes → Qualification Packs (QP) → NSQF Levels → Verified Training Providers.
+          {isHi 
+            ? 'व्यवसाय → NCO कोड → योग्यता पैक (QP) → NSQF स्तर → सत्यापित प्रशिक्षण प्रदाताओं की पूर्ण ट्रेसिबिलिटी श्रृंखला।'
+            : 'Full traceability chain mapping Occupations → NCO Codes → Qualification Packs (QP) → NSQF Levels → Verified Training Providers.'}
         </p>
       </div>
 
@@ -50,43 +50,71 @@ export default function QualificationsPage() {
       {/* Conceptual Flow Diagram Card (Section 26) */}
       <div className="p-5 rounded-3xl glass border border-[var(--border)] shadow-xs">
         <span className="text-[10px] font-extrabold text-[var(--brand)] uppercase tracking-widest block mb-3 font-mono">
-          End-to-End Competency Standardisation Architecture
+          {isHi ? 'एंड-टू-एंड योग्यता मानकीकरण वास्तुकला' : 'End-to-End Competency Standardisation Architecture'}
         </span>
 
         <div className="grid grid-cols-2 sm:grid-cols-6 gap-2 text-center text-xs">
           <div className="p-3 rounded-xl glass-strong border border-[var(--border)]">
-            <span className="text-[10px] text-[var(--text-faint)] uppercase font-bold block">1. Trade</span>
-            <strong className="text-[var(--text)] block mt-1">Occupation</strong>
-            <span className="text-[9px] text-[var(--text-muted)]">Market Need</span>
+            <span className="text-[10px] text-[var(--text-faint)] uppercase font-bold block">
+              {isHi ? '1. व्यापार' : '1. Trade'}
+            </span>
+            <strong className="text-[var(--text)] block mt-1">
+              {isHi ? 'व्यवसाय' : 'Occupation'}
+            </strong>
+            <span className="text-[9px] text-[var(--text-muted)]">
+              {isHi ? 'बाजार की मांग' : 'Market Need'}
+            </span>
           </div>
 
           <div className="p-3 rounded-xl glass-strong border border-[var(--border)]">
-            <span className="text-[10px] text-[var(--text-faint)] uppercase font-bold block">2. Classification</span>
+            <span className="text-[10px] text-[var(--text-faint)] uppercase font-bold block">
+              {isHi ? '2. वर्गीकरण' : '2. Classification'}
+            </span>
             <strong className="text-[var(--brand)] block mt-1 font-mono">NCO-2015</strong>
-            <span className="text-[9px] text-[var(--text-muted)]">National Standard</span>
+            <span className="text-[9px] text-[var(--text-muted)]">
+              {isHi ? 'राष्ट्रीय मानक' : 'National Standard'}
+            </span>
           </div>
 
           <div className="p-3 rounded-xl glass-strong border border-[var(--border)]">
-            <span className="text-[10px] text-[var(--text-faint)] uppercase font-bold block">3. Qualification</span>
-            <strong className="text-purple-400 block mt-1 font-mono">QP-Pack</strong>
-            <span className="text-[9px] text-[var(--text-muted)]">Sector Skill Council</span>
+            <span className="text-[10px] text-[var(--text-faint)] uppercase font-bold block">
+              {isHi ? '3. योग्यता' : '3. Qualification'}
+            </span>
+            <strong className="text-purple-400 block mt-1 font-mono">{isHi ? 'क्यूपी-पैक' : 'QP-Pack'}</strong>
+            <span className="text-[9px] text-[var(--text-muted)]">
+              {isHi ? 'क्षेत्र कौशल परिषद' : 'Sector Skill Council'}
+            </span>
           </div>
 
           <div className="p-3 rounded-xl glass-strong border border-[var(--border)]">
-            <span className="text-[10px] text-[var(--text-faint)] uppercase font-bold block">4. Rigor</span>
-            <strong className="text-[var(--brand-secondary)] block mt-1 font-mono">NSQF Level</strong>
-            <span className="text-[9px] text-[var(--text-muted)]">Levels 1 to 8</span>
+            <span className="text-[10px] text-[var(--text-faint)] uppercase font-bold block">
+              {isHi ? '4. कठोरता' : '4. Rigor'}
+            </span>
+            <strong className="text-[var(--brand-secondary)] block mt-1 font-mono">NSQF {isHi ? 'स्तर' : 'Level'}</strong>
+            <span className="text-[9px] text-[var(--text-muted)]">
+              {isHi ? 'स्तर 1 से 8' : 'Levels 1 to 8'}
+            </span>
           </div>
 
           <div className="p-3 rounded-xl glass-strong border border-[var(--border)]">
-            <span className="text-[10px] text-[var(--text-faint)] uppercase font-bold block">5. Competencies</span>
-            <strong className="text-[var(--balanced)] block mt-1">Key Skills</strong>
-            <span className="text-[9px] text-[var(--text-muted)]">NOS Modules</span>
+            <span className="text-[10px] text-[var(--text-faint)] uppercase font-bold block">
+              {isHi ? '5. दक्षताएं' : '5. Competencies'}
+            </span>
+            <strong className="text-[var(--balanced)] block mt-1">
+              {isHi ? 'प्रमुख कौशल' : 'Key Skills'}
+            </strong>
+            <span className="text-[9px] text-[var(--text-muted)]">
+              {isHi ? 'NOS मॉड्यूल' : 'NOS Modules'}
+            </span>
           </div>
 
           <div className="p-3 rounded-xl glass-strong border border-[var(--border)] col-span-2 sm:col-span-1">
-            <span className="text-[10px] text-[var(--text-faint)] uppercase font-bold block">6. Delivery</span>
-            <strong className="text-[var(--text)] block mt-1">Training Hubs</strong>
+            <span className="text-[10px] text-[var(--text-faint)] uppercase font-bold block">
+              {isHi ? '6. वितरण' : '6. Delivery'}
+            </span>
+            <strong className="text-[var(--text)] block mt-1">
+              {isHi ? 'प्रशिक्षण केंद्र' : 'Training Hubs'}
+            </strong>
             <span className="text-[9px] text-[var(--text-muted)]">ITIs & PMKKs</span>
           </div>
         </div>
@@ -94,14 +122,14 @@ export default function QualificationsPage() {
 
       {/* Qualification Registry Table (Section 26) */}
       <GlassPanel
-        title="Active Qualification Packs & Alignment Coverage"
-        subtitle="Tracking curriculum relevance, candidate supply pipeline, and emerging skill adjustments."
+        title={isHi ? 'सक्रिय योग्यता पैक और संरेखण कवरेज' : 'Active Qualification Packs & Alignment Coverage'}
+        subtitle={isHi ? 'पाठ्यक्रम प्रासंगिकता, उम्मीदवार आपूर्ति पाइपलाइन और उभरते कौशल समायोजन की ट्रैकिंग।' : 'Tracking curriculum relevance, candidate supply pipeline, and emerging skill adjustments.'}
         action={
           <div className="relative w-64">
             <Search className="w-3.5 h-3.5 text-[var(--text-faint)] absolute left-3 top-1/2 -translate-y-1/2" />
             <input
               type="text"
-              placeholder="Search qualification pack..."
+              placeholder={isHi ? 'योग्यता पैक खोजें...' : 'Search qualification pack...'}
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               className="w-full text-xs pl-8 pr-3 py-1.5 rounded-xl liquid-control text-[var(--text)] focus:outline-none"
@@ -118,25 +146,27 @@ export default function QualificationsPage() {
               <div className="space-y-2 flex-1">
                 <div className="flex items-center gap-2 flex-wrap">
                   <span className="text-xs font-bold text-[var(--text)]">
-                    {occ.title}
+                    {isHi && occ.titleHi ? occ.titleHi : occ.title}
                   </span>
                   <span className="text-xs font-mono text-[var(--brand)] bg-[var(--brand)]/10 px-2 py-0.5 rounded-md border border-[var(--brand)]/20">
                     NCO {occ.ncoCode}
                   </span>
                   <span className="text-xs font-mono font-bold text-purple-400 bg-purple-500/10 px-2 py-0.5 rounded-md border border-purple-500/20">
-                    NSQF Level {occ.nsqfLevel}
+                    NSQF {isHi ? 'स्तर' : 'Level'} {occ.nsqfLevel}
                   </span>
                 </div>
 
                 <div className="text-xs text-[var(--text-muted)] font-medium">
-                  <strong className="text-[var(--text)]">Approved Packs: </strong>
-                  {occ.qualifications.join(' • ')}
+                  <strong className="text-[var(--text)]">
+                    {isHi ? 'स्वीकृत पैक:' : 'Approved Packs:'}{' '}
+                  </strong>
+                  {occ.qualifications.map(q => isHi ? localizeQualification(q, 'hi') : q).join(' • ')}
                 </div>
 
                 <div className="flex flex-wrap gap-1.5 pt-1">
                   {occ.keySkills.map((s, idx) => (
                     <span key={idx} className="text-[11px] px-2 py-0.5 rounded-md glass text-[var(--text-muted)] font-medium border border-[var(--border)]">
-                      {s}
+                      {isHi ? localizeSkill(s, 'hi') : s}
                     </span>
                   ))}
                 </div>
@@ -144,10 +174,12 @@ export default function QualificationsPage() {
 
               <div className="flex items-center gap-4 shrink-0 pt-3 md:pt-0 border-t md:border-t-0 border-[var(--border)]">
                 <div className="text-right text-xs">
-                  <span className="text-[var(--text-faint)] text-[10px] uppercase font-bold block">Status</span>
+                  <span className="text-[var(--text-faint)] text-[10px] uppercase font-bold block">
+                    {isHi ? 'स्थिति' : 'Status'}
+                  </span>
                   <span className="font-bold text-[var(--balanced)] flex items-center gap-1 font-mono">
                     <CheckCircle2 className="w-3.5 h-3.5" />
-                    Curriculum Aligned
+                    {isHi ? 'पाठ्यक्रम संरेखित' : 'Curriculum Aligned'}
                   </span>
                 </div>
 
@@ -155,7 +187,7 @@ export default function QualificationsPage() {
                   href={`/occupations/${occ.ncoCode}`}
                   className="px-3.5 py-2 rounded-xl liquid-control text-[var(--text)] text-xs font-bold transition-all"
                 >
-                  View Traceability →
+                  {isHi ? 'ट्रेसिबिलिटी देखें →' : 'View Traceability →'}
                 </Link>
               </div>
             </div>

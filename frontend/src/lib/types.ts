@@ -97,13 +97,18 @@ export interface EarlyWarningAlert {
   title: string;
   titleHi?: string;
   geography: string;     // e.g. 'Gorakhpur, Uttar Pradesh'
+  geographyHi?: string;
   occupation: string;    // 'Solar PV Installer'
+  occupationHi?: string;
   ncoCode: string;
   trigger: string;
+  triggerHi?: string;
   forecastHorizon: ForecastHorizon;
   confidence: number;
   recommendedAction: string;
+  recommendedActionHi?: string;
   context?: string;       // e.g. 'Context, not model output: ...'
+  contextHi?: string;
   wastedSeats?: number;   // e.g. 536 seats
   timestamp: string;
   acknowledged: boolean;
@@ -116,13 +121,16 @@ export interface Recommendation {
   titleHi?: string;
   type: 'capacity_reallocation' | 'new_curriculum' | 'employer_partnership' | 'seat_expansion';
   fromTrade?: string;
+  fromTradeHi?: string;
   fromNco?: string;
   toTrade: string;
+  toTradeHi?: string;
   toNco: string;
   district: string;
   state: string;
   recommendedSeats: number;
   reason: string;
+  reasonHi?: string;
   evidence: {
     demandSignal: string;
     vacancyGrowth: string;

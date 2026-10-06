@@ -4,6 +4,7 @@ import React from 'react';
 import { clsx } from 'clsx';
 import { GapSeverity } from '@/lib/types';
 import { useChartPalette } from '@/lib/useChartPalette';
+import { useApp } from '@/lib/store';
 
 interface GapChartProps {
   score: number;             // e.g. 84
@@ -25,6 +26,18 @@ export const GapChart: React.FC<GapChartProps> = ({
   confidence
 }) => {
   const palette = useChartPalette();
+  const { language } = useApp();
+  const isHi = language === 'hi';
+
+  const getLocalizedSeverity = (sev: string) => {
+    if (!isHi) return sev;
+    const lower = sev.toLowerCase();
+    if (lower.includes('severe') && lower.includes('shortage')) return 'गंभीर कमी';
+    if (lower.includes('moderate') && lower.includes('shortage')) return 'मध्यम कमी';
+    if (lower.includes('severe') && lower.includes('oversupply')) return 'गंभीर अधिशेष';
+    if (lower.includes('balanced')) return 'संतुलित';
+    return sev;
+  };
 
   // Score color
   const getScoreTheme = (s: number) => {
@@ -71,7 +84,7 @@ export const GapChart: React.FC<GapChartProps> = ({
 
           <div className="absolute inset-0 flex flex-col items-center justify-center text-center">
             <span className="text-[10px] font-bold uppercase tracking-wider text-[var(--text-faint)]">
-              Gap Score
+              {isHi ? 'अंतर स्कोर' : 'Gap Score'}
             </span>
             <span className={clsx('text-3xl font-extrabold tracking-tight font-mono', theme.text)}>
               {score}
@@ -83,23 +96,27 @@ export const GapChart: React.FC<GapChartProps> = ({
         </div>
 
         <div className={clsx('mt-2 px-3 py-1 rounded-full text-xs font-bold border font-mono', theme.bg, theme.text, theme.border)}>
-          {severity}
+          {getLocalizedSeverity(severity)}
         </div>
       </div>
 
       {/* Right Metric Sub-breakdowns */}
       <div className="flex-1 w-full space-y-3">
         <div className="flex items-center justify-between text-xs pb-1.5 border-b border-[var(--border)]">
-          <span className="font-bold text-[var(--text)]">Sub-Index Decomposition</span>
+          <span className="font-bold text-[var(--text)]">
+            {isHi ? 'उप-सूचकांक अपघटन' : 'Sub-Index Decomposition'}
+          </span>
           <span className="text-[11px] font-semibold text-[var(--brand)] bg-[var(--brand)]/10 px-2.5 py-0.5 rounded-md border border-[var(--brand)]/20 font-mono">
-            Model Confidence: {confidence}%
+            {isHi ? `मॉडल विश्वसनीयता: ${confidence}%` : `Model Confidence: ${confidence}%`}
           </span>
         </div>
 
         {/* Demand Pressure */}
         <div>
           <div className="flex justify-between text-xs font-semibold mb-1">
-            <span className="text-[var(--text-muted)]">Demand Pressure Index</span>
+            <span className="text-[var(--text-muted)]">
+              {isHi ? 'मांग दबाव सूचकांक' : 'Demand Pressure Index'}
+            </span>
             <span className="font-mono text-[var(--text)]">{demandPressure} / 100</span>
           </div>
           <div className="w-full h-1.5 rounded-full bg-[var(--border)] overflow-hidden">
@@ -110,7 +127,9 @@ export const GapChart: React.FC<GapChartProps> = ({
         {/* Effective Supply Capacity */}
         <div>
           <div className="flex justify-between text-xs font-semibold mb-1">
-            <span className="text-[var(--text-muted)]">Effective Supply Capacity</span>
+            <span className="text-[var(--text-muted)]">
+              {isHi ? 'प्रभावी आपूर्ति क्षमता' : 'Effective Supply Capacity'}
+            </span>
             <span className="font-mono text-[var(--text)]">{effectiveSupplyIndex} / 100</span>
           </div>
           <div className="w-full h-1.5 rounded-full bg-[var(--border)] overflow-hidden">
@@ -121,7 +140,9 @@ export const GapChart: React.FC<GapChartProps> = ({
         {/* Forecast Pressure */}
         <div>
           <div className="flex justify-between text-xs font-semibold mb-1">
-            <span className="text-[var(--text-muted)]">6-Month Forecast Pressure</span>
+            <span className="text-[var(--text-muted)]">
+              {isHi ? '6-माह पूर्वानुमान दबाव' : '6-Month Forecast Pressure'}
+            </span>
             <span className="font-mono text-[var(--text)]">{forecastPressure} / 100</span>
           </div>
           <div className="w-full h-1.5 rounded-full bg-[var(--border)] overflow-hidden">
@@ -132,7 +153,9 @@ export const GapChart: React.FC<GapChartProps> = ({
         {/* Shortage Persistence */}
         <div>
           <div className="flex justify-between text-xs font-semibold mb-1">
-            <span className="text-[var(--text-muted)]">Shortage Structural Persistence</span>
+            <span className="text-[var(--text-muted)]">
+              {isHi ? 'कमी संरचनात्मक निरंतरता' : 'Shortage Structural Persistence'}
+            </span>
             <span className="font-mono text-[var(--text)]">{persistence} / 100</span>
           </div>
           <div className="w-full h-1.5 rounded-full bg-[var(--border)] overflow-hidden">
