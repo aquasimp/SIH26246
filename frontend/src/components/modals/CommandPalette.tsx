@@ -216,6 +216,14 @@ export function CommandPalette({ open, onOpenChange, onToggleFocusMode }: Comman
                 <Briefcase className="w-4 h-4 text-[var(--brand)]" />
                 <span>{isHi ? "व्यवसाय निर्देशिका व NCO डोजियर" : "Occupations Directory & NCO Dossiers"}</span>
               </Command.Item>
+
+              <Command.Item
+                onSelect={() => handleSelect(() => router.push('/methodology'))}
+                className="flex items-center gap-2.5 px-3 py-2 rounded-xl text-[var(--text)] hover:bg-[var(--glass-strong)] cursor-pointer aria-selected:bg-[var(--glass-strong)]"
+              >
+                <FileText className="w-4 h-4 text-[var(--brand)]" />
+                <span>{isHi ? "मॉडल धारणाएँ एवं कार्यप्रणाली विनिर्देश" : "Model Assumptions & Methodology Specification"}</span>
+              </Command.Item>
             </Command.Group>
 
             {/* Districts Quick Jump */}

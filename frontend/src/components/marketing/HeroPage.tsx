@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useApp } from '@/lib/store';
 import { IndiaIntelligenceMap } from '@/components/maps/IndiaIntelligenceMap';
 import { DISTRICTS, RECOMMENDATIONS, EXPORT_METADATA, STATES } from '@/lib/demoData';
+import { OUT_OF_SAMPLE_BENCHMARKS } from '@/lib/benchmarkMetrics';
 import { 
   ArrowRight, 
   Sliders, 
@@ -163,7 +164,7 @@ export function HeroPage() {
               {isHi ? 'आउट-ऑफ-सैंपल WAPE' : 'OUT-OF-SAMPLE WAPE'}
             </span>
             <div className="text-xl sm:text-2xl font-extrabold text-[var(--brand)] kpi-numeral">
-              11.8% <span className="text-xs font-normal text-[var(--text-muted)] font-sans">{isHi ? 'सत्यापित त्रुटि दर' : 'Validated Error'}</span>
+              {OUT_OF_SAMPLE_BENCHMARKS['6M'].wape}% <span className="text-xs font-normal text-[var(--text-muted)] font-sans">{isHi ? 'सत्यापित 6M त्रुटि' : 'Verified 6M Error'}</span>
             </div>
           </div>
         </div>

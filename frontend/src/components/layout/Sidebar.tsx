@@ -20,7 +20,8 @@ import {
   ChevronLeft, 
   ChevronRight,
   Sparkles,
-  Bot
+  Bot,
+  FileText
 } from 'lucide-react';
 import { useApp } from '@/lib/store';
 
@@ -107,6 +108,7 @@ export const Sidebar: React.FC = () => {
       title: language === 'hi' ? 'सिस्टम' : 'SYSTEM',
       items: [
         { href: '/data-health', label: t.nav.dataHealth, icon: ShieldCheck },
+        { href: '/methodology', label: t.nav.methodology || (language === 'hi' ? 'मॉडल कार्यप्रणाली' : 'Methodology'), icon: FileText },
         { href: '/api', label: t.nav.apiExports, icon: DownloadCloud },
         { href: '/settings', label: t.nav.settings, icon: Settings }
       ]

@@ -2454,7 +2454,11 @@ export const RECOMMENDATIONS: Recommendation[] = [
     expectedImpact: {
       gapReductionPercent: 6.2,
       supplyCoveragePercent: 6,
-      estimatedCostINR: 630500
+      estimatedCostINR: 630500,
+      youthEmployed: 44,
+      annualWageIncomeINR: 12408000,
+      publicFundsSavedINR: 1794500,
+      roiMultiple: 19.7
     },
     confidence: 82,
     status: 'pending',
@@ -2486,7 +2490,11 @@ export const RECOMMENDATIONS: Recommendation[] = [
     expectedImpact: {
       gapReductionPercent: 54,
       supplyCoveragePercent: 18,
-      estimatedCostINR: 5800000
+      estimatedCostINR: 5800000,
+      youthEmployed: 240,
+      annualWageIncomeINR: 80640000,
+      publicFundsSavedINR: 4200000,
+      roiMultiple: 13.9
     },
     confidence: 81,
     status: 'pending',
@@ -2518,7 +2526,11 @@ export const RECOMMENDATIONS: Recommendation[] = [
     expectedImpact: {
       gapReductionPercent: 58,
       supplyCoveragePercent: 21,
-      estimatedCostINR: 2400000
+      estimatedCostINR: 2400000,
+      youthEmployed: 192,
+      annualWageIncomeINR: 64512000,
+      publicFundsSavedINR: 2150000,
+      roiMultiple: 26.8
     },
     confidence: 86,
     status: 'pending',
@@ -2550,7 +2562,11 @@ export const RECOMMENDATIONS: Recommendation[] = [
     expectedImpact: {
       gapReductionPercent: 42,
       supplyCoveragePercent: 15,
-      estimatedCostINR: 3200000
+      estimatedCostINR: 3200000,
+      youthEmployed: 162,
+      annualWageIncomeINR: 54432000,
+      publicFundsSavedINR: 3050000,
+      roiMultiple: 17.0
     },
     confidence: 79,
     status: 'pending',

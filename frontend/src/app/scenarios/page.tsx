@@ -248,6 +248,16 @@ function ScenarioStudioContent() {
             </div>
           </div>
 
+          {/* Net Youth Placed */}
+          <div>
+            <span className="text-[10px] font-bold text-[var(--text-faint)] uppercase block">
+              {isHi ? 'प्रमाणित युवा रोजगार' : 'Youth Placed'}
+            </span>
+            <div className="text-xl font-extrabold text-[var(--brand)] font-mono tabular-nums">
+              +{Math.max(0, simulation.simulatedSupply - simulation.baselineSupply)}
+            </div>
+          </div>
+
           {/* Package Cost: ₹18.31 L */}
           <div>
             <span className="text-[10px] font-bold text-[var(--text-faint)] uppercase block">

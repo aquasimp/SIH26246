@@ -48,6 +48,13 @@ export function MarketingTopbar() {
             <span>{t.nav.scenarios}</span>
           </Link>
           <Link 
+            href="/methodology" 
+            className="flex items-center gap-1.5 hover:text-[var(--text)] transition-colors py-1"
+          >
+            <FileText className="w-3.5 h-3.5 text-[var(--brand)]" />
+            <span>{isHi ? 'मॉडल कार्यप्रणाली' : 'Methodology'}</span>
+          </Link>
+          <Link 
             href="/api" 
             className="flex items-center gap-1.5 hover:text-[var(--text)] transition-colors py-1"
           >

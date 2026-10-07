@@ -159,6 +159,10 @@ export interface Recommendation {
     gapReductionPercent: number; // e.g. 62
     supplyCoveragePercent: number; // e.g. 14
     estimatedCostINR: number;    // e.g. 3250000 (32.5 L)
+    youthEmployed?: number;      // Net certified youth placed in high-demand roles
+    annualWageIncomeINR?: number; // Total annual wage earnings unlocked in district economy
+    publicFundsSavedINR?: number; // Public capex saved vs greenfield infrastructure
+    roiMultiple?: number;        // 1-year wage return multiple on public investment
   };
   confidence: number;
   status: 'pending' | 'approved' | 'simulated';
