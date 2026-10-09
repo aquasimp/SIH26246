@@ -1,6 +1,6 @@
 """
 KaushalPulse — End-to-End Demo Acceptance Test
-Ministry of Skill Development & Entrepreneurship (MSDE) — PS 26246
+Ministry of Skill Development & Entrepreneurship (MSDE) — PS 26242
 
 Validates the full Section 37 narrative workflow:
 1. Overview Query (Uttar Pradesh / Gorakhpur)

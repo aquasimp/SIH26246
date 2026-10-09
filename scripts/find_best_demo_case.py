@@ -1,6 +1,6 @@
 """
 Script: Automatically Find the Strongest Real Demo Case from SIH Dataset
-Problem Statement: PS 26246 - MSDE
+Problem Statement: PS 26242 - MSDE
 Ranks candidate (District x Trade) pairs based on econometric urgency, demand momentum,
 supply deficit, and policy recommendation clarity.
 """

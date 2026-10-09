@@ -1,6 +1,6 @@
 """
 KaushalPulse ML Module: Train Demand Forecasting Model & Rolling-Origin Backtest
-Ministry of Skill Development & Entrepreneurship (MSDE) — PS 26246
+Ministry of Skill Development & Entrepreneurship (MSDE) — PS 26242
 
 Trains Global LightGBM Regressor on canonical labour time series with strictly lagged features.
 Executes a multi-horizon (3M, 6M, 12M) rolling-origin backtest (6 origins) against

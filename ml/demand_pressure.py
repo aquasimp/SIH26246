@@ -1,6 +1,6 @@
 """
 KaushalPulse ML Module: Demand Pressure Index Calculation
-Ministry of Skill Development & Entrepreneurship (MSDE) — PS 26246
+Ministry of Skill Development & Entrepreneurship (MSDE) — PS 26242
 
 Formula Specification:
 Demand Pressure Index (0 - 100) measures labour market tension and recruitment difficulty:

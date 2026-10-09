@@ -1,6 +1,6 @@
 """
 KaushalPulse ML Module: LightGBM Ensemble Forecasting Pipeline
-Ministry of Skill Development & Entrepreneurship (MSDE) — PS 26246
+Ministry of Skill Development & Entrepreneurship (MSDE) — PS 26242
 Demonstrating WAPE = 12.7% versus Seasonal Naive Baseline = 18.4%
 """
 

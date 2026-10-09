@@ -1,6 +1,6 @@
 """
 Automated Test Suite: Official SIH Dataset Ingestion, ML Training, & Dual-Mode API Verification
-Problem Statement: PS 26246 - MSDE
+Problem Statement: PS 26242 - MSDE
 Verifies Section 33 and 34 of Prompt 4.
 """
 

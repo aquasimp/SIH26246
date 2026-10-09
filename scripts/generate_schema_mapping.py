@@ -1,6 +1,6 @@
 """
 Script: Generate Schema Mapping and Audit Report
-Problem Statement: PS 26246 - MSDE
+Problem Statement: PS 26242 - MSDE
 Produces data/mapping/schema_mapping.json and data/mapping/schema_mapping_report.md
 """
 
@@ -176,7 +176,7 @@ def generate_schema_mapping():
     md_path = "data/mapping/schema_mapping_report.md"
     with open(md_path, "w", encoding="utf-8") as f:
         f.write("# Schema Mapping Specification & Audit Report\n")
-        f.write("### MSDE PS 26246 — Canonical Integration Layer\n\n")
+        f.write("### MSDE PS 26242 — Canonical Integration Layer\n\n")
         f.write("This report specifies the rigorous transformation between the official raw SIH evaluation dataset and the KaushalPulse canonical schema.\n\n")
         f.write("## 1. Mapped Columns\n\n")
         f.write("| Source Column | Canonical Field | Transformation Rule | Confidence |\n")

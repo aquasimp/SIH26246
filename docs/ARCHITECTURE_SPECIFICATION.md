@@ -1,5 +1,5 @@
 # KaushalPulse — Architecture & Technical Specification
-## Ministry of Skill Development and Entrepreneurship (MSDE) — PS 26246
+## Ministry of Skill Development and Entrepreneurship (MSDE) — PS 26242
 ### AI-Enabled Labour Market Intelligence and Skill Demand-Supply Forecasting Engine
 
 ---

@@ -1,6 +1,6 @@
 """
 KaushalPulse Canonical Data Contract & Schema Specification
-Ministry of Skill Development & Entrepreneurship (MSDE) — PS 26246
+Ministry of Skill Development & Entrepreneurship (MSDE) — PS 26242
 """
 
 from dataclasses import dataclass, asdict

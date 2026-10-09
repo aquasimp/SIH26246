@@ -1,6 +1,6 @@
 """
 KaushalPulse ML Module: Early Warning Alert Engine
-Ministry of Skill Development & Entrepreneurship (MSDE) — PS 26246
+Ministry of Skill Development & Entrepreneurship (MSDE) — PS 26242
 
 Dynamically detects early warning signals from labour market records:
 1. persistent_shortage: Multi-period structural deficit (Gap Score >= 75 in >= 2 of last 3 periods).

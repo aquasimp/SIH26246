@@ -61,6 +61,7 @@ export const ALLOWED_LATIN_TOKENS = new Set([
   'Pinball',
   'RUN-SIH-001',
   'SIH-2026',
+  'PS-26242',
   'PS-26246',
   'v1.0',
   'v2.1',

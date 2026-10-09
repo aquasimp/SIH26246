@@ -1,10 +1,10 @@
 # ANTIGRAVITY MASTER BUILD PROMPT
-## SIH 2026 — PS 26246
+## SIH 2026 — PS 26242
 ## AI-Enabled Labour Market Intelligence and Skill Demand-Supply Forecasting Engine
 
 You are a **senior product engineer + product designer + data visualization engineer + AI/ML UX architect** building a **winner-level Smart India Hackathon prototype** for:
 
-**Problem Statement ID:** 26246  
+**Problem Statement ID:** 26242  
 **Problem Statement:** AI-Enabled Labour Market Intelligence and Skill Demand-Supply Forecasting Engine  
 **Organization:** Ministry of Skill Development and Entrepreneurship (MSDE)  
 **Category:** Software  

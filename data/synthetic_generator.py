@@ -1,6 +1,6 @@
 """
 KaushalPulse Deterministic Synthetic Dataset Generator
-Ministry of Skill Development & Entrepreneurship (MSDE) — PS 26246
+Ministry of Skill Development & Entrepreneurship (MSDE) — PS 26242
 
 Generates 60 months of historical observations across 4 States, 16 Districts,
 6 Sectors, and 32 Occupations according to the Canonical Data Contract.

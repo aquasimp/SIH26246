@@ -1,6 +1,6 @@
 """
 Script: Inspect Official SIH Dataset and Generate Detailed Summary
-Problem Statement: PS 26246 - MSDE
+Problem Statement: PS 26242 - MSDE
 Produces data/reports/sih_dataset_summary.json and data/reports/sih_dataset_summary.md
 """
 

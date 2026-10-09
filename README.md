@@ -1,5 +1,5 @@
 # KaushalYuva (कौशलयुवा) — MSDE Labour Market Intelligence Engine
-### Smart India Hackathon (SIH 2026) | Problem Statement PS 26246
+### Smart India Hackathon (SIH 2026) | Problem Statement PS 26242
 *AI-Enabled Labour Market Intelligence and Skill Demand-Supply Forecasting Engine*  
 *Ministry of Skill Development and Entrepreneurship (MSDE), Government of India*  
 **Live Platform:** [https://kaushalyuva.vercel.app/](https://kaushalyuva.vercel.app/)
@@ -55,8 +55,8 @@ If you prefer configuring environments manually:
 
 ### 2. Clone the Repository
 ```bash
-git clone https://github.com/aquasimp/SIH26246.git
-cd SIH26246
+git clone https://github.com/aquasimp/SIH26242.git
+cd SIH26242
 ```
 
 ### 3. Backend Setup (FastAPI + LightGBM + PuLP)
@@ -238,7 +238,7 @@ KaushalYuva strictly adheres to civil-service audit standards:
 ## 📁 Repository Directory Structure
 
 ```tree
-SIH26246/
+SIH26242/
 ├── backend/
 │   ├── main.py                     # FastAPI backend (13 REST endpoints + CORS + OpenAPI)
 │   └── requirements.txt            # Backend dependencies
@@ -295,5 +295,5 @@ SIH26246/
 ---
 
 ## 📄 License & Attribution
-Developed for the **Smart India Hackathon 2026** under Problem Statement **PS 26246** (MSDE).  
+Developed for the **Smart India Hackathon 2026** under Problem Statement **PS 26242** (MSDE).  
 Protected under the MIT License.

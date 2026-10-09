@@ -1,7 +1,7 @@
 """
 KaushalPulse — AI-Enabled Labour Market Intelligence & Skill Forecasting Engine
 FastAPI Analytical Backend Service
-Ministry of Skill Development & Entrepreneurship (MSDE) — PS 26246
+Ministry of Skill Development & Entrepreneurship (MSDE) — PS 26242
 """
 
 from fastapi import FastAPI, Query, HTTPException, Response

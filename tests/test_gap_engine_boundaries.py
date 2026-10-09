@@ -1,6 +1,6 @@
 """
 KaushalPulse — Gap Engine Boundary Testing
-Ministry of Skill Development & Entrepreneurship (MSDE) — PS 26246
+Ministry of Skill Development & Entrepreneurship (MSDE) — PS 26242
 
 Rigorous boundary tests for all 5 classification states:
   >= 75: Severe Shortage

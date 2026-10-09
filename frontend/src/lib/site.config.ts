@@ -14,7 +14,7 @@ export const siteConfig = {
   
   event: {
     name: 'Smart India Hackathon 2026',
-    problemStatement: 'PS 26246',
+    problemStatement: 'PS 26242',
     ministry: 'Ministry of Skill Development & Entrepreneurship (MSDE)',
     datasetVersion: 'Official SIH Dataset v2.1',
     runId: 'RUN-SIH-001',
@@ -23,7 +23,7 @@ export const siteConfig = {
 
   urls: {
     live: 'https://kaushalyuva.vercel.app',
-    github: 'https://github.com/aquasimp/SIH26246',
+    github: 'https://github.com/aquasimp/SIH26242',
     msde: 'https://www.msde.gov.in',
     sih: 'https://www.sih.gov.in'
   },
