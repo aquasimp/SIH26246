@@ -6,10 +6,10 @@ import { useApp } from '@/lib/store';
 import { ThemeToggle } from '@/components/layout/ThemeToggle';
 import { siteConfig } from '@/lib/site.config';
 import { EXPORT_METADATA } from '@/lib/demoData';
-import { ArrowRight, Compass, Sliders, Database, FileText, Sparkles, Activity } from 'lucide-react';
+import { ArrowRight, Compass, Sliders, Database, FileText, Sparkles, Activity, Menu } from 'lucide-react';
 
 export function MarketingTopbar() {
-  const { language, setLanguage, t } = useApp();
+  const { language, setLanguage, t, setMobileMenuOpen } = useApp();
   const isHi = language === 'hi';
 
   return (
@@ -114,11 +114,22 @@ export function MarketingTopbar() {
           {/* Primary Open Dashboard CTA */}
           <Link
             href="/overview"
-            className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-gradient-to-r from-[#0055a5] to-[#00c2cb] hover:opacity-90 text-white font-bold text-xs shadow-md shadow-[#00c2cb]/20 hover:-translate-y-0.5 transition-all cursor-pointer font-sans"
+            className="inline-flex items-center gap-1.5 px-3 py-2 sm:px-3.5 sm:py-2 rounded-xl bg-gradient-to-r from-[#0055a5] to-[#00c2cb] hover:opacity-90 text-white font-bold text-xs shadow-md shadow-[#00c2cb]/20 hover:-translate-y-0.5 transition-all cursor-pointer font-sans min-h-[36px]"
           >
-            <span>{isHi ? 'डैशबोर्ड खोलें' : 'Open Dashboard'}</span>
+            <span className="hidden xs:inline">{isHi ? 'डैशबोर्ड खोलें' : 'Open Dashboard'}</span>
+            <span className="xs:hidden">{isHi ? 'डैशबोर्ड' : 'Dashboard'}</span>
             <ArrowRight className="w-3.5 h-3.5" />
           </Link>
+
+          {/* Mobile Navigation Drawer Trigger */}
+          <button
+            type="button"
+            onClick={() => setMobileMenuOpen(true)}
+            className="lg:hidden p-2 rounded-xl liquid-control text-[var(--text-muted)] hover:text-[var(--text)] cursor-pointer flex items-center justify-center min-h-[36px] min-w-[36px]"
+            aria-label={isHi ? 'मेनू खोलें' : 'Open menu'}
+          >
+            <Menu className="w-4 h-4" />
+          </button>
         </div>
       </div>
     </header>

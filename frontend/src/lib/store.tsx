@@ -40,6 +40,8 @@ interface AppContextType {
   focusMode: boolean;
   setFocusMode: (val: boolean) => void;
   toggleFocusMode: () => void;
+  mobileMenuOpen: boolean;
+  setMobileMenuOpen: (open: boolean) => void;
   alerts: EarlyWarningAlert[];
   acknowledgeAlert: (id: string) => void;
   recommendations: Recommendation[];
@@ -79,6 +81,7 @@ export const AppProvider = ({ children, initialLanguage }: { children: ReactNode
   const [notificationOpen, setNotificationOpen] = useState<boolean>(false);
   const [commandPaletteOpen, setCommandPaletteOpen] = useState<boolean>(false);
   const [focusMode, setFocusMode] = useState<boolean>(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
   const [alerts, setAlerts] = useState<EarlyWarningAlert[]>(EARLY_WARNING_ALERTS);
   const [recommendations, setRecommendations] = useState<Recommendation[]>(RECOMMENDATIONS);
   const [isOfflineFixture, setIsOfflineFixture] = useState<boolean>(false);
@@ -198,6 +201,8 @@ export const AppProvider = ({ children, initialLanguage }: { children: ReactNode
       focusMode,
       setFocusMode,
       toggleFocusMode,
+      mobileMenuOpen,
+      setMobileMenuOpen,
       alerts,
       acknowledgeAlert,
       recommendations,

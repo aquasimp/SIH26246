@@ -86,7 +86,7 @@ export const FilterBar: React.FC = () => {
                 aria-label={isHi ? 'राज्य अनुसार फ़िल्टर करें' : 'Filter by state'}
                 value={selectedState}
                 onChange={(e) => handleStateChange(e.target.value)}
-                className="w-full text-xs font-semibold pl-7 pr-3 py-1.5 rounded-xl liquid-control text-[var(--text)] cursor-pointer"
+                className="w-full text-xs font-semibold pl-7 pr-3 py-2 min-h-[40px] rounded-xl liquid-control text-[var(--text)] cursor-pointer"
               >
                 {STATES.map(s => (
                   <option key={s} value={s} className="bg-[var(--surface-solid)] text-[var(--text)]">
@@ -109,7 +109,7 @@ export const FilterBar: React.FC = () => {
                 aria-label={isHi ? 'ज़िला अनुसार फ़िल्टर करें' : 'Filter by district'}
                 value={selectedDistrict}
                 onChange={(e) => setSelectedDistrict(e.target.value)}
-                className="w-full text-xs font-semibold pl-7 pr-3 py-1.5 rounded-xl liquid-control text-[var(--brand)] border-[var(--brand)]/30 cursor-pointer"
+                className="w-full text-xs font-semibold pl-7 pr-3 py-2 min-h-[40px] rounded-xl liquid-control text-[var(--brand)] border-[var(--brand)]/30 cursor-pointer"
               >
                 {availableDistricts.map(d => (
                   <option key={d.id} value={d.id} className="bg-[var(--surface-solid)] text-[var(--text)]">
@@ -132,7 +132,7 @@ export const FilterBar: React.FC = () => {
                 aria-label={isHi ? 'औद्योगिक क्षेत्र अनुसार फ़िल्टर करें' : 'Filter by industrial sector'}
                 value={selectedSector}
                 onChange={(e) => setSelectedSector(e.target.value)}
-                className="w-full text-xs font-semibold pl-7 pr-3 py-1.5 rounded-xl liquid-control text-[var(--text)] cursor-pointer"
+                className="w-full text-xs font-semibold pl-7 pr-3 py-2 min-h-[40px] rounded-xl liquid-control text-[var(--text)] cursor-pointer"
               >
                 <option value="All Sectors" className="bg-[var(--surface-solid)] text-[var(--text)]">
                   {isHi ? 'सभी क्षेत्र (6)' : 'All Sectors (6)'}
@@ -158,7 +158,7 @@ export const FilterBar: React.FC = () => {
                 aria-label={isHi ? 'व्यवसाय अनुसार फ़िल्टर करें' : 'Filter by occupation NCO code'}
                 value={selectedOccupationNco}
                 onChange={(e) => setSelectedOccupationNco(e.target.value)}
-                className="w-full text-xs font-semibold pl-7 pr-3 py-1.5 rounded-xl liquid-control text-[var(--text)] cursor-pointer truncate"
+                className="w-full text-xs font-semibold pl-7 pr-3 py-2 min-h-[40px] rounded-xl liquid-control text-[var(--text)] cursor-pointer truncate"
               >
                 {OCCUPATIONS.map(occ => (
                   <option key={occ.ncoCode} value={occ.ncoCode} className="bg-[var(--surface-solid)] text-[var(--text)]">
@@ -174,7 +174,7 @@ export const FilterBar: React.FC = () => {
             <span className="text-[10px] font-bold text-[var(--text-faint)] uppercase tracking-wider block mb-1 font-mono">
               {isHi ? 'पूर्वानुमान अवधि' : 'Forecast Horizon'}
             </span>
-            <div className="flex rounded-xl p-0.5 liquid-control border border-[var(--border)]" role="group" aria-label="Forecast Horizon Options">
+            <div className="flex rounded-xl p-0.5 liquid-control border border-[var(--border)] min-h-[40px] items-center" role="group" aria-label="Forecast Horizon Options">
               {(['3M', '6M', '12M'] as ForecastHorizon[]).map((hz) => (
                 <button
                   key={hz}
@@ -182,7 +182,7 @@ export const FilterBar: React.FC = () => {
                   aria-pressed={forecastHorizon === hz}
                   onClick={() => setForecastHorizon(hz)}
                   className={clsx(
-                    'flex-1 py-1 text-[11px] font-mono font-bold rounded-lg transition-all cursor-pointer',
+                    'flex-1 py-1.5 text-[11px] font-mono font-bold rounded-lg transition-all cursor-pointer min-h-[34px] flex items-center justify-center',
                     forecastHorizon === hz
                       ? 'bg-[var(--brand)] text-white shadow-xs'
                       : 'text-[var(--text-muted)] hover:text-[var(--text)]'

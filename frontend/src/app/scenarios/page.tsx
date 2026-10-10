@@ -196,7 +196,7 @@ function ScenarioStudioContent() {
       {/* Hero Impact Summary Bar (§6.4: Gap Score 94→86, Shortfall 711→588, Reduction, Package Cost ₹18.31L) */}
       <div 
         aria-live="polite"
-        className="p-4 sm:p-5 rounded-2xl glass-strong border border-[var(--border)] shadow-md flex flex-wrap items-center justify-between gap-4 sticky top-14 z-10"
+        className="p-3.5 sm:p-5 rounded-2xl glass-strong border border-[var(--border)] shadow-md flex flex-wrap items-center justify-between gap-3 sm:gap-4 static sm:sticky sm:top-14 z-10"
       >
         <div className="flex items-center gap-3">
           <span className="p-2 rounded-xl bg-[var(--brand)]/15 text-[var(--brand)]">

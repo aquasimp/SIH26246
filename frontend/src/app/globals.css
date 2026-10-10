@@ -364,3 +364,35 @@ body::before {
 ::-webkit-scrollbar-thumb:hover {
   background: var(--brand);
 }
+
+/* Mobile Browser & Touch Interactivity Utilities */
+html, body {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button, a, select, input, [role="button"] {
+  touch-action: manipulation;
+}
+
+.scrollbar-none {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+
+.touch-pan-x {
+  touch-action: pan-x;
+  -webkit-overflow-scrolling: touch;
+}
+
+.touch-pan-y {
+  touch-action: pan-y;
+  -webkit-overflow-scrolling: touch;
+}
+
+.pb-safe {
+  padding-bottom: max(env(safe-area-inset-bottom), 1rem);
+}
+

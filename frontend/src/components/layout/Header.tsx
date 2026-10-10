@@ -13,7 +13,8 @@ import {
   Bot,
   Activity,
   ArrowLeft,
-  Radio
+  Radio,
+  Menu
 } from 'lucide-react';
 import { useApp } from '@/lib/store';
 import { ThemeToggle } from './ThemeToggle';
@@ -36,7 +37,8 @@ export const Header: React.FC = () => {
     setCommandPaletteOpen,
     focusMode,
     toggleFocusMode,
-    isOfflineFixture
+    isOfflineFixture,
+    setMobileMenuOpen
   } = useApp();
 
   const unreadAlerts = alerts.filter(a => !a.acknowledged).length;
@@ -69,31 +71,42 @@ export const Header: React.FC = () => {
   return (
     <header className="sticky top-0 z-20 px-3 sm:px-6 py-2 glass-strong border-b border-[var(--border)] select-none backdrop-blur-xl">
       <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-2.5">
-        {/* Breadcrumb Trail with Home Link */}
-        <nav aria-label="Breadcrumb" className="flex items-center flex-wrap gap-1.5 text-xs font-medium text-[var(--text-muted)] py-0.5">
-          <Link 
-            href="/" 
-            className="flex items-center gap-1 text-[var(--brand)] hover:underline font-bold text-xs pr-2 border-r border-[var(--border)] mr-0.5 group"
-            title={language === 'hi' ? 'कौशलयुवा मुख्य पृष्ठ' : 'KaushalYuva Home'}
+        {/* Top Mobile Row & Breadcrumb Trail */}
+        <div className="flex items-center justify-between gap-2 w-full lg:w-auto">
+          {/* Mobile Hamburger Menu Button */}
+          <button
+            type="button"
+            onClick={() => setMobileMenuOpen(true)}
+            className="md:hidden p-1.5 rounded-xl liquid-control text-[var(--text-muted)] hover:text-[var(--text)] cursor-pointer flex items-center justify-center shrink-0 min-h-[36px] min-w-[36px]"
+            aria-label={language === 'hi' ? 'नेविगेशन मेनू खोलें' : 'Open navigation menu'}
           >
-            <ArrowLeft className="w-3.5 h-3.5 group-hover:-translate-x-0.5 transition-transform" />
-            <span>{language === 'hi' ? 'मुख्य पृष्ठ' : 'KaushalYuva'}</span>
-          </Link>
-          <span className="font-bold text-[var(--text)] flex items-center gap-1.5">
-            <span className="w-2 h-2 rounded-full bg-[#00c2cb] shrink-0 shadow-[0_0_6px_#00c2cb] animate-pulse" />
-            {language === 'hi' ? 'एमएसडीई इंटेलिजेंस' : 'MSDE Intelligence'}
-          </span>
-          <span className="text-[var(--text-faint)]">/</span>
-          <span>{language === 'hi' ? 'भारत' : 'India'}</span>
-          <span className="text-[var(--text-faint)]">/</span>
-          <span className="text-[var(--text)] font-semibold">{localizedState}</span>
-          <span className="text-[var(--text-faint)]">/</span>
-          <span className="font-bold text-[var(--brand)] bg-[var(--brand)]/10 px-2 py-0.5 rounded-md border border-[var(--brand)]/20 font-mono">
-            {localizedDistrict}
-          </span>
-          <span className="text-[var(--text-faint)]">/</span>
-          <span className="text-[var(--text)] font-semibold">{currentPathLabel()}</span>
-        </nav>
+            <Menu className="w-4 h-4" />
+          </button>
+
+          {/* Breadcrumb Trail with Home Link */}
+          <nav aria-label="Breadcrumb" className="flex items-center overflow-x-auto scrollbar-none whitespace-nowrap gap-1.5 text-xs font-medium text-[var(--text-muted)] py-0.5 flex-1 min-w-0">
+            <Link 
+              href="/" 
+              className="flex items-center gap-1 text-[var(--brand)] hover:underline font-bold text-xs pr-2 border-r border-[var(--border)] mr-0.5 group shrink-0"
+              title={language === 'hi' ? 'कौशलयुवा मुख्य पृष्ठ' : 'KaushalYuva Home'}
+            >
+              <ArrowLeft className="w-3.5 h-3.5 group-hover:-translate-x-0.5 transition-transform" />
+              <span>{language === 'hi' ? 'होम' : 'Home'}</span>
+            </Link>
+            <span className="font-bold text-[var(--text)] flex items-center gap-1.5 shrink-0">
+              <span className="w-2 h-2 rounded-full bg-[#00c2cb] shrink-0 shadow-[0_0_6px_#00c2cb] animate-pulse" />
+              {language === 'hi' ? 'एमएसडीई' : 'MSDE'}
+            </span>
+            <span className="text-[var(--text-faint)] shrink-0">/</span>
+            <span className="text-[var(--text)] font-semibold shrink-0">{localizedState}</span>
+            <span className="text-[var(--text-faint)] shrink-0">/</span>
+            <span className="font-bold text-[var(--brand)] bg-[var(--brand)]/10 px-2 py-0.5 rounded-md border border-[var(--brand)]/20 font-mono shrink-0">
+              {localizedDistrict}
+            </span>
+            <span className="text-[var(--text-faint)] shrink-0">/</span>
+            <span className="text-[var(--text)] font-semibold shrink-0">{currentPathLabel()}</span>
+          </nav>
+        </div>
 
         {/* Center / Right Control Cluster */}
         <div className="flex items-center flex-wrap gap-2 self-end lg:self-auto">

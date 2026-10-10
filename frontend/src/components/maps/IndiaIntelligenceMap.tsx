@@ -90,7 +90,7 @@ export const IndiaIntelligenceMap: React.FC = () => {
             </span>
           </div>
 
-          <div className="flex flex-wrap gap-1 rounded-xl p-1 glass border border-[var(--border)]">
+          <div className="flex items-center gap-1 overflow-x-auto scrollbar-none flex-nowrap py-1 px-1 rounded-xl glass border border-[var(--border)] max-w-full touch-pan-x">
             {[
               { id: 'shortage', label: isHi ? 'कमी की गंभीरता' : 'Shortage Severity' },
               { id: 'demand', label: isHi ? 'मांग आयतन' : 'Demand Volume' },
@@ -102,7 +102,7 @@ export const IndiaIntelligenceMap: React.FC = () => {
                 key={layer.id}
                 type="button"
                 onClick={() => setActiveLayer(layer.id as MapLayer)}
-                className={`px-2.5 py-1 text-xs font-bold rounded-lg transition-all cursor-pointer ${
+                className={`px-2.5 py-1 text-xs font-bold rounded-lg transition-all cursor-pointer shrink-0 min-h-[34px] ${
                   activeLayer === layer.id
                     ? 'bg-[var(--brand)] text-white shadow-xs'
                     : 'text-[var(--text-muted)] hover:text-[var(--text)] hover:bg-[var(--glass-strong)]'
@@ -160,6 +160,14 @@ export const IndiaIntelligenceMap: React.FC = () => {
                   onMouseEnter={() => setHoveredDistrict(d)}
                   onMouseLeave={() => setHoveredDistrict(null)}
                 >
+                  {/* Generous touch target for mobile fingertips */}
+                  <circle
+                    cx={cx}
+                    cy={cy}
+                    r={Math.max(r + 14, 24)}
+                    fill="transparent"
+                  />
+
                   {/* Selected Ripple Pulse Glow */}
                   {isSelected && (
                     <circle
