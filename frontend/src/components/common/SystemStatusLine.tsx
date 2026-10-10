@@ -5,7 +5,7 @@ import { useApp } from '@/lib/store';
 import { EXPORT_METADATA } from '@/lib/demoData';
 
 export function SystemStatusLine({ className = '' }: { className?: string }) {
-  const { language } = useApp();
+  const { language, l} = useApp();
   const isHi = language === 'hi';
 
   return (
@@ -18,11 +18,11 @@ export function SystemStatusLine({ className = '' }: { className?: string }) {
       <span>•</span>
       <span>v2.1.0</span>
       <span>•</span>
-      <span>{isHi ? '04 अक्टूबर 2026 · डेटा अक्टूबर 2024 तक' : '04 Oct 2026 · data through Oct 2024'}</span>
+      <span>{l('04 Oct 2026 · data through Oct 2024', '04 अक्टूबर 2026 · डेटा अक्टूबर 2024 तक')}</span>
       <span>•</span>
       <span className="inline-flex items-center gap-1 font-semibold text-[var(--brand)]">
         <span className="w-1.5 h-1.5 rounded-full bg-[var(--brand)] animate-pulse" />
-        {isHi ? 'प्रणाली सक्रिय' : 'Systems Operational'}
+        {l('Systems Operational', 'प्रणाली सक्रिय')}
       </span>
     </div>
   );

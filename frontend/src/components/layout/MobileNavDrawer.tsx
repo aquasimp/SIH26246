@@ -52,8 +52,7 @@ export const MobileNavDrawer: React.FC = () => {
     recommendations,
     setCopilotOpen,
     selectedDistrict,
-    selectedState
-  } = useApp();
+    selectedState, l} = useApp();
 
   const isHi = language === 'hi';
 
@@ -96,7 +95,7 @@ export const MobileNavDrawer: React.FC = () => {
 
   const navGroups: { title: string; items: NavItem[] }[] = [
     {
-      title: isHi ? '// इंटेलिजेंस' : '// INTELLIGENCE',
+      title: l('// INTELLIGENCE', '// इंटेलिजेंस'),
       items: [
         { href: '/overview', label: t.nav.overview, icon: LayoutDashboard },
         { href: '/intelligence', label: t.nav.intelligence, icon: TrendingUp },
@@ -105,7 +104,7 @@ export const MobileNavDrawer: React.FC = () => {
       ]
     },
     {
-      title: isHi ? '// निर्णय एवं सिमुलेशन' : '// DECISION SUPPORT',
+      title: l('// DECISION SUPPORT', '// निर्णय एवं सिमुलेशन'),
       items: [
         { 
           href: '/alerts', 
@@ -130,7 +129,7 @@ export const MobileNavDrawer: React.FC = () => {
       ]
     },
     {
-      title: isHi ? '// अन्वेषण एवं वर्गीकरण' : '// EXPLORE & TAXONOMY',
+      title: l('// EXPLORE & TAXONOMY', '// अन्वेषण एवं वर्गीकरण'),
       items: [
         { href: '/districts', label: t.nav.districts, icon: MapPin },
         { href: '/occupations', label: t.nav.occupations, icon: Briefcase },
@@ -138,10 +137,10 @@ export const MobileNavDrawer: React.FC = () => {
       ]
     },
     {
-      title: isHi ? '// प्रणाली एवं मॉडल' : '// SYSTEM & GOVERNANCE',
+      title: l('// SYSTEM & GOVERNANCE', '// प्रणाली एवं मॉडल'),
       items: [
         { href: '/data-health', label: t.nav.dataHealth, icon: ShieldCheck },
-        { href: '/methodology', label: isHi ? 'मॉडल कार्यप्रणाली' : 'Methodology', icon: FileText },
+        { href: '/methodology', label: l('Methodology', 'मॉडल कार्यप्रणाली'), icon: FileText },
         { href: '/api', label: t.nav.apiExports, icon: DownloadCloud },
         { href: '/settings', label: t.nav.settings, icon: Settings }
       ]
@@ -184,7 +183,7 @@ export const MobileNavDrawer: React.FC = () => {
             type="button"
             onClick={() => setMobileMenuOpen(false)}
             className="w-8 h-8 rounded-xl liquid-control flex items-center justify-center text-[var(--text-muted)] hover:text-[var(--text)] cursor-pointer"
-            aria-label={isHi ? 'मेनू बंद करें' : 'Close navigation menu'}
+            aria-label={l('Close navigation menu', 'मेनू बंद करें')}
           >
             <X className="w-4 h-4" />
           </button>
@@ -272,7 +271,7 @@ export const MobileNavDrawer: React.FC = () => {
             className="w-full flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl bg-gradient-to-r from-[#0055a5] to-[#00c2cb] text-white font-bold text-xs shadow-md shadow-[#00c2cb]/20 cursor-pointer min-h-[44px]"
           >
             <Bot className="w-4 h-4" />
-            <span>{isHi ? 'कौशल कोपायलट AI खोलें' : 'Open Kaushal Copilot AI'}</span>
+            <span>{l('Open Kaushal Copilot AI', 'कौशल कोपायलट AI खोलें')}</span>
           </button>
 
           {/* Language Selection Grid (7 Languages) */}

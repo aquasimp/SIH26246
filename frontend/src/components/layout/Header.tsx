@@ -28,6 +28,7 @@ export const Header: React.FC = () => {
     language, 
     setLanguage, 
     t, 
+    l,
     selectedState, 
     selectedDistrict, 
     datasetMode,
@@ -55,7 +56,7 @@ export const Header: React.FC = () => {
     if (pathname.includes('/occupations')) return t.nav.occupations;
     if (pathname.includes('/qualifications')) return t.nav.qualifications;
     if (pathname.includes('/data-health')) return t.nav.dataHealth;
-    if (pathname.includes('/methodology')) return language === 'hi' ? 'मॉडल कार्यप्रणाली' : 'Methodology';
+    if (pathname.includes('/methodology')) return t.nav.methodology || l('Methodology', 'मॉडल कार्यप्रणाली');
     if (pathname.includes('/api')) return t.nav.apiExports;
     if (pathname.includes('/settings')) return t.nav.settings;
     return t.nav.overview;
@@ -111,28 +112,28 @@ export const Header: React.FC = () => {
 
         {/* Center / Right Control Cluster */}
         <div className="flex items-center flex-wrap gap-2 self-end lg:self-auto">
-          {/* DepthWizard Tactical Telemetry Pill */}
+          {/* DepthWizard Tactical Telemetry Pill — High Contrast Obsidian & Light Styling */}
           <div 
-            className="hidden xl:flex items-center gap-1.5 text-xs px-2.5 py-1 rounded-full bg-[#0055a5]/10 dark:bg-cyan-950/40 border border-[#00c2cb]/30 text-cyan-600 dark:text-cyan-400 font-mono text-[11px] font-semibold"
-            title={language === 'hi' ? 'स्नैपशॉट: RUN-SIH-001 • मॉडल v2.4 • बेसलाइन: सीज़नल नेईव' : 'Snapshot: RUN-SIH-001 • Model v2.4 (Tri-Model Blend) • Baseline: Seasonal Naive'}
+            className="hidden xl:flex items-center gap-2 px-3 py-1 rounded-full bg-slate-100/90 dark:bg-black/95 border border-slate-300/80 dark:border-cyan-500/40 text-slate-700 dark:text-[#00e5ff] font-mono text-[11px] font-bold shadow-xs dark:shadow-[0_0_15px_rgba(0,229,255,0.25)] backdrop-blur-md"
+            title={l('Snapshot: RUN-SIH-001 • Model v2.4 (Tri-Model Blend) • Baseline: Seasonal Naive', 'स्नैपशॉट: RUN-SIH-001 • मॉडल v2.4 • बेसलाइन: सीज़नल नेईव')}
           >
             <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#00c2cb] opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-[#00c2cb]"></span>
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-500 dark:bg-[#00e5ff] opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-cyan-600 dark:bg-[#00e5ff]"></span>
             </span>
-            <span>RUN-SIH-001 · <strong>Oct 2024 Data</strong></span>
+            <span>RUN-SIH-001 <span className="opacity-40">·</span> <strong className="text-slate-900 dark:text-white font-semibold">{l('Oct 2024 Data', 'अक्टूबर 2024 डेटा')}</strong></span>
           </div>
 
           {/* Global Search trigger (Ctrl K / Cmd K) */}
           <button
             type="button"
             onClick={() => setCommandPaletteOpen(true)}
-            aria-label={language === 'hi' ? 'कमांड पैलेट खोलें' : 'Open command palette'}
+            aria-label={l('Open command palette', 'कमांड पैलेट खोलें')}
             className="flex items-center gap-2 px-3 py-1.5 rounded-xl liquid-control text-xs text-[var(--text-muted)] hover:text-[var(--text)] hover:border-[#00c2cb]/50 cursor-pointer transition-colors"
-            title={language === 'hi' ? 'कमांड पैलेट खोलें (Ctrl+K)' : 'Open Command Palette (Ctrl+K or ⌘+K)'}
+            title={l('Open Command Palette (Ctrl+K or ⌘+K)', 'कमांड पैलेट खोलें (Ctrl+K)')}
           >
             <Search className="w-3.5 h-3.5 text-[var(--text-faint)]" />
-            <span className="hidden sm:inline">{language === 'hi' ? 'खोजें...' : 'Search...'}</span>
+            <span className="hidden sm:inline">{l('Search...', 'खोजें...')}</span>
             <kbd className="hidden sm:inline-block px-1.5 py-0.2 text-[10px] font-mono text-[var(--text-faint)] bg-[var(--glass)] border border-[var(--border)] rounded">
               ⌘K
             </kbd>
@@ -148,8 +149,8 @@ export const Header: React.FC = () => {
             className={`hidden sm:inline-flex p-1.5 rounded-xl liquid-control cursor-pointer transition-all ${
               focusMode ? 'bg-[var(--brand)] text-white shadow-xs' : 'text-[var(--text-muted)] hover:text-[var(--text)]'
             }`}
-            title={focusMode ? (language === 'hi' ? 'फोकस मोड से बाहर निकलें (Esc)' : 'Exit Focus Mode (Esc)') : (language === 'hi' ? 'फोकस मोड सक्षम करें' : 'Enter Focus Mode (Maximize Workspace)')}
-            aria-label={language === 'hi' ? 'फोकस मोड टॉगल करें' : 'Toggle Focus Mode'}
+            title={focusMode ? l('Exit Focus Mode (Esc)', 'फोकस मोड से बाहर निकलें (Esc)') : l('Enter Focus Mode (Maximize Workspace)', 'फोकस मोड सक्षम करें')}
+            aria-label={l('Toggle Focus Mode', 'फोकस मोड टॉगल करें')}
           >
             {focusMode ? <Minimize2 className="w-4 h-4" /> : <Maximize2 className="w-4 h-4" />}
           </button>
@@ -169,8 +170,8 @@ export const Header: React.FC = () => {
             type="button"
             onClick={() => setNotificationOpen(!notificationOpen)}
             className="p-1.5 rounded-xl liquid-control relative text-[var(--text-muted)] hover:text-[var(--text)] cursor-pointer"
-            title={language === 'hi' ? 'प्रारंभिक चेतावनियां और संकेत' : 'Early Warnings & Intelligence Signals'}
-            aria-label={language === 'hi' ? 'सूचनाएं' : 'Intelligence Notifications'}
+            title={l('Early Warnings & Intelligence Signals', 'प्रारंभिक चेतावनियां और संकेत')}
+            aria-label={l('Intelligence Notifications', 'सूचनाएं')}
           >
             <Bell className="w-4 h-4" />
             {unreadAlerts > 0 && (
@@ -185,10 +186,10 @@ export const Header: React.FC = () => {
             type="button"
             onClick={() => setCopilotOpen(true)}
             className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-gradient-to-r from-[#0055a5] to-[#00c2cb] text-white hover:opacity-90 transition-all font-bold text-xs shadow-md shadow-[#00c2cb]/20 cursor-pointer font-sans"
-            title={language === 'hi' ? 'कौशल कोपायलट एआई खोलें' : 'Open Kaushal Copilot AI'}
+            title={l('Open Kaushal Copilot AI', 'कौशल कोपायलट एआई खोलें')}
           >
             <Bot className="w-3.5 h-3.5" />
-            <span>{language === 'hi' ? 'कोपायलट' : 'Copilot AI'}</span>
+            <span>{l('Copilot AI', 'कोपायलट')}</span>
           </button>
         </div>
       </div>

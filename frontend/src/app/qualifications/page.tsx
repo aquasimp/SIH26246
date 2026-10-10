@@ -14,7 +14,7 @@ import {
 } from 'lucide-react';
 
 export default function QualificationsPage() {
-  const { language } = useApp();
+  const { language, l} = useApp();
   const isHi = language === 'hi';
   const [searchTerm, setSearchTerm] = useState('');
 
@@ -30,18 +30,16 @@ export default function QualificationsPage() {
       {/* Title */}
       <div>
         <div className="flex items-center gap-2 mb-2">
-          <Provenance type="official" note={isHi ? 'NQR पाठ्यक्रम मानक' : 'NQR Curriculum Standards'} />
+          <Provenance type="official" note={l('NQR Curriculum Standards', 'NQR पाठ्यक्रम मानक')} />
           <span className="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold uppercase tracking-wider bg-purple-500/10 text-purple-400 border border-purple-500/20">
-            NSQF {isHi ? 'स्तर 1-8' : 'Levels 1-8'}
+            NSQF {l('Levels 1-8', 'स्तर 1-8')}
           </span>
         </div>
         <h1 className="text-2xl sm:text-3xl font-extrabold text-[var(--text)] tracking-tight">
-          {isHi ? 'योग्यता और NSQF इंटेलिजेंस' : 'Qualification & NSQF Intelligence'}
+          {l('Qualification & NSQF Intelligence', 'योग्यता और NSQF इंटेलिजेंस')}
         </h1>
         <p className="text-xs sm:text-sm text-[var(--text-muted)] mt-1 max-w-2xl leading-relaxed">
-          {isHi 
-            ? 'व्यवसाय → NCO कोड → योग्यता पैक (QP) → NSQF स्तर → सत्यापित प्रशिक्षण प्रदाताओं की पूर्ण ट्रेसिबिलिटी श्रृंखला।'
-            : 'Full traceability chain mapping Occupations → NCO Codes → Qualification Packs (QP) → NSQF Levels → Verified Training Providers.'}
+          {l('Full traceability chain mapping Occupations → NCO Codes → Qualification Packs (QP) → NSQF Levels → Verified Training Providers.', 'व्यवसाय → NCO कोड → योग्यता पैक (QP) → NSQF स्तर → सत्यापित प्रशिक्षण प्रदाताओं की पूर्ण ट्रेसिबिलिटी श्रृंखला।')}
         </p>
       </div>
 
@@ -50,70 +48,70 @@ export default function QualificationsPage() {
       {/* Conceptual Flow Diagram Card (Section 26) */}
       <div className="p-5 rounded-3xl glass border border-[var(--border)] shadow-xs">
         <span className="text-[10px] font-extrabold text-[var(--brand)] uppercase tracking-widest block mb-3 font-mono">
-          {isHi ? 'एंड-टू-एंड योग्यता मानकीकरण वास्तुकला' : 'End-to-End Competency Standardisation Architecture'}
+          {l('End-to-End Competency Standardisation Architecture', 'एंड-टू-एंड योग्यता मानकीकरण वास्तुकला')}
         </span>
 
         <div className="grid grid-cols-2 sm:grid-cols-6 gap-2 text-center text-xs">
           <div className="p-3 rounded-xl glass-strong border border-[var(--border)]">
             <span className="text-[10px] text-[var(--text-faint)] uppercase font-bold block">
-              {isHi ? '1. व्यापार' : '1. Trade'}
+              {l('1. Trade', '1. व्यापार')}
             </span>
             <strong className="text-[var(--text)] block mt-1">
-              {isHi ? 'व्यवसाय' : 'Occupation'}
+              {l('Occupation', 'व्यवसाय')}
             </strong>
             <span className="text-[9px] text-[var(--text-muted)]">
-              {isHi ? 'बाजार की मांग' : 'Market Need'}
+              {l('Market Need', 'बाजार की मांग')}
             </span>
           </div>
 
           <div className="p-3 rounded-xl glass-strong border border-[var(--border)]">
             <span className="text-[10px] text-[var(--text-faint)] uppercase font-bold block">
-              {isHi ? '2. वर्गीकरण' : '2. Classification'}
+              {l('2. Classification', '2. वर्गीकरण')}
             </span>
             <strong className="text-[var(--brand)] block mt-1 font-mono">NCO-2015</strong>
             <span className="text-[9px] text-[var(--text-muted)]">
-              {isHi ? 'राष्ट्रीय मानक' : 'National Standard'}
+              {l('National Standard', 'राष्ट्रीय मानक')}
             </span>
           </div>
 
           <div className="p-3 rounded-xl glass-strong border border-[var(--border)]">
             <span className="text-[10px] text-[var(--text-faint)] uppercase font-bold block">
-              {isHi ? '3. योग्यता' : '3. Qualification'}
+              {l('3. Qualification', '3. योग्यता')}
             </span>
-            <strong className="text-purple-400 block mt-1 font-mono">{isHi ? 'क्यूपी-पैक' : 'QP-Pack'}</strong>
+            <strong className="text-purple-400 block mt-1 font-mono">{l('QP-Pack', 'क्यूपी-पैक')}</strong>
             <span className="text-[9px] text-[var(--text-muted)]">
-              {isHi ? 'क्षेत्र कौशल परिषद' : 'Sector Skill Council'}
+              {l('Sector Skill Council', 'क्षेत्र कौशल परिषद')}
             </span>
           </div>
 
           <div className="p-3 rounded-xl glass-strong border border-[var(--border)]">
             <span className="text-[10px] text-[var(--text-faint)] uppercase font-bold block">
-              {isHi ? '4. कठोरता' : '4. Rigor'}
+              {l('4. Rigor', '4. कठोरता')}
             </span>
-            <strong className="text-[var(--brand-secondary)] block mt-1 font-mono">NSQF {isHi ? 'स्तर' : 'Level'}</strong>
+            <strong className="text-[var(--brand-secondary)] block mt-1 font-mono">NSQF {l('Level', 'स्तर')}</strong>
             <span className="text-[9px] text-[var(--text-muted)]">
-              {isHi ? 'स्तर 1 से 8' : 'Levels 1 to 8'}
+              {l('Levels 1 to 8', 'स्तर 1 से 8')}
             </span>
           </div>
 
           <div className="p-3 rounded-xl glass-strong border border-[var(--border)]">
             <span className="text-[10px] text-[var(--text-faint)] uppercase font-bold block">
-              {isHi ? '5. दक्षताएं' : '5. Competencies'}
+              {l('5. Competencies', '5. दक्षताएं')}
             </span>
             <strong className="text-[var(--balanced)] block mt-1">
-              {isHi ? 'प्रमुख कौशल' : 'Key Skills'}
+              {l('Key Skills', 'प्रमुख कौशल')}
             </strong>
             <span className="text-[9px] text-[var(--text-muted)]">
-              {isHi ? 'NOS मॉड्यूल' : 'NOS Modules'}
+              {l('NOS Modules', 'NOS मॉड्यूल')}
             </span>
           </div>
 
           <div className="p-3 rounded-xl glass-strong border border-[var(--border)] col-span-2 sm:col-span-1">
             <span className="text-[10px] text-[var(--text-faint)] uppercase font-bold block">
-              {isHi ? '6. वितरण' : '6. Delivery'}
+              {l('6. Delivery', '6. वितरण')}
             </span>
             <strong className="text-[var(--text)] block mt-1">
-              {isHi ? 'प्रशिक्षण केंद्र' : 'Training Hubs'}
+              {l('Training Hubs', 'प्रशिक्षण केंद्र')}
             </strong>
             <span className="text-[9px] text-[var(--text-muted)]">ITIs & PMKKs</span>
           </div>
@@ -122,14 +120,14 @@ export default function QualificationsPage() {
 
       {/* Qualification Registry Table (Section 26) */}
       <GlassPanel
-        title={isHi ? 'सक्रिय योग्यता पैक और संरेखण कवरेज' : 'Active Qualification Packs & Alignment Coverage'}
-        subtitle={isHi ? 'पाठ्यक्रम प्रासंगिकता, उम्मीदवार आपूर्ति पाइपलाइन और उभरते कौशल समायोजन की ट्रैकिंग।' : 'Tracking curriculum relevance, candidate supply pipeline, and emerging skill adjustments.'}
+        title={l('Active Qualification Packs & Alignment Coverage', 'सक्रिय योग्यता पैक और संरेखण कवरेज')}
+        subtitle={l('Tracking curriculum relevance, candidate supply pipeline, and emerging skill adjustments.', 'पाठ्यक्रम प्रासंगिकता, उम्मीदवार आपूर्ति पाइपलाइन और उभरते कौशल समायोजन की ट्रैकिंग।')}
         action={
           <div className="relative w-64">
             <Search className="w-3.5 h-3.5 text-[var(--text-faint)] absolute left-3 top-1/2 -translate-y-1/2" />
             <input
               type="text"
-              placeholder={isHi ? 'योग्यता पैक खोजें...' : 'Search qualification pack...'}
+              placeholder={l('Search qualification pack...', 'योग्यता पैक खोजें...')}
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               className="w-full text-xs pl-8 pr-3 py-1.5 rounded-xl liquid-control text-[var(--text)] focus:outline-none"
@@ -152,13 +150,13 @@ export default function QualificationsPage() {
                     NCO {occ.ncoCode}
                   </span>
                   <span className="text-xs font-mono font-bold text-purple-400 bg-purple-500/10 px-2 py-0.5 rounded-md border border-purple-500/20">
-                    NSQF {isHi ? 'स्तर' : 'Level'} {occ.nsqfLevel}
+                    NSQF {l('Level', 'स्तर')} {occ.nsqfLevel}
                   </span>
                 </div>
 
                 <div className="text-xs text-[var(--text-muted)] font-medium">
                   <strong className="text-[var(--text)]">
-                    {isHi ? 'स्वीकृत पैक:' : 'Approved Packs:'}{' '}
+                    {l('Approved Packs:', 'स्वीकृत पैक:')}{' '}
                   </strong>
                   {occ.qualifications.map(q => isHi ? localizeQualification(q, 'hi') : q).join(' • ')}
                 </div>
@@ -175,11 +173,11 @@ export default function QualificationsPage() {
               <div className="flex items-center gap-4 shrink-0 pt-3 md:pt-0 border-t md:border-t-0 border-[var(--border)]">
                 <div className="text-right text-xs">
                   <span className="text-[var(--text-faint)] text-[10px] uppercase font-bold block">
-                    {isHi ? 'स्थिति' : 'Status'}
+                    {l('Status', 'स्थिति')}
                   </span>
                   <span className="font-bold text-[var(--balanced)] flex items-center gap-1 font-mono">
                     <CheckCircle2 className="w-3.5 h-3.5" />
-                    {isHi ? 'पाठ्यक्रम संरेखित' : 'Curriculum Aligned'}
+                    {l('Curriculum Aligned', 'पाठ्यक्रम संरेखित')}
                   </span>
                 </div>
 
@@ -187,7 +185,7 @@ export default function QualificationsPage() {
                   href={`/occupations/${occ.ncoCode}`}
                   className="px-3.5 py-2 rounded-xl liquid-control text-[var(--text)] text-xs font-bold transition-all"
                 >
-                  {isHi ? 'ट्रेसिबिलिटी देखें →' : 'View Traceability →'}
+                  {l('View Traceability →', 'ट्रेसिबिलिटी देखें →')}
                 </Link>
               </div>
             </div>

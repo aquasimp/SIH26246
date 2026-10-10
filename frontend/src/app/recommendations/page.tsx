@@ -25,7 +25,7 @@ import {
 import { downloadCSV, formatINR } from '@/lib/exportUtils';
 
 export default function RecommendationsPage() {
-  const { recommendations, approveRecommendation, setActiveEvidence, language, t } = useApp();
+  const { recommendations, approveRecommendation, setActiveEvidence, language, t, l} = useApp();
   const isHi = language === 'hi';
 
   const handleExportAll = () => {
@@ -51,7 +51,7 @@ export default function RecommendationsPage() {
       ])
     ];
     downloadCSV('KaushalYuva_Recommended_Interventions_Dossier.csv', rows);
-    toast.success(isHi ? `${recommendations.length} नीतिगत हस्तक्षेप CSV में निर्यात किए गए` : `Exported ${recommendations.length} policy interventions to CSV`);
+    toast.success(l(`Exported ${recommendations.length} policy interventions to CSV`, `${recommendations.length} नीतिगत हस्तक्षेप CSV में निर्यात किए गए`));
   };
 
   const totalYouthEmployed = recommendations.reduce((acc, r) => acc + (r.expectedImpact.youthEmployed || 0), 0);
@@ -61,7 +61,7 @@ export default function RecommendationsPage() {
 
   const handleApprove = (id: string, title: string) => {
     approveRecommendation(id);
-    toast.success(isHi ? `प्रारूप नीति हस्तक्षेप स्वीकृत: ${id}` : `Draft policy intervention approved: ${id}`);
+    toast.success(l(`Draft policy intervention approved: ${id}`, `प्रारूप नीति हस्तक्षेप स्वीकृत: ${id}`));
   };
 
   return (
@@ -71,17 +71,15 @@ export default function RecommendationsPage() {
         <div>
           <div className="flex items-center gap-2 mb-1.5">
             <span className="px-2.5 py-0.5 rounded-full text-[11px] font-mono font-extrabold uppercase tracking-wider bg-[var(--brand)]/15 text-[var(--brand)] border border-[var(--brand)]/30">
-              {isHi ? 'सरकारी निर्णय सहायता पाइपलाइन' : 'Government Decision Support Pipeline'}
+              {l('Government Decision Support Pipeline', 'सरकारी निर्णय सहायता पाइपलाइन')}
             </span>
             <Provenance source="SIH dummy dataset" />
           </div>
           <h1 className="text-2xl sm:text-3xl font-extrabold text-[var(--text)] tracking-tight">
-            {isHi ? 'अनुशंसित नीतिगत हस्तक्षेप' : 'Recommended Policy Interventions'}
+            {l('Recommended Policy Interventions', 'अनुशंसित नीतिगत हस्तक्षेप')}
           </h1>
           <p className="text-sm text-[var(--text-muted)] mt-1 max-w-2xl leading-relaxed">
-            {isHi 
-              ? 'अपेक्षित श्रम घाटे में कमी के आधार पर रैंक किए गए एल्गोरिदमिक सीट पुनर्आवंटन, नए NSQF योग्यता रोलआउट और नियोक्ता सह-निवेश ब्लूप्रिंट।'
-              : 'Algorithmic seat reallocation, new NSQF qualification rollouts, and employer co-investment blueprints ranked by expected labour deficit mitigation.'}
+            {l('Algorithmic seat reallocation, new NSQF qualification rollouts, and employer co-investment blueprints ranked by expected labour deficit mitigation.', 'अपेक्षित श्रम घाटे में कमी के आधार पर रैंक किए गए एल्गोरिदमिक सीट पुनर्आवंटन, नए NSQF योग्यता रोलआउट और नियोक्ता सह-निवेश ब्लूप्रिंट।')}
           </p>
         </div>
 
@@ -91,7 +89,7 @@ export default function RecommendationsPage() {
           className="px-4 py-2 rounded-xl liquid-control text-xs sm:text-sm font-semibold text-[var(--text)] hover:bg-[var(--glass-strong)] border border-[var(--border)] flex items-center gap-2 self-start md:self-auto cursor-pointer"
         >
           <Download className="w-4 h-4" />
-          <span>{isHi ? 'सभी हस्तक्षेप निर्यात करें' : 'Export All Interventions'}</span>
+          <span>{l('Export All Interventions', 'सभी हस्तक्षेप निर्यात करें')}</span>
         </button>
       </div>
 
@@ -106,64 +104,64 @@ export default function RecommendationsPage() {
             </div>
             <div>
               <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[var(--brand)] block">
-                {isHi ? 'कार्यकारी प्रभाव विश्लेषण · पोर्टफोलियो स्तर' : 'EXECUTIVE IMPACT DOSSIER · PORTFOLIO LEVEL'}
+                {l('EXECUTIVE IMPACT DOSSIER · PORTFOLIO LEVEL', 'कार्यकारी प्रभाव विश्लेषण · पोर्टफोलियो स्तर')}
               </span>
               <h2 className="text-base font-extrabold text-[var(--text)]">
-                {isHi ? 'अनुशंसित हस्तक्षेपों का समग्र आर्थिक एवं रोजगार प्रभाव' : 'Consolidated Economic & Employment Outcomes'}
+                {l('Consolidated Economic & Employment Outcomes', 'अनुशंसित हस्तक्षेपों का समग्र आर्थिक एवं रोजगार प्रभाव')}
               </h2>
             </div>
           </div>
           <span className="px-3 py-1 rounded-full text-[10px] font-mono font-bold bg-[var(--brand)]/10 text-[var(--brand)] border border-[var(--brand)]/25 self-start sm:self-auto">
-            {isHi ? '4 उच्च-प्राथमिकता हस्तक्षेप' : '4 High-Priority Dossiers'}
+            {l('4 High-Priority Dossiers', '4 उच्च-प्राथमिकता हस्तक्षेप')}
           </span>
         </div>
 
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 text-center">
           <div className="p-3.5 rounded-2xl glass border border-[var(--border)] space-y-1">
             <span className="text-[10px] font-mono font-bold text-[var(--text-faint)] uppercase tracking-wider block">
-              {isHi ? 'कुल प्रमाणित युवा रोजगार' : 'TOTAL YOUTH PLACED'}
+              {l('TOTAL YOUTH PLACED', 'कुल प्रमाणित युवा रोजगार')}
             </span>
             <div className="text-2xl sm:text-3xl font-extrabold text-[var(--brand)] font-mono tabular-nums">
               +{totalYouthEmployed}
             </div>
             <span className="text-[10px] text-[var(--text-muted)] font-semibold block">
-              {isHi ? 'औपचारिक क्षेत्र में कुशल रोजगार' : 'Skilled Formal Sector Placements'}
+              {l('Skilled Formal Sector Placements', 'औपचारिक क्षेत्र में कुशल रोजगार')}
             </span>
           </div>
 
           <div className="p-3.5 rounded-2xl glass border border-[var(--border)] space-y-1">
             <span className="text-[10px] font-mono font-bold text-[var(--text-faint)] uppercase tracking-wider block">
-              {isHi ? 'वार्षिक युवा वेतन आय' : 'ANNUAL YOUTH WAGES'}
+              {l('ANNUAL YOUTH WAGES', 'वार्षिक युवा वेतन आय')}
             </span>
             <div className="text-2xl sm:text-3xl font-extrabold text-[var(--success)] font-mono tabular-nums">
               {formatINR(totalAnnualWages)}
             </div>
             <span className="text-[10px] text-[var(--success)] font-semibold block">
-              {isHi ? 'स्थानीय अर्थव्यवस्था में वार्षिक प्रवाह' : 'Unlocked into District Economies / yr'}
+              {l('Unlocked into District Economies / yr', 'स्थानीय अर्थव्यवस्था में वार्षिक प्रवाह')}
             </span>
           </div>
 
           <div className="p-3.5 rounded-2xl glass border border-[var(--border)] space-y-1">
             <span className="text-[10px] font-mono font-bold text-[var(--text-faint)] uppercase tracking-wider block">
-              {isHi ? 'सार्वजनिक पूंजी व्यय बचत' : 'PUBLIC CAPEX SAVED'}
+              {l('PUBLIC CAPEX SAVED', 'सार्वजनिक पूंजी व्यय बचत')}
             </span>
             <div className="text-2xl sm:text-3xl font-extrabold text-[var(--text)] font-mono tabular-nums">
               {formatINR(totalFundsSaved)}
             </div>
             <span className="text-[10px] text-[var(--text-muted)] font-semibold block">
-              {isHi ? 'अप्रयुक्त सीटों के पुनरुपयोग से' : 'Saved vs Greenfield Buildout'}
+              {l('Saved vs Greenfield Buildout', 'अप्रयुक्त सीटों के पुनरुपयोग से')}
             </span>
           </div>
 
           <div className="p-3.5 rounded-2xl glass border border-[var(--border)] space-y-1">
             <span className="text-[10px] font-mono font-bold text-[var(--text-faint)] uppercase tracking-wider block">
-              {isHi ? 'कुल पैकेज निवेश' : 'TOTAL PACKAGE CAPEX'}
+              {l('TOTAL PACKAGE CAPEX', 'कुल पैकेज निवेश')}
             </span>
             <div className="text-2xl sm:text-3xl font-extrabold text-[var(--brand-secondary)] font-mono tabular-nums">
               {formatINR(totalCost)}
             </div>
             <span className="text-[10px] text-[var(--text-muted)] font-semibold block">
-              {isHi ? '1-वर्षीय वेतन ROI: 17.6x' : '1-Year Wage ROI: 17.6x'}
+              {l('1-Year Wage ROI: 17.6x', '1-वर्षीय वेतन ROI: 17.6x')}
             </span>
           </div>
         </div>
@@ -195,8 +193,8 @@ export default function RecommendationsPage() {
                         : 'bg-amber-500/10 text-amber-700 dark:text-amber-400 border-amber-500/25'
                     }`}>
                       {rec.id === 'REC-01'
-                        ? (isHi ? 'LP अनुकूलन · SIH डमी डेटासेट' : 'LP Optimization · SIH dummy dataset')
-                        : (isHi ? 'उदाहरणात्मक, मॉडल आउटपुट नहीं · SIH डमी डेटासेट' : 'Illustrative, not model output · SIH dummy dataset')}
+                        ? (l('LP Optimization · SIH dummy dataset', 'LP अनुकूलन · SIH डमी डेटासेट'))
+                        : (l('Illustrative, not model output · SIH dummy dataset', 'उदाहरणात्मक, मॉडल आउटपुट नहीं · SIH डमी डेटासेट'))}
                     </span>
                   </div>
                   <div className="text-sm font-bold text-[var(--text)] mt-0.5">
@@ -207,13 +205,13 @@ export default function RecommendationsPage() {
 
               <div className="flex items-center gap-2.5">
                 <Badge variant="balanced" size="sm">
-                  {isHi ? `विश्वास: ${rec.confidence}%` : `Confidence: ${rec.confidence}%`}
+                  {l(`Confidence: ${rec.confidence}%`, `विश्वास: ${rec.confidence}%`)}
                 </Badge>
 
                 {rec.status === 'approved' && (
                   <span className="text-xs font-bold px-3 py-1 rounded-full bg-[var(--brand)]/15 text-[var(--brand)] border border-[var(--brand)]/30 flex items-center gap-1 font-mono">
                     <CheckCircle2 className="w-3.5 h-3.5" />
-                    {isHi ? 'प्रारूप स्वीकृत' : 'Draft Approved'}
+                    {l('Draft Approved', 'प्रारूप स्वीकृत')}
                   </span>
                 )}
               </div>
@@ -234,7 +232,7 @@ export default function RecommendationsPage() {
               <div className="p-3.5 rounded-2xl glass border border-[var(--border)] mb-4 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs">
                 <div className="flex-1 text-center sm:text-left min-w-0">
                   <span className="text-[10px] font-bold text-[var(--oversupply)] uppercase block font-mono">
-                    {isHi ? 'क्षमता दाता व्यवसाय (अधिशेष)' : 'Capacity Donor Trade (Surplus)'}
+                    {l('Capacity Donor Trade (Surplus)', 'क्षमता दाता व्यवसाय (अधिशेष)')}
                   </span>
                   <strong className="text-[var(--text)] font-semibold truncate block">
                     {isHi && rec.fromTradeHi ? rec.fromTradeHi : rec.fromTrade}
@@ -244,14 +242,14 @@ export default function RecommendationsPage() {
 
                 <div className="flex flex-col items-center shrink-0">
                   <span className="px-2.5 py-0.5 rounded-md bg-[var(--brand)]/15 text-[var(--brand)] font-extrabold text-[11px] font-mono border border-[var(--brand)]/30">
-                    {isHi ? `${rec.recommendedSeats} सीटें स्थानांतरित` : `Shift ${rec.recommendedSeats} Seats`}
+                    {l(`Shift ${rec.recommendedSeats} Seats`, `${rec.recommendedSeats} सीटें स्थानांतरित`)}
                   </span>
                   <ArrowRight className="w-4 h-4 text-[var(--text-faint)] mt-1 hidden sm:block" />
                 </div>
 
                 <div className="flex-1 text-center sm:text-right min-w-0">
                   <span className="text-[10px] font-bold text-[var(--severe)] uppercase block font-mono">
-                    {isHi ? 'लक्षित व्यवसाय (गंभीर कमी)' : 'Target Trade (Severe Shortage)'}
+                    {l('Target Trade (Severe Shortage)', 'लक्षित व्यवसाय (गंभीर कमी)')}
                   </span>
                   <strong className="text-[var(--text)] font-semibold truncate block">
                     {isHi && rec.toTradeHi ? rec.toTradeHi : rec.toTrade}
@@ -265,63 +263,63 @@ export default function RecommendationsPage() {
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2 sm:gap-2.5 p-3 sm:p-3.5 rounded-2xl glass border border-[var(--border)] shadow-2xs mb-4 text-center">
               <div>
                 <span className="text-[10px] font-bold text-[var(--text-faint)] uppercase tracking-wider block">
-                  {isHi ? 'कमी भरपाई' : 'Shortfall Closed'}
+                  {l('Shortfall Closed', 'कमी भरपाई')}
                 </span>
                 <span className="text-base sm:text-xl font-extrabold text-[var(--success)] font-mono tabular-nums">
                   -{rec.expectedImpact.gapReductionPercent}%
                 </span>
-                <span className="text-[9px] text-[var(--success)] font-semibold block">{isHi ? 'अनुमानित भरपाई' : 'Deficit Mitigated'}</span>
+                <span className="text-[9px] text-[var(--success)] font-semibold block">{l('Deficit Mitigated', 'अनुमानित भरपाई')}</span>
               </div>
 
               <div>
                 <span className="text-[10px] font-bold text-[var(--text-faint)] uppercase tracking-wider block">
-                  {isHi ? 'आपूर्ति कवरेज' : 'Supply Coverage'}
+                  {l('Supply Coverage', 'आपूर्ति कवरेज')}
                 </span>
                 <span className="text-base sm:text-xl font-extrabold text-[var(--brand)] font-mono tabular-nums">
                   +{rec.expectedImpact.supplyCoveragePercent}%
                 </span>
-                <span className="text-[9px] text-[var(--brand)] font-semibold block">{isHi ? 'रोजगार योग्य पूल' : 'Employable Pool'}</span>
+                <span className="text-[9px] text-[var(--brand)] font-semibold block">{l('Employable Pool', 'रोजगार योग्य पूल')}</span>
               </div>
 
               <div>
                 <span className="text-[10px] font-bold text-[var(--text-faint)] uppercase tracking-wider block">
-                  {isHi ? 'प्रमाणित युवा रोजगार' : 'Youth Placed'}
+                  {l('Youth Placed', 'प्रमाणित युवा रोजगार')}
                 </span>
                 <span className="text-base sm:text-xl font-extrabold text-[var(--brand)] font-mono tabular-nums">
                   +{rec.expectedImpact.youthEmployed || Math.round(rec.recommendedSeats * 0.5)}
                 </span>
-                <span className="text-[9px] text-[var(--text-muted)] font-semibold block">{isHi ? 'सीधे रोजगार' : 'Direct Jobs'}</span>
+                <span className="text-[9px] text-[var(--text-muted)] font-semibold block">{l('Direct Jobs', 'सीधे रोजगार')}</span>
               </div>
 
               <div>
                 <span className="text-[10px] font-bold text-[var(--text-faint)] uppercase tracking-wider block">
-                  {isHi ? 'वार्षिक युवा आय' : 'Annual Wages'}
+                  {l('Annual Wages', 'वार्षिक युवा आय')}
                 </span>
                 <span className="text-base sm:text-xl font-extrabold text-[var(--success)] font-mono tabular-nums">
                   {rec.expectedImpact.annualWageIncomeINR ? formatINR(rec.expectedImpact.annualWageIncomeINR) : 'N/A'}
                 </span>
-                <span className="text-[9px] text-[var(--success)] font-semibold block">{isHi ? 'वार्षिक वेतन' : 'District Wages'}</span>
+                <span className="text-[9px] text-[var(--success)] font-semibold block">{l('District Wages', 'वार्षिक वेतन')}</span>
               </div>
 
               <div>
                 <span className="text-[10px] font-bold text-[var(--text-faint)] uppercase tracking-wider block">
-                  {isHi ? 'पूंजी व्यय बचत' : 'Capex Saved'}
+                  {l('Capex Saved', 'पूंजी व्यय बचत')}
                 </span>
                 <span className="text-base sm:text-xl font-extrabold text-[var(--text)] font-mono tabular-nums">
                   {rec.expectedImpact.publicFundsSavedINR ? formatINR(rec.expectedImpact.publicFundsSavedINR) : 'N/A'}
                 </span>
-                <span className="text-[9px] text-[var(--text-muted)] font-semibold block font-mono">{isHi ? 'पुनरुपयोग बचत' : 'vs Greenfield'}</span>
+                <span className="text-[9px] text-[var(--text-muted)] font-semibold block font-mono">{l('vs Greenfield', 'पुनरुपयोग बचत')}</span>
               </div>
 
               <div>
                 <span className="text-[10px] font-bold text-[var(--text-faint)] uppercase tracking-wider block">
-                  {isHi ? 'पैकेज लागत' : 'Package Cost'}
+                  {l('Package Cost', 'पैकेज लागत')}
                 </span>
                 <span className="text-base sm:text-xl font-extrabold text-[var(--text)] font-mono tabular-nums">
                   {formatINR(rec.expectedImpact.estimatedCostINR)}
                 </span>
                 <span className="text-[9px] text-[var(--brand)] font-semibold block font-mono">
-                  {rec.expectedImpact.roiMultiple ? `${rec.expectedImpact.roiMultiple}x ROI` : (isHi ? '₹6,500/सीट' : '₹6,500/seat')}
+                  {rec.expectedImpact.roiMultiple ? `${rec.expectedImpact.roiMultiple}x ROI` : (l('₹6,500/seat', '₹6,500/सीट'))}
                 </span>
               </div>
             </div>
@@ -335,7 +333,7 @@ export default function RecommendationsPage() {
                   className="px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-xl liquid-control text-xs font-bold text-[var(--text)] hover:bg-[var(--glass-strong)] border border-[var(--border)] flex items-center gap-1.5 cursor-pointer"
                 >
                   <Eye className="w-3.5 h-3.5 text-[var(--brand)]" />
-                  <span>{isHi ? 'अनुभवजन्य साक्ष्य देखें' : 'View Empirical Evidence'}</span>
+                  <span>{l('View Empirical Evidence', 'अनुभवजन्य साक्ष्य देखें')}</span>
                 </button>
 
                 <button
@@ -350,11 +348,11 @@ export default function RecommendationsPage() {
                       ['Confidence', `${rec.confidence}%`]
                     ];
                     downloadCSV(`MSDE_Action_${rec.id}.csv`, rows);
-                    toast.success(isHi ? `कार्यवाही संक्षिप्त डाउनलोड हुई: ${rec.id} (${rec.recommendedSeats} सीटें)` : `Action brief for ${rec.id} (${rec.recommendedSeats} seats) downloaded`);
+                    toast.success(l(`Action brief for ${rec.id} (${rec.recommendedSeats} seats) downloaded`, `कार्यवाही संक्षिप्त डाउनलोड हुई: ${rec.id} (${rec.recommendedSeats} सीटें)`));
                   }}
                   className="p-2 rounded-xl liquid-control text-[var(--text-muted)] hover:text-[var(--text)] cursor-pointer"
-                  title={isHi ? 'कार्यवाही संक्षिप्त निर्यात' : 'Export Action Brief'}
-                  aria-label={isHi ? 'कार्यवाही संक्षिप्त निर्यात' : 'Export Action Brief'}
+                  title={l('Export Action Brief', 'कार्यवाही संक्षिप्त निर्यात')}
+                  aria-label={l('Export Action Brief', 'कार्यवाही संक्षिप्त निर्यात')}
                 >
                   <Download className="w-4 h-4" />
                 </button>
@@ -366,7 +364,7 @@ export default function RecommendationsPage() {
                   className="px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-xl bg-[var(--brand)] hover:opacity-90 text-white text-xs font-bold flex items-center gap-1.5 transition-all shadow-xs cursor-pointer"
                 >
                   <Sliders className="w-4 h-4 text-amber-300" />
-                  <span>{isHi ? 'स्टूडियो में अनुकरण' : 'Simulate in Studio'}</span>
+                  <span>{l('Simulate in Studio', 'स्टूडियो में अनुकरण')}</span>
                 </Link>
 
                 {rec.status !== 'approved' ? (
@@ -376,11 +374,11 @@ export default function RecommendationsPage() {
                     className="px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-xl bg-[var(--success)] hover:opacity-90 text-white text-xs font-bold flex items-center gap-1.5 transition-all shadow-xs cursor-pointer"
                   >
                     <CheckCircle2 className="w-4 h-4" />
-                    <span>{isHi ? 'प्रारूप कार्रवाई स्वीकृत करें' : 'Approve Draft Action'}</span>
+                    <span>{l('Approve Draft Action', 'प्रारूप कार्रवाई स्वीकृत करें')}</span>
                   </button>
                 ) : (
                   <span className="px-3 py-1.5 rounded-xl glass text-[var(--text-muted)] text-xs font-bold border border-[var(--border)]">
-                    {isHi ? 'प्रारूप स्वीकृत' : 'Draft Approved'}
+                    {l('Draft Approved', 'प्रारूप स्वीकृत')}
                   </span>
                 )}
               </div>

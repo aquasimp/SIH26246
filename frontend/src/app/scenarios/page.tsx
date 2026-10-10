@@ -32,7 +32,7 @@ import {
 
 function ScenarioStudioContent() {
   const searchParams = useSearchParams();
-  const { selectedOccupationNco, selectedDistrict, setSelectedOccupationNco, setSelectedDistrict, language, t } = useApp();
+  const { selectedOccupationNco, selectedDistrict, setSelectedOccupationNco, setSelectedDistrict, language, t, l} = useApp();
   const isHi = language === 'hi';
 
   const localizeSeverity = (band?: string) => {
@@ -89,7 +89,7 @@ function ScenarioStudioContent() {
     setNewCentreActive(false);
     setMobilityFactorPercent(0);
     setDonorSafetyRule(0.05);
-    toast.info(isHi ? 'परिदृश्य लीवर अप्रभावित आधारभूत पर रीसेट हो गए' : 'Scenario levers reset to unadjusted baseline');
+    toast.info(l('Scenario levers reset to unadjusted baseline', 'परिदृश्य लीवर अप्रभावित आधारभूत पर रीसेट हो गए'));
   };
 
   // "Load Recommendation #01 Preset" lands EXACTLY on 97 seats / donor 52 / ₹18.31L / 6.2% alone / 15.6% combo (§4.1)
@@ -102,7 +102,7 @@ function ScenarioStudioContent() {
     setNewCentreActive(true); // +150 greenfield lab seats (+₹12L)
     setMobilityFactorPercent(0); // 0% default
     setDonorSafetyRule(0.05); // Strict default
-    toast.success(isHi ? 'सिफ़ारिश #01 प्रीसेट लोड: 97 सीटें • ₹18.31L • 15.6% भरपाई' : 'Recommendation #01 preset loaded: 97 seats • ₹18.31L • 15.6% closure');
+    toast.success(l('Recommendation #01 preset loaded: 97 seats • ₹18.31L • 15.6% closure', 'सिफ़ारिश #01 प्रीसेट लोड: 97 सीटें • ₹18.31L • 15.6% भरपाई'));
   };
 
   const handleExportSimulation = () => {
@@ -132,7 +132,7 @@ function ScenarioStudioContent() {
       ['Donor Post-Intervention Gap Score', simulation.donorTrade?.gap_score_after ?? 52]
     ];
     downloadCSV(`KaushalYuva_Simulation_${targetOcc.ncoCode}_${selectedDistrict}.csv`, rows);
-    toast.success(isHi ? 'सिमुलेशन रिपोर्ट सफलतापूर्वक डाउनलोड हुई' : 'Simulation report downloaded successfully');
+    toast.success(l('Simulation report downloaded successfully', 'सिमुलेशन रिपोर्ट सफलतापूर्वक डाउनलोड हुई'));
   };
 
   // Safe cap threshold for slider track (§6.4)
@@ -145,17 +145,15 @@ function ScenarioStudioContent() {
         <div>
           <div className="flex items-center gap-2 mb-1.5">
             <span className="px-2.5 py-0.5 rounded-full text-[11px] font-mono font-extrabold uppercase tracking-wider bg-amber-500/15 text-amber-500 border border-amber-500/30">
-              {isHi ? 'इंटरैक्टिव नीति सैंडबॉक्स' : 'Interactive Policy Sandbox'}
+              {l('Interactive Policy Sandbox', 'इंटरैक्टिव नीति सैंडबॉक्स')}
             </span>
             <Provenance source="SIH dummy dataset" />
           </div>
           <h1 className="text-2xl sm:text-4xl font-extrabold text-[var(--text)] tracking-tight">
-            {isHi ? 'परिदृश्य स्टूडियो' : 'Scenario Studio'}
+            {l('Scenario Studio', 'परिदृश्य स्टूडियो')}
           </h1>
           <p className="text-sm sm:text-base text-[var(--text-muted)] mt-1 max-w-2xl leading-relaxed">
-            {isHi 
-              ? 'वास्तविक पूंजी आवंटन से पहले नीतिगत निर्णयों का परीक्षण करें। LP गैर-रिक्तीकरण प्रतिबंधों के तहत सीट स्थानांतरण, मांग झटके, नए प्रयोगशाला केंद्र और उम्मीदवार गतिशीलता का अनुकरण करें।'
-              : 'Test policy decisions before real-world capital deployment. Simulate seat shifts, demand shocks, greenfield labs, and candidate mobility under LP non-depletion constraints.'}
+            {l('Test policy decisions before real-world capital deployment. Simulate seat shifts, demand shocks, greenfield labs, and candidate mobility under LP non-depletion constraints.', 'वास्तविक पूंजी आवंटन से पहले नीतिगत निर्णयों का परीक्षण करें। LP गैर-रिक्तीकरण प्रतिबंधों के तहत सीट स्थानांतरण, मांग झटके, नए प्रयोगशाला केंद्र और उम्मीदवार गतिशीलता का अनुकरण करें।')}
           </p>
         </div>
 
@@ -167,7 +165,7 @@ function ScenarioStudioContent() {
             title="Load canonical Recommendation #01: 97 seats • ₹18.31L • donor score 52"
           >
             <Sparkles className="w-3.5 h-3.5 text-amber-300" />
-            <span>{isHi ? 'सिफ़ारिश #01 प्रीसेट लोड करें' : 'Load Recommendation #01 Preset'}</span>
+            <span>{l('Load Recommendation #01 Preset', 'सिफ़ारिश #01 प्रीसेट लोड करें')}</span>
           </button>
 
           <button
@@ -186,7 +184,7 @@ function ScenarioStudioContent() {
             className="px-3.5 py-2 rounded-xl liquid-control text-[var(--text)] text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer"
           >
             <Download className="w-4 h-4" />
-            <span>{isHi ? 'रिपोर्ट निर्यात करें' : 'Export Report'}</span>
+            <span>{l('Export Report', 'रिपोर्ट निर्यात करें')}</span>
           </button>
         </div>
       </div>
@@ -204,7 +202,7 @@ function ScenarioStudioContent() {
           </span>
           <div>
             <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[var(--text-faint)] block">
-              {isHi ? 'सिम्युलेटेड नीति प्रभाव सारांश' : 'Simulated Policy Impact Summary'}
+              {l('Simulated Policy Impact Summary', 'सिम्युलेटेड नीति प्रभाव सारांश')}
             </span>
             <span className="text-xs font-bold text-[var(--text)]">
               {isHi ? `${targetOcc.titleHi || targetOcc.title} (${selectedDistrict === 'gorakhpur' ? 'गोरखपुर' : selectedDistrict} में)` : `${targetOcc.title} in ${selectedDistrict}`}
@@ -216,7 +214,7 @@ function ScenarioStudioContent() {
           {/* Gap Score 94 -> 86 */}
           <div>
             <span className="text-[10px] font-bold text-[var(--text-faint)] uppercase block">
-              {isHi ? 'अंतर स्कोर' : 'Gap Score'}
+              {l('Gap Score', 'अंतर स्कोर')}
             </span>
             <div className="text-xl font-extrabold text-[var(--text)] font-mono tabular-nums flex items-center gap-1.5">
               <span className="text-[var(--severe)]">{simulation.baselineGapScore}</span>
@@ -228,7 +226,7 @@ function ScenarioStudioContent() {
           {/* Shortfall: 711 -> 588 (or 600) */}
           <div>
             <span className="text-[10px] font-bold text-[var(--text-faint)] uppercase block">
-              {isHi ? 'उम्मीदवार कमी' : 'Candidate Shortfall'}
+              {l('Candidate Shortfall', 'उम्मीदवार कमी')}
             </span>
             <div className="text-xl font-extrabold text-[var(--text)] font-mono tabular-nums flex items-center gap-1.5">
               <span className="text-[var(--severe)]">{simulation.targetTrade?.deficit_before ?? 711}</span>
@@ -240,18 +238,18 @@ function ScenarioStudioContent() {
           {/* Shortfall Closed */}
           <div>
             <span className="text-[10px] font-bold text-[var(--text-faint)] uppercase block">
-              {isHi ? 'कमी भरपाई' : 'Shortfall Closed'}
+              {l('Shortfall Closed', 'कमी भरपाई')}
             </span>
             <div className="text-xl font-extrabold text-[var(--success)] font-mono tabular-nums flex items-center gap-1">
               <span>▼</span>
-              <span>{isHi ? `कमी की ${simulation.gapReductionPercent}% भरपाई` : `${simulation.gapReductionPercent}% of shortfall closed`}</span>
+              <span>{l(`${simulation.gapReductionPercent}% of shortfall closed`, `कमी की ${simulation.gapReductionPercent}% भरपाई`)}</span>
             </div>
           </div>
 
           {/* Net Youth Placed */}
           <div>
             <span className="text-[10px] font-bold text-[var(--text-faint)] uppercase block">
-              {isHi ? 'प्रमाणित युवा रोजगार' : 'Youth Placed'}
+              {l('Youth Placed', 'प्रमाणित युवा रोजगार')}
             </span>
             <div className="text-xl font-extrabold text-[var(--brand)] font-mono tabular-nums">
               +{Math.max(0, simulation.simulatedSupply - simulation.baselineSupply)}
@@ -261,7 +259,7 @@ function ScenarioStudioContent() {
           {/* Package Cost: ₹18.31 L */}
           <div>
             <span className="text-[10px] font-bold text-[var(--text-faint)] uppercase block">
-              {isHi ? 'पैकेज लागत' : 'Package Cost'}
+              {l('Package Cost', 'पैकेज लागत')}
             </span>
             <div className="text-xl font-extrabold text-[var(--brand)] font-mono tabular-nums">
               {formatINR(simulation.estimatedInterventionCostINR)}
@@ -278,10 +276,10 @@ function ScenarioStudioContent() {
           <div className="pb-3 border-b border-[var(--border)] flex items-center justify-between">
             <div>
               <span className="text-[10px] font-bold font-mono text-[var(--text-faint)] uppercase tracking-wider block">
-                {isHi ? 'नीतिगत लीवर और प्रतिबंध' : 'Policy Levers & Constraints'}
+                {l('Policy Levers & Constraints', 'नीतिगत लीवर और प्रतिबंध')}
               </span>
               <h2 className="text-base font-extrabold text-[var(--text)]">
-                {isHi ? 'हस्तक्षेप नियंत्रण' : 'Intervention Controls'}
+                {l('Intervention Controls', 'हस्तक्षेप नियंत्रण')}
               </h2>
             </div>
             <button
@@ -291,7 +289,7 @@ function ScenarioStudioContent() {
               title="View LP donor safety mathematics and non-depletion proof"
             >
               <HelpCircle className="w-3.5 h-3.5" />
-              <span>{isHi ? 'कारण?' : 'WHY?'}</span>
+              <span>{l('WHY?', 'कारण?')}</span>
             </button>
           </div>
 
@@ -300,16 +298,14 @@ function ScenarioStudioContent() {
             <div className="flex justify-between items-center text-xs">
               <div>
                 <span className="font-bold text-[var(--text)] block">
-                  {isHi ? 'प्रशिक्षण सीटों का पुनर्आवंटन' : 'Reallocate Training Seats'}
+                  {l('Reallocate Training Seats', 'प्रशिक्षण सीटों का पुनर्आवंटन')}
                 </span>
                 <span className="text-[10px] text-[var(--text-muted)] font-mono">
-                  {isHi 
-                    ? `स्रोत: ${donorOcc.titleHi || donorOcc.title} → ${targetOcc.titleHi || targetOcc.title} (₹6,500/सीट)` 
-                    : `From: ${donorOcc.title} → ${targetOcc.title} (₹6,500/seat retrofit)`}
+                  {l(`From: ${donorOcc.title} → ${targetOcc.title} (₹6,500/seat retrofit)`, `स्रोत: ${donorOcc.titleHi || donorOcc.title} → ${targetOcc.titleHi || targetOcc.title} (₹6,500/सीट)`)}
                 </span>
               </div>
               <span className="font-mono text-xs font-extrabold text-[var(--brand)] bg-[var(--brand)]/10 px-2 py-0.5 rounded-md border border-[var(--brand)]/20 tabular-nums">
-                {seatShiftAmount} {isHi ? 'अनुरोधित' : 'Requested'}
+                {seatShiftAmount} {l('Requested', 'अनुरोधित')}
               </span>
             </div>
 
@@ -323,7 +319,7 @@ function ScenarioStudioContent() {
                 value={seatShiftAmount}
                 onChange={(e) => setSeatShiftAmount(Number(e.target.value))}
                 className="w-full accent-[var(--brand)] cursor-pointer h-2 rounded-lg bg-[var(--border)]"
-                aria-label={isHi ? 'प्रशिक्षण सीटों का पुनर्आवंटन' : 'Reallocate Training Seats'}
+                aria-label={l('Reallocate Training Seats', 'प्रशिक्षण सीटों का पुनर्आवंटन')}
               />
 
               {/* Donor-Safe Cap Marker on the Track (§6.4) */}
@@ -332,17 +328,17 @@ function ScenarioStudioContent() {
                 style={{ left: `${(safeCapSeats / 1000) * 100}%` }}
               >
                 <span className="text-[9px] font-mono font-extrabold px-1.5 py-0.2 rounded bg-amber-500 text-white shadow-xs">
-                  {isHi ? `सुरक्षित सीमा ${safeCapSeats}` : `SAFE CAP ${safeCapSeats}`}
+                  {l(`SAFE CAP ${safeCapSeats}`, `सुरक्षित सीमा ${safeCapSeats}`)}
                 </span>
                 <div className="w-0.5 h-3 bg-amber-500" />
               </div>
             </div>
 
             <div className="flex justify-between text-[10px] font-mono text-[var(--text-faint)]">
-              <span>0 {isHi ? 'सीटें' : 'Seats'}</span>
+              <span>0 {l('Seats', 'सीटें')}</span>
               <span>250</span>
               <span>500</span>
-              <span>1,000 {isHi ? 'सीटें' : 'Seats'}</span>
+              <span>1,000 {l('Seats', 'सीटें')}</span>
             </div>
 
             {/* Constraint notification if requested > safe cap (§6.4) */}
@@ -350,11 +346,9 @@ function ScenarioStudioContent() {
               <div className="p-2.5 rounded-xl bg-amber-500/10 border border-amber-500/25 text-amber-500 text-[11px] leading-tight flex items-start gap-2">
                 <AlertTriangle className="w-3.5 h-3.5 shrink-0 mt-0.5" />
                 <div>
-                  <strong>{isHi ? `अनुरोधित: ${seatShiftAmount} · सुरक्षित सीमा: ${safeCapSeats}` : `Requested: ${seatShiftAmount} · Safe Cap: ${safeCapSeats}`}</strong>
+                  <strong>{l(`Requested: ${seatShiftAmount} · Safe Cap: ${safeCapSeats}`, `अनुरोधित: ${seatShiftAmount} · सुरक्षित सीमा: ${safeCapSeats}`)}</strong>
                   <p className="text-[var(--text-muted)] text-[10px] mt-0.5">
-                    {isHi 
-                      ? `प्रतिबंध सक्रिय: दाता (${donorOcc.titleHi || donorOcc.title}) कमी क्षेत्र में प्रवेश करेगा। स्थानांतरण ${safeCapSeats} सीटों पर सीमित है।`
-                      : `Constraint active: Donor (${donorOcc.title}) would enter shortage territory. Shift is capped at ${safeCapSeats} seats.`}
+                    {l(`Constraint active: Donor (${donorOcc.title}) would enter shortage territory. Shift is capped at ${safeCapSeats} seats.`, `प्रतिबंध सक्रिय: दाता (${donorOcc.titleHi || donorOcc.title}) कमी क्षेत्र में प्रवेश करेगा। स्थानांतरण ${safeCapSeats} सीटों पर सीमित है।`)}
                   </p>
                 </div>
               </div>
@@ -365,14 +359,14 @@ function ScenarioStudioContent() {
           <div className="space-y-2 p-3.5 rounded-2xl glass border border-[var(--border)]">
             <div className="flex justify-between items-center text-xs">
               <span className="font-bold text-[var(--text)]">
-                {isHi ? 'दाता सुरक्षा नियम (नीति प्रतिबंध)' : 'Donor Safety Rule (Policy Constraint)'}
+                {l('Donor Safety Rule (Policy Constraint)', 'दाता सुरक्षा नियम (नीति प्रतिबंध)')}
               </span>
               <span className="font-mono text-[10px] font-extrabold text-[var(--brand)] bg-[var(--brand)]/10 px-2 py-0.5 rounded-md border border-[var(--brand)]/20">
                 {donorSafetyRule === 0.05 
-                  ? (isHi ? 'सख्त ≤ 5% कमी' : 'Strict ≤ 5% deficit') 
+                  ? (l('Strict ≤ 5% deficit', 'सख्त ≤ 5% कमी')) 
                   : donorSafetyRule === 0.10 
-                  ? (isHi ? 'मध्यम ≤ 10%' : 'Moderate ≤ 10%') 
-                  : (isHi ? 'अनुदार ≤ 18.9% (स्कोर ≤ 59)' : 'Permissive ≤ 18.9% (Score ≤ 59)')}
+                  ? (l('Moderate ≤ 10%', 'मध्यम ≤ 10%')) 
+                  : (l('Permissive ≤ 18.9% (Score ≤ 59)', 'अनुदार ≤ 18.9% (स्कोर ≤ 59)'))}
               </span>
             </div>
 
@@ -386,7 +380,7 @@ function ScenarioStudioContent() {
                     : 'glass text-[var(--text-muted)] border-[var(--border)] hover:text-[var(--text)]'
                 }`}
               >
-                {isHi ? 'सख्त (≤ 5%)' : 'Strict (≤ 5%)'}
+                {l('Strict (≤ 5%)', 'सख्त (≤ 5%)')}
               </button>
               <button
                 type="button"
@@ -397,7 +391,7 @@ function ScenarioStudioContent() {
                     : 'glass text-[var(--text-muted)] border-[var(--border)] hover:text-[var(--text)]'
                 }`}
               >
-                {isHi ? 'मध्यम (≤ 10%)' : 'Moderate (≤ 10%)'}
+                {l('Moderate (≤ 10%)', 'मध्यम (≤ 10%)')}
               </button>
               <button
                 type="button"
@@ -408,16 +402,16 @@ function ScenarioStudioContent() {
                     : 'glass text-[var(--text-muted)] border-[var(--border)] hover:text-[var(--text)]'
                 }`}
               >
-                {isHi ? 'अनुदार (≤ 59)' : 'Permissive (≤ 59)'}
+                {l('Permissive (≤ 59)', 'अनुदार (≤ 59)')}
               </button>
             </div>
 
             <p className="text-[10px] text-[var(--text-muted)] leading-tight pt-1">
               {donorSafetyRule === 0.05
-                ? (isHi ? 'सख्त सीमा (डिफ़ॉल्ट): स्थानांतरण 97 सीटों पर सीमित (दाता स्कोर ≤ 52 संतुलित रहता है)।' : 'Strict limit (default): caps shift at 97 seats (donor score stays ≤ 52 Balanced).')
+                ? (l('Strict limit (default): caps shift at 97 seats (donor score stays ≤ 52 Balanced).', 'सख्त सीमा (डिफ़ॉल्ट): स्थानांतरण 97 सीटों पर सीमित (दाता स्कोर ≤ 52 संतुलित रहता है)।'))
                 : donorSafetyRule === 0.10
-                ? (isHi ? 'मध्यम सीमा: स्थानांतरण 140 सीटों पर सीमित (दाता स्कोर ≤ 55 संतुलित रहता है)।' : 'Moderate limit: caps shift at 140 seats (donor score stays ≤ 55 Balanced).')
-                : (isHi ? 'अनुदार सेटिंग: 218 सीटों तक की अनुमति देता है (दाता स्कोर ≤ 59 पर सीमित, कमी बैंड से पहले अधिकतम अनुमेय)।' : 'Permissive setting: allows up to 218 seats (donor score capped at ≤ 59, maximum allowable before shortage band).')}
+                ? (l('Moderate limit: caps shift at 140 seats (donor score stays ≤ 55 Balanced).', 'मध्यम सीमा: स्थानांतरण 140 सीटों पर सीमित (दाता स्कोर ≤ 55 संतुलित रहता है)।'))
+                : (l('Permissive setting: allows up to 218 seats (donor score capped at ≤ 59, maximum allowable before shortage band).', 'अनुदार सेटिंग: 218 सीटों तक की अनुमति देता है (दाता स्कोर ≤ 59 पर सीमित, कमी बैंड से पहले अधिकतम अनुमेय)।'))}
             </p>
           </div>
 
@@ -425,7 +419,7 @@ function ScenarioStudioContent() {
           <div className="space-y-2">
             <div className="flex justify-between items-center text-xs">
               <span className="font-bold text-[var(--text)]">
-                {isHi ? 'बैच क्षमता स्केलिंग' : 'Batch Capacity Scaling'}
+                {l('Batch Capacity Scaling', 'बैच क्षमता स्केलिंग')}
               </span>
               <span className="font-mono text-xs font-bold text-[var(--text)] bg-[var(--glass)] px-2 py-0.5 rounded-md border border-[var(--border)] tabular-nums">
                 {seatPercentAdjustment > 0 ? `+${seatPercentAdjustment}%` : `${seatPercentAdjustment}%`}
@@ -439,12 +433,12 @@ function ScenarioStudioContent() {
               value={seatPercentAdjustment}
               onChange={(e) => setSeatPercentAdjustment(Number(e.target.value))}
               className="w-full accent-[var(--brand)] cursor-pointer h-2 rounded-lg bg-[var(--border)]"
-              aria-label={isHi ? 'बैच क्षमता स्केलिंग' : 'Batch Capacity Scaling'}
+              aria-label={l('Batch Capacity Scaling', 'बैच क्षमता स्केलिंग')}
             />
             <div className="flex justify-between text-[10px] font-mono text-[var(--text-faint)]">
-              <span>{isHi ? '-30% कमी' : '-30% Reduction'}</span>
-              <span>{isHi ? 'आधारभूत (0%)' : 'Baseline (0%)'}</span>
-              <span>{isHi ? '+50% विस्तार' : '+50% Expansion'}</span>
+              <span>{l('-30% Reduction', '-30% कमी')}</span>
+              <span>{l('Baseline (0%)', 'आधारभूत (0%)')}</span>
+              <span>{l('+50% Expansion', '+50% विस्तार')}</span>
             </div>
           </div>
 
@@ -453,10 +447,10 @@ function ScenarioStudioContent() {
             <div className="flex justify-between items-center text-xs">
               <div>
                 <span className="font-bold text-[var(--text)] block">
-                  {isHi ? 'मांग झटका अनुकरण' : 'Simulate Demand Shock'}
+                  {l('Simulate Demand Shock', 'मांग झटका अनुकरण')}
                 </span>
                 <span className="text-[10px] text-[var(--text-muted)]">
-                  {isHi ? 'उदा. प्रमुख औद्योगिक सौर निविदा / कैपेक्स' : 'e.g. Major industrial solar tender / capex'}
+                  {l('e.g. Major industrial solar tender / capex', 'उदा. प्रमुख औद्योगिक सौर निविदा / कैपेक्स')}
                 </span>
               </div>
               <span className="font-mono text-xs font-bold px-2 py-0.5 rounded-md bg-[var(--glass)] border border-[var(--border)] text-[var(--text)] tabular-nums">
@@ -471,12 +465,12 @@ function ScenarioStudioContent() {
               value={demandShockPercent}
               onChange={(e) => setDemandShockPercent(Number(e.target.value))}
               className="w-full accent-orange-500 cursor-pointer h-2 rounded-lg bg-[var(--border)]"
-              aria-label={isHi ? 'मांग झटका अनुकरण' : 'Simulate Demand Shock'}
+              aria-label={l('Simulate Demand Shock', 'मांग झटका अनुकरण')}
             />
             <div className="flex justify-between text-[10px] font-mono text-[var(--text-faint)]">
-              <span>{isHi ? '-20% मंदी' : '-20% Downturn'}</span>
-              <span>{isHi ? 'सामान्य' : 'Normal'}</span>
-              <span>{isHi ? '+40% उछाल' : '+40% Spike'}</span>
+              <span>{l('-20% Downturn', '-20% मंदी')}</span>
+              <span>{l('Normal', 'सामान्य')}</span>
+              <span>{l('+40% Spike', '+40% उछाल')}</span>
             </div>
           </div>
 
@@ -488,10 +482,10 @@ function ScenarioStudioContent() {
               </div>
               <div>
                 <span className="text-xs font-bold text-[var(--text)] block">
-                  {isHi ? 'नया कौशल केंद्र (ग्रीनफील्ड ITI)' : 'New Skill Center (Greenfield ITI)'}
+                  {l('New Skill Center (Greenfield ITI)', 'नया कौशल केंद्र (ग्रीनफील्ड ITI)')}
                 </span>
                 <span className="text-[10px] text-[var(--text-muted)]">
-                  {isHi ? '150 समर्पित प्रयोगशाला सीटें जोड़ता है (+₹12L कैपेक्स)' : 'Adds 150 dedicated lab seats (+₹12L capex)'}
+                  {l('Adds 150 dedicated lab seats (+₹12L capex)', '150 समर्पित प्रयोगशाला सीटें जोड़ता है (+₹12L कैपेक्स)')}
                 </span>
               </div>
             </div>
@@ -507,7 +501,7 @@ function ScenarioStudioContent() {
                   : 'glass text-[var(--text-muted)] border-[var(--border)]'
               }`}
             >
-              {newCentreActive ? (isHi ? 'सक्रिय [चालू]' : 'ACTIVE [ON]') : (isHi ? 'बंद' : 'OFF')}
+              {newCentreActive ? (l('ACTIVE [ON]', 'सक्रिय [चालू]')) : (l('OFF', 'बंद'))}
             </button>
           </div>
 
@@ -516,10 +510,10 @@ function ScenarioStudioContent() {
             <div className="flex justify-between items-center text-xs">
               <div>
                 <span className="font-bold text-[var(--text)] block">
-                  {isHi ? 'उम्मीदवार गतिशीलता कारक' : 'Candidate Mobility Factor'}
+                  {l('Candidate Mobility Factor', 'उम्मीदवार गतिशीलता कारक')}
                 </span>
                 <span className="text-[10px] text-[var(--text-muted)]">
-                  {isHi ? 'अतिरिक्त उम्मीदवार पूल पर क्षेत्रीय प्रभाव' : 'Regional draw on added candidate pool'}
+                  {l('Regional draw on added candidate pool', 'अतिरिक्त उम्मीदवार पूल पर क्षेत्रीय प्रभाव')}
                 </span>
               </div>
               <span className="font-mono text-xs font-extrabold text-[var(--success)] bg-[var(--success)]/10 px-2 py-0.5 rounded-md border border-[var(--success)]/20 tabular-nums">
@@ -534,12 +528,12 @@ function ScenarioStudioContent() {
               value={mobilityFactorPercent}
               onChange={(e) => setMobilityFactorPercent(Number(e.target.value))}
               className="w-full accent-[var(--success)] cursor-pointer h-2 rounded-lg bg-[var(--border)]"
-              aria-label={isHi ? 'उम्मीदवार गतिशीलता कारक' : 'Candidate Mobility Factor'}
+              aria-label={l('Candidate Mobility Factor', 'उम्मीदवार गतिशीलता कारक')}
             />
             <div className="flex justify-between text-[10px] font-mono text-[var(--text-faint)]">
-              <span>{isHi ? '0% स्थानीय' : '0% Localized'}</span>
-              <span>{isHi ? '+15% क्षेत्रीय' : '+15% Regional'}</span>
-              <span>{isHi ? '+30% उच्च गतिशीलता' : '+30% High Mobility'}</span>
+              <span>{l('0% Localized', '0% स्थानीय')}</span>
+              <span>{l('+15% Regional', '+15% क्षेत्रीय')}</span>
+              <span>{l('+30% High Mobility', '+30% उच्च गतिशीलता')}</span>
             </div>
           </div>
         </div>
@@ -552,9 +546,9 @@ function ScenarioStudioContent() {
               <AlertTriangle className="w-5 h-5 text-amber-500 shrink-0 mt-0.5" />
               <div className="text-xs space-y-1">
                 <div className="font-extrabold text-[var(--text)] text-sm flex items-center gap-2">
-                  <span>{isHi ? 'LP दाता गैर-रिक्तीकरण सीमा लागू' : 'LP Donor Non-Depletion Boundary Enforced'}</span>
+                  <span>{l('LP Donor Non-Depletion Boundary Enforced', 'LP दाता गैर-रिक्तीकरण सीमा लागू')}</span>
                   <span className="px-2 py-0.2 rounded-full text-[10px] font-mono font-bold bg-amber-500/20 text-amber-500 border border-amber-500/30">
-                    {isHi ? 'स्वतः-सीमित' : 'Auto-Shrunk'}
+                    {l('Auto-Shrunk', 'स्वतः-सीमित')}
                   </span>
                 </div>
                 <p className="leading-relaxed text-[var(--text-muted)]">
@@ -581,7 +575,7 @@ function ScenarioStudioContent() {
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-[var(--border)]">
               <div>
                 <span className="text-[10px] font-mono font-bold text-[var(--brand)] uppercase tracking-wider block">
-                  {isHi ? 'लक्षित कमी व्यवसाय (प्राप्तकर्ता)' : 'Target Shortage Occupation (Recipient)'}
+                  {l('Target Shortage Occupation (Recipient)', 'लक्षित कमी व्यवसाय (प्राप्तकर्ता)')}
                 </span>
                 <h2 className="text-lg font-extrabold text-[var(--text)]">
                   {isHi ? (targetOcc.titleHi || targetOcc.title) : targetOcc.title} ({targetOcc.ncoCode})
@@ -589,7 +583,7 @@ function ScenarioStudioContent() {
               </div>
               <div className="flex items-center gap-2">
                 <span className="text-xs font-mono font-bold px-2.5 py-1 rounded-full bg-[var(--success)]/15 text-[var(--success)] border border-[var(--success)]/30">
-                  {isHi ? `कमी में कमी -${simulation.gapReductionPercent}%` : `DEFICIT REDUCTION -${simulation.gapReductionPercent}%`}
+                  {l(`DEFICIT REDUCTION -${simulation.gapReductionPercent}%`, `कमी में कमी -${simulation.gapReductionPercent}%`)}
                 </span>
               </div>
             </div>
@@ -600,17 +594,17 @@ function ScenarioStudioContent() {
               <div className="p-4 rounded-2xl glass border border-[var(--severe)]/30 text-xs space-y-2">
                 <div className="flex items-center justify-between">
                   <span className="text-[10px] font-mono font-extrabold uppercase px-2 py-0.5 rounded-md bg-[var(--severe)]/15 text-[var(--severe)] border border-[var(--severe)]/30">
-                    {isHi ? 'हस्तक्षेप से पहले' : 'BEFORE INTERVENTION'}
+                    {l('BEFORE INTERVENTION', 'हस्तक्षेप से पहले')}
                   </span>
                   <span className="text-2xl font-extrabold text-[var(--severe)] font-mono tabular-nums">
                     {simulation.targetTrade?.gap_score_before ?? simulation.baselineGapScore}
                   </span>
                 </div>
                 <div className="space-y-1.5 pt-2 border-t border-[var(--border)] text-[11px] text-[var(--text-muted)] font-mono">
-                  <div className="flex justify-between"><span>{isHi ? 'गंभीरता स्तर:' : 'Severity Band:'}</span> <strong className="text-[var(--severe)]">{localizeSeverity(simulation.targetTrade?.severity_before)}</strong></div>
-                  <div className="flex justify-between"><span>{isHi ? 'प्रशिक्षण सीटें:' : 'Training Seats:'}</span> <strong className="text-[var(--text)]">{simulation.targetTrade?.seats_before}</strong></div>
-                  <div className="flex justify-between"><span>{isHi ? 'प्रभावी आपूर्ति:' : 'Effective Supply:'}</span> <strong className="text-[var(--text)]">{simulation.targetTrade?.supply_before}</strong></div>
-                  <div className="flex justify-between"><span>{isHi ? 'उम्मीदवार कमी:' : 'Candidate Shortfall:'}</span> <strong className="text-[var(--severe)]">{simulation.targetTrade?.deficit_before}</strong></div>
+                  <div className="flex justify-between"><span>{l('Severity Band:', 'गंभीरता स्तर:')}</span> <strong className="text-[var(--severe)]">{localizeSeverity(simulation.targetTrade?.severity_before)}</strong></div>
+                  <div className="flex justify-between"><span>{l('Training Seats:', 'प्रशिक्षण सीटें:')}</span> <strong className="text-[var(--text)]">{simulation.targetTrade?.seats_before}</strong></div>
+                  <div className="flex justify-between"><span>{l('Effective Supply:', 'प्रभावी आपूर्ति:')}</span> <strong className="text-[var(--text)]">{simulation.targetTrade?.supply_before}</strong></div>
+                  <div className="flex justify-between"><span>{l('Candidate Shortfall:', 'उम्मीदवार कमी:')}</span> <strong className="text-[var(--severe)]">{simulation.targetTrade?.deficit_before}</strong></div>
                 </div>
               </div>
 
@@ -618,17 +612,17 @@ function ScenarioStudioContent() {
               <div className="p-4 rounded-2xl glass border border-[var(--success)]/40 text-xs space-y-2">
                 <div className="flex items-center justify-between">
                   <span className="text-[10px] font-mono font-extrabold uppercase px-2 py-0.5 rounded-md bg-[var(--success)]/15 text-[var(--success)] border border-[var(--success)]/30">
-                    {isHi ? 'हस्तक्षेप के बाद' : 'AFTER INTERVENTION'}
+                    {l('AFTER INTERVENTION', 'हस्तक्षेप के बाद')}
                   </span>
                   <span className="text-2xl font-extrabold text-[var(--success)] font-mono tabular-nums">
                     {simulation.targetTrade?.gap_score_after ?? simulation.simulatedGapScore}
                   </span>
                 </div>
                 <div className="space-y-1.5 pt-2 border-t border-[var(--border)] text-[11px] text-[var(--text-muted)] font-mono">
-                  <div className="flex justify-between"><span>{isHi ? 'गंभीरता स्तर:' : 'Severity Band:'}</span> <strong className="text-amber-500">{localizeSeverity(simulation.targetTrade?.severity_after)}</strong></div>
-                  <div className="flex justify-between"><span>{isHi ? 'प्रशिक्षण सीटें:' : 'Training Seats:'}</span> <strong className="text-[var(--text)]">{simulation.targetTrade?.seats_after} (+{simulation.targetTrade ? simulation.targetTrade.seats_after - simulation.targetTrade.seats_before : 0})</strong></div>
-                  <div className="flex justify-between"><span>{isHi ? 'प्रभावी आपूर्ति:' : 'Effective Supply:'}</span> <strong className="text-[var(--success)]">{simulation.targetTrade?.supply_after} (+{simulation.targetTrade ? simulation.targetTrade.supply_after - simulation.targetTrade.supply_before : 0})</strong></div>
-                  <div className="flex justify-between"><span>{isHi ? 'उम्मीदवार कमी:' : 'Candidate Shortfall:'}</span> <strong className="text-[var(--success)]">{simulation.targetTrade?.deficit_after}</strong></div>
+                  <div className="flex justify-between"><span>{l('Severity Band:', 'गंभीरता स्तर:')}</span> <strong className="text-amber-500">{localizeSeverity(simulation.targetTrade?.severity_after)}</strong></div>
+                  <div className="flex justify-between"><span>{l('Training Seats:', 'प्रशिक्षण सीटें:')}</span> <strong className="text-[var(--text)]">{simulation.targetTrade?.seats_after} (+{simulation.targetTrade ? simulation.targetTrade.seats_after - simulation.targetTrade.seats_before : 0})</strong></div>
+                  <div className="flex justify-between"><span>{l('Effective Supply:', 'प्रभावी आपूर्ति:')}</span> <strong className="text-[var(--success)]">{simulation.targetTrade?.supply_after} (+{simulation.targetTrade ? simulation.targetTrade.supply_after - simulation.targetTrade.supply_before : 0})</strong></div>
+                  <div className="flex justify-between"><span>{l('Candidate Shortfall:', 'उम्मीदवार कमी:')}</span> <strong className="text-[var(--success)]">{simulation.targetTrade?.deficit_after}</strong></div>
                 </div>
               </div>
             </div>
@@ -636,9 +630,9 @@ function ScenarioStudioContent() {
             {/* Supply-vs-Demand Bullet Bar (§6.4) */}
             <div className="p-4 rounded-2xl glass border border-[var(--border)] space-y-2">
               <div className="flex justify-between items-center text-xs font-bold text-[var(--text)]">
-                <span>{isHi ? 'मांग के सापेक्ष आपूर्ति कवरेज प्रगति' : 'Supply-to-Demand Coverage Progression'}</span>
+                <span>{l('Supply-to-Demand Coverage Progression', 'मांग के सापेक्ष आपूर्ति कवरेज प्रगति')}</span>
                 <span className="font-mono text-[11px] text-[var(--text-muted)]">
-                  {isHi ? 'मांग:' : 'Demand:'} {targetOcc.currentDemand} | S0: {simulation.targetTrade?.supply_before} → S1: {simulation.targetTrade?.supply_after}
+                  {l('Demand:', 'मांग:')} {targetOcc.currentDemand} | S0: {simulation.targetTrade?.supply_before} → S1: {simulation.targetTrade?.supply_after}
                 </span>
               </div>
 
@@ -662,15 +656,15 @@ function ScenarioStudioContent() {
                 <div className="flex items-center gap-3">
                   <span className="flex items-center gap-1">
                     <span className="w-2.5 h-2.5 rounded bg-[var(--brand-secondary)]" />
-                    <span>{isHi ? `आधारभूत (S0 = ${simulation.targetTrade?.supply_before})` : `Baseline (S0 = ${simulation.targetTrade?.supply_before})`}</span>
+                    <span>{l(`Baseline (S0 = ${simulation.targetTrade?.supply_before})`, `आधारभूत (S0 = ${simulation.targetTrade?.supply_before})`)}</span>
                   </span>
                   <span className="flex items-center gap-1">
                     <span className="w-2.5 h-2.5 rounded bg-[var(--brand)]" />
-                    <span>{isHi ? `नीतिगत वृद्धि (+${(simulation.targetTrade?.supply_after ?? 0) - (simulation.targetTrade?.supply_before ?? 0)})` : `Policy Addition (+${(simulation.targetTrade?.supply_after ?? 0) - (simulation.targetTrade?.supply_before ?? 0)})`}</span>
+                    <span>{l(`Policy Addition (+${(simulation.targetTrade?.supply_after ?? 0) - (simulation.targetTrade?.supply_before ?? 0)})`, `नीतिगत वृद्धि (+${(simulation.targetTrade?.supply_after ?? 0) - (simulation.targetTrade?.supply_before ?? 0)})`)}</span>
                   </span>
                 </div>
                 <span className="text-[var(--text-muted)] font-semibold">
-                  {isHi ? 'शेष कमी:' : 'Unmet Shortfall:'} {simulation.targetTrade?.deficit_after}
+                  {l('Unmet Shortfall:', 'शेष कमी:')} {simulation.targetTrade?.deficit_after}
                 </span>
               </div>
             </div>
@@ -681,46 +675,46 @@ function ScenarioStudioContent() {
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-[var(--border)]">
               <div>
                 <span className="text-[10px] font-mono font-bold text-[var(--oversupply)] uppercase tracking-wider block">
-                  {isHi ? 'क्षमता दाता व्यवसाय (स्रोत)' : 'Capacity Donor Trade (Source)'}
+                  {l('Capacity Donor Trade (Source)', 'क्षमता दाता व्यवसाय (स्रोत)')}
                 </span>
                 <h2 className="text-lg font-extrabold text-[var(--text)]">
                   {isHi ? (donorOcc.titleHi || donorOcc.title) : donorOcc.title} ({donorOcc.ncoCode})
                 </h2>
               </div>
               <span className="text-xs font-mono font-bold px-2.5 py-1 rounded-full bg-[var(--brand)]/15 text-[var(--brand)] border border-[var(--brand)]/30">
-                {isHi ? 'दाता सुरक्षित संतुलन में संरक्षित' : 'Donor Retained in Safe Equilibrium'}
+                {l('Donor Retained in Safe Equilibrium', 'दाता सुरक्षित संतुलन में संरक्षित')}
               </span>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
               <div className="p-3.5 rounded-2xl glass border border-[var(--border)] space-y-1.5 font-mono text-[11px]">
                 <div className="text-[10px] font-mono font-extrabold uppercase px-2 py-0.5 rounded bg-[var(--border)] text-[var(--text)] w-fit mb-2">
-                  {isHi ? 'दाता आधारभूत' : 'DONOR BASELINE'}
+                  {l('DONOR BASELINE', 'दाता आधारभूत')}
                 </div>
-                <div className="flex justify-between"><span>{isHi ? 'अंतर स्कोर:' : 'Gap Score:'}</span> <strong className="text-[var(--text)]">{simulation.donorTrade?.gap_score_before}</strong></div>
-                <div className="flex justify-between"><span>{isHi ? 'गंभीरता स्तर:' : 'Severity Band:'}</span> <strong className="text-[var(--balanced)]">{localizeSeverity(simulation.donorTrade?.severity_before)}</strong></div>
-                <div className="flex justify-between"><span>{isHi ? 'प्रशिक्षण सीटें:' : 'Training Seats:'}</span> <strong className="text-[var(--text)]">{simulation.donorTrade?.seats_before}</strong></div>
-                <div className="flex justify-between"><span>{isHi ? 'प्रभावी आपूर्ति:' : 'Effective Supply:'}</span> <strong className="text-[var(--text)]">{simulation.donorTrade?.supply_before}</strong></div>
-                <div className="flex justify-between"><span>{isHi ? 'स्थानीय मांग:' : 'Local Demand:'}</span> <strong className="text-[var(--text)]">{simulation.donorTrade?.demand_before}</strong></div>
+                <div className="flex justify-between"><span>{l('Gap Score:', 'अंतर स्कोर:')}</span> <strong className="text-[var(--text)]">{simulation.donorTrade?.gap_score_before}</strong></div>
+                <div className="flex justify-between"><span>{l('Severity Band:', 'गंभीरता स्तर:')}</span> <strong className="text-[var(--balanced)]">{localizeSeverity(simulation.donorTrade?.severity_before)}</strong></div>
+                <div className="flex justify-between"><span>{l('Training Seats:', 'प्रशिक्षण सीटें:')}</span> <strong className="text-[var(--text)]">{simulation.donorTrade?.seats_before}</strong></div>
+                <div className="flex justify-between"><span>{l('Effective Supply:', 'प्रभावी आपूर्ति:')}</span> <strong className="text-[var(--text)]">{simulation.donorTrade?.supply_before}</strong></div>
+                <div className="flex justify-between"><span>{l('Local Demand:', 'स्थानीय मांग:')}</span> <strong className="text-[var(--text)]">{simulation.donorTrade?.demand_before}</strong></div>
               </div>
 
               <div className="p-3.5 rounded-2xl glass border border-[var(--border)] space-y-1.5 font-mono text-[11px]">
                 <div className="text-[10px] font-mono font-extrabold uppercase px-2 py-0.5 rounded bg-[var(--brand)]/15 text-[var(--brand)] w-fit mb-2">
-                  {isHi ? 'दाता स्थानांतरण पश्चात' : 'DONOR POST-TRANSFER'}
+                  {l('DONOR POST-TRANSFER', 'दाता स्थानांतरण पश्चात')}
                 </div>
-                <div className="flex justify-between"><span>{isHi ? 'अंतर स्कोर:' : 'Gap Score:'}</span> <strong className="text-[var(--brand)]">{simulation.donorTrade?.gap_score_after}</strong></div>
-                <div className="flex justify-between"><span>{isHi ? 'गंभीरता स्तर:' : 'Severity Band:'}</span> <strong className="text-[var(--balanced)]">{localizeSeverity(simulation.donorTrade?.severity_after)}</strong></div>
-                <div className="flex justify-between"><span>{isHi ? 'प्रशिक्षण सीटें:' : 'Training Seats:'}</span> <strong className="text-[var(--text)]">{simulation.donorTrade?.seats_after} (-{simulation.actualSeatsShifted})</strong></div>
-                <div className="flex justify-between"><span>{isHi ? 'प्रभावी आपूर्ति:' : 'Effective Supply:'}</span> <strong className="text-[var(--text)]">{simulation.donorTrade?.supply_after}</strong></div>
+                <div className="flex justify-between"><span>{l('Gap Score:', 'अंतर स्कोर:')}</span> <strong className="text-[var(--brand)]">{simulation.donorTrade?.gap_score_after}</strong></div>
+                <div className="flex justify-between"><span>{l('Severity Band:', 'गंभीरता स्तर:')}</span> <strong className="text-[var(--balanced)]">{localizeSeverity(simulation.donorTrade?.severity_after)}</strong></div>
+                <div className="flex justify-between"><span>{l('Training Seats:', 'प्रशिक्षण सीटें:')}</span> <strong className="text-[var(--text)]">{simulation.donorTrade?.seats_after} (-{simulation.actualSeatsShifted})</strong></div>
+                <div className="flex justify-between"><span>{l('Effective Supply:', 'प्रभावी आपूर्ति:')}</span> <strong className="text-[var(--text)]">{simulation.donorTrade?.supply_after}</strong></div>
                 {/* Dynamic Donor Safety Check (§4.1) */}
                 <div className="flex justify-between pt-1 border-t border-[var(--border)]">
-                  <span>{isHi ? 'सुरक्षा जांच:' : 'Safety Check:'}</span>
+                  <span>{l('Safety Check:', 'सुरक्षा जांच:')}</span>
                   <strong className="text-[var(--success)] font-sans">
                     {donorSafetyRule <= 0.05 
-                      ? (isHi ? 'संरक्षित (स्कोर ≤ 52, संतुलित)' : 'Protected (Score ≤ 52, Balanced)')
+                      ? (l('Protected (Score ≤ 52, Balanced)', 'संरक्षित (स्कोर ≤ 52, संतुलित)'))
                       : donorSafetyRule <= 0.10 
-                      ? (isHi ? 'संरक्षित (स्कोर ≤ 55, संतुलित)' : 'Protected (Score ≤ 55, Balanced)')
-                      : (isHi ? 'संरक्षित (स्कोर ≤ 59, संतुलित)' : 'Protected (Score ≤ 59, Balanced)')}
+                      ? (l('Protected (Score ≤ 55, Balanced)', 'संरक्षित (स्कोर ≤ 55, संतुलित)'))
+                      : (l('Protected (Score ≤ 59, Balanced)', 'संरक्षित (स्कोर ≤ 59, संतुलित)'))}
                   </strong>
                 </div>
               </div>
@@ -733,14 +727,14 @@ function ScenarioStudioContent() {
               <div className="flex items-center justify-between pb-2 border-b border-[var(--border)]">
                 <div>
                   <span className="text-[10px] font-mono font-bold text-amber-500 uppercase tracking-wider block">
-                    {isHi ? 'नीति संवेदनशीलता मैट्रिक्स' : 'Policy Sensitivity Matrix'}
+                    {l('Policy Sensitivity Matrix', 'नीति संवेदनशीलता मैट्रिक्स')}
                   </span>
                   <h3 className="text-sm font-extrabold text-[var(--text)]">
-                    {isHi ? 'दाता सुरक्षा बनाम लक्षित कमी भरपाई का संतुलन' : 'Donor Safety vs. Target Deficit Closure Trade-off'}
+                    {l('Donor Safety vs. Target Deficit Closure Trade-off', 'दाता सुरक्षा बनाम लक्षित कमी भरपाई का संतुलन')}
                   </h3>
                 </div>
                 <Badge variant="official" size="sm">
-                  {isHi ? 'गोरखपुर रिटेल → सोलर' : 'Gorakhpur Retail → Solar'}
+                  {l('Gorakhpur Retail → Solar', 'गोरखपुर रिटेल → सोलर')}
                 </Badge>
               </div>
 
@@ -748,13 +742,13 @@ function ScenarioStudioContent() {
                 <table className="w-full text-left text-xs border-collapse">
                   <thead>
                     <tr className="border-b border-[var(--border)] text-[10px] font-mono uppercase text-[var(--text-faint)] font-bold">
-                      <th className="py-2.5 px-2.5">{isHi ? 'सुरक्षा नियम' : 'Safety Rule'}</th>
-                      <th className="py-2.5 px-2">{isHi ? 'स्थानांतरित सीटें' : 'Seats Moved'}</th>
-                      <th className="py-2.5 px-2">{isHi ? 'दाता स्कोर' : 'Donor Score'}</th>
-                      <th className="py-2.5 px-2">{isHi ? 'केवल पुनर्आवंटन' : 'Realloc Alone'}</th>
-                      <th className="py-2.5 px-2">{isHi ? 'कॉम्बो (0% गति)' : 'Combo (0% Mob)'}</th>
-                      <th className="py-2.5 px-2">{isHi ? 'कॉम्बो (+10% गति)' : 'Combo (+10% Mob)'}</th>
-                      <th className="py-2.5 px-2.5 text-right">{isHi ? 'पैकेज लागत' : 'Package Cost'}</th>
+                      <th className="py-2.5 px-2.5">{l('Safety Rule', 'सुरक्षा नियम')}</th>
+                      <th className="py-2.5 px-2">{l('Seats Moved', 'स्थानांतरित सीटें')}</th>
+                      <th className="py-2.5 px-2">{l('Donor Score', 'दाता स्कोर')}</th>
+                      <th className="py-2.5 px-2">{l('Realloc Alone', 'केवल पुनर्आवंटन')}</th>
+                      <th className="py-2.5 px-2">{l('Combo (0% Mob)', 'कॉम्बो (0% गति)')}</th>
+                      <th className="py-2.5 px-2">{l('Combo (+10% Mob)', 'कॉम्बो (+10% गति)')}</th>
+                      <th className="py-2.5 px-2.5 text-right">{l('Package Cost', 'पैकेज लागत')}</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-[var(--border)] text-[11px] font-mono tabular-nums">
@@ -776,11 +770,11 @@ function ScenarioStudioContent() {
                             </span>
                             {isDefaultStrict && (
                               <span className="px-1.5 py-0.2 text-[9px] font-mono bg-blue-500/20 text-blue-400 rounded border border-blue-500/30">
-                                {isHi ? 'डिफ़ॉल्ट' : 'Default'}
+                                {l('Default', 'डिफ़ॉल्ट')}
                               </span>
                             )}
                           </td>
-                          <td className="py-2.5 px-2 text-[var(--brand)] font-bold">{row.seats_moved} {isHi ? 'सीटें' : 'seats'}</td>
+                          <td className="py-2.5 px-2 text-[var(--brand)] font-bold">{row.seats_moved} {l('seats', 'सीटें')}</td>
                           <td className="py-2.5 px-2 text-[var(--text-muted)]">{row.donor_score}/100</td>
                           <td className="py-2.5 px-2 text-[var(--success)]">{row.deficit_closed_realloc_pct}%</td>
                           <td className="py-2.5 px-2 text-[var(--text)]">{row.deficit_closed_combo_no_mobility_pct ?? row.deficit_closed_combo_pct}%</td>
@@ -811,9 +805,7 @@ function ScenarioStudioContent() {
           <div className="p-4 rounded-2xl glass border border-[var(--border)] text-xs space-y-2">
             <div className="flex items-center justify-between">
               <span className="font-bold text-[var(--text)] uppercase text-[10px] tracking-wider font-mono">
-                {isHi 
-                  ? 'वास्तविक दाता विश्लेषण (ज़िला एवं राज्य स्कैन — SIH डमी डेटासेट)' 
-                  : 'Real Donor Analysis (District & State Scan — SIH dummy dataset)'}
+                {l('Real Donor Analysis (District & State Scan — SIH dummy dataset)', 'वास्तविक दाता विश्लेषण (ज़िला एवं राज्य स्कैन — SIH डमी डेटासेट)')}
               </span>
               <Provenance source="SIH dummy dataset" />
             </div>
@@ -848,7 +840,7 @@ function ScenarioStudioContent() {
         <div
           role="dialog"
           aria-modal="true"
-          aria-label={isHi ? 'LP दाता सुरक्षा नीति स्पष्टीकरण' : 'LP Donor Safety Policy Explanation'}
+          aria-label={l('LP Donor Safety Policy Explanation', 'LP दाता सुरक्षा नीति स्पष्टीकरण')}
           className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in"
           onClick={() => setWhyModalOpen(false)}
         >
@@ -863,10 +855,10 @@ function ScenarioStudioContent() {
                 </span>
                 <div>
                   <h3 className="text-base font-extrabold text-[var(--text)]">
-                    {isHi ? 'LP दाता गैर-रिक्तीकरण गणित' : 'LP Donor Non-Depletion Mathematics'}
+                    {l('LP Donor Non-Depletion Mathematics', 'LP दाता गैर-रिक्तीकरण गणित')}
                   </h3>
                   <span className="text-[10px] font-mono text-[var(--text-faint)]">
-                    {isHi ? 'गणितीय प्रमाण और नीति सुरक्षा सीमाएं' : 'Mathematical Proof & Policy Safety Bounds'}
+                    {l('Mathematical Proof & Policy Safety Bounds', 'गणितीय प्रमाण और नीति सुरक्षा सीमाएं')}
                   </span>
                 </div>
               </div>
@@ -874,7 +866,7 @@ function ScenarioStudioContent() {
                 type="button"
                 onClick={() => setWhyModalOpen(false)}
                 className="p-1.5 rounded-xl liquid-control text-[var(--text-faint)] hover:text-[var(--text)] cursor-pointer"
-                aria-label={isHi ? 'बंद करें' : 'Close'}
+                aria-label={l('Close', 'बंद करें')}
               >
                 <X className="w-4 h-4" />
               </button>
@@ -895,17 +887,17 @@ function ScenarioStudioContent() {
 
               <div className="p-3 rounded-2xl glass border border-[var(--border)] space-y-2">
                 <strong className="text-[var(--text)] block text-[11px]">
-                  {isHi ? 'तीन विहित सुरक्षा स्तर:' : 'The Three Canonical Safety Tiers:'}
+                  {l('The Three Canonical Safety Tiers:', 'तीन विहित सुरक्षा स्तर:')}
                 </strong>
                 <ul className="space-y-1.5 text-[11px] font-mono">
                   <li>
-                    <strong className="text-[var(--brand)]">{isHi ? '1. सख्त (डिफ़ॉल्ट):' : '1. Strict (Default):'}</strong> {isHi ? 'स्थानांतरण पश्चात अंतर अनुपात ≤ 0.05 (दाता स्कोर ≤ 52 संतुलित रहता है)। सुरक्षित स्थानांतरण:' : 'Post-transfer gap ratio ≤ 0.05 (leaves donor at Score ≤ 52 Balanced). Safe shift:'} <strong>97 {isHi ? 'सीटें' : 'seats'}</strong>.
+                    <strong className="text-[var(--brand)]">{l('1. Strict (Default):', '1. सख्त (डिफ़ॉल्ट):')}</strong> {l('Post-transfer gap ratio ≤ 0.05 (leaves donor at Score ≤ 52 Balanced). Safe shift:', 'स्थानांतरण पश्चात अंतर अनुपात ≤ 0.05 (दाता स्कोर ≤ 52 संतुलित रहता है)। सुरक्षित स्थानांतरण:')} <strong>97 {l('seats', 'सीटें')}</strong>.
                   </li>
                   <li>
-                    <strong className="text-amber-500">{isHi ? '2. मध्यम:' : '2. Moderate:'}</strong> {isHi ? 'स्थानांतरण पश्चात अंतर अनुपात ≤ 0.10 (दाता स्कोर ≤ 55 संतुलित रहता है)। सुरक्षित स्थानांतरण:' : 'Post-transfer gap ratio ≤ 0.10 (leaves donor at Score ≤ 55 Balanced). Safe shift:'} <strong>140 {isHi ? 'सीटें' : 'seats'}</strong>.
+                    <strong className="text-amber-500">{l('2. Moderate:', '2. मध्यम:')}</strong> {l('Post-transfer gap ratio ≤ 0.10 (leaves donor at Score ≤ 55 Balanced). Safe shift:', 'स्थानांतरण पश्चात अंतर अनुपात ≤ 0.10 (दाता स्कोर ≤ 55 संतुलित रहता है)। सुरक्षित स्थानांतरण:')} <strong>140 {l('seats', 'सीटें')}</strong>.
                   </li>
                   <li>
-                    <strong className="text-purple-400">{isHi ? '3. अनुदार:' : '3. Permissive:'}</strong> {isHi ? 'संतुलित बैंड (स्कोर ≤ 59) के भीतर अधिकतम अनुमेय स्थानांतरण। सुरक्षित स्थानांतरण:' : 'Maximum allowable transfer keeping donor within Balanced band (Score ≤ 59). Safe shift:'} <strong>218 {isHi ? 'सीटें' : 'seats'}</strong>.
+                    <strong className="text-purple-400">{l('3. Permissive:', '3. अनुदार:')}</strong> {l('Maximum allowable transfer keeping donor within Balanced band (Score ≤ 59). Safe shift:', 'संतुलित बैंड (स्कोर ≤ 59) के भीतर अधिकतम अनुमेय स्थानांतरण। सुरक्षित स्थानांतरण:')} <strong>218 {l('seats', 'सीटें')}</strong>.
                   </li>
                 </ul>
               </div>
@@ -929,7 +921,7 @@ function ScenarioStudioContent() {
                 onClick={() => setWhyModalOpen(false)}
                 className="px-4 py-2 rounded-xl bg-[var(--brand)] text-white font-bold text-xs hover:opacity-90 transition cursor-pointer"
               >
-                {isHi ? 'समझ गया' : 'Understood'}
+                {l('Understood', 'समझ गया')}
               </button>
             </div>
           </div>

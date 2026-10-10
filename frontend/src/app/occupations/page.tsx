@@ -15,7 +15,7 @@ import {
 } from 'lucide-react';
 
 export default function OccupationsOverviewPage() {
-  const { selectedSector, language } = useApp();
+  const { selectedSector, language, l} = useApp();
   const isHi = language === 'hi';
   const [searchTerm, setSearchTerm] = useState('');
 
@@ -43,18 +43,16 @@ export default function OccupationsOverviewPage() {
       {/* Title */}
       <div>
         <div className="flex items-center gap-2 mb-2">
-          <Provenance type="official" note={isHi ? 'NCO-2015 वर्गीकरण' : 'NCO-2015 Classification'} />
+          <Provenance type="official" note={l('NCO-2015 Classification', 'NCO-2015 वर्गीकरण')} />
           <span className="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold uppercase tracking-wider bg-[var(--brand)]/10 text-[var(--brand)] border border-[var(--brand)]/20">
-            {isHi ? 'मानकीकृत भूमिकाएं' : 'Standardized Roles'}
+            {l('Standardized Roles', 'मानकीकृत भूमिकाएं')}
           </span>
         </div>
         <h1 className="text-2xl sm:text-3xl font-extrabold text-[var(--text)] tracking-tight">
-          {isHi ? 'व्यावसायिक मानक और व्यापार निर्देशिका' : 'Occupational Standard & Trade Directory'}
+          {l('Occupational Standard & Trade Directory', 'व्यावसायिक मानक और व्यापार निर्देशिका')}
         </h1>
         <p className="text-xs sm:text-sm text-[var(--text-muted)] mt-1 max-w-2xl leading-relaxed">
-          {isHi 
-            ? 'राष्ट्रीय कौशल योग्यता ढांचा (NSQF) स्तरों और चरणबद्ध पाइपलाइन समूहों से सीधे जुड़े मानकीकृत राष्ट्रीय व्यवसाय वर्गीकरण (NCO)।'
-            : 'Standardized National Classification of Occupations (NCO) mapped directly to National Skills Qualification Framework (NSQF) levels and staged pipeline cohorts.'}
+          {l('Standardized National Classification of Occupations (NCO) mapped directly to National Skills Qualification Framework (NSQF) levels and staged pipeline cohorts.', 'राष्ट्रीय कौशल योग्यता ढांचा (NSQF) स्तरों और चरणबद्ध पाइपलाइन समूहों से सीधे जुड़े मानकीकृत राष्ट्रीय व्यवसाय वर्गीकरण (NCO)।')}
         </p>
       </div>
 
@@ -62,14 +60,14 @@ export default function OccupationsOverviewPage() {
 
       {/* Directory Grid */}
       <GlassPanel
-        title={isHi ? 'मानकीकृत व्यवसाय और ट्रेड' : 'Standardized Occupations & Trades'}
-        subtitle={isHi ? 'विस्तृत मांग, चरणबद्ध आपूर्ति पाइपलाइनों और भविष्य कहनेवाला कारक विशेषताओं का अन्वेषण करें।' : 'Explore detailed demand, staged supply pipelines, and predictive factor attributions.'}
+        title={l('Standardized Occupations & Trades', 'मानकीकृत व्यवसाय और ट्रेड')}
+        subtitle={l('Explore detailed demand, staged supply pipelines, and predictive factor attributions.', 'विस्तृत मांग, चरणबद्ध आपूर्ति पाइपलाइनों और भविष्य कहनेवाला कारक विशेषताओं का अन्वेषण करें।')}
         action={
           <div className="relative w-64">
             <Search className="w-3.5 h-3.5 text-[var(--text-faint)] absolute left-3 top-1/2 -translate-y-1/2" />
             <input
               type="text"
-              placeholder={isHi ? 'शीर्षक या NCO कोड द्वारा खोजें...' : 'Search by title or NCO code...'}
+              placeholder={l('Search by title or NCO code...', 'शीर्षक या NCO कोड द्वारा खोजें...')}
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               className="w-full text-xs pl-8 pr-3 py-1.5 rounded-xl liquid-control text-[var(--text)] focus:outline-none"
@@ -104,25 +102,25 @@ export default function OccupationsOverviewPage() {
                   {isHi && occ.titleHi ? occ.titleHi : occ.title}
                 </h3>
                 <span className="text-xs text-[var(--text-muted)] font-medium block mb-3">
-                  {getLocalizedEntityName('sectors', occ.sector, language, occ.sector)} (NSQF {isHi ? 'स्तर' : 'Level'} {occ.nsqfLevel})
+                  {getLocalizedEntityName('sectors', occ.sector, language, occ.sector)} (NSQF {l('Level', 'स्तर')} {occ.nsqfLevel})
                 </span>
 
                 <div className="grid grid-cols-3 gap-2 text-xs mb-3 text-center">
                   <div className="p-2 rounded-lg glass-strong border border-[var(--border)]">
                     <span className="text-[9px] text-[var(--text-faint)] block font-semibold uppercase">
-                      {isHi ? 'मांग' : 'Demand'}
+                      {l('Demand', 'मांग')}
                     </span>
                     <strong className="text-[var(--text)] font-mono">{occ.currentDemand.toLocaleString()}</strong>
                   </div>
                   <div className="p-2 rounded-lg glass-strong border border-[var(--border)]">
                     <span className="text-[9px] text-[var(--text-faint)] block font-semibold uppercase">
-                      {isHi ? 'आपूर्ति' : 'Supply'}
+                      {l('Supply', 'आपूर्ति')}
                     </span>
                     <strong className="text-[var(--text)] font-mono">{occ.effectiveSupply.toLocaleString()}</strong>
                   </div>
                   <div className="p-2 rounded-lg glass-strong border border-[var(--border)]">
                     <span className="text-[9px] text-[var(--text-faint)] block font-semibold uppercase">
-                      {isHi ? 'अंतर स्कोर' : 'Gap Score'}
+                      {l('Gap Score', 'अंतर स्कोर')}
                     </span>
                     <strong className="text-[var(--severe)] font-mono">{occ.gapScore}</strong>
                   </div>
@@ -130,14 +128,14 @@ export default function OccupationsOverviewPage() {
 
                 <div className="text-[11px] text-[var(--text-muted)] mb-2">
                   <span className="font-semibold text-[var(--text)]">
-                    {isHi ? 'शीर्ष कौशल:' : 'Top Skills:'}{' '}
+                    {l('Top Skills:', 'शीर्ष कौशल:')}{' '}
                   </span>
                   {occ.keySkills.slice(0, 2).map(s => isHi ? localizeSkill(s, 'hi') : s).join(', ')}...
                 </div>
               </div>
 
               <div className="pt-2 border-t border-[var(--border)] flex items-center justify-between text-xs font-bold text-[var(--brand)] group-hover:translate-x-0.5 transition-transform">
-                <span>{isHi ? 'चरणबद्ध पाइपलाइन और पूर्वानुमान देखें' : 'View Staged Pipeline & Forecast'}</span>
+                <span>{l('View Staged Pipeline & Forecast', 'चरणबद्ध पाइपलाइन और पूर्वानुमान देखें')}</span>
                 <ChevronRight className="w-4 h-4" />
               </div>
             </Link>

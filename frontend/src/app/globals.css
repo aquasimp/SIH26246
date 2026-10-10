@@ -64,44 +64,44 @@
 
   .dark {
     color-scheme: dark;
-    /* Base Surfaces — Dark Mode (DepthWizard Cockpit Midnight) */
-    --bg: #050811;
-    --bg-atmo-1: rgba(0, 85, 165, 0.22);
-    --bg-atmo-2: rgba(0, 194, 203, 0.12);
-    --glass: rgba(11, 23, 48, 0.72);
-    --glass-strong: rgba(11, 23, 48, 0.90);
-    --overlay: rgba(5, 8, 17, 0.96);
-    --surface-solid: #0B1730;
-    --surface-muted: #070E1D;
+    /* Base Surfaces — Dark Mode (Pitch Black Obsidian Professional) */
+    --bg: #000000;
+    --bg-atmo-1: rgba(0, 229, 255, 0.06);
+    --bg-atmo-2: rgba(0, 85, 165, 0.06);
+    --glass: rgba(9, 12, 19, 0.85);
+    --glass-strong: rgba(13, 17, 26, 0.95);
+    --overlay: rgba(4, 6, 10, 0.98);
+    --surface-solid: #0A0D15;
+    --surface-muted: #04060A;
 
-    /* Cockpit Borders & Highlights */
-    --border: rgba(30, 49, 91, 0.75);
-    --border-strong: rgba(0, 194, 203, 0.50);
-    --highlight: rgba(0, 194, 203, 0.20);
+    /* Pitch Obsidian Hairline Borders & Specular Highlights */
+    --border: rgba(255, 255, 255, 0.09);
+    --border-strong: rgba(0, 229, 255, 0.45);
+    --highlight: rgba(255, 255, 255, 0.06);
 
-    /* Tactical Text */
-    --text: #F1F5F9;
+    /* Tactical Text — High Contrast Pure White & Crisp Silver */
+    --text: #FFFFFF;
     --text-muted: #94A3B8;
     --text-faint: #64748B;
 
-    /* DepthWizard Electric Cyan Brand */
-    --brand: #00C2CB;
-    --brand-secondary: #0055A5;
-    --ring: rgba(0, 194, 203, 0.55);
-    --shadow: 0 10px 30px -10px rgba(0, 85, 165, 0.45);
+    /* DepthWizard Cyber Electric Cyan Brand */
+    --brand: #00E5FF;
+    --brand-secondary: #0090FF;
+    --ring: rgba(0, 229, 255, 0.55);
+    --shadow: 0 16px 48px -12px rgba(0, 0, 0, 0.95);
 
     /* Tactical Severity Bands */
     --shortage: #FF6600;
-    --shortage-bg: rgba(255, 102, 0, 0.15);
-    --surplus: #0284C7;
-    --surplus-bg: rgba(2, 132, 199, 0.15);
-    --severe: #FF6600;
-    --moderate: #F59E0B;
+    --shortage-bg: rgba(255, 102, 0, 0.16);
+    --surplus: #00A3FF;
+    --surplus-bg: rgba(0, 163, 255, 0.16);
+    --severe: #FF5500;
+    --moderate: #FBBF24;
     --balanced: #10B981;
-    --oversupply: #0284C7;
+    --oversupply: #00A3FF;
     --warning: #FF6600;
-    --success: #00C2CB;
-    --forecast: #00C2CB;
+    --success: #00E5FF;
+    --forecast: #00E5FF;
   }
 }
 

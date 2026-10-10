@@ -26,7 +26,7 @@ export const GapChart: React.FC<GapChartProps> = ({
   confidence
 }) => {
   const palette = useChartPalette();
-  const { language } = useApp();
+  const { language, l} = useApp();
   const isHi = language === 'hi';
 
   const getLocalizedSeverity = (sev: string) => {
@@ -84,7 +84,7 @@ export const GapChart: React.FC<GapChartProps> = ({
 
           <div className="absolute inset-0 flex flex-col items-center justify-center text-center">
             <span className="text-[10px] font-bold uppercase tracking-wider text-[var(--text-faint)]">
-              {isHi ? 'अंतर स्कोर' : 'Gap Score'}
+              {l('Gap Score', 'अंतर स्कोर')}
             </span>
             <span className={clsx('text-3xl font-extrabold tracking-tight font-mono', theme.text)}>
               {score}
@@ -104,10 +104,10 @@ export const GapChart: React.FC<GapChartProps> = ({
       <div className="flex-1 w-full space-y-3">
         <div className="flex items-center justify-between text-xs pb-1.5 border-b border-[var(--border)]">
           <span className="font-bold text-[var(--text)]">
-            {isHi ? 'उप-सूचकांक अपघटन' : 'Sub-Index Decomposition'}
+            {l('Sub-Index Decomposition', 'उप-सूचकांक अपघटन')}
           </span>
           <span className="text-[11px] font-semibold text-[var(--brand)] bg-[var(--brand)]/10 px-2.5 py-0.5 rounded-md border border-[var(--brand)]/20 font-mono">
-            {isHi ? `मॉडल विश्वसनीयता: ${confidence}%` : `Model Confidence: ${confidence}%`}
+            {l(`Model Confidence: ${confidence}%`, `मॉडल विश्वसनीयता: ${confidence}%`)}
           </span>
         </div>
 
@@ -115,7 +115,7 @@ export const GapChart: React.FC<GapChartProps> = ({
         <div>
           <div className="flex justify-between text-xs font-semibold mb-1">
             <span className="text-[var(--text-muted)]">
-              {isHi ? 'मांग दबाव सूचकांक' : 'Demand Pressure Index'}
+              {l('Demand Pressure Index', 'मांग दबाव सूचकांक')}
             </span>
             <span className="font-mono text-[var(--text)]">{demandPressure} / 100</span>
           </div>
@@ -128,7 +128,7 @@ export const GapChart: React.FC<GapChartProps> = ({
         <div>
           <div className="flex justify-between text-xs font-semibold mb-1">
             <span className="text-[var(--text-muted)]">
-              {isHi ? 'प्रभावी आपूर्ति क्षमता' : 'Effective Supply Capacity'}
+              {l('Effective Supply Capacity', 'प्रभावी आपूर्ति क्षमता')}
             </span>
             <span className="font-mono text-[var(--text)]">{effectiveSupplyIndex} / 100</span>
           </div>
@@ -141,7 +141,7 @@ export const GapChart: React.FC<GapChartProps> = ({
         <div>
           <div className="flex justify-between text-xs font-semibold mb-1">
             <span className="text-[var(--text-muted)]">
-              {isHi ? '6-माह पूर्वानुमान दबाव' : '6-Month Forecast Pressure'}
+              {l('6-Month Forecast Pressure', '6-माह पूर्वानुमान दबाव')}
             </span>
             <span className="font-mono text-[var(--text)]">{forecastPressure} / 100</span>
           </div>
@@ -154,7 +154,7 @@ export const GapChart: React.FC<GapChartProps> = ({
         <div>
           <div className="flex justify-between text-xs font-semibold mb-1">
             <span className="text-[var(--text-muted)]">
-              {isHi ? 'कमी संरचनात्मक निरंतरता' : 'Shortage Structural Persistence'}
+              {l('Shortage Structural Persistence', 'कमी संरचनात्मक निरंतरता')}
             </span>
             <span className="font-mono text-[var(--text)]">{persistence} / 100</span>
           </div>

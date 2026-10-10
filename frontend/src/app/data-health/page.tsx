@@ -19,7 +19,7 @@ import {
 } from 'lucide-react';
 
 export default function DataHealthPage() {
-  const { language } = useApp();
+  const { language, l} = useApp();
   const isHi = language === 'hi';
   const m = DATA_HEALTH_METRIC;
 
@@ -93,18 +93,16 @@ export default function DataHealthPage() {
       {/* Title */}
       <div>
         <div className="flex items-center gap-2 mb-2">
-          <Provenance type="official" note={isHi ? 'प्लेटफ़ॉर्म विश्वसनीयता एवं ऑडिट शासन' : 'Platform Trust & Audit Governance'} />
+          <Provenance type="official" note={l('Platform Trust & Audit Governance', 'प्लेटफ़ॉर्म विश्वसनीयता एवं ऑडिट शासन')} />
           <span className="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold uppercase tracking-wider bg-[var(--balanced)]/10 text-[var(--balanced)] border border-[var(--balanced)]/20">
-            {isHi ? 'ऑडिट तैयार' : 'Audit Ready'}
+            {l('Audit Ready', 'ऑडिट तैयार')}
           </span>
         </div>
         <h1 className="text-2xl sm:text-3xl font-extrabold text-[var(--text)] tracking-tight">
-          {isHi ? 'डेटा एवं मॉडल स्वास्थ्य शासन' : 'Data & Model Health Governance'}
+          {l('Data & Model Health Governance', 'डेटा एवं मॉडल स्वास्थ्य शासन')}
         </h1>
         <p className="text-xs sm:text-sm text-[var(--text-muted)] mt-1 max-w-2xl leading-relaxed">
-          {isHi 
-            ? 'बहु-स्रोत अंतर्ग्रहण फ़ीड्स, NCO/LGD ऑन्कोलॉजी मैपिंग विश्वसनीयता, मॉडल ड्रिफ्ट मेट्रिक्स और पाइपलाइन रन उद्गम पर व्यापक दृश्यता।' 
-            : 'Comprehensive observability over multi-source ingestion feeds, NCO/LGD ontology mapping confidence, model drift metrics, and pipeline run provenance.'}
+          {l('Comprehensive observability over multi-source ingestion feeds, NCO/LGD ontology mapping confidence, model drift metrics, and pipeline run provenance.', 'बहु-स्रोत अंतर्ग्रहण फ़ीड्स, NCO/LGD ऑन्कोलॉजी मैपिंग विश्वसनीयता, मॉडल ड्रिफ्ट मेट्रिक्स और पाइपलाइन रन उद्गम पर व्यापक दृश्यता।')}
         </p>
       </div>
 
@@ -113,72 +111,72 @@ export default function DataHealthPage() {
         {/* Metric 1: Sources */}
         <div className="p-4 rounded-2xl glass border border-[var(--border)] shadow-xs">
           <span className="text-[10px] font-bold text-[var(--text-faint)] uppercase tracking-wider block">
-            {isHi ? 'जुड़े हुए स्रोत' : 'Sources Connected'}
+            {l('Sources Connected', 'जुड़े हुए स्रोत')}
           </span>
           <div className="text-2xl sm:text-3xl font-extrabold text-[var(--text)] font-mono my-1">
             {m.sourcesConnected} / {m.sourcesTotal}
           </div>
           <span className="text-[10px] text-[var(--brand)] font-semibold font-mono">
-            {isHi ? 'सक्रिय अंतर्ग्रहण' : 'Active Ingestion'}
+            {l('Active Ingestion', 'सक्रिय अंतर्ग्रहण')}
           </span>
         </div>
 
         {/* Metric 2: Freshness */}
         <div className="p-4 rounded-2xl glass border border-[var(--border)] shadow-xs">
           <span className="text-[10px] font-bold text-[var(--text-faint)] uppercase tracking-wider block">
-            {isHi ? 'डेटा ताजगी' : 'Data Freshness'}
+            {l('Data Freshness', 'डेटा ताजगी')}
           </span>
           <div className="text-2xl sm:text-3xl font-extrabold text-[var(--balanced)] font-mono my-1">
             {m.freshnessPercent}%
           </div>
           <span className="text-[10px] text-[var(--balanced)] font-semibold font-mono">
-            {isHi ? 'SLA के तहत सिंक' : 'Synced Under SLA'}
+            {l('Synced Under SLA', 'SLA के तहत सिंक')}
           </span>
         </div>
 
         {/* Metric 3: Mapping Confidence */}
         <div className="p-4 rounded-2xl glass border border-[var(--border)] shadow-xs">
           <span className="text-[10px] font-bold text-[var(--text-faint)] uppercase tracking-wider block">
-            {isHi ? 'मैपिंग विश्वसनीयता' : 'Mapping Confidence'}
+            {l('Mapping Confidence', 'मैपिंग विश्वसनीयता')}
           </span>
           <div className="text-2xl sm:text-3xl font-extrabold text-[var(--brand-secondary)] font-mono my-1">
             {m.mappingConfidencePercent}%
           </div>
           <span className="text-[10px] text-[var(--brand-secondary)] font-semibold font-mono">
-            {isHi ? 'NCO / LGD संरेखण' : 'NCO / LGD Alignment'}
+            {l('NCO / LGD Alignment', 'NCO / LGD संरेखण')}
           </span>
         </div>
 
         {/* Metric 4: Forecast Confidence */}
         <div className="p-4 rounded-2xl glass border border-[var(--border)] shadow-xs">
           <span className="text-[10px] font-bold text-[var(--text-faint)] uppercase tracking-wider block">
-            {isHi ? 'पूर्वानुमान विश्वसनीयता' : 'Forecast Confidence'}
+            {l('Forecast Confidence', 'पूर्वानुमान विश्वसनीयता')}
           </span>
           <div className="text-2xl sm:text-3xl font-extrabold text-[var(--brand)] font-mono my-1">
             {m.forecastConfidencePercent}%
           </div>
           <span className="text-[10px] text-[var(--brand)] font-semibold font-mono">
-            {isHi ? 'उत्पादन त्रि-मिश्रण' : 'Production Tri-Blend'}
+            {l('Production Tri-Blend', 'उत्पादन त्रि-मिश्रण')}
           </span>
         </div>
 
         {/* Metric 5: Data Quality */}
         <div className="p-4 rounded-2xl glass border border-[var(--border)] shadow-xs">
           <span className="text-[10px] font-bold text-[var(--text-faint)] uppercase tracking-wider block">
-            {isHi ? 'डेटा गुणवत्ता' : 'Data Quality'}
+            {l('Data Quality', 'डेटा गुणवत्ता')}
           </span>
           <div className="text-2xl sm:text-3xl font-extrabold text-purple-400 font-mono my-1">
             {m.dataQualityPercent}%
           </div>
           <span className="text-[10px] text-purple-400 font-semibold font-mono">
-            {isHi ? 'सत्यापन उत्तीर्ण' : 'Passes Validation'}
+            {l('Passes Validation', 'सत्यापन उत्तीर्ण')}
           </span>
         </div>
 
         {/* Metric 6: Last Run */}
         <div className="p-4 rounded-2xl glass border border-[var(--border)] shadow-xs">
           <span className="text-[10px] font-bold text-[var(--text-faint)] uppercase tracking-wider block">
-            {isHi ? 'अंतिम सफल रन' : 'Last Successful Run'}
+            {l('Last Successful Run', 'अंतिम सफल रन')}
           </span>
           <div className="text-xs sm:text-sm font-extrabold text-[var(--text)] mt-2 font-mono truncate">
             {m.lastRunId}
@@ -191,8 +189,8 @@ export default function DataHealthPage() {
 
       {/* Model Performance Benchmark Comparison */}
       <GlassPanel
-        title={isHi ? 'मॉडल बेंचमार्क मेट्रिक्स एवं बेसलाइन तुलना' : 'Model Benchmark Metrics & Baseline Comparison'}
-        subtitle={isHi ? 'सख्त रूप से विलंबित अर्थमितीय संकेतों के साथ 6 रोलिंग उद्गमों पर मूल्यांकन (कोई समकालिक रिसाव नहीं)।' : 'Evaluated across 6 rolling origins with strictly lagged econometric signals (no contemporaneous leakage).'}
+        title={l('Model Benchmark Metrics & Baseline Comparison', 'मॉडल बेंचमार्क मेट्रिक्स एवं बेसलाइन तुलना')}
+        subtitle={l('Evaluated across 6 rolling origins with strictly lagged econometric signals (no contemporaneous leakage).', 'सख्त रूप से विलंबित अर्थमितीय संकेतों के साथ 6 रोलिंग उद्गमों पर मूल्यांकन (कोई समकालिक रिसाव नहीं)।')}
       >
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {(m.models || []).map((mod, idx) => (
@@ -230,7 +228,7 @@ export default function DataHealthPage() {
               </div>
 
               <div className="text-[10px] text-[var(--text-faint)] font-mono pt-2 border-t border-[var(--border)]">
-                {isHi ? 'अंतिम प्रशिक्षित:' : 'Last Trained:'} {mod.lastTrained}
+                {l('Last Trained:', 'अंतिम प्रशिक्षित:')} {mod.lastTrained}
               </div>
             </div>
           ))}
@@ -239,12 +237,12 @@ export default function DataHealthPage() {
 
       {/* Multi-Horizon Rolling-Origin Backtest Table (Item 1 Hardening Requirement) */}
       <GlassPanel
-        title={isHi ? 'रोलिंग-ओरिजिन वॉक-फॉरवर्ड बैकटेस्ट (6 उद्गम × क्षितिज 3M / 6M / 12M)' : 'Rolling-Origin Walk-Forward Backtest (6 Origins × Horizons 3M / 6M / 12M)'}
-        subtitle={isHi ? 'अनुभवजन्य आउट-ऑफ-सैंपल मूल्यांकन: प्रति क्षितिज 1,536 ट्रेड-जिला अवलोकनों में WAPE, MASE और 80%/95% अंतराल कवरेज।' : 'Empirical out-of-sample evaluation: WAPE, MASE, and 80%/95% interval coverage across 1,536 trade-district observations per horizon.'}
+        title={l('Rolling-Origin Walk-Forward Backtest (6 Origins × Horizons 3M / 6M / 12M)', 'रोलिंग-ओरिजिन वॉक-फॉरवर्ड बैकटेस्ट (6 उद्गम × क्षितिज 3M / 6M / 12M)')}
+        subtitle={l('Empirical out-of-sample evaluation: WAPE, MASE, and 80%/95% interval coverage across 1,536 trade-district observations per horizon.', 'अनुभवजन्य आउट-ऑफ-सैंपल मूल्यांकन: प्रति क्षितिज 1,536 ट्रेड-जिला अवलोकनों में WAPE, MASE और 80%/95% अंतराल कवरेज।')}
         action={
           <span className="px-2.5 py-1 rounded-full text-[11px] font-bold bg-[var(--balanced)]/10 text-[var(--balanced)] border border-[var(--balanced)]/20 flex items-center gap-1.5 font-mono">
             <CheckCircle2 className="w-3.5 h-3.5" />
-            {isHi ? 'शून्य-रिसाव सत्यापित' : 'Zero-Leakage Verified'}
+            {l('Zero-Leakage Verified', 'शून्य-रिसाव सत्यापित')}
           </span>
         }
       >
@@ -252,13 +250,13 @@ export default function DataHealthPage() {
           <table className="w-full text-left text-xs">
             <thead>
               <tr className="border-b border-[var(--border)] text-[var(--text-faint)] font-bold uppercase tracking-wider text-[10px]">
-                <th className="py-3 px-3">{isHi ? 'पूर्वानुमान क्षितिज' : 'Forecast Horizon'}</th>
-                <th className="py-3 px-3">{isHi ? 'मॉडल / बेसलाइन' : 'Model / Baseline'}</th>
+                <th className="py-3 px-3">{l('Forecast Horizon', 'पूर्वानुमान क्षितिज')}</th>
+                <th className="py-3 px-3">{l('Model / Baseline', 'मॉडल / बेसलाइन')}</th>
                 <th className="py-3 px-3 text-right">WAPE (%)</th>
                 <th className="py-3 px-3 text-right">MASE</th>
-                <th className="py-3 px-3 text-right">{isHi ? '80% अंतराल कवरेज' : '80% Interval Coverage'}</th>
-                <th className="py-3 px-3 text-right">{isHi ? '95% अंतराल कवरेज' : '95% Interval Coverage'}</th>
-                <th className="py-3 px-3 text-right">{isHi ? 'नमूना अवलोकन' : 'Sample Observations'}</th>
+                <th className="py-3 px-3 text-right">{l('80% Interval Coverage', '80% अंतराल कवरेज')}</th>
+                <th className="py-3 px-3 text-right">{l('95% Interval Coverage', '95% अंतराल कवरेज')}</th>
+                <th className="py-3 px-3 text-right">{l('Sample Observations', 'नमूना अवलोकन')}</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-[var(--border)]">
@@ -278,7 +276,7 @@ export default function DataHealthPage() {
                     <td className="py-2.5 px-3 font-mono font-bold text-[var(--text)]">
                       {isHorizonStart ? (
                         <span className="px-2 py-0.5 rounded-md glass text-[var(--text)] text-[11px] border border-[var(--border)]">
-                          {row.horizon} {isHi ? 'क्षितिज' : 'Horizon'}
+                          {row.horizon} {l('Horizon', 'क्षितिज')}
                         </span>
                       ) : (
                         <span className="text-[var(--text-faint)] pl-2">↳</span>
@@ -292,7 +290,7 @@ export default function DataHealthPage() {
                       </span>
                       {isProduction && (
                         <span className="ml-2 px-1.5 py-0.2 rounded text-[9px] font-bold bg-[var(--brand)]/10 text-[var(--brand)] border border-[var(--brand)]/20 font-mono">
-                          {isHi ? 'उत्पादन मिश्रण' : 'Production Blend'}
+                          {l('Production Blend', 'उत्पादन मिश्रण')}
                         </span>
                       )}
                     </td>
@@ -329,7 +327,7 @@ export default function DataHealthPage() {
         </div>
         <div className="mt-3.5 p-3.5 rounded-xl glass-strong border border-[var(--border)] text-[11px] text-[var(--text-muted)] leading-relaxed">
           <strong className="text-[var(--text)] block mb-1">
-            {isHi ? 'प्रणाली एवं महत्वपूर्ण मॉडल सीमा प्रकटीकरण:' : 'Methodology & Critical Model Limitation Disclosure:'}
+            {l('Methodology & Critical Model Limitation Disclosure:', 'प्रणाली एवं महत्वपूर्ण मॉडल सीमा प्रकटीकरण:')}
           </strong>
           {isHi ? (
             <>
@@ -353,18 +351,18 @@ export default function DataHealthPage() {
 
       {/* Connected Feeds Table (Section 31 & 51) */}
       <GlassPanel
-        title={isHi ? 'अंतर्ग्रहीत डेटा स्रोत एवं उद्गम रजिस्ट्री' : 'Ingested Data Sources & Provenance Registry'}
-        subtitle={isHi ? 'अनिवार्य धारा 51 वर्गीकरण: सार्वजनिक संकलन, डेमो डेटासेट और नियोजित सरकारी फ़ीड।' : 'Mandatory Section 51 classification: Public Aggregate, Demo Dataset, and Planned Government Feeds.'}
+        title={l('Ingested Data Sources & Provenance Registry', 'अंतर्ग्रहीत डेटा स्रोत एवं उद्गम रजिस्ट्री')}
+        subtitle={l('Mandatory Section 51 classification: Public Aggregate, Demo Dataset, and Planned Government Feeds.', 'अनिवार्य धारा 51 वर्गीकरण: सार्वजनिक संकलन, डेमो डेटासेट और नियोजित सरकारी फ़ीड।')}
       >
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
             <thead>
               <tr className="border-b border-[var(--border)] text-[var(--text-faint)] font-bold uppercase tracking-wider text-[10px]">
-                <th className="py-3 px-3">{isHi ? 'डेटा स्रोत विवरण' : 'Data Source Description'}</th>
-                <th className="py-3 px-3">{isHi ? 'डेटा वर्गीकरण' : 'Data Classification'}</th>
-                <th className="py-3 px-3">{isHi ? 'सिंक स्थिति' : 'Sync Status'}</th>
-                <th className="py-3 px-3">{isHi ? 'रिकॉर्ड्स अंतर्ग्रहीत' : 'Records Ingested'}</th>
-                <th className="py-3 px-3 text-right">{isHi ? 'क्वेरी लेटेंसी' : 'Query Latency'}</th>
+                <th className="py-3 px-3">{l('Data Source Description', 'डेटा स्रोत विवरण')}</th>
+                <th className="py-3 px-3">{l('Data Classification', 'डेटा वर्गीकरण')}</th>
+                <th className="py-3 px-3">{l('Sync Status', 'सिंक स्थिति')}</th>
+                <th className="py-3 px-3">{l('Records Ingested', 'रिकॉर्ड्स अंतर्ग्रहीत')}</th>
+                <th className="py-3 px-3 text-right">{l('Query Latency', 'क्वेरी लेटेंसी')}</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-[var(--border)]">

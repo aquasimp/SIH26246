@@ -6,13 +6,14 @@ import {
   EarlyWarningAlert, 
   Recommendation 
 } from './types';
-import { Language, translations } from './i18n';
+import { Language, translations, l as translateText } from './i18n';
 import { EARLY_WARNING_ALERTS, RECOMMENDATIONS } from './demoData';
 
 interface AppContextType {
   language: Language;
   setLanguage: (lang: Language) => void;
   t: typeof translations.en;
+  l: (enText: string, hiFallback?: string) => string;
   selectedState: string;
   setSelectedState: (s: string) => void;
   selectedDistrict: string;
@@ -112,7 +113,7 @@ export const AppProvider = ({ children, initialLanguage }: { children: ReactNode
         // Initialize language from storage or document lang
         const savedLang = (localStorage.getItem('kaushalyuva-lang') || 
                            document.documentElement.lang) as Language;
-        if (savedLang === 'en' || savedLang === 'hi') {
+        if (['en', 'hi', 'mr', 'ta', 'te', 'kn', 'bn'].includes(savedLang)) {
           setLanguage(savedLang);
         }
       }
@@ -172,11 +173,14 @@ export const AppProvider = ({ children, initialLanguage }: { children: ReactNode
     setRecommendations(prev => prev.map(r => r.id === id ? { ...r, status: 'approved' } : r));
   };
 
+  const l = (enText: string, hiFallback?: string) => translateText(enText, language, hiFallback);
+
   return (
     <AppContext.Provider value={{
       language,
       setLanguage: handleSetLanguage,
       t,
+      l,
       selectedState,
       setSelectedState,
       selectedDistrict,

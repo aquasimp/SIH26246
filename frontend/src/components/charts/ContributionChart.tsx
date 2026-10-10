@@ -22,7 +22,7 @@ export const ContributionChart: React.FC<ContributionChartProps> = ({
   factors,
   occupationTitle
 }) => {
-  const { language } = useApp();
+  const { language, l} = useApp();
   const isHi = language === 'hi';
 
   const getIcon = (type: ExplainabilityFactor['signalType']) => {
@@ -106,15 +106,13 @@ export const ContributionChart: React.FC<ContributionChartProps> = ({
     <div className="w-full">
       <div className="mb-4">
         <h3 className="text-base font-bold text-[var(--text)] flex items-center gap-2">
-          <span>{isHi ? `${occupationTitle} के लिए मांग क्यों बदल रही है?` : `Why is demand changing for ${occupationTitle}?`}</span>
+          <span>{l(`Why is demand changing for ${occupationTitle}?`, `${occupationTitle} के लिए मांग क्यों बदल रही है?`)}</span>
           <span className="text-[11px] font-mono font-semibold px-2 py-0.5 rounded-full bg-[var(--brand)]/10 text-[var(--brand)] border border-[var(--brand)]/20">
-            {isHi ? 'कारक योगदान और विशेषता' : 'Attribution & Factor Contribution'}
+            {l('Attribution & Factor Contribution', 'कारक योगदान और विशेषता')}
           </span>
         </h3>
         <p className="text-xs text-[var(--text-muted)] mt-1">
-          {isHi
-            ? 'क्षेत्रीय व्यापक-आर्थिक चालकों, नियोक्ता भर्ती गतिविधि और मौसमी बदलावों का अनुभवजन्य कारक अपघटन।'
-            : 'Decomposition of regional macro-economic drivers, employer hiring activity, and seasonal shifts influencing the ML forecast.'}
+          {l('Decomposition of regional macro-economic drivers, employer hiring activity, and seasonal shifts influencing the ML forecast.', 'क्षेत्रीय व्यापक-आर्थिक चालकों, नियोक्ता भर्ती गतिविधि और मौसमी बदलावों का अनुभवजन्य कारक अपघटन।')}
         </p>
       </div>
 

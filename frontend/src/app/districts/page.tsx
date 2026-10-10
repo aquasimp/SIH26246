@@ -20,7 +20,7 @@ import {
 } from 'lucide-react';
 
 export default function DistrictsOverviewPage() {
-  const { selectedState, setSelectedState, language } = useApp();
+  const { selectedState, setSelectedState, language, l} = useApp();
   const isHi = language === 'hi';
   const [searchTerm, setSearchTerm] = useState('');
 
@@ -38,18 +38,16 @@ export default function DistrictsOverviewPage() {
       {/* Title */}
       <div>
         <div className="flex items-center gap-2 mb-2">
-          <Provenance type="official" note={isHi ? 'LGD भौगोलिक पदानुक्रम' : 'LGD Geographic Hierarchy'} />
+          <Provenance type="official" note={l('LGD Geographic Hierarchy', 'LGD भौगोलिक पदानुक्रम')} />
           <span className="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold uppercase tracking-wider bg-[var(--brand)]/10 text-[var(--brand)] border border-[var(--brand)]/20">
-            {isHi ? '16 पायलट जिले' : '16 Pilot Districts'}
+            {l('16 Pilot Districts', '16 पायलट जिले')}
           </span>
         </div>
         <h1 className="text-2xl sm:text-3xl font-extrabold text-[var(--text)] tracking-tight">
-          {isHi ? 'जिला श्रम बाजार इंटेलिजेंस' : 'District Labour Market Intelligence'}
+          {l('District Labour Market Intelligence', 'जिला श्रम बाजार इंटेलिजेंस')}
         </h1>
         <p className="text-xs sm:text-sm text-[var(--text-muted)] mt-1 max-w-2xl leading-relaxed">
-          {isHi 
-            ? 'स्थानीय सरकारी निर्देशिका (LGD) जिला-स्तरीय प्रोफ़ाइल जो प्रशिक्षण बुनियादी ढांचे, नियोक्ता मांग संकेतों और संरचनात्मक कौशल असंतुलन का मूल्यांकन करती है।'
-            : 'Local Government Directory (LGD) district-level profiles evaluating training infrastructure, employer demand signals, and structural skill mismatches.'}
+          {l('Local Government Directory (LGD) district-level profiles evaluating training infrastructure, employer demand signals, and structural skill mismatches.', 'स्थानीय सरकारी निर्देशिका (LGD) जिला-स्तरीय प्रोफ़ाइल जो प्रशिक्षण बुनियादी ढांचे, नियोक्ता मांग संकेतों और संरचनात्मक कौशल असंतुलन का मूल्यांकन करती है।')}
         </p>
       </div>
 
@@ -57,14 +55,14 @@ export default function DistrictsOverviewPage() {
 
       {/* District Cards Grid */}
       <GlassPanel
-        title={isHi ? 'जिला खुफिया निर्देशिका' : 'District Intelligence Directory'}
-        subtitle={isHi ? 'स्थानीयकृत प्रशिक्षण क्षमता, कमी की संभावना और अनुशंसित सीट समायोजन देखने के लिए एक जिला चुनें।' : 'Select a district to view localized training capacity, shortage probabilities, and recommended seat adjustments.'}
+        title={l('District Intelligence Directory', 'जिला खुफिया निर्देशिका')}
+        subtitle={l('Select a district to view localized training capacity, shortage probabilities, and recommended seat adjustments.', 'स्थानीयकृत प्रशिक्षण क्षमता, कमी की संभावना और अनुशंसित सीट समायोजन देखने के लिए एक जिला चुनें।')}
         action={
           <div className="relative w-64">
             <Search className="w-3.5 h-3.5 text-[var(--text-faint)] absolute left-3 top-1/2 -translate-y-1/2" />
             <input
               type="text"
-              placeholder={isHi ? 'जिला या LGD कोड खोजें...' : 'Search district or LGD code...'}
+              placeholder={l('Search district or LGD code...', 'जिला या LGD कोड खोजें...')}
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               className="w-full text-xs pl-8 pr-3 py-1.5 rounded-xl liquid-control text-[var(--text)] focus:outline-none"
@@ -90,7 +88,7 @@ export default function DistrictsOverviewPage() {
                     d.gapScore >= 60 ? 'bg-[var(--moderate)]/10 text-[var(--moderate)] border-[var(--moderate)]/20' :
                     'bg-[var(--balanced)]/10 text-[var(--balanced)] border-[var(--balanced)]/20'
                   )}>
-                    {isHi ? 'अंतर' : 'Gap'} {d.gapScore}
+                    {l('Gap', 'अंतर')} {d.gapScore}
                   </span>
                 </div>
 
@@ -104,13 +102,13 @@ export default function DistrictsOverviewPage() {
                 <div className="grid grid-cols-2 gap-2 text-xs mb-3">
                   <div className="p-2 rounded-lg glass-strong border border-[var(--border)]">
                     <span className="text-[10px] text-[var(--text-faint)] block font-semibold">
-                      {isHi ? 'मांग सूचकांक' : 'Demand Index'}
+                      {l('Demand Index', 'मांग सूचकांक')}
                     </span>
                     <strong className="text-[var(--text)] font-mono">{d.demandIndex} / 100</strong>
                   </div>
                   <div className="p-2 rounded-lg glass-strong border border-[var(--border)]">
                     <span className="text-[10px] text-[var(--text-faint)] block font-semibold">
-                      {isHi ? 'कमी जोखिम' : 'Shortage Prob'}
+                      {l('Shortage Prob', 'कमी जोखिम')}
                     </span>
                     <strong className="text-[var(--severe)] font-mono">{d.shortageProbability6M}%</strong>
                   </div>
@@ -119,13 +117,13 @@ export default function DistrictsOverviewPage() {
                 <div className="text-[11px] text-[var(--text-muted)] space-y-1 mb-2">
                   <div>
                     <span className="font-semibold text-[var(--text)]">
-                      {isHi ? 'बुनियादी ढांचा: ' : 'Infrastructure: '}
+                      {l('Infrastructure: ', 'बुनियादी ढांचा: ')}
                     </span>
-                    {d.trainingCentresCount} {isHi ? 'केंद्र' : 'Centres'} ({d.totalTrainingSeats} {isHi ? 'सीटें' : 'Seats'})
+                    {d.trainingCentresCount} {l('Centres', 'केंद्र')} ({d.totalTrainingSeats} {l('Seats', 'सीटें')})
                   </div>
                     <div className="truncate">
                       <span className="font-semibold text-[var(--severe)]">
-                        {isHi ? 'शीर्ष घाटा: ' : 'Top Deficit: '}
+                        {l('Top Deficit: ', 'शीर्ष घाटा: ')}
                       </span>
                       {isHi ? getLocalizedEntityName('occupations', d.topShortageTrades[0], 'hi') : d.topShortageTrades[0]}
                     </div>
@@ -133,7 +131,7 @@ export default function DistrictsOverviewPage() {
               </div>
 
               <div className="pt-2 border-t border-[var(--border)] flex items-center justify-between text-xs font-bold text-[var(--brand)] group-hover:translate-x-0.5 transition-transform">
-                <span>{isHi ? 'पूर्ण प्रोफ़ाइल देखें' : 'View Full Profile'}</span>
+                <span>{l('View Full Profile', 'पूर्ण प्रोफ़ाइल देखें')}</span>
                 <ChevronRight className="w-4 h-4" />
               </div>
             </Link>

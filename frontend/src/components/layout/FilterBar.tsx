@@ -28,8 +28,7 @@ export const FilterBar: React.FC = () => {
     setSelectedOccupationNco,
     forecastHorizon,
     setForecastHorizon,
-    language
-  } = useApp();
+    language, l} = useApp();
 
   const isHi = language === 'hi';
 
@@ -59,17 +58,17 @@ export const FilterBar: React.FC = () => {
         <div className="flex items-center justify-between gap-2">
           <div className="flex items-center gap-2 text-xs font-bold text-[var(--text)] uppercase tracking-wider font-mono">
             <SlidersHorizontal className="w-3.5 h-3.5 text-[var(--brand)]" />
-            <span>{isHi ? 'संदर्भ फ़िल्टर' : 'Context Filters'}</span>
+            <span>{l('Context Filters', 'संदर्भ फ़िल्टर')}</span>
           </div>
 
           <button
             type="button"
             onClick={handleReset}
             className="px-2 py-1 rounded-lg liquid-control text-[11px] font-semibold text-[var(--text-muted)] hover:text-[var(--text)] flex items-center gap-1 cursor-pointer"
-            title={isHi ? 'फ़िल्टर रीसेट करें' : 'Reset filters to default'}
+            title={l('Reset filters to default', 'फ़िल्टर रीसेट करें')}
           >
             <RotateCcw className="w-3 h-3" />
-            <span>{isHi ? 'रीसेट' : 'Reset'}</span>
+            <span>{l('Reset', 'रीसेट')}</span>
           </button>
         </div>
 
@@ -77,13 +76,13 @@ export const FilterBar: React.FC = () => {
           {/* State Filter */}
           <div className="relative">
             <label htmlFor="state-filter" className="text-[10px] font-bold text-[var(--text-faint)] uppercase tracking-wider block mb-1 font-mono">
-              {isHi ? 'राज्य' : 'State'}
+              {l('State', 'राज्य')}
             </label>
             <div className="relative">
               <MapPin className="w-3.5 h-3.5 text-[var(--text-faint)] absolute left-2.5 top-1/2 -translate-y-1/2 pointer-events-none" />
               <select
                 id="state-filter"
-                aria-label={isHi ? 'राज्य अनुसार फ़िल्टर करें' : 'Filter by state'}
+                aria-label={l('Filter by state', 'राज्य अनुसार फ़िल्टर करें')}
                 value={selectedState}
                 onChange={(e) => handleStateChange(e.target.value)}
                 className="w-full text-xs font-semibold pl-7 pr-3 py-2 min-h-[40px] rounded-xl liquid-control text-[var(--text)] cursor-pointer"
@@ -100,13 +99,13 @@ export const FilterBar: React.FC = () => {
           {/* District Filter */}
           <div className="relative">
             <label htmlFor="district-filter" className="text-[10px] font-bold text-[var(--text-faint)] uppercase tracking-wider block mb-1 font-mono">
-              {isHi ? 'ज़िला (LGD)' : 'District (LGD)'}
+              {l('District (LGD)', 'ज़िला (LGD)')}
             </label>
             <div className="relative">
               <MapPin className="w-3.5 h-3.5 text-[var(--brand)] absolute left-2.5 top-1/2 -translate-y-1/2 pointer-events-none" />
               <select
                 id="district-filter"
-                aria-label={isHi ? 'ज़िला अनुसार फ़िल्टर करें' : 'Filter by district'}
+                aria-label={l('Filter by district', 'ज़िला अनुसार फ़िल्टर करें')}
                 value={selectedDistrict}
                 onChange={(e) => setSelectedDistrict(e.target.value)}
                 className="w-full text-xs font-semibold pl-7 pr-3 py-2 min-h-[40px] rounded-xl liquid-control text-[var(--brand)] border-[var(--brand)]/30 cursor-pointer"
@@ -123,19 +122,19 @@ export const FilterBar: React.FC = () => {
           {/* Sector Filter */}
           <div className="relative">
             <label htmlFor="sector-filter" className="text-[10px] font-bold text-[var(--text-faint)] uppercase tracking-wider block mb-1 font-mono">
-              {isHi ? 'क्षेत्र' : 'Sector'}
+              {l('Sector', 'क्षेत्र')}
             </label>
             <div className="relative">
               <Layers className="w-3.5 h-3.5 text-[var(--text-faint)] absolute left-2.5 top-1/2 -translate-y-1/2 pointer-events-none" />
               <select
                 id="sector-filter"
-                aria-label={isHi ? 'औद्योगिक क्षेत्र अनुसार फ़िल्टर करें' : 'Filter by industrial sector'}
+                aria-label={l('Filter by industrial sector', 'औद्योगिक क्षेत्र अनुसार फ़िल्टर करें')}
                 value={selectedSector}
                 onChange={(e) => setSelectedSector(e.target.value)}
                 className="w-full text-xs font-semibold pl-7 pr-3 py-2 min-h-[40px] rounded-xl liquid-control text-[var(--text)] cursor-pointer"
               >
                 <option value="All Sectors" className="bg-[var(--surface-solid)] text-[var(--text)]">
-                  {isHi ? 'सभी क्षेत्र (6)' : 'All Sectors (6)'}
+                  {l('All Sectors (6)', 'सभी क्षेत्र (6)')}
                 </option>
                 {SECTORS.map(sec => (
                   <option key={sec} value={sec} className="bg-[var(--surface-solid)] text-[var(--text)]">
@@ -149,13 +148,13 @@ export const FilterBar: React.FC = () => {
           {/* Occupation Filter */}
           <div className="relative">
             <label htmlFor="occupation-filter" className="text-[10px] font-bold text-[var(--text-faint)] uppercase tracking-wider block mb-1 font-mono">
-              {isHi ? 'व्यवसाय (NCO)' : 'Occupation (NCO)'}
+              {l('Occupation (NCO)', 'व्यवसाय (NCO)')}
             </label>
             <div className="relative">
               <Briefcase className="w-3.5 h-3.5 text-[var(--text-faint)] absolute left-2.5 top-1/2 -translate-y-1/2 pointer-events-none" />
               <select
                 id="occupation-filter"
-                aria-label={isHi ? 'व्यवसाय अनुसार फ़िल्टर करें' : 'Filter by occupation NCO code'}
+                aria-label={l('Filter by occupation NCO code', 'व्यवसाय अनुसार फ़िल्टर करें')}
                 value={selectedOccupationNco}
                 onChange={(e) => setSelectedOccupationNco(e.target.value)}
                 className="w-full text-xs font-semibold pl-7 pr-3 py-2 min-h-[40px] rounded-xl liquid-control text-[var(--text)] cursor-pointer truncate"
@@ -172,7 +171,7 @@ export const FilterBar: React.FC = () => {
           {/* Forecast Horizon Switcher */}
           <div className="relative col-span-2 sm:col-span-1">
             <span className="text-[10px] font-bold text-[var(--text-faint)] uppercase tracking-wider block mb-1 font-mono">
-              {isHi ? 'पूर्वानुमान अवधि' : 'Forecast Horizon'}
+              {l('Forecast Horizon', 'पूर्वानुमान अवधि')}
             </span>
             <div className="flex rounded-xl p-0.5 liquid-control border border-[var(--border)] min-h-[40px] items-center" role="group" aria-label="Forecast Horizon Options">
               {(['3M', '6M', '12M'] as ForecastHorizon[]).map((hz) => (

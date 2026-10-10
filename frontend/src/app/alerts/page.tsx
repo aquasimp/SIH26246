@@ -25,7 +25,7 @@ import { getLocalizedEntityName } from '@/lib/i18n';
 import { toast } from 'sonner';
 
 export default function AlertsPage() {
-  const { alerts, acknowledgeAlert, language } = useApp();
+  const { alerts, acknowledgeAlert, language, l} = useApp();
   const isHi = language === 'hi';
   const [selectedSeverity, setSelectedSeverity] = useState<string>('all');
   const [selectedType, setSelectedType] = useState<string>('all');
@@ -55,11 +55,11 @@ export default function AlertsPage() {
         a.forecastHorizon,
         `${a.confidence}%`,
         isHi ? (a.recommendedActionHi || a.recommendedAction) : a.recommendedAction,
-        a.acknowledged ? (isHi ? 'स्वीकृत' : 'Acknowledged') : (isHi ? 'सक्रिय' : 'Active')
+        a.acknowledged ? (l('Acknowledged', 'स्वीकृत')) : (l('Active', 'सक्रिय'))
       ])
     ];
     downloadCSV('KaushalYuva_Early_Warnings.csv', rows);
-    toast.success(isHi ? `${alerts.length} चेतावनी संकेत CSV में निर्यात किए गए` : `Exported ${alerts.length} early warning alerts to CSV`);
+    toast.success(l(`Exported ${alerts.length} early warning alerts to CSV`, `${alerts.length} चेतावनी संकेत CSV में निर्यात किए गए`));
   };
 
   const getSeverityBadgeText = (sev: string) => {
@@ -76,18 +76,16 @@ export default function AlertsPage() {
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
         <div>
           <div className="flex items-center gap-2 mb-2">
-            <Provenance type="official" note={isHi ? 'राष्ट्रीय भविष्यसूचक जोखिम इंजन' : 'National Predictive Risk Engine'} />
+            <Provenance type="official" note={l('National Predictive Risk Engine', 'राष्ट्रीय भविष्यसूचक जोखिम इंजन')} />
             <span className="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold uppercase tracking-wider bg-[var(--severe)]/10 text-[var(--severe)] border border-[var(--severe)]/20">
-              {isHi ? '35 विसंगतियां सक्रिय' : '35 Anomalies Active'}
+              {l('35 Anomalies Active', '35 विसंगतियां सक्रिय')}
             </span>
           </div>
           <h1 className="text-2xl sm:text-3xl font-extrabold text-[var(--text)] tracking-tight">
-            {isHi ? 'प्रारंभिक चेतावनी कमान केंद्र' : 'Early Warning Command Center'}
+            {l('Early Warning Command Center', 'प्रारंभिक चेतावनी कमान केंद्र')}
           </h1>
           <p className="text-xs sm:text-sm text-[var(--text-muted)] mt-1 max-w-2xl leading-relaxed">
-            {isHi 
-              ? 'ढांचागत संकट उत्पन्न होने से पहले उभरते व्यापार असंतुलन, संतृप्ति खतरों और तकनीकी कौशल अप्रचलन का भविष्यसूचक पता लगाना।' 
-              : 'Predictive detection of emerging trade imbalances, saturation hazards, and technological skill obsolescence before structural distress occurs.'}
+            {l('Predictive detection of emerging trade imbalances, saturation hazards, and technological skill obsolescence before structural distress occurs.', 'ढांचागत संकट उत्पन्न होने से पहले उभरते व्यापार असंतुलन, संतृप्ति खतरों और तकनीकी कौशल अप्रचलन का भविष्यसूचक पता लगाना।')}
           </p>
         </div>
 
@@ -96,7 +94,7 @@ export default function AlertsPage() {
           className="px-4 py-2 rounded-xl liquid-control text-xs sm:text-sm font-semibold flex items-center gap-2 self-start md:self-auto cursor-pointer"
         >
           <Download className="w-4 h-4 text-[var(--brand)]" />
-          <span>{isHi ? 'अलर्ट डोजियर निर्यात करें' : 'Export Alert Dossier'}</span>
+          <span>{l('Export Alert Dossier', 'अलर्ट डोजियर निर्यात करें')}</span>
         </button>
       </div>
 
@@ -107,10 +105,10 @@ export default function AlertsPage() {
         <div className="space-y-1">
           <div className="flex items-center gap-2 flex-wrap">
             <span className="px-2 py-0.5 rounded text-[10px] font-extrabold uppercase bg-[var(--brand)] text-white tracking-wider font-mono">
-              {isHi ? 'SIH डमी डेटासेट स्कैन' : 'SIH Dummy Dataset Scan'}
+              {l('SIH Dummy Dataset Scan', 'SIH डमी डेटासेट स्कैन')}
             </span>
             <span className="font-bold text-[var(--text)]">
-              {isHi ? '16 जिलों में 35 सक्रिय विसंगतियां पाई गईं' : '35 Active Anomalies Detected across 16 Districts'}
+              {l('35 Active Anomalies Detected across 16 Districts', '16 जिलों में 35 सक्रिय विसंगतियां पाई गईं')}
             </span>
           </div>
           <p className="text-[var(--text-muted)] text-[11px] leading-relaxed">
@@ -127,7 +125,7 @@ export default function AlertsPage() {
         </div>
         <div className="shrink-0 flex items-center gap-2">
           <span className="px-2.5 py-1 rounded-lg glass-strong border border-[var(--border)] text-[11px] font-mono font-bold text-[var(--text)]">
-            {isHi ? 'एल्गोरिद्मिक रैंकिंग' : 'Algorithmic Ranking'}
+            {l('Algorithmic Ranking', 'एल्गोरिद्मिक रैंकिंग')}
           </span>
         </div>
       </div>
@@ -136,13 +134,13 @@ export default function AlertsPage() {
       <div className="p-3.5 rounded-2xl glass flex flex-col md:flex-row items-center justify-between gap-4">
         <div className="flex items-center flex-wrap gap-2 text-xs">
           <span className="text-[11px] font-bold text-[var(--text-faint)] uppercase tracking-wider mr-1">
-            {isHi ? 'गंभीरता:' : 'Severity:'}
+            {l('Severity:', 'गंभीरता:')}
           </span>
           {[
-            { id: 'all', label: isHi ? 'सभी' : 'All' },
-            { id: 'critical', label: isHi ? 'अति गंभीर' : 'Critical' },
-            { id: 'warning', label: isHi ? 'चेतावनी' : 'Warning' },
-            { id: 'info', label: isHi ? 'सूचना' : 'Info' }
+            { id: 'all', label: l('All', 'सभी') },
+            { id: 'critical', label: l('Critical', 'अति गंभीर') },
+            { id: 'warning', label: l('Warning', 'चेतावनी') },
+            { id: 'info', label: l('Info', 'सूचना') }
           ].map((item) => (
             <button
               key={item.id}
@@ -164,7 +162,7 @@ export default function AlertsPage() {
             <Search className="w-3.5 h-3.5 text-[var(--text-faint)] absolute left-3 top-1/2 -translate-y-1/2" />
             <input
               type="text"
-              placeholder={isHi ? 'भूगोल / ट्रेड द्वारा अलर्ट खोजें...' : 'Search alerts by geography / trade...'}
+              placeholder={l('Search alerts by geography / trade...', 'भूगोल / ट्रेड द्वारा अलर्ट खोजें...')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full text-xs pl-8 pr-3 py-1.5 rounded-xl liquid-control text-[var(--text)] focus:outline-none"
@@ -214,14 +212,14 @@ export default function AlertsPage() {
 
                   {alert.wastedSeats && (
                     <span className="text-[10px] font-mono font-bold text-[var(--warning)] bg-[var(--warning)]/10 px-2 py-0.5 rounded-md border border-[var(--warning)]/20">
-                      {isHi ? `अतिरिक्त क्षमता: ${alert.wastedSeats} सीटें` : `Excess Capacity: ${alert.wastedSeats} seats`}
+                      {l(`Excess Capacity: ${alert.wastedSeats} seats`, `अतिरिक्त क्षमता: ${alert.wastedSeats} सीटें`)}
                     </span>
                   )}
                 </div>
 
                 <div className="flex items-center gap-3 text-xs text-[var(--text-faint)] font-mono">
-                  <span>{isHi ? 'अवधि:' : 'Horizon:'} <strong className="text-[var(--text)]">{alert.forecastHorizon}</strong></span>
-                  <span>{isHi ? 'विश्वसनीयता:' : 'Confidence:'} <strong className="text-[var(--balanced)]">{alert.confidence}%</strong></span>
+                  <span>{l('Horizon:', 'अवधि:')} <strong className="text-[var(--text)]">{alert.forecastHorizon}</strong></span>
+                  <span>{l('Confidence:', 'विश्वसनीयता:')} <strong className="text-[var(--balanced)]">{alert.confidence}%</strong></span>
                   <span>{alert.timestamp}</span>
                 </div>
               </div>
@@ -232,7 +230,7 @@ export default function AlertsPage() {
               </h3>
 
               <p className="text-xs sm:text-sm text-[var(--text-muted)] mb-3 leading-relaxed">
-                <strong className="text-[var(--text)]">{isHi ? 'ट्रिगर:' : 'Trigger:'}</strong> {isHi ? (alert.triggerHi || alert.trigger) : alert.trigger}
+                <strong className="text-[var(--text)]">{l('Trigger:', 'ट्रिगर:')}</strong> {isHi ? (alert.triggerHi || alert.trigger) : alert.trigger}
               </p>
 
               {/* Context Label Callout (Section 4: Context, not model output) */}
@@ -241,7 +239,7 @@ export default function AlertsPage() {
                   <Info className="w-4 h-4 text-[var(--warning)] shrink-0 mt-0.5" />
                   <div>
                     <span className="text-[10px] font-bold text-[var(--warning)] uppercase tracking-wider block font-mono">
-                      {isHi ? 'संदर्भ, मॉडल आउटपुट नहीं' : 'Context, not model output'}
+                      {l('Context, not model output', 'संदर्भ, मॉडल आउटपुट नहीं')}
                     </span>
                     <p className="text-[var(--text)] font-normal mt-0.5 leading-relaxed">
                       {isHi 
@@ -255,7 +253,7 @@ export default function AlertsPage() {
               {/* Recommended Action Box */}
               <div className="p-3.5 rounded-xl glass-strong border border-[var(--border)] mb-4 text-xs">
                 <span className="text-[10px] font-bold text-[var(--text-faint)] uppercase tracking-wider block mb-1 font-mono">
-                  {isHi ? 'एल्गोरिद्मिक नीति सिफारिश' : 'Algorithmic Policy Recommendation'}
+                  {l('Algorithmic Policy Recommendation', 'एल्गोरिद्मिक नीति सिफारिश')}
                 </span>
                 <p className="text-[var(--text)] font-medium leading-relaxed">
                   {isHi ? (alert.recommendedActionHi || alert.recommendedAction) : alert.recommendedAction}
@@ -272,12 +270,12 @@ export default function AlertsPage() {
                     className="px-3.5 py-1.5 rounded-xl liquid-control text-xs font-bold flex items-center gap-1.5 cursor-pointer text-[var(--text)]"
                   >
                     <Check className="w-3.5 h-3.5 text-[var(--balanced)]" />
-                    <span>{isHi ? 'अलर्ट स्वीकार करें' : 'Acknowledge Alert'}</span>
+                    <span>{l('Acknowledge Alert', 'अलर्ट स्वीकार करें')}</span>
                   </button>
                 ) : (
                   <span className="px-3 py-1 rounded-xl glass text-[var(--balanced)] text-xs font-bold flex items-center gap-1.5 border border-[var(--balanced)]/20">
                     <CheckCircle2 className="w-3.5 h-3.5" />
-                    <span>{isHi ? 'स्वीकृत' : 'Acknowledged'}</span>
+                    <span>{l('Acknowledged', 'स्वीकृत')}</span>
                   </span>
                 )}
 
@@ -285,7 +283,7 @@ export default function AlertsPage() {
                   href={`/occupations/${alert.ncoCode}`}
                   className="px-3.5 py-1.5 rounded-xl liquid-control text-xs font-bold text-[var(--text)] flex items-center gap-1.5"
                 >
-                  <span>{isHi ? 'साक्ष्य की जांच करें' : 'Investigate Evidence'}</span>
+                  <span>{l('Investigate Evidence', 'साक्ष्य की जांच करें')}</span>
                   <ArrowRight className="w-3.5 h-3.5" />
                 </Link>
               </div>
@@ -296,7 +294,7 @@ export default function AlertsPage() {
                   className="px-4 py-1.5 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 hover:opacity-90 text-white text-xs font-bold flex items-center gap-1.5 transition-all shadow-xs"
                 >
                   <Sliders className="w-3.5 h-3.5" />
-                  <span>{isHi ? 'स्टूडियो में अनुकरण करें' : 'Simulate in Studio'}</span>
+                  <span>{l('Simulate in Studio', 'स्टूडियो में अनुकरण करें')}</span>
                 </Link>
               </div>
             </div>

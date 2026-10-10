@@ -25,7 +25,7 @@ import { toast } from 'sonner';
 import { getLocalizedEntityName } from '@/lib/i18n';
 
 export default function OverviewPage() {
-  const { t, setActiveEvidence, setSelectedDistrict, setSelectedOccupationNco, language } = useApp();
+  const { t, setActiveEvidence, setSelectedDistrict, setSelectedOccupationNco, language, l} = useApp();
   const isHi = language === 'hi';
 
   const metrics = useMemo(() => {
@@ -55,7 +55,7 @@ export default function OverviewPage() {
       ['Status', rec.status]
     ];
     downloadCSV(`MSDE_Action_${rec.id}_${rec.district}.csv`, rows);
-    toast.success(isHi ? `कार्यवाही संक्षिप्त निर्यात: ${rec.id} (${rec.recommendedSeats} सीटें)` : `Exported action brief for ${rec.id} (${rec.recommendedSeats} seats)`);
+    toast.success(l(`Exported action brief for ${rec.id} (${rec.recommendedSeats} seats)`, `कार्यवाही संक्षिप्त निर्यात: ${rec.id} (${rec.recommendedSeats} सीटें)`));
   };
 
   return (
@@ -65,7 +65,7 @@ export default function OverviewPage() {
         <div>
           <div className="flex items-center gap-2 mb-2">
             <span className="px-2.5 py-0.5 rounded-full text-[11px] font-mono font-extrabold uppercase tracking-wider bg-[var(--brand)]/15 text-[var(--brand)] border border-[var(--brand)]/30">
-              {isHi ? 'राष्ट्रीय श्रम खुफिया डैशबोर्ड' : 'National Intelligence Dashboard'}
+              {l('National Intelligence Dashboard', 'राष्ट्रीय श्रम खुफिया डैशबोर्ड')}
             </span>
             {/* ONE page-level dataset chip */}
             <Provenance source="SIH dummy dataset" />
@@ -84,7 +84,7 @@ export default function OverviewPage() {
             className="px-4 py-2 rounded-xl bg-[var(--brand)] hover:opacity-90 text-white text-xs sm:text-sm font-bold shadow-md shadow-[var(--brand)]/20 flex items-center gap-2 transition-all cursor-pointer"
           >
             <Sliders className="w-4 h-4 text-amber-300" />
-            <span>{isHi ? 'परिदृश्य स्टूडियो खोलें' : 'Open Scenario Studio'}</span>
+            <span>{l('Open Scenario Studio', 'परिदृश्य स्टूडियो खोलें')}</span>
           </Link>
         </div>
       </div>
@@ -97,25 +97,25 @@ export default function OverviewPage() {
         <KpiCard
           label={t.metrics.demand}
           value={metrics.demandFormatted}
-          delta={{ value: '+18.6%', isPositive: true, label: isHi ? '6M वृद्धि' : '6M Growth' }}
-          scope={isHi ? 'राष्ट्रीय रिक्तियां' : 'National Vacancies'}
+          delta={{ value: '+18.6%', isPositive: true, label: l('6M Growth', '6M वृद्धि') }}
+          scope={l('National Vacancies', 'राष्ट्रीय रिक्तियां')}
           trend={[12, 14, 15, 16, 17, 18.6]}
         />
 
         <KpiCard
           label={t.metrics.effectiveSupply}
           value={metrics.supplyFormatted}
-          delta={{ value: isHi ? 'चरणबद्ध पूल' : 'Staged Pool', isNeutral: true, label: isHi ? '0.70 तत्परता' : '0.70 Readiness' }}
-          scope={isHi ? 'प्रमाणित एवं सक्रिय' : 'Certified & Active'}
+          delta={{ value: l('Staged Pool', 'चरणबद्ध पूल'), isNeutral: true, label: l('0.70 Readiness', '0.70 तत्परता') }}
+          scope={l('Certified & Active', 'प्रमाणित एवं सक्रिय')}
           trend={[6.8, 7.1, 7.4, 7.8, 8.1, 8.3]}
         />
 
         {/* Structural Shortfall: positive number, never negative (§4.3) */}
         <KpiCard
-          label={isHi ? 'ढांचागत कमी' : 'Structural Shortfall'}
+          label={l('Structural Shortfall', 'ढांचागत कमी')}
           value={metrics.shortfallFormatted}
-          delta={{ value: isHi ? 'राष्ट्रीय घाटा' : 'National Deficit', isPositive: false, label: isHi ? 'अधूरी आवश्यकता' : 'Unmet Need' }}
-          scope={isHi ? 'पूर्वांचल और गलियारे' : 'Purvanchal & Corridors'}
+          delta={{ value: l('National Deficit', 'राष्ट्रीय घाटा'), isPositive: false, label: l('Unmet Need', 'अधूरी आवश्यकता') }}
+          scope={l('Purvanchal & Corridors', 'पूर्वांचल और गलियारे')}
           severity="severe"
           trend={[8.2, 8.9, 9.4, 9.8, 10.1, 10.3]}
         />
@@ -123,8 +123,8 @@ export default function OverviewPage() {
         <KpiCard
           label={t.metrics.atRiskTrades}
           value={metrics.atRiskCount}
-          delta={{ value: isHi ? 'असंतुलन' : 'Imbalance', isPositive: false, label: isHi ? 'स्कोर >75 / <25' : 'Score >75 / <25' }}
-          scope={isHi ? 'NCO विशेषज्ञताएं' : 'NCO Specializations'}
+          delta={{ value: l('Imbalance', 'असंतुलन'), isPositive: false, label: l('Score >75 / <25', 'स्कोर >75 / <25') }}
+          scope={l('NCO Specializations', 'NCO विशेषज्ञताएं')}
           severity="moderate"
           trend={[2, 3, 3, 4, 4, 4]}
         />
@@ -132,10 +132,10 @@ export default function OverviewPage() {
         {/* Early Warnings: synced to 35 alert engine anomalies (§4.1) */}
         <Link href="/alerts" className="block focus-visible:outline-hidden">
           <KpiCard
-            label={isHi ? 'खुफिया संकेत' : 'Intelligence Signals'}
+            label={l('Intelligence Signals', 'खुफिया संकेत')}
             value={metrics.activeAlertsCount}
-            delta={{ value: isHi ? 'अलर्ट इंजन' : 'Alert Engine', isPositive: false, label: isHi ? '35 विसंगतियां' : '35 Anomalies' }}
-            scope={isHi ? 'गंभीर कमी #1' : 'Critical Shortage #1'}
+            delta={{ value: l('Alert Engine', 'अलर्ट इंजन'), isPositive: false, label: l('35 Anomalies', '35 विसंगतियां') }}
+            scope={l('Critical Shortage #1', 'गंभीर कमी #1')}
             severity="severe"
             trend={[28, 30, 32, 34, 35, 35]}
             className="hover:border-[var(--severe)] cursor-pointer"
@@ -146,8 +146,8 @@ export default function OverviewPage() {
           <KpiCard
             label={t.metrics.recommendations}
             value={metrics.recommendationsCount}
-            delta={{ value: isHi ? 'रैंक की गई कार्रवाइयां' : 'Ranked Actions', isPositive: true, label: isHi ? 'हस्तक्षेप' : 'Interventions' }}
-            scope={isHi ? 'स्वीकृति लंबित' : 'Pending Approval'}
+            delta={{ value: l('Ranked Actions', 'रैंक की गई कार्रवाइयां'), isPositive: true, label: l('Interventions', 'हस्तक्षेप') }}
+            scope={l('Pending Approval', 'स्वीकृति लंबित')}
             severity="balanced"
             trend={[2, 3, 4, 4, 4, 4]}
             className="hover:border-[var(--brand)] cursor-pointer"
@@ -164,11 +164,11 @@ export default function OverviewPage() {
           <div className="text-xs space-y-0.5">
             <div className="font-bold text-[var(--text)] flex items-center gap-2">
               <span className="uppercase text-[10px] font-mono font-extrabold text-[var(--severe)] bg-[var(--severe)]/10 px-2 py-0.5 rounded border border-[var(--severe)]/20">
-                {isHi ? 'कार्रवाई आवश्यक' : 'ACTION REQUIRED'}
+                {l('ACTION REQUIRED', 'कार्रवाई आवश्यक')}
               </span>
               <span>•</span>
               <span className="font-semibold text-sm">
-                {isHi ? 'गोरखपुर · सोलर पीवी इंस्टॉलर (NCO 7126.0101)' : 'Gorakhpur · Solar PV Installer (NCO 7126.0101)'}
+                {l('Gorakhpur · Solar PV Installer (NCO 7126.0101)', 'गोरखपुर · सोलर पीवी इंस्टॉलर (NCO 7126.0101)')}
               </span>
             </div>
             <p className="text-[var(--text-muted)] text-[11px] leading-relaxed">
@@ -190,14 +190,14 @@ export default function OverviewPage() {
             href="/districts/gorakhpur"
             className="px-3 py-1.5 rounded-xl liquid-control text-xs font-bold text-[var(--text)] hover:bg-[var(--glass-strong)] transition-all cursor-pointer"
           >
-            {isHi ? 'जांच करें' : 'Investigate'}
+            {l('Investigate', 'जांच करें')}
           </Link>
           <Link
             href="/scenarios?preset=rec01"
             className="px-3.5 py-1.5 rounded-xl bg-[var(--brand)] hover:opacity-90 text-white text-xs font-bold flex items-center gap-1.5 transition-all shadow-xs cursor-pointer"
           >
             <Sliders className="w-3.5 h-3.5 text-amber-300" />
-            <span>{isHi ? 'समाधान का अनुकरण' : 'Simulate Fix'}</span>
+            <span>{l('Simulate Fix', 'समाधान का अनुकरण')}</span>
           </Link>
         </div>
       </div>
@@ -210,7 +210,7 @@ export default function OverviewPage() {
               <Sparkles className="w-3.5 h-3.5" />
             </span>
             <span className="text-xs font-bold uppercase tracking-wider text-[var(--text)] font-mono">
-              {isHi ? 'वर्तमान पाइपलाइन रन में क्या बदला?' : 'What Changed in Current Pipeline Run?'}
+              {l('What Changed in Current Pipeline Run?', 'वर्तमान पाइपलाइन रन में क्या बदला?')}
             </span>
           </div>
 
@@ -223,7 +223,7 @@ export default function OverviewPage() {
                 setSelectedOccupationNco('7126.0101');
               }}
               className="px-3 py-1.5 rounded-xl glass hover:border-[var(--severe)] text-[var(--text)] font-medium flex items-center gap-1.5 transition-all cursor-pointer border border-[var(--border)]"
-              title={isHi ? 'सोलर पीवी इंस्टॉलर मांग वेग: -0.1% 6M' : 'Solar PV Installer demand velocity: -0.1% 6M (t-6 to t)'}
+              title={l('Solar PV Installer demand velocity: -0.1% 6M (t-6 to t)', 'सोलर पीवी इंस्टॉलर मांग वेग: -0.1% 6M')}
             >
               <ArrowDownRight className="w-3.5 h-3.5 text-[var(--severe)]" />
               <span>
@@ -243,7 +243,7 @@ export default function OverviewPage() {
                 setSelectedOccupationNco('5223.0101');
               }}
               className="px-3 py-1.5 rounded-xl glass hover:border-[var(--border-strong)] text-[var(--text)] font-medium flex items-center gap-1.5 transition-all cursor-pointer border border-[var(--border)]"
-              title={isHi ? 'रिटेल सेल्स एसोसिएट मांग वेग: -10.0% 6M' : 'Retail Sales Associate demand velocity: -10.0% 6M (t-6 to t)'}
+              title={l('Retail Sales Associate demand velocity: -10.0% 6M (t-6 to t)', 'रिटेल सेल्स एसोसिएट मांग वेग: -10.0% 6M')}
             >
               <ArrowDownRight className="w-3.5 h-3.5 text-[var(--text-faint)]" />
               <span>
@@ -259,7 +259,7 @@ export default function OverviewPage() {
             <Link
               href="/alerts"
               className="px-3 py-1.5 rounded-xl glass border border-[var(--severe)]/30 text-[var(--text)] hover:border-[var(--severe)] font-medium flex items-center gap-1.5 transition-all"
-              title={isHi ? 'गोरखपुर कमी संभावना 88% पहुंची' : 'Gorakhpur shortage probability reached 88%'}
+              title={l('Gorakhpur shortage probability reached 88%', 'गोरखपुर कमी संभावना 88% पहुंची')}
             >
               <AlertTriangle className="w-3.5 h-3.5 text-[var(--severe)]" />
               <span>
@@ -281,12 +281,10 @@ export default function OverviewPage() {
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-[var(--border)]">
           <div>
             <h2 className="text-lg font-extrabold text-[var(--text)] tracking-tight">
-              {isHi ? 'राष्ट्रीय श्रम बाजार भू-स्थानिक खुफिया' : 'National Labour Market Geospatial Intelligence'}
+              {l('National Labour Market Geospatial Intelligence', 'राष्ट्रीय श्रम बाजार भू-स्थानिक खुफिया')}
             </h2>
             <p className="text-xs text-[var(--text-muted)]">
-              {isHi 
-                ? 'राज्य गलियारों में ढांचागत कमी, रिक्ति दबाव और प्रशिक्षण बुनियादी ढांचे का इंटरैक्टिव भौगोलिक ओवरले।'
-                : 'Interactive geographic overlay of structural shortages, vacancy pressures, and training infrastructure across state corridors.'}
+              {l('Interactive geographic overlay of structural shortages, vacancy pressures, and training infrastructure across state corridors.', 'राज्य गलियारों में ढांचागत कमी, रिक्ति दबाव और प्रशिक्षण बुनियादी ढांचे का इंटरैक्टिव भौगोलिक ओवरले।')}
             </p>
           </div>
           <div className="flex items-center gap-2 text-xs font-mono text-[var(--text-faint)]">
@@ -301,19 +299,17 @@ export default function OverviewPage() {
         <div className="flex items-center justify-between pb-3 border-b border-[var(--border)]">
           <div>
             <h2 className="text-lg font-extrabold text-[var(--text)] tracking-tight">
-              {isHi ? 'शीर्ष प्राथमिकता नीतिगत हस्तक्षेप (रैंक किए गए)' : 'Top Priority Policy Interventions (Ranked)'}
+              {l('Top Priority Policy Interventions (Ranked)', 'शीर्ष प्राथमिकता नीतिगत हस्तक्षेप (रैंक किए गए)')}
             </h2>
             <p className="text-xs text-[var(--text-muted)]">
-              {isHi 
-                ? 'श्रम बाजार खुफिया इंजन द्वारा अनुशंसित लक्षित सरकारी क्षमता पुनर्आवंटन।'
-                : 'Targeted government capacity reallocations recommended by the Labour Market Intelligence engine.'}
+              {l('Targeted government capacity reallocations recommended by the Labour Market Intelligence engine.', 'श्रम बाजार खुफिया इंजन द्वारा अनुशंसित लक्षित सरकारी क्षमता पुनर्आवंटन।')}
             </p>
           </div>
           <Link
             href="/recommendations"
             className="text-xs font-bold text-[var(--brand)] hover:underline flex items-center gap-1"
           >
-            <span>{isHi ? 'सभी 4 अनुशंसित हस्तक्षेप देखें' : 'View All 4 Recommended Interventions'}</span>
+            <span>{l('View All 4 Recommended Interventions', 'सभी 4 अनुशंसित हस्तक्षेप देखें')}</span>
             <ChevronRight className="w-4 h-4" />
           </Link>
         </div>
@@ -335,7 +331,7 @@ export default function OverviewPage() {
                     </span>
                   </div>
                   <Badge variant="balanced" size="sm">
-                    {isHi ? `विश्वास: ${rec.confidence}%` : `Confidence: ${rec.confidence}%`}
+                    {l(`Confidence: ${rec.confidence}%`, `विश्वास: ${rec.confidence}%`)}
                   </Badge>
                 </div>
 
@@ -351,7 +347,7 @@ export default function OverviewPage() {
                 <div className="grid grid-cols-3 gap-2 p-2.5 rounded-xl glass border border-[var(--border)] mb-3 text-center">
                   <div>
                     <span className="text-[10px] text-[var(--text-faint)] font-bold uppercase tracking-wider block">
-                      {isHi ? 'सीटें' : 'Seats'}
+                      {l('Seats', 'सीटें')}
                     </span>
                     <strong className="text-xs sm:text-sm font-bold text-[var(--text)] font-mono tabular-nums">
                       {rec.recommendedSeats}
@@ -359,15 +355,15 @@ export default function OverviewPage() {
                   </div>
                   <div>
                     <span className="text-[10px] text-[var(--text-faint)] font-bold uppercase tracking-wider block">
-                      {isHi ? 'कमी भरपाई' : 'Shortfall Closed'}
+                      {l('Shortfall Closed', 'कमी भरपाई')}
                     </span>
                     <strong className="text-xs sm:text-sm font-bold text-[var(--success)] font-mono tabular-nums">
-                      ▼ {isHi ? `कमी की ${rec.expectedImpact.gapReductionPercent}% भरपाई` : `${rec.expectedImpact.gapReductionPercent}% closed`}
+                      ▼ {l(`${rec.expectedImpact.gapReductionPercent}% closed`, `कमी की ${rec.expectedImpact.gapReductionPercent}% भरपाई`)}
                     </strong>
                   </div>
                   <div>
                     <span className="text-[10px] text-[var(--text-faint)] font-bold uppercase tracking-wider block">
-                      {isHi ? 'लक्षित व्यवसाय' : 'Target Trade'}
+                      {l('Target Trade', 'लक्षित व्यवसाय')}
                     </span>
                     <strong className="text-xs sm:text-sm font-bold text-[var(--brand)] truncate block">
                       {isHi && rec.toTradeHi ? rec.toTradeHi : rec.toTrade}
@@ -384,7 +380,7 @@ export default function OverviewPage() {
                   className="px-3 py-1.5 rounded-xl liquid-control text-xs font-bold text-[var(--text)] hover:bg-[var(--glass-strong)] flex items-center gap-1.5 cursor-pointer"
                 >
                   <Eye className="w-3.5 h-3.5 text-[var(--brand)]" />
-                  <span>{isHi ? 'साक्ष्य देखें' : 'View Evidence'}</span>
+                  <span>{l('View Evidence', 'साक्ष्य देखें')}</span>
                 </button>
 
                 <div className="flex items-center gap-2">
@@ -392,8 +388,8 @@ export default function OverviewPage() {
                     type="button"
                     onClick={() => handleExportAction(rec)}
                     className="p-1.5 rounded-xl liquid-control text-[var(--text-muted)] hover:text-[var(--text)] cursor-pointer"
-                    title={isHi ? 'कार्यवाही संक्षिप्त CSV निर्यात' : 'Export Action Brief CSV'}
-                    aria-label={isHi ? 'कार्यवाही संक्षिप्त CSV निर्यात' : 'Export Action Brief CSV'}
+                    title={l('Export Action Brief CSV', 'कार्यवाही संक्षिप्त CSV निर्यात')}
+                    aria-label={l('Export Action Brief CSV', 'कार्यवाही संक्षिप्त CSV निर्यात')}
                   >
                     <Download className="w-4 h-4" />
                   </button>
@@ -403,7 +399,7 @@ export default function OverviewPage() {
                     className="px-3.5 py-1.5 rounded-xl bg-[var(--brand)] hover:opacity-90 text-white text-xs font-bold flex items-center gap-1.5 transition-all shadow-xs cursor-pointer"
                   >
                     <Sliders className="w-3.5 h-3.5 text-amber-300" />
-                    <span>{isHi ? 'सिम्युलेट' : 'Simulate'}</span>
+                    <span>{l('Simulate', 'सिम्युलेट')}</span>
                   </Link>
                 </div>
               </div>

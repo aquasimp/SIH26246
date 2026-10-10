@@ -15,7 +15,7 @@ import {
 import { clsx } from 'clsx';
 
 export default function ApiExportsPage() {
-  const { language } = useApp();
+  const { language, l} = useApp();
   const isHi = language === 'hi';
   const [activeTab, setActiveTab] = useState<'forecast' | 'gap' | 'recommendation' | 'district' | 'occupation'>('forecast');
   const [copied, setCopied] = useState(false);
@@ -36,8 +36,8 @@ export default function ApiExportsPage() {
         return {
           status: 'success',
           pipeline_run: 'RUN-2026-10-04-001',
-          occupation: { nco: '7126.0101', title: isHi ? 'सोलर पीवी इंस्टॉलर' : 'Solar PV Installer' },
-          district: { name: isHi ? 'गोरखपुर' : 'Gorakhpur', lgd_code: 178 },
+          occupation: { nco: '7126.0101', title: l('Solar PV Installer', 'सोलर पीवी इंस्टॉलर') },
+          district: { name: l('Gorakhpur', 'गोरखपुर'), lgd_code: 178 },
           horizon: '6M',
           model: 'Tri-Model Ensemble Blend (LightGBM + Theta + ETS)',
           confidence: 0.78,
@@ -47,7 +47,7 @@ export default function ApiExportsPage() {
       case 'gap':
         return {
           status: 'success',
-          district: isHi ? 'गोरखपुर' : 'Gorakhpur',
+          district: l('Gorakhpur', 'गोरखपुर'),
           summary: { shortage_count: 124, balanced_count: 416, oversupply_count: 87 },
           top_gaps: OCCUPATIONS.slice(0, 3).map(o => ({
             nco: o.ncoCode,
@@ -99,11 +99,11 @@ export default function ApiExportsPage() {
   };
 
   const tabs = [
-    { id: 'forecast', label: isHi ? '1. पूर्वानुमान एपीआई' : '1. Forecast API' },
-    { id: 'gap', label: isHi ? '2. अंतर खुफिया एपीआई' : '2. Gap Intelligence API' },
-    { id: 'recommendation', label: isHi ? '3. सिफारिश एपीआई' : '3. Recommendation API' },
-    { id: 'district', label: isHi ? '4. जिला एपीआई' : '4. District API' },
-    { id: 'occupation', label: isHi ? '5. व्यवसाय एपीआई' : '5. Occupation API' }
+    { id: 'forecast', label: l('1. Forecast API', '1. पूर्वानुमान एपीआई') },
+    { id: 'gap', label: l('2. Gap Intelligence API', '2. अंतर खुफिया एपीआई') },
+    { id: 'recommendation', label: l('3. Recommendation API', '3. सिफारिश एपीआई') },
+    { id: 'district', label: l('4. District API', '4. जिला एपीआई') },
+    { id: 'occupation', label: l('5. Occupation API', '5. व्यवसाय एपीआई') }
   ];
 
   return (
@@ -111,25 +111,23 @@ export default function ApiExportsPage() {
       {/* Title */}
       <div>
         <div className="flex items-center gap-2 mb-2">
-          <Provenance type="official" note={isHi ? 'ओपन सरकारी डेटा और एकीकरण' : 'Open Government Data & Integration'} />
+          <Provenance type="official" note={l('Open Government Data & Integration', 'ओपन सरकारी डेटा और एकीकरण')} />
           <span className="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold uppercase tracking-wider bg-[var(--brand)]/10 text-[var(--brand)] border border-[var(--brand)]/20">
             REST v1.0
           </span>
         </div>
         <h1 className="text-2xl sm:text-3xl font-extrabold text-[var(--text)] tracking-tight">
-          {isHi ? 'एपीआई और डेटा निर्यात कंसोल' : 'API & Data Exports Console'}
+          {l('API & Data Exports Console', 'एपीआई और डेटा निर्यात कंसोल')}
         </h1>
         <p className="text-xs sm:text-sm text-[var(--text-muted)] mt-1 max-w-2xl leading-relaxed">
-          {isHi 
-            ? 'कौशल भारत डिजिटल हब (SIDH) और राज्य कौशल पोर्टलों के साथ अंतर-विभागीय एकीकरण सक्षम करने वाले प्रोग्रामेटिक REST एंडपॉइंट्स।' 
-            : 'Programmatic REST endpoints and structured data export facilities enabling inter-departmental integration with Skill India Digital Hub and state skill portals.'}
+          {l('Programmatic REST endpoints and structured data export facilities enabling inter-departmental integration with Skill India Digital Hub and state skill portals.', 'कौशल भारत डिजिटल हब (SIDH) और राज्य कौशल पोर्टलों के साथ अंतर-विभागीय एकीकरण सक्षम करने वाले प्रोग्रामेटिक REST एंडपॉइंट्स।')}
         </p>
       </div>
 
       {/* API Navigator & Interactive Console (Section 32) */}
       <GlassPanel
-        title={isHi ? 'इंटरएक्टिव श्रम खुफिया एपीआई एक्सप्लोरर' : 'Interactive Labour Intelligence API Explorer'}
-        subtitle={isHi ? 'ओपन डेटा मानकों के अनुरूप लाइव पेलोड।' : 'Live payloads conforming to Open Data standards.'}
+        title={l('Interactive Labour Intelligence API Explorer', 'इंटरएक्टिव श्रम खुफिया एपीआई एक्सप्लोरर')}
+        subtitle={l('Live payloads conforming to Open Data standards.', 'ओपन डेटा मानकों के अनुरूप लाइव पेलोड।')}
         action={
           <div className="flex items-center gap-2">
             <button
@@ -137,14 +135,14 @@ export default function ApiExportsPage() {
               className="px-3 py-1.5 rounded-xl liquid-control text-xs font-bold flex items-center gap-1.5 cursor-pointer shadow-xs"
             >
               <FileSpreadsheet className="w-3.5 h-3.5 text-[var(--balanced)]" />
-              <span>{isHi ? 'CSV डाउनलोड' : 'Download CSV'}</span>
+              <span>{l('Download CSV', 'CSV डाउनलोड')}</span>
             </button>
             <button
               onClick={handleDownloadJson}
               className="px-3 py-1.5 rounded-xl bg-[var(--brand)] hover:opacity-90 text-white text-xs font-bold flex items-center gap-1.5 transition-all shadow-xs cursor-pointer"
             >
               <DownloadCloud className="w-3.5 h-3.5" />
-              <span>{isHi ? 'JSON डाउनलोड' : 'Download JSON'}</span>
+              <span>{l('Download JSON', 'JSON डाउनलोड')}</span>
             </button>
           </div>
         }
@@ -183,7 +181,7 @@ export default function ApiExportsPage() {
             className="px-3 py-1 rounded-xl liquid-control text-[var(--text)] text-xs font-bold flex items-center gap-1.5 transition-all shrink-0 cursor-pointer"
           >
             {copied ? <Check className="w-3.5 h-3.5 text-[var(--balanced)]" /> : <Copy className="w-3.5 h-3.5" />}
-            <span>{copied ? (isHi ? 'cURL कॉपी हो गया!' : 'cURL Copied!') : (isHi ? 'cURL कॉपी करें' : 'Copy cURL')}</span>
+            <span>{copied ? (l('cURL Copied!', 'cURL कॉपी हो गया!')) : (l('Copy cURL', 'cURL कॉपी करें'))}</span>
           </button>
         </div>
 

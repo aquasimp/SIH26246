@@ -18,7 +18,7 @@ import {
 import { LanguageSelector } from '@/components/layout/LanguageSelector';
 
 export default function SettingsPage() {
-  const { demoMode, setDemoMode, language, setLanguage, t } = useApp();
+  const { demoMode, setDemoMode, language, setLanguage, t, l} = useApp();
   const isHi = language === 'hi';
 
   return (
@@ -26,18 +26,16 @@ export default function SettingsPage() {
       {/* Title */}
       <div>
         <div className="flex items-center gap-2 mb-2">
-          <Provenance type="official" note={isHi ? 'सिस्टम प्रशासन और वातावरण' : 'System Administration & Environment'} />
+          <Provenance type="official" note={l('System Administration & Environment', 'सिस्टम प्रशासन और वातावरण')} />
           <span className="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold uppercase tracking-wider bg-[var(--brand)]/10 text-[var(--brand)] border border-[var(--brand)]/20">
-            {isHi ? 'रनटाइम v1.0' : 'Runtime v1.0'}
+            {l('Runtime v1.0', 'रनटाइम v1.0')}
           </span>
         </div>
         <h1 className="text-2xl sm:text-3xl font-extrabold text-[var(--text)] tracking-tight">
-          {isHi ? 'सेटिंग्स और इंजन कॉन्फ़िगरेशन' : 'Settings & Engine Configuration'}
+          {l('Settings & Engine Configuration', 'सेटिंग्स और इंजन कॉन्फ़िगरेशन')}
         </h1>
         <p className="text-xs sm:text-sm text-[var(--text-muted)] mt-1 max-w-2xl leading-relaxed">
-          {isHi 
-            ? 'नियतात्मक मूल्यांकन रनटाइम मोड, ऑफ़लाइन डेमो प्रतिबंध, भाषा प्राथमिकताएं और एल्गोरिदमिक भार सीमाएं कॉन्फ़िगर करें।'
-            : 'Configure deterministic evaluation runtime modes, offline demo constraints, language preferences, and algorithmic weighting thresholds.'}
+          {l('Configure deterministic evaluation runtime modes, offline demo constraints, language preferences, and algorithmic weighting thresholds.', 'नियतात्मक मूल्यांकन रनटाइम मोड, ऑफ़लाइन डेमो प्रतिबंध, भाषा प्राथमिकताएं और एल्गोरिदमिक भार सीमाएं कॉन्फ़िगर करें।')}
         </p>
       </div>
 
@@ -52,10 +50,10 @@ export default function SettingsPage() {
                 </div>
                 <div>
                   <h3 className="text-base font-bold text-[var(--text)]">
-                    {isHi ? 'ऑफ़लाइन हैकथॉन डेमो मोड' : 'Offline Hackathon Demo Mode'}
+                    {l('Offline Hackathon Demo Mode', 'ऑफ़लाइन हैकथॉन डेमो मोड')}
                   </h3>
                   <span className="text-[10px] text-[var(--text-faint)] font-mono">
-                    {isHi ? 'नियतात्मक सैंडबॉक्स' : 'Deterministic Seeded Sandbox'}
+                    {l('Deterministic Seeded Sandbox', 'नियतात्मक सैंडबॉक्स')}
                   </span>
                 </div>
               </div>
@@ -67,28 +65,26 @@ export default function SettingsPage() {
                   demoMode ? 'bg-[var(--warning)] text-white shadow-xs' : 'liquid-control text-[var(--text-muted)]'
                 )}
               >
-                {demoMode ? (isHi ? 'सक्रिय [चालू]' : 'ENABLED [ON]') : (isHi ? 'निष्क्रिय' : 'DISABLED')}
+                {demoMode ? (l('ENABLED [ON]', 'सक्रिय [चालू]')) : (l('DISABLED', 'निष्क्रिय'))}
               </button>
             </div>
 
             <p className="text-xs text-[var(--text-muted)] leading-relaxed mb-4">
-              {isHi 
-                ? 'सक्षम होने पर, कौशलयुवा गोरखपुर, लखनऊ, पुणे और बेंगलुरु में गारंटीकृत ऑफ़लाइन नियतात्मक डेटासेट का उपयोग करता है, जिससे बाहरी नेटवर्क API भिन्नता के बिना 100% पुनरुत्पादनीय परिदृश्य सुनिश्चित होते हैं।'
-                : 'When enabled, KaushalYuva uses guaranteed offline deterministic datasets across Gorakhpur, Lucknow, Pune, and Bengaluru, ensuring 100% reproducible scenarios without external network API variance.'}
+              {l('When enabled, KaushalYuva uses guaranteed offline deterministic datasets across Gorakhpur, Lucknow, Pune, and Bengaluru, ensuring 100% reproducible scenarios without external network API variance.', 'सक्षम होने पर, कौशलयुवा गोरखपुर, लखनऊ, पुणे और बेंगलुरु में गारंटीकृत ऑफ़लाइन नियतात्मक डेटासेट का उपयोग करता है, जिससे बाहरी नेटवर्क API भिन्नता के बिना 100% पुनरुत्पादनीय परिदृश्य सुनिश्चित होते हैं।')}
             </p>
 
             <div className="space-y-1.5 text-xs text-[var(--text)] bg-[var(--warning)]/10 p-3.5 rounded-xl border border-[var(--warning)]/20">
               <div className="flex items-center gap-1.5 font-semibold text-[var(--warning)]">
                 <CheckCircle2 className="w-3.5 h-3.5" />
-                <span>{isHi ? 'SIH जूरी के लिए नियतात्मक पुनरुत्पादनीय परिणाम' : 'Deterministic reproducible results for SIH jury'}</span>
+                <span>{l('Deterministic reproducible results for SIH jury', 'SIH जूरी के लिए नियतात्मक पुनरुत्पादनीय परिणाम')}</span>
               </div>
               <div className="flex items-center gap-1.5 font-semibold text-[var(--warning)]">
                 <CheckCircle2 className="w-3.5 h-3.5" />
-                <span>{isHi ? 'दृश्यमान डेमो डेटासेट वॉटरमार्क सक्रिय' : "Visible 'Demo Dataset' watermark active"}</span>
+                <span>{l("Visible 'Demo Dataset' watermark active", 'दृश्यमान डेमो डेटासेट वॉटरमार्क सक्रिय')}</span>
               </div>
               <div className="flex items-center gap-1.5 font-semibold text-[var(--warning)]">
                 <CheckCircle2 className="w-3.5 h-3.5" />
-                <span>{isHi ? 'शून्य बाहरी नेटवर्क लेटेंसी निर्भरता' : 'Zero external network latency dependency'}</span>
+                <span>{l('Zero external network latency dependency', 'शून्य बाहरी नेटवर्क लेटेंसी निर्भरता')}</span>
               </div>
             </div>
           </div>
@@ -131,10 +127,10 @@ export default function SettingsPage() {
             </div>
             <div>
               <h3 className="text-base font-bold text-[var(--text)]">
-                {isHi ? 'मॉडल हाइपरपैरामीटर और चरणबद्ध आपूर्ति कारक' : 'Model Hyperparameters & Staged Pipeline Factors'}
+                {l('Model Hyperparameters & Staged Pipeline Factors', 'मॉडल हाइपरपैरामीटर और चरणबद्ध आपूर्ति कारक')}
               </h3>
               <span className="text-[10px] text-[var(--text-faint)] font-mono">
-                {isHi ? 'पाइपलाइन वेट: चरणबद्ध आपूर्ति रूपांतरण सूत्र' : 'Pipeline Weights: Staged Supply Conversion Formula'}
+                {l('Pipeline Weights: Staged Supply Conversion Formula', 'पाइपलाइन वेट: चरणबद्ध आपूर्ति रूपांतरण सूत्र')}
               </span>
             </div>
           </div>
@@ -142,41 +138,41 @@ export default function SettingsPage() {
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-xs">
             <div className="p-3.5 rounded-xl glass-strong border border-[var(--border)]">
               <span className="text-[10px] text-[var(--text-faint)] font-bold uppercase block font-mono">
-                {isHi ? 'सीट उपयोग' : 'Seat Utilization'}
+                {l('Seat Utilization', 'सीट उपयोग')}
               </span>
               <strong className="text-base font-bold text-[var(--text)] font-mono">92%</strong>
               <span className="text-[10px] text-[var(--text-muted)] block mt-0.5">
-                {isHi ? 'नामांकित / कुल सीटें' : 'Enrolled / Total Seats'}
+                {l('Enrolled / Total Seats', 'नामांकित / कुल सीटें')}
               </span>
             </div>
 
             <div className="p-3.5 rounded-xl glass-strong border border-[var(--border)]">
               <span className="text-[10px] text-[var(--text-faint)] font-bold uppercase block font-mono">
-                {isHi ? 'प्रमाणन दर' : 'Certification Rate'}
+                {l('Certification Rate', 'प्रमाणन दर')}
               </span>
               <strong className="text-base font-bold text-[var(--text)] font-mono">88%</strong>
               <span className="text-[10px] text-[var(--text-muted)] block mt-0.5">
-                {isHi ? 'मूल्यांकन और उत्तीर्ण' : 'Assessed & Passed'}
+                {l('Assessed & Passed', 'मूल्यांकन और उत्तीर्ण')}
               </span>
             </div>
 
             <div className="p-3.5 rounded-xl glass-strong border border-[var(--border)]">
               <span className="text-[10px] text-[var(--text-faint)] font-bold uppercase block font-mono">
-                {isHi ? 'श्रम भागीदारी' : 'Labor Participation'}
+                {l('Labor Participation', 'श्रम भागीदारी')}
               </span>
               <strong className="text-base font-bold text-[var(--text)] font-mono">82%</strong>
               <span className="text-[10px] text-[var(--text-muted)] block mt-0.5">
-                {isHi ? 'सक्रिय नौकरी चाहने वाले' : 'Active Job Seekers'}
+                {l('Active Job Seekers', 'सक्रिय नौकरी चाहने वाले')}
               </span>
             </div>
 
             <div className="p-3.5 rounded-xl glass-strong border border-[var(--border)]">
               <span className="text-[10px] text-[var(--text-faint)] font-bold uppercase block font-mono">
-                {isHi ? 'रोजगार योग्यता कारक' : 'Employability Factor'}
+                {l('Employability Factor', 'रोजगार योग्यता कारक')}
               </span>
               <strong className="text-base font-bold text-[var(--balanced)] font-mono">78%</strong>
               <span className="text-[10px] text-[var(--text-muted)] block mt-0.5">
-                {isHi ? 'प्रभावी रोजगार योग्य' : 'Effective Employable'}
+                {l('Effective Employable', 'प्रभावी रोजगार योग्य')}
               </span>
             </div>
           </div>

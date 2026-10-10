@@ -12,6 +12,7 @@ import teDict from '../../messages/te.json';
 import knDict from '../../messages/kn.json';
 import bnDict from '../../messages/bn.json';
 import hiRef from '../../messages/hi.reference.json';
+import masterLexiconData from './master_lexicon.json';
 
 export type Language = 'en' | 'hi' | 'mr' | 'ta' | 'te' | 'kn' | 'bn';
 
@@ -307,6 +308,9 @@ export function getLocalizedEntityName(
 ): string {
   const strKey = String(key);
   if (lang !== 'en') {
+    if (MASTER_LEXICON && MASTER_LEXICON[strKey] && MASTER_LEXICON[strKey][lang]) {
+      return MASTER_LEXICON[strKey][lang];
+    }
     if (type === 'districts') {
       const map = districtNamesLocalized[lang];
       if (map && map[strKey]) return map[strKey];
@@ -332,8 +336,13 @@ export function getLocalizedEntityName(
 }
 
 export function localizeSector(sector: string, lang: Language = 'en'): string {
-  if (lang !== 'en' && referenceData.sectors[sector]) {
-    return referenceData.sectors[sector];
+  if (lang !== 'en') {
+    if (MASTER_LEXICON && MASTER_LEXICON[sector] && MASTER_LEXICON[sector][lang]) {
+      return MASTER_LEXICON[sector][lang];
+    }
+    if (referenceData.sectors[sector]) {
+      return referenceData.sectors[sector];
+    }
   }
   return sector;
 }
@@ -411,8 +420,13 @@ export const localizedSkills: Record<string, string> = {
 };
 
 export function localizeSkill(skill: string, lang: Language = 'en'): string {
-  if (lang !== 'en' && localizedSkills[skill]) {
-    return localizedSkills[skill];
+  if (lang !== 'en') {
+    if (MASTER_LEXICON && MASTER_LEXICON[skill] && MASTER_LEXICON[skill][lang]) {
+      return MASTER_LEXICON[skill][lang];
+    }
+    if (localizedSkills[skill]) {
+      return localizedSkills[skill];
+    }
   }
   return skill;
 }
@@ -438,8 +452,35 @@ export const localizedQualifications: Record<string, string> = {
 };
 
 export function localizeQualification(qual: string, lang: Language = 'en'): string {
-  if (lang !== 'en' && localizedQualifications[qual]) {
-    return localizedQualifications[qual];
+  if (lang !== 'en') {
+    if (MASTER_LEXICON && MASTER_LEXICON[qual] && MASTER_LEXICON[qual][lang]) {
+      return MASTER_LEXICON[qual][lang];
+    }
+    if (localizedQualifications[qual]) {
+      return localizedQualifications[qual];
+    }
   }
   return qual;
 }
+
+export const MASTER_LEXICON: Record<string, Record<Language, string>> = masterLexiconData as any;
+
+/**
+ * Universal Multilingual Translator (§3.2)
+ * Returns the localized version of an English phrase across all 7 supported languages.
+ */
+export function l(enText: string, lang: Language = 'en', hiFallback?: string): string {
+  if (!enText) return '';
+  if (lang === 'en') return enText;
+  const entry = MASTER_LEXICON[enText];
+  if (entry && entry[lang]) return entry[lang];
+  if (lang === 'hi' && hiFallback) return hiFallback;
+  if (entry && entry.hi) return entry.hi;
+  if (hiFallback) return hiFallback;
+  return enText;
+}
+
+export function localizeText(enText: string, lang: Language = 'en', hiFallback?: string): string {
+  return l(enText, lang, hiFallback);
+}
+

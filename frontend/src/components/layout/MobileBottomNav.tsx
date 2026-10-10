@@ -14,7 +14,7 @@ import { useApp } from '@/lib/store';
 
 export const MobileBottomNav: React.FC = () => {
   const pathname = usePathname();
-  const { mobileMenuOpen, setMobileMenuOpen, language, t, alerts } = useApp();
+  const { mobileMenuOpen, setMobileMenuOpen, language, t, alerts, l} = useApp();
   const isHi = language === 'hi';
 
   const unreadAlerts = alerts.filter(a => !a.acknowledged).length || 35;
@@ -22,26 +22,26 @@ export const MobileBottomNav: React.FC = () => {
   const navItems = [
     {
       href: '/overview',
-      label: isHi ? 'सिंहावलोकन' : 'Overview',
+      label: l('Overview', 'सिंहावलोकन'),
       icon: LayoutDashboard,
       isActive: pathname === '/overview' || pathname === '/',
     },
     {
       href: '/gaps',
-      label: isHi ? 'अंतराल' : 'Gaps',
+      label: l('Gaps', 'अंतराल'),
       icon: GitFork,
       isActive: pathname === '/gaps',
     },
     {
       href: '/scenarios',
-      label: isHi ? 'सिमुलेशन' : 'Simulate',
+      label: l('Simulate', 'सिमुलेशन'),
       icon: Sliders,
       isActive: pathname.startsWith('/scenarios'),
       isCenter: true,
     },
     {
       href: '/alerts',
-      label: isHi ? 'अलर्ट्स' : 'Alerts',
+      label: l('Alerts', 'अलर्ट्स'),
       icon: AlertTriangle,
       badge: unreadAlerts,
       isActive: pathname === '/alerts',
@@ -122,11 +122,11 @@ export const MobileBottomNav: React.FC = () => {
               ? 'text-[var(--brand)] font-bold' 
               : 'text-[var(--text-muted)] hover:text-[var(--text)]'
           }`}
-          aria-label={isHi ? 'सभी मेनू खोलें' : 'Open all navigation menus'}
+          aria-label={l('Open all navigation menus', 'सभी मेनू खोलें')}
         >
           <Menu className="w-5 h-5" />
           <span className="text-[10px] font-semibold mt-0.5 font-sans truncate text-[var(--text-faint)]">
-            {isHi ? 'मेनू' : 'Menu'}
+            {l('Menu', 'मेनू')}
           </span>
         </button>
       </div>

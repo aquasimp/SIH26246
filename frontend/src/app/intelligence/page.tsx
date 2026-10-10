@@ -25,7 +25,7 @@ import {
 import { getLocalizedEntityName, localizeSector } from '@/lib/i18n';
 
 export default function LabourIntelligencePage() {
-  const { t, selectedSector, setSelectedOccupationNco, selectedOccupationNco, datasetMode, language } = useApp();
+  const { t, selectedSector, setSelectedOccupationNco, selectedOccupationNco, datasetMode, language, l} = useApp();
   const isHi = language === 'hi';
   const [searchTerm, setSearchTerm] = useState('');
   const [sortField, setSortField] = useState<'demand' | 'growth' | 'pressure'>('demand');
@@ -61,18 +61,16 @@ export default function LabourIntelligencePage() {
       {/* Page Title */}
       <div>
         <div className="flex items-center gap-2 mb-2">
-          <Provenance type="official" note={isHi ? 'राष्ट्रीय मांग एकत्रीकरण मैट्रिक्स' : 'National Demand Aggregation Matrix'} />
+          <Provenance type="official" note={l('National Demand Aggregation Matrix', 'राष्ट्रीय मांग एकत्रीकरण मैट्रिक्स')} />
           <span className="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold uppercase tracking-wider bg-[var(--brand)]/10 text-[var(--brand)] border border-[var(--brand)]/20">
-            {isHi ? 'नियोक्ता पल्स' : 'Employer Pulse'}
+            {l('Employer Pulse', 'नियोक्ता पल्स')}
           </span>
         </div>
         <h1 className="text-2xl sm:text-3xl font-extrabold text-[var(--text)] tracking-tight">
-          {isHi ? 'श्रम बाजार मांग आसूचना' : 'Labour Market Demand Intelligence'}
+          {l('Labour Market Demand Intelligence', 'श्रम बाजार मांग आसूचना')}
         </h1>
         <p className="text-xs sm:text-sm text-[var(--text-muted)] mt-1 max-w-2xl leading-relaxed">
-          {isHi 
-            ? 'भारत के औद्योगिक केंद्रों में समग्र नियोक्ता भर्ती मांग, कौशल गति और व्यावसायिक दबाव सूचकांक।' 
-            : "Aggregated employer hiring demand, skill momentum, and occupational pressure indices across India's industrial hubs."}
+          {l("Aggregated employer hiring demand, skill momentum, and occupational pressure indices across India's industrial hubs.", 'भारत के औद्योगिक केंद्रों में समग्र नियोक्ता भर्ती मांग, कौशल गति और व्यावसायिक दबाव सूचकांक।')}
         </p>
       </div>
 
@@ -84,7 +82,7 @@ export default function LabourIntelligencePage() {
         <div className="p-5 rounded-2xl glass border border-[var(--border)] flex flex-col justify-between">
           <div className="flex items-center justify-between">
             <span className="text-xs font-bold text-[var(--text-muted)] uppercase tracking-wider">
-              {isHi ? 'मांग दबाव सूचकांक' : 'Demand Pressure Index'}
+              {l('Demand Pressure Index', 'मांग दबाव सूचकांक')}
             </span>
             <div className="p-2 rounded-xl bg-orange-500/10 text-orange-500">
               <Activity className="w-4 h-4" />
@@ -95,7 +93,7 @@ export default function LabourIntelligencePage() {
               {activeOcc.demandPressureIndex} / 100
             </div>
             <div className="text-xs text-orange-600 font-semibold mt-0.5">
-              {isHi ? 'उच्च भर्ती तात्कालिकता संकेत' : 'High Hiring Urgency Signal'}
+              {l('High Hiring Urgency Signal', 'उच्च भर्ती तात्कालिकता संकेत')}
             </div>
           </div>
           <div className="w-full h-1.5 bg-[var(--border)] rounded-full overflow-hidden">
@@ -107,7 +105,7 @@ export default function LabourIntelligencePage() {
         <div className="p-5 rounded-2xl glass border border-[var(--border)] flex flex-col justify-between">
           <div className="flex items-center justify-between">
             <span className="text-xs font-bold text-[var(--text-muted)] uppercase tracking-wider">
-              {isHi ? 'सक्रिय मांग मात्रा' : 'Demand Volume (Active)'}
+              {l('Demand Volume (Active)', 'सक्रिय मांग मात्रा')}
             </span>
             <div className="p-2 rounded-xl bg-[var(--brand)]/10 text-[var(--brand)]">
               <Briefcase className="w-4 h-4" />
@@ -119,11 +117,11 @@ export default function LabourIntelligencePage() {
             </div>
             <div className="flex items-center gap-1 text-xs font-bold text-[var(--balanced)] mt-0.5">
               <ArrowUpRight className="w-3.5 h-3.5" />
-              <span>+{activeOcc.growthRate6M}% {isHi ? '(6 माह अनुमानित)' : '(6M Projected)'}</span>
+              <span>+{activeOcc.growthRate6M}% {l('(6M Projected)', '(6 माह अनुमानित)')}</span>
             </div>
           </div>
           <span className="text-[10px] text-[var(--text-faint)]">
-            {isHi ? `लक्षित व्यवसाय: ${activeOcc.titleHi || activeOcc.title}` : `Target trade: ${activeOcc.title}`}
+            {l(`Target trade: ${activeOcc.title}`, `लक्षित व्यवसाय: ${activeOcc.titleHi || activeOcc.title}`)}
           </span>
         </div>
 
@@ -131,7 +129,7 @@ export default function LabourIntelligencePage() {
         <div className="p-5 rounded-2xl glass border border-[var(--border)] flex flex-col justify-between">
           <div className="flex items-center justify-between">
             <span className="text-xs font-bold text-[var(--text-muted)] uppercase tracking-wider">
-              {isHi ? 'नियोक्ता गतिविधि' : 'Employer Activity'}
+              {l('Employer Activity', 'नियोक्ता गतिविधि')}
             </span>
             <div className="p-2 rounded-xl bg-[var(--brand-secondary)]/10 text-[var(--brand-secondary)]">
               <Building2 className="w-4 h-4" />
@@ -142,11 +140,11 @@ export default function LabourIntelligencePage() {
               {activeOcc.employerCount}
             </div>
             <div className="text-xs text-[var(--brand-secondary)] font-semibold mt-0.5">
-              {isHi ? 'सत्यापित भर्ती संगठन' : 'Verified Hiring Organisations'}
+              {l('Verified Hiring Organisations', 'सत्यापित भर्ती संगठन')}
             </div>
           </div>
           <span className="text-[10px] text-[var(--text-faint)]">
-            {isHi ? `औसत वेतन: ₹${activeOcc.averageWageINR.toLocaleString()}/माह` : `Avg Wage: ₹${activeOcc.averageWageINR.toLocaleString()}/mo`}
+            {l(`Avg Wage: ₹${activeOcc.averageWageINR.toLocaleString()}/mo`, `औसत वेतन: ₹${activeOcc.averageWageINR.toLocaleString()}/माह`)}
           </span>
         </div>
 
@@ -154,7 +152,7 @@ export default function LabourIntelligencePage() {
         <div className="p-5 rounded-2xl glass border border-[var(--border)] flex flex-col justify-between">
           <div className="flex items-center justify-between">
             <span className="text-xs font-bold text-[var(--text-muted)] uppercase tracking-wider">
-              {isHi ? 'कौशल गति' : 'Skill Momentum'}
+              {l('Skill Momentum', 'कौशल गति')}
             </span>
             <div className="p-2 rounded-xl bg-[var(--balanced)]/10 text-[var(--balanced)]">
               <Sparkles className="w-4 h-4" />
@@ -162,14 +160,14 @@ export default function LabourIntelligencePage() {
           </div>
           <div className="my-3">
             <div className="text-3xl font-extrabold text-[var(--balanced)] tracking-tight">
-              {isHi ? 'शीर्ष 5%' : 'Top 5%'}
+              {l('Top 5%', 'शीर्ष 5%')}
             </div>
             <div className="text-xs text-[var(--balanced)] font-semibold mt-0.5">
-              {isHi ? 'तीव्रतम वृद्धि NCO श्रेणी' : 'Fastest-Growing NCO Category'}
+              {l('Fastest-Growing NCO Category', 'तीव्रतम वृद्धि NCO श्रेणी')}
             </div>
           </div>
           <span className="text-[10px] text-[var(--text-faint)]">
-            {isHi ? `NSQF स्तर ${activeOcc.nsqfLevel} मानक` : `NSQF Level ${activeOcc.nsqfLevel} Standard`}
+            {l(`NSQF Level ${activeOcc.nsqfLevel} Standard`, `NSQF स्तर ${activeOcc.nsqfLevel} मानक`)}
           </span>
         </div>
       </div>
@@ -180,14 +178,14 @@ export default function LabourIntelligencePage() {
           <div>
             <div className="flex items-center gap-2 mb-1.5">
               <span className="text-xs font-mono font-bold text-[var(--brand)] bg-[var(--brand)]/10 px-2 py-0.5 rounded-md border border-[var(--brand)]/20">
-                {isHi ? `NCO कोड: ${activeOcc.ncoCode}` : `NCO Code: ${activeOcc.ncoCode}`}
+                {l(`NCO Code: ${activeOcc.ncoCode}`, `NCO कोड: ${activeOcc.ncoCode}`)}
               </span>
               <span className="text-xs font-semibold text-[var(--text-muted)]">
                 {localizeSector(activeOcc.sector, language)}
               </span>
             </div>
             <h2 className="text-lg font-extrabold text-[var(--text)]">
-              {isHi ? `${activeOcc.titleHi || activeOcc.title} — भौगोलिक मांग वितरण` : `${activeOcc.title} — Geographic Demand Distribution`}
+              {l(`${activeOcc.title} — Geographic Demand Distribution`, `${activeOcc.titleHi || activeOcc.title} — भौगोलिक मांग वितरण`)}
             </h2>
           </div>
 
@@ -195,7 +193,7 @@ export default function LabourIntelligencePage() {
             href={`/occupations/${activeOcc.ncoCode}`}
             className="px-3.5 py-1.5 rounded-xl bg-[var(--brand)] hover:opacity-90 text-white text-xs font-bold flex items-center gap-1.5 transition-all shadow-xs self-start md:self-auto"
           >
-            <span>{isHi ? 'व्यवसाय का पूर्ण विश्लेषण देखें' : 'View Full Occupation Deep-Dive'}</span>
+            <span>{l('View Full Occupation Deep-Dive', 'व्यवसाय का पूर्ण विश्लेषण देखें')}</span>
             <ChevronRight className="w-4 h-4" />
           </Link>
         </div>
@@ -210,7 +208,7 @@ export default function LabourIntelligencePage() {
                 {getLocalizedEntityName('districts', dist.district, language)}
               </div>
               <div className="text-xs font-extrabold text-orange-500 mt-1 font-mono">
-                {dist.demand.toLocaleString()} {isHi ? 'पद' : 'Positions'}
+                {dist.demand.toLocaleString()} {l('Positions', 'पद')}
               </div>
             </div>
           ))}
@@ -219,15 +217,15 @@ export default function LabourIntelligencePage() {
 
       {/* Interactive Occupation Table (Section 17) */}
       <GlassPanel
-        title={isHi ? 'व्यापक व्यावसायिक मांग तालिका' : 'Comprehensive Occupational Demand Table'}
-        subtitle={isHi ? 'मानकीकृत व्यवसायों की श्रेणीबद्ध सूची जो वर्तमान रिक्तियां, अनुमानित वृद्धि दर और दबाव सूचकांक दर्शाती है।' : 'Ranked list of standardized occupations showing current vacancies, projected growth rates, and pressure indices.'}
+        title={l('Comprehensive Occupational Demand Table', 'व्यापक व्यावसायिक मांग तालिका')}
+        subtitle={l('Ranked list of standardized occupations showing current vacancies, projected growth rates, and pressure indices.', 'मानकीकृत व्यवसायों की श्रेणीबद्ध सूची जो वर्तमान रिक्तियां, अनुमानित वृद्धि दर और दबाव सूचकांक दर्शाती है।')}
         action={
           <div className="flex items-center gap-2">
             <div className="relative w-56">
               <Search className="w-3.5 h-3.5 text-[var(--text-faint)] absolute left-3 top-1/2 -translate-y-1/2" />
               <input
                 type="text"
-                placeholder={isHi ? 'शीर्षक / NCO द्वारा फ़िल्टर करें...' : 'Filter by title / NCO...'}
+                placeholder={l('Filter by title / NCO...', 'शीर्षक / NCO द्वारा फ़िल्टर करें...')}
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="w-full text-xs pl-8 pr-3 py-1.5 rounded-xl liquid-control text-[var(--text)] focus:outline-none"
@@ -238,19 +236,19 @@ export default function LabourIntelligencePage() {
                 onClick={() => setSortField('demand')}
                 className={clsx('px-2.5 py-1 font-bold rounded-lg cursor-pointer text-xs', sortField === 'demand' ? 'bg-[var(--brand)] text-white' : 'text-[var(--text-muted)]')}
               >
-                {isHi ? 'मांग' : 'Demand'}
+                {l('Demand', 'मांग')}
               </button>
               <button
                 onClick={() => setSortField('growth')}
                 className={clsx('px-2.5 py-1 font-bold rounded-lg cursor-pointer text-xs', sortField === 'growth' ? 'bg-[var(--brand)] text-white' : 'text-[var(--text-muted)]')}
               >
-                {isHi ? 'वृद्धि' : 'Growth'}
+                {l('Growth', 'वृद्धि')}
               </button>
               <button
                 onClick={() => setSortField('pressure')}
                 className={clsx('px-2.5 py-1 font-bold rounded-lg cursor-pointer text-xs', sortField === 'pressure' ? 'bg-[var(--brand)] text-white' : 'text-[var(--text-muted)]')}
               >
-                {isHi ? 'दबाव' : 'Pressure'}
+                {l('Pressure', 'दबाव')}
               </button>
             </div>
           </div>
@@ -260,15 +258,15 @@ export default function LabourIntelligencePage() {
           <table className="w-full text-left text-xs">
             <thead>
               <tr className="border-b border-[var(--border)] text-[var(--text-faint)] font-bold uppercase tracking-wider text-[10px]">
-                <th className="py-3 px-3">{isHi ? 'व्यवसाय व NCO' : 'Occupation & NCO'}</th>
-                <th className="py-3 px-3">{isHi ? 'क्षेत्र' : 'Sector'}</th>
-                <th className="py-3 px-3 text-right">{isHi ? 'मांग' : 'Demand'}</th>
-                <th className="py-3 px-3 text-right">{isHi ? '6 माह वृद्धि' : '6M Growth'}</th>
-                <th className="py-3 px-3 text-center">{isHi ? 'शीर्ष जिला' : 'Top District'}</th>
-                <th className="py-3 px-3 text-center">{isHi ? 'दबाव सूचकांक' : 'Pressure Index'}</th>
-                <th className="py-3 px-3 text-center">{isHi ? 'गंभीरता' : 'Severity'}</th>
-                <th className="py-3 px-3 text-center">{isHi ? 'विश्वसनीयता' : 'Confidence'}</th>
-                <th className="py-3 px-3 text-right">{isHi ? 'कार्रवाई' : 'Action'}</th>
+                <th className="py-3 px-3">{l('Occupation & NCO', 'व्यवसाय व NCO')}</th>
+                <th className="py-3 px-3">{l('Sector', 'क्षेत्र')}</th>
+                <th className="py-3 px-3 text-right">{l('Demand', 'मांग')}</th>
+                <th className="py-3 px-3 text-right">{l('6M Growth', '6 माह वृद्धि')}</th>
+                <th className="py-3 px-3 text-center">{l('Top District', 'शीर्ष जिला')}</th>
+                <th className="py-3 px-3 text-center">{l('Pressure Index', 'दबाव सूचकांक')}</th>
+                <th className="py-3 px-3 text-center">{l('Severity', 'गंभीरता')}</th>
+                <th className="py-3 px-3 text-center">{l('Confidence', 'विश्वसनीयता')}</th>
+                <th className="py-3 px-3 text-right">{l('Action', 'कार्रवाई')}</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-[var(--border)]">
@@ -287,7 +285,7 @@ export default function LabourIntelligencePage() {
                     <td className="py-3.5 px-3">
                       <div className="font-bold text-[var(--text)]">{isHi ? (occ.titleHi || occ.title) : occ.title}</div>
                       <div className="text-[10px] text-[var(--text-faint)] font-mono mt-0.5">
-                        {isHi ? `NCO: ${occ.ncoCode} | NSQF स्तर ${occ.nsqfLevel}` : `NCO: ${occ.ncoCode} | NSQF L${occ.nsqfLevel}`}
+                        {l(`NCO: ${occ.ncoCode} | NSQF L${occ.nsqfLevel}`, `NCO: ${occ.ncoCode} | NSQF स्तर ${occ.nsqfLevel}`)}
                       </div>
                     </td>
 
@@ -341,7 +339,7 @@ export default function LabourIntelligencePage() {
                       <Link
                         href={`/occupations/${occ.ncoCode}`}
                         className="p-1.5 rounded-lg hover:bg-[var(--border)] text-[var(--brand)] inline-flex items-center"
-                        title={isHi ? 'विवरण देखें' : 'View detail'}
+                        title={l('View detail', 'विवरण देखें')}
                       >
                         <ChevronRight className="w-4 h-4" />
                       </Link>
