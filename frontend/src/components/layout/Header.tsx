@@ -18,6 +18,7 @@ import {
 } from 'lucide-react';
 import { useApp } from '@/lib/store';
 import { ThemeToggle } from './ThemeToggle';
+import { LanguageSelector } from './LanguageSelector';
 import { DataSourceControl } from '../common/DataSourceControl';
 import { getLocalizedEntityName } from '@/lib/i18n';
 
@@ -158,30 +159,9 @@ export const Header: React.FC = () => {
             <ThemeToggle />
           </div>
 
-          {/* Bilingual Switcher (EN | हिन्दी) */}
-          <div className="hidden sm:inline-flex glass items-center rounded-xl p-0.5 border border-[var(--border)] text-xs font-bold">
-            <button
-              type="button"
-              onClick={() => setLanguage('en')}
-              className={`px-2 py-1 rounded-lg transition-all cursor-pointer text-[11px] font-mono ${
-                language === 'en' 
-                  ? 'bg-[var(--surface-solid)] text-[var(--brand)] shadow-xs border border-[var(--border-strong)]' 
-                  : 'text-[var(--text-muted)] hover:text-[var(--text)]'
-              }`}
-            >
-              EN
-            </button>
-            <button
-              type="button"
-              onClick={() => setLanguage('hi')}
-              className={`px-2 py-1 rounded-lg transition-all cursor-pointer text-[11px] font-mono ${
-                language === 'hi' 
-                  ? 'bg-[var(--surface-solid)] text-[var(--brand)] shadow-xs border border-[var(--border-strong)]' 
-                  : 'text-[var(--text-muted)] hover:text-[var(--text)]'
-              }`}
-            >
-              हिन्दी
-            </button>
+          {/* Multilingual Selector (7 Languages) */}
+          <div className="hidden sm:inline-flex">
+            <LanguageSelector />
           </div>
 
           {/* Notifications Button */}

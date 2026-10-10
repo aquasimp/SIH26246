@@ -1,13 +1,37 @@
 /**
  * KaushalYuva Internationalization (i18n) Engine (§3)
- * Full bilingual support (English + 100% Hindi) backed by JSON dictionaries and reference taxonomy.
+ * Full multilingual support for 7 major Indian languages:
+ * English (en), Hindi (hi), Marathi (mr), Tamil (ta), Telugu (te), Kannada (kn), Bengali (bn).
  */
 
 import enDict from '../../messages/en.json';
 import hiDict from '../../messages/hi.json';
+import mrDict from '../../messages/mr.json';
+import taDict from '../../messages/ta.json';
+import teDict from '../../messages/te.json';
+import knDict from '../../messages/kn.json';
+import bnDict from '../../messages/bn.json';
 import hiRef from '../../messages/hi.reference.json';
 
-export type Language = 'en' | 'hi';
+export type Language = 'en' | 'hi' | 'mr' | 'ta' | 'te' | 'kn' | 'bn';
+
+export interface LanguageOption {
+  code: Language;
+  label: string;
+  nativeLabel: string;
+  region: string;
+  script: string;
+}
+
+export const SUPPORTED_LANGUAGES: LanguageOption[] = [
+  { code: 'en', label: 'English', nativeLabel: 'English', region: 'National / Official', script: 'Latin' },
+  { code: 'hi', label: 'Hindi', nativeLabel: 'हिन्दी', region: 'Uttar Pradesh & Central', script: 'Devanagari' },
+  { code: 'mr', label: 'Marathi', nativeLabel: 'मराठी', region: 'Maharashtra (Pune / Nashik)', script: 'Devanagari' },
+  { code: 'ta', label: 'Tamil', nativeLabel: 'தமிழ்', region: 'Tamil Nadu (Coimbatore)', script: 'Tamil' },
+  { code: 'te', label: 'Telugu', nativeLabel: 'తెలుగు', region: 'Telangana & Andhra Pradesh', script: 'Telugu' },
+  { code: 'kn', label: 'Kannada', nativeLabel: 'ಕನ್ನಡ', region: 'Karnataka (Bengaluru / Mysuru)', script: 'Kannada' },
+  { code: 'bn', label: 'Bengali', nativeLabel: 'বাংলা', region: 'West Bengal & Eastern Corridors', script: 'Bengali' },
+];
 
 export interface ReferenceData {
   states: Record<string, string>;
@@ -20,119 +44,257 @@ export interface ReferenceData {
 
 export const referenceData: ReferenceData = hiRef;
 
-export const translations = {
-  en: {
-    ...enDict,
-    // Backward compatibility mappings for existing components
-    appTitle: enDict.brand.name,
-    appSubtitle: enDict.brand.descriptor,
-    nationalIntelligence: enDict.overview.title,
-    heroSubtitle: enDict.hero.subhead,
+function buildTranslationBundle(dict: any) {
+  return {
+    ...dict,
+    appTitle: dict.brand?.name || enDict.brand.name,
+    appSubtitle: dict.brand?.descriptor || enDict.brand.descriptor,
+    nationalIntelligence: dict.overview?.title || enDict.overview.title,
+    heroSubtitle: dict.hero?.subhead || enDict.hero.subhead,
     metrics: {
-      demand: enDict.glossary.demand,
-      effectiveSupply: enDict.glossary.effectiveSupply,
-      netGap: enDict.overview.kpis.netDeficit,
-      atRiskTrades: 'At-Risk Trades',
-      earlyWarnings: enDict.overview.kpis.activeAlerts,
-      recommendations: 'Priority Actions',
-      gapScore: enDict.glossary.gapScore,
-      confidence: enDict.glossary.confidence,
-      shortageProb: '6M Shortage Probability'
+      demand: dict.glossary?.demand || enDict.glossary.demand,
+      effectiveSupply: dict.glossary?.effectiveSupply || enDict.glossary.effectiveSupply,
+      netGap: dict.overview?.kpis?.netDeficit || enDict.overview.kpis.netDeficit,
+      atRiskTrades: dict.glossary?.atRiskTrades || 'At-Risk Trades',
+      earlyWarnings: dict.overview?.kpis?.activeAlerts || enDict.overview.kpis.activeAlerts,
+      recommendations: dict.nav?.recommendations || 'Priority Actions',
+      gapScore: dict.glossary?.gapScore || enDict.glossary.gapScore,
+      confidence: dict.glossary?.confidence || enDict.glossary.confidence,
+      shortageProb: dict.hero?.proofPanel?.shortageProbability || '6M Shortage Probability'
     },
     status: {
-      severeShortage: enDict.glossary.severeShortage,
-      moderateShortage: enDict.glossary.moderateShortage,
-      balanced: enDict.glossary.balanced,
-      moderateOversupply: enDict.glossary.moderateOversupply,
-      severeOversupply: enDict.glossary.severeOversupply,
-      demoDataset: enDict.glossary.demoDataset,
+      severeShortage: dict.glossary?.severeShortage || enDict.glossary.severeShortage,
+      moderateShortage: dict.glossary?.moderateShortage || enDict.glossary.moderateShortage,
+      balanced: dict.glossary?.balanced || enDict.glossary.balanced,
+      moderateOversupply: dict.glossary?.moderateOversupply || enDict.glossary.moderateOversupply,
+      severeOversupply: dict.glossary?.severeOversupply || enDict.glossary.severeOversupply,
+      demoDataset: dict.glossary?.demoDataset || enDict.glossary.demoDataset,
       publicAggregate: 'Public Aggregate',
       plannedFeed: 'Planned Government Feed'
     },
     actions: {
-      simulate: enDict.glossary.simulate,
-      viewEvidence: enDict.common.viewEvidence,
+      simulate: dict.glossary?.simulate || enDict.glossary.simulate,
+      viewEvidence: dict.common?.viewEvidence || enDict.common.viewEvidence,
       exportAction: 'Export Action',
       approveDraft: 'Approve Draft',
-      acknowledge: enDict.common.acknowledge,
-      investigate: enDict.common.investigate,
-      downloadCsv: enDict.common.downloadCsv,
-      downloadXlsx: enDict.common.downloadXlsx,
-      copyEndpoint: enDict.common.copyEndpoint,
-      askCopilot: 'Ask Kaushal Copilot'
+      acknowledge: dict.common?.acknowledge || enDict.common.acknowledge,
+      investigate: dict.common?.investigate || enDict.common.investigate,
+      downloadCsv: dict.common?.downloadCsv || enDict.common.downloadCsv,
+      downloadXlsx: dict.common?.downloadXlsx || enDict.common.downloadXlsx,
+      copyEndpoint: dict.common?.copyEndpoint || enDict.common.copyEndpoint,
+      askCopilot: dict.copilot?.title || 'Ask Kaushal Copilot'
     }
+  };
+}
+
+export const translations: Record<Language, ReturnType<typeof buildTranslationBundle>> = {
+  en: buildTranslationBundle(enDict),
+  hi: buildTranslationBundle(hiDict),
+  mr: buildTranslationBundle(mrDict),
+  ta: buildTranslationBundle(taDict),
+  te: buildTranslationBundle(teDict),
+  kn: buildTranslationBundle(knDict),
+  bn: buildTranslationBundle(bnDict),
+};
+
+export const stateNamesLocalized: Record<Language, Record<string, string>> = {
+  en: {
+    'Gujarat': 'Gujarat',
+    'Karnataka': 'Karnataka',
+    'Maharashtra': 'Maharashtra',
+    'Tamil Nadu': 'Tamil Nadu',
+    'Uttar Pradesh': 'Uttar Pradesh'
   },
   hi: {
-    ...hiDict,
-    // Backward compatibility mappings for existing components
-    appTitle: hiDict.brand.name,
-    appSubtitle: hiDict.brand.descriptor,
-    nationalIntelligence: hiDict.overview.title,
-    heroSubtitle: hiDict.hero.subhead,
-    metrics: {
-      demand: hiDict.glossary.demand,
-      effectiveSupply: hiDict.glossary.effectiveSupply,
-      netGap: hiDict.overview.kpis.netDeficit,
-      atRiskTrades: 'जोखिम में ट्रेड्स',
-      earlyWarnings: hiDict.overview.kpis.activeAlerts,
-      recommendations: 'प्राथमिक कार्य',
-      gapScore: hiDict.glossary.gapScore,
-      confidence: hiDict.glossary.confidence,
-      shortageProb: '6-माह कमी संभावना'
-    },
-    status: {
-      severeShortage: hiDict.glossary.severeShortage,
-      moderateShortage: hiDict.glossary.moderateShortage,
-      balanced: hiDict.glossary.balanced,
-      moderateOversupply: hiDict.glossary.moderateOversupply,
-      severeOversupply: hiDict.glossary.severeOversupply,
-      demoDataset: hiDict.glossary.demoDataset,
-      publicAggregate: 'सार्वजनिक संकलन',
-      plannedFeed: 'प्रस्तावित सरकारी फीड'
-    },
-    actions: {
-      simulate: hiDict.glossary.simulate,
-      viewEvidence: hiDict.common.viewEvidence,
-      exportAction: 'कार्रवाई निर्यात करें',
-      approveDraft: 'प्रारूप स्वीकृत करें',
-      acknowledge: hiDict.common.acknowledge,
-      investigate: hiDict.common.investigate,
-      downloadCsv: hiDict.common.downloadCsv,
-      downloadXlsx: hiDict.common.downloadXlsx,
-      copyEndpoint: hiDict.common.copyEndpoint,
-      askCopilot: 'कौशल कोपायलट से पूछें'
-    }
+    'Gujarat': 'गुजरात',
+    'Karnataka': 'कर्नाटक',
+    'Maharashtra': 'महाराष्ट्र',
+    'Tamil Nadu': 'तमिलनाडु',
+    'Uttar Pradesh': 'उत्तर प्रदेश'
+  },
+  mr: {
+    'Gujarat': 'गुजरात',
+    'Karnataka': 'कर्नाटक',
+    'Maharashtra': 'महाराष्ट्र',
+    'Tamil Nadu': 'तमिळनाडू',
+    'Uttar Pradesh': 'उत्तर प्रदेश'
+  },
+  ta: {
+    'Gujarat': 'குஜராத்',
+    'Karnataka': 'கர்நாடகா',
+    'Maharashtra': 'மகாராஷ்டிரா',
+    'Tamil Nadu': 'தமிழ்நாடு',
+    'Uttar Pradesh': 'உத்தரப் பிரதேசம்'
+  },
+  te: {
+    'Gujarat': 'గుజరాత్',
+    'Karnataka': 'కర్ణాటక',
+    'Maharashtra': 'మహారాష్ట్ర',
+    'Tamil Nadu': 'తమిళనాడు',
+    'Uttar Pradesh': 'ఉత్తరప్రదేశ్'
+  },
+  kn: {
+    'Gujarat': 'ಗುಜರಾತ್',
+    'Karnataka': 'ಕರ್ನಾಟಕ',
+    'Maharashtra': 'ಮಹಾರಾಷ್ಟ್ರ',
+    'Tamil Nadu': 'ತಮಿಳುನಾಡು',
+    'Uttar Pradesh': 'ಉತ್ತರ ಪ್ರದೇಶ'
+  },
+  bn: {
+    'Gujarat': 'গুজরাট',
+    'Karnataka': 'কর্ণাটক',
+    'Maharashtra': 'মহারাষ্ট্র',
+    'Tamil Nadu': 'তামিলনাড়ু',
+    'Uttar Pradesh': 'উত্তরপ্রদেশ'
   }
 };
 
-export const stateNameToHi: Record<string, string> = {
-  'Gujarat': 'गुजरात',
-  'Karnataka': 'कर्नाटक',
-  'Maharashtra': 'महाराष्ट्र',
-  'Tamil Nadu': 'तमिलनाडु',
-  'Uttar Pradesh': 'उत्तर प्रदेश'
+export const stateNameToHi = stateNamesLocalized.hi;
+
+export const districtNamesLocalized: Record<Language, Record<string, string>> = {
+  en: {
+    'Gorakhpur': 'Gorakhpur',
+    'Lucknow': 'Lucknow',
+    'Varanasi': 'Varanasi',
+    'Gautam Buddha Nagar': 'Gautam Buddha Nagar',
+    'Kanpur Nagar': 'Kanpur Nagar',
+    'Pune': 'Pune',
+    'Nagpur': 'Nagpur',
+    'Chhatrapati Sambhajinagar': 'Chhatrapati Sambhajinagar',
+    'Nashik': 'Nashik',
+    'Bengaluru Urban': 'Bengaluru Urban',
+    'Mysuru': 'Mysuru',
+    'Dharwad': 'Dharwad',
+    'Dakshina Kannada': 'Dakshina Kannada',
+    'Ahmedabad': 'Ahmedabad',
+    'Surat': 'Surat',
+    'Vadodara': 'Vadodara',
+    'Rajkot': 'Rajkot',
+    'Coimbatore': 'Coimbatore'
+  },
+  hi: {
+    'Gorakhpur': 'गोरखपुर',
+    'Lucknow': 'लखनऊ',
+    'Varanasi': 'वाराणसी',
+    'Gautam Buddha Nagar': 'गौतम बुद्ध नगर',
+    'Kanpur Nagar': 'कानपुर नगर',
+    'Pune': 'पुणे',
+    'Nagpur': 'नागपुर',
+    'Chhatrapati Sambhajinagar': 'छत्रपति संभाजीनगर',
+    'Nashik': 'नासिक',
+    'Bengaluru Urban': 'बेंगलुरु शहरी',
+    'Mysuru': 'मैसूरु',
+    'Dharwad': 'धारवाड़',
+    'Dakshina Kannada': 'दक्षिण कन्नड़',
+    'Ahmedabad': 'अहमदाबाद',
+    'Surat': 'सूरत',
+    'Vadodara': 'वडोदरा',
+    'Rajkot': 'राजकोट',
+    'Coimbatore': 'कोयंबटूर'
+  },
+  mr: {
+    'Gorakhpur': 'गोरखपूर',
+    'Lucknow': 'लखनौ',
+    'Varanasi': 'वाराणसी',
+    'Gautam Buddha Nagar': 'गौतम बुद्ध नगर',
+    'Kanpur Nagar': 'कानपूर नगर',
+    'Pune': 'पुणे',
+    'Nagpur': 'नागपूर',
+    'Chhatrapati Sambhajinagar': 'छत्रपती संभाजीनगर',
+    'Nashik': 'नाशिक',
+    'Bengaluru Urban': 'बंगळुरू शहर',
+    'Mysuru': 'मैसूरु',
+    'Dharwad': 'धारवाड',
+    'Dakshina Kannada': 'दक्षिण कन्नड',
+    'Ahmedabad': 'अहमदाबाद',
+    'Surat': 'सुरत',
+    'Vadodara': 'वडोदरा',
+    'Rajkot': 'राजकोट',
+    'Coimbatore': 'कोइम्बतूर'
+  },
+  ta: {
+    'Gorakhpur': 'கோரக்பூர்',
+    'Lucknow': 'லக்னோ',
+    'Varanasi': 'வாரணாசி',
+    'Gautam Buddha Nagar': 'கௌதம் புத் நகர்',
+    'Kanpur Nagar': 'கான்பூர் நகர்',
+    'Pune': 'புனே',
+    'Nagpur': 'நாக்பூர்',
+    'Chhatrapati Sambhajinagar': 'சத்ரபதி சம்பாஜிநகர்',
+    'Nashik': 'நாசிக்',
+    'Bengaluru Urban': 'பெங்களூரு நகர்ப்புறம்',
+    'Mysuru': 'மைசூரு',
+    'Dharwad': 'தார்வாட்',
+    'Dakshina Kannada': 'தட்சிண கன்னடா',
+    'Ahmedabad': 'அகமதாபாத்',
+    'Surat': 'சூரத்',
+    'Vadodara': 'வதோதரா',
+    'Rajkot': 'ராஜ்கோட்',
+    'Coimbatore': 'கோயம்புத்தூர்'
+  },
+  te: {
+    'Gorakhpur': 'గోరఖ్‌పూర్',
+    'Lucknow': 'లక్నో',
+    'Varanasi': 'వారణాసి',
+    'Gautam Buddha Nagar': 'గౌతమ్ బుద్ధ నగర్',
+    'Kanpur Nagar': 'కాన్పూర్ నగర్',
+    'Pune': 'పూణే',
+    'Nagpur': 'నాగ్‌పూర్',
+    'Chhatrapati Sambhajinagar': 'ఛత్రపతి శంభాజీనగర్',
+    'Nashik': 'నాసిక్',
+    'Bengaluru Urban': 'బెంగళూరు అర్బన్',
+    'Mysuru': 'మైసూర్',
+    'Dharwad': 'ధార్వాడ్',
+    'Dakshina Kannada': 'దక్షిణ కన్నడ',
+    'Ahmedabad': 'అహ్మదాబాద్',
+    'Surat': 'సూరత్',
+    'Vadodara': 'వడోదర',
+    'Rajkot': 'రాజ్‌కోట్',
+    'Coimbatore': 'కోయంబత్తూరు'
+  },
+  kn: {
+    'Gorakhpur': 'ಗೋರಖ್‌ಪುರ',
+    'Lucknow': 'ಲಖನೌ',
+    'Varanasi': 'ವಾರಣಾಸಿ',
+    'Gautam Buddha Nagar': 'ಗೌತಮ್ ಬುದ್ಧ ನಗರ',
+    'Kanpur Nagar': 'ಕಾನ್ಪುರ ನಗರ',
+    'Pune': 'ಪುಣೆ',
+    'Nagpur': 'ನಾಗಪುರ',
+    'Chhatrapati Sambhajinagar': 'ಛತ್ರಪತಿ ಸಂಭಾಜಿನಗರ',
+    'Nashik': 'ನಾಸಿಕ್',
+    'Bengaluru Urban': 'ಬೆಂಗಳೂರು ನಗರ',
+    'Mysuru': 'ಮೈಸೂರು',
+    'Dharwad': 'ಧಾರವಾಡ',
+    'Dakshina Kannada': 'ದಕ್ಷಿಣ ಕನ್ನಡ',
+    'Ahmedabad': 'ಅಹಮದಾಬಾದ್',
+    'Surat': 'ಸೂರತ್',
+    'Vadodara': 'ವಡೋದರಾ',
+    'Rajkot': 'ರಾಜಕೋಟ್',
+    'Coimbatore': 'ಕೊಯಮತ್ತೂರು'
+  },
+  bn: {
+    'Gorakhpur': 'গোরক্ষপুর',
+    'Lucknow': 'লখনউ',
+    'Varanasi': 'বারাণসী',
+    'Gautam Buddha Nagar': 'গৌতম বুদ্ধ নগর',
+    'Kanpur Nagar': 'কানপুর নগর',
+    'Pune': 'পুনে',
+    'Nagpur': 'নাগপুর',
+    'Chhatrapati Sambhajinagar': 'ছত্রপতি সম্ভাজিনগর',
+    'Nashik': 'নাসিক',
+    'Bengaluru Urban': 'বেঙ্গালুরু নগর',
+    'Mysuru': 'মহীশূর',
+    'Dharwad': 'ধারওয়াদ',
+    'Dakshina Kannada': 'দক্ষিণ কন্নড়',
+    'Ahmedabad': 'আহমেদাবাদ',
+    'Surat': 'সুরাট',
+    'Vadodara': 'ভাদোদরা',
+    'Rajkot': 'রাজকোট',
+    'Coimbatore': 'কোয়েম্বাটুর'
+  }
 };
 
-export const districtNameToHi: Record<string, string> = {
-  'Gorakhpur': 'गोरखपुर',
-  'Lucknow': 'लखनऊ',
-  'Varanasi': 'वाराणसी',
-  'Gautam Buddha Nagar': 'गौतम बुद्ध नगर',
-  'Kanpur Nagar': 'कानपुर नगर',
-  'Pune': 'पुणे',
-  'Nagpur': 'नागपुर',
-  'Chhatrapati Sambhajinagar': 'छत्रपति संभाजीनगर',
-  'Nashik': 'नासिक',
-  'Bengaluru Urban': 'बेंगलुरु शहरी',
-  'Mysuru': 'मैसूरु',
-  'Dharwad': 'धारवाड़',
-  'Dakshina Kannada': 'दक्षिण कन्नड़',
-  'Ahmedabad': 'अहमदाबाद',
-  'Surat': 'सूरत',
-  'Vadodara': 'वडोदरा',
-  'Rajkot': 'राजकोट',
-  'Coimbatore': 'कोयंबटूर'
-};
+export const districtNameToHi = districtNamesLocalized.hi;
 
 /**
  * Resolves localized name for state, district, sector, occupation, or severity band
@@ -144,16 +306,22 @@ export function getLocalizedEntityName(
   fallback?: string
 ): string {
   const strKey = String(key);
-  if (lang === 'hi') {
+  if (lang !== 'en') {
     if (type === 'districts') {
-      if (districtNameToHi[strKey]) return districtNameToHi[strKey];
-      const match = Object.entries(districtNameToHi).find(([k]) => k.toLowerCase() === strKey.toLowerCase());
-      if (match) return match[1];
+      const map = districtNamesLocalized[lang];
+      if (map && map[strKey]) return map[strKey];
+      if (map) {
+        const match = Object.entries(map).find(([k]) => k.toLowerCase() === strKey.toLowerCase());
+        if (match) return match[1];
+      }
     }
     if (type === 'states') {
-      if (stateNameToHi[strKey]) return stateNameToHi[strKey];
-      const match = Object.entries(stateNameToHi).find(([k]) => k.toLowerCase() === strKey.toLowerCase());
-      if (match) return match[1];
+      const map = stateNamesLocalized[lang];
+      if (map && map[strKey]) return map[strKey];
+      if (map) {
+        const match = Object.entries(map).find(([k]) => k.toLowerCase() === strKey.toLowerCase());
+        if (match) return match[1];
+      }
     }
     const hiMap = referenceData[type];
     if (hiMap && hiMap[strKey]) {
@@ -164,7 +332,7 @@ export function getLocalizedEntityName(
 }
 
 export function localizeSector(sector: string, lang: Language = 'en'): string {
-  if (lang === 'hi' && referenceData.sectors[sector]) {
+  if (lang !== 'en' && referenceData.sectors[sector]) {
     return referenceData.sectors[sector];
   }
   return sector;
@@ -177,9 +345,9 @@ export function resolveDisplayName(
   item: { title?: string; name?: string; titleHi?: string; nameHi?: string; ncoCode?: string; lgdCode?: number },
   lang: Language = 'en'
 ): string {
-  if (lang === 'hi') {
-    if (item.titleHi) return item.titleHi;
-    if (item.nameHi) return item.nameHi;
+  if (lang !== 'en') {
+    if (item.titleHi && (lang === 'hi' || lang === 'mr')) return item.titleHi;
+    if (item.nameHi && (lang === 'hi' || lang === 'mr')) return item.nameHi;
     if (item.ncoCode && referenceData.occupations[item.ncoCode]) {
       return referenceData.occupations[item.ncoCode];
     }
@@ -243,7 +411,7 @@ export const localizedSkills: Record<string, string> = {
 };
 
 export function localizeSkill(skill: string, lang: Language = 'en'): string {
-  if (lang === 'hi' && localizedSkills[skill]) {
+  if (lang !== 'en' && localizedSkills[skill]) {
     return localizedSkills[skill];
   }
   return skill;
@@ -270,7 +438,7 @@ export const localizedQualifications: Record<string, string> = {
 };
 
 export function localizeQualification(qual: string, lang: Language = 'en'): string {
-  if (lang === 'hi' && localizedQualifications[qual]) {
+  if (lang !== 'en' && localizedQualifications[qual]) {
     return localizedQualifications[qual];
   }
   return qual;

@@ -27,6 +27,7 @@ import {
 } from 'lucide-react';
 import { useApp } from '@/lib/store';
 import { ThemeToggle } from './ThemeToggle';
+import { LanguageSelector } from './LanguageSelector';
 import { siteConfig } from '@/lib/site.config';
 import { getLocalizedEntityName } from '@/lib/i18n';
 
@@ -274,38 +275,13 @@ export const MobileNavDrawer: React.FC = () => {
             <span>{isHi ? 'कौशल कोपायलट AI खोलें' : 'Open Kaushal Copilot AI'}</span>
           </button>
 
-          {/* Controls Bar: Theme & Language */}
-          <div className="flex items-center justify-between gap-2 pt-1">
-            {/* Language Switcher */}
-            <div className="glass inline-flex items-center rounded-xl p-0.5 border border-[var(--border)] text-xs font-bold font-mono">
-              <button
-                type="button"
-                onClick={() => setLanguage('en')}
-                className={`px-3 py-1.5 rounded-lg transition-all cursor-pointer min-h-[36px] ${
-                  language === 'en' 
-                    ? 'bg-[var(--surface-solid)] text-[var(--brand)] shadow-xs border border-[var(--border-strong)]' 
-                    : 'text-[var(--text-muted)]'
-                }`}
-              >
-                EN
-              </button>
-              <button
-                type="button"
-                onClick={() => setLanguage('hi')}
-                className={`px-3 py-1.5 rounded-lg transition-all cursor-pointer min-h-[36px] ${
-                  language === 'hi' 
-                    ? 'bg-[var(--surface-solid)] text-[var(--brand)] shadow-xs border border-[var(--border-strong)]' 
-                    : 'text-[var(--text-muted)]'
-                }`}
-              >
-                हिन्दी
-              </button>
-            </div>
-
-            {/* Theme Toggle */}
-            <div className="flex items-center">
+          {/* Language Selection Grid (7 Languages) */}
+          <div className="space-y-1.5 pt-1">
+            <div className="flex items-center justify-between text-[10px] font-mono font-bold tracking-wider text-[var(--text-faint)] uppercase px-1">
+              <span>// LANGUAGE · भाषा</span>
               <ThemeToggle />
             </div>
+            <LanguageSelector variant="pills" />
           </div>
         </div>
       </div>

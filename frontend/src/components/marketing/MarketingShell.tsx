@@ -4,6 +4,7 @@ import React from 'react';
 import Link from 'next/link';
 import { useApp } from '@/lib/store';
 import { ThemeToggle } from '@/components/layout/ThemeToggle';
+import { LanguageSelector } from '@/components/layout/LanguageSelector';
 import { siteConfig } from '@/lib/site.config';
 import { EXPORT_METADATA } from '@/lib/demoData';
 import { ArrowRight, Compass, Sliders, Database, FileText, Sparkles, Activity, Menu } from 'lucide-react';
@@ -74,38 +75,9 @@ export function MarketingTopbar() {
             <span>{EXPORT_METADATA.runId}</span>
           </span>
 
-          {/* Language Switcher (hidden on mobile, present in drawer) */}
-          <div 
-            role="radiogroup" 
-            aria-label="Language selector"
-            className="hidden sm:inline-flex glass items-center rounded-full p-0.5 border border-[var(--border)] text-[11px] sm:text-xs font-bold font-mono"
-          >
-            <button
-              type="button"
-              role="radio"
-              aria-checked={language === 'en'}
-              onClick={() => setLanguage('en')}
-              className={`px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full transition-all cursor-pointer ${
-                language === 'en' 
-                  ? 'bg-[var(--surface-solid)] text-[#0055a5] dark:text-[#00c2cb] shadow-xs font-extrabold border border-[var(--border-strong)]' 
-                  : 'text-[var(--text-faint)] hover:text-[var(--text)]'
-              }`}
-            >
-              EN
-            </button>
-            <button
-              type="button"
-              role="radio"
-              aria-checked={language === 'hi'}
-              onClick={() => setLanguage('hi')}
-              className={`px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full transition-all cursor-pointer ${
-                language === 'hi' 
-                  ? 'bg-[var(--surface-solid)] text-[#0055a5] dark:text-[#00c2cb] shadow-xs font-extrabold border border-[var(--border-strong)]' 
-                  : 'text-[var(--text-faint)] hover:text-[var(--text)]'
-              }`}
-            >
-              हिन्दी
-            </button>
+          {/* Multilingual Selector (7 Languages) */}
+          <div className="hidden sm:inline-flex">
+            <LanguageSelector />
           </div>
 
           {/* Theme Toggle (hidden on mobile, present in drawer) */}

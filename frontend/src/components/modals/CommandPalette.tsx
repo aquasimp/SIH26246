@@ -20,8 +20,11 @@ import {
   Sun,
   Maximize2,
   Home,
-  Languages
+  Languages,
+  Check
 } from 'lucide-react';
+import { clsx } from 'clsx';
+import { SUPPORTED_LANGUAGES, type Language } from '@/lib/i18n';
 
 interface CommandPaletteProps {
   open: boolean;
@@ -103,19 +106,6 @@ export function CommandPalette({ open, onOpenChange, onToggleFocusMode }: Comman
                 </div>
               </Command.Item>
 
-              {/* Switch Language */}
-              <Command.Item
-                onSelect={() => handleSelect(() => setLanguage(language === 'en' ? 'hi' : 'en'))}
-                className="flex items-center gap-2.5 px-3 py-2 rounded-xl text-[var(--text)] hover:bg-[var(--glass-strong)] cursor-pointer aria-selected:bg-[var(--glass-strong)] transition-colors"
-              >
-                <Languages className="w-4 h-4 text-[var(--brand)]" />
-                <div className="flex-1">
-                  <strong className="block text-[var(--text)]">{isHi ? "Switch to English" : "हिन्दी में बदलें"}</strong>
-                  <span className="text-[11px] text-[var(--text-muted)]">{isHi ? "Change language to English" : "Toggle platform language to Hindi"}</span>
-                </div>
-                <kbd className="text-[10px] font-mono text-[var(--text-faint)] bg-[var(--glass)] px-1.5 py-0.5 rounded border border-[var(--border)]">{language.toUpperCase()}</kbd>
-              </Command.Item>
-
               <Command.Item
                 onSelect={() => handleSelect(() => {
                   setSelectedDistrict('gorakhpur');
@@ -157,6 +147,38 @@ export function CommandPalette({ open, onOpenChange, onToggleFocusMode }: Comman
                   </div>
                 </Command.Item>
               )}
+            </Command.Group>
+
+            {/* Languages (7 Scheduled Regional Languages) */}
+            <Command.Group heading={<span className="px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-[var(--text-faint)] block mt-2">{isHi ? "भाषा स्थानीयकरण (7 अनुसूचित भाषाएं)" : "Languages & Localization (7 Scheduled Languages)"}</span>}>
+              {SUPPORTED_LANGUAGES.map((langItem) => {
+                const isCurrent = language === langItem.code;
+                return (
+                  <Command.Item
+                    key={langItem.code}
+                    value={`language ${langItem.label} ${langItem.nativeLabel} ${langItem.region} ${langItem.code}`}
+                    onSelect={() => handleSelect(() => setLanguage(langItem.code))}
+                    className="flex items-center gap-2.5 px-3 py-2 rounded-xl text-[var(--text)] hover:bg-[var(--glass-strong)] cursor-pointer aria-selected:bg-[var(--glass-strong)] transition-colors"
+                  >
+                    <Languages className={clsx("w-4 h-4", isCurrent ? "text-[var(--brand)]" : "text-[var(--text-faint)]")} />
+                    <div className="flex-1">
+                      <div className="flex items-center gap-2">
+                        <strong className="block text-[var(--text)]">{langItem.nativeLabel}</strong>
+                        <span className="text-[11px] text-[var(--text-muted)]">({langItem.label})</span>
+                      </div>
+                      <span className="text-[10px] text-[var(--text-faint)]">{langItem.region}</span>
+                    </div>
+                    {isCurrent ? (
+                      <span className="flex items-center gap-1 text-[10px] font-mono font-bold text-[var(--brand)] bg-[var(--brand)]/10 px-2 py-0.5 rounded-full border border-[var(--brand)]/20">
+                        <Check className="w-3 h-3" />
+                        Active
+                      </span>
+                    ) : (
+                      <kbd className="text-[10px] font-mono text-[var(--text-faint)] bg-[var(--glass)] px-1.5 py-0.5 rounded border border-[var(--border)]">{langItem.code.toUpperCase()}</kbd>
+                    )}
+                  </Command.Item>
+                );
+              })}
             </Command.Group>
 
             {/* Navigation Routes */}

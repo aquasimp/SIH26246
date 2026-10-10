@@ -6,6 +6,8 @@ import { AppProvider } from "@/lib/store";
 import { AppShell } from "@/components/layout/AppShell";
 import { cookies } from "next/headers";
 
+import { Language } from "@/lib/i18n";
+
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
@@ -30,7 +32,9 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const cookieStore = await cookies();
-  const lang = cookieStore.get("kaushalyuva-lang")?.value === "hi" ? "hi" : "en";
+  const rawLang = cookieStore.get("kaushalyuva-lang")?.value;
+  const validLanguages: Language[] = ['en', 'hi', 'mr', 'ta', 'te', 'kn', 'bn'];
+  const lang: Language = (validLanguages.includes(rawLang as any) ? rawLang : "en") as Language;
 
   return (
     <html 
