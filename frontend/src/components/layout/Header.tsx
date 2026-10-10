@@ -12,7 +12,8 @@ import {
   RefreshCw, 
   Bot,
   Activity,
-  ArrowLeft
+  ArrowLeft,
+  Radio
 } from 'lucide-react';
 import { useApp } from '@/lib/store';
 import { ThemeToggle } from './ThemeToggle';
@@ -51,12 +52,13 @@ export const Header: React.FC = () => {
     if (pathname.includes('/occupations')) return t.nav.occupations;
     if (pathname.includes('/qualifications')) return t.nav.qualifications;
     if (pathname.includes('/data-health')) return t.nav.dataHealth;
+    if (pathname.includes('/methodology')) return language === 'hi' ? 'मॉडल कार्यप्रणाली' : 'Methodology';
     if (pathname.includes('/api')) return t.nav.apiExports;
     if (pathname.includes('/settings')) return t.nav.settings;
     return t.nav.overview;
   };
 
-  // Format district name with title case (e.g. "gorakhpur" -> "Gorakhpur") per §4.3
+  // Format district name with title case
   const rawDistrict = selectedDistrict 
     ? selectedDistrict.charAt(0).toUpperCase() + selectedDistrict.slice(1).replace('_', ' ')
     : 'Gorakhpur';
@@ -65,20 +67,20 @@ export const Header: React.FC = () => {
   const localizedDistrict = getLocalizedEntityName('districts', rawDistrict, language, rawDistrict);
 
   return (
-    <header className="sticky top-0 z-20 px-3 sm:px-6 py-2.5 glass-strong border-b border-[var(--border)] select-none">
+    <header className="sticky top-0 z-20 px-3 sm:px-6 py-2 glass-strong border-b border-[var(--border)] select-none backdrop-blur-xl">
       <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-2.5">
-        {/* Breadcrumb Trail with Home Link (§4.3) */}
-        <nav aria-label="Breadcrumb" className="flex items-center flex-wrap gap-1.5 text-xs font-medium text-[var(--text-muted)] py-1">
+        {/* Breadcrumb Trail with Home Link */}
+        <nav aria-label="Breadcrumb" className="flex items-center flex-wrap gap-1.5 text-xs font-medium text-[var(--text-muted)] py-0.5">
           <Link 
             href="/" 
             className="flex items-center gap-1 text-[var(--brand)] hover:underline font-bold text-xs pr-2 border-r border-[var(--border)] mr-0.5 group"
             title={language === 'hi' ? 'कौशलयुवा मुख्य पृष्ठ' : 'KaushalYuva Home'}
           >
-            <ArrowLeft className="w-3 h-3 group-hover:-translate-x-0.5 transition-transform" />
-            <span>{language === 'hi' ? 'मुख्य पृष्ठ' : 'KaushalYuva Home'}</span>
+            <ArrowLeft className="w-3.5 h-3.5 group-hover:-translate-x-0.5 transition-transform" />
+            <span>{language === 'hi' ? 'मुख्य पृष्ठ' : 'KaushalYuva'}</span>
           </Link>
           <span className="font-bold text-[var(--text)] flex items-center gap-1.5">
-            <span className="w-1.5 h-1.5 rounded-full bg-[var(--brand)] shrink-0" />
+            <span className="w-2 h-2 rounded-full bg-[#00c2cb] shrink-0 shadow-[0_0_6px_#00c2cb] animate-pulse" />
             {language === 'hi' ? 'एमएसडीई इंटेलिजेंस' : 'MSDE Intelligence'}
           </span>
           <span className="text-[var(--text-faint)]">/</span>
@@ -86,7 +88,7 @@ export const Header: React.FC = () => {
           <span className="text-[var(--text-faint)]">/</span>
           <span className="text-[var(--text)] font-semibold">{localizedState}</span>
           <span className="text-[var(--text-faint)]">/</span>
-          <span className="font-bold text-[var(--brand)] bg-[var(--brand)]/10 px-2 py-0.5 rounded-md border border-[var(--brand)]/20">
+          <span className="font-bold text-[var(--brand)] bg-[var(--brand)]/10 px-2 py-0.5 rounded-md border border-[var(--brand)]/20 font-mono">
             {localizedDistrict}
           </span>
           <span className="text-[var(--text-faint)]">/</span>
@@ -95,12 +97,24 @@ export const Header: React.FC = () => {
 
         {/* Center / Right Control Cluster */}
         <div className="flex items-center flex-wrap gap-2 self-end lg:self-auto">
-          {/* Global Search trigger (Ctrl K / Cmd K) (§5.2, §5.3) */}
+          {/* DepthWizard Tactical Telemetry Pill */}
+          <div 
+            className="hidden xl:flex items-center gap-1.5 text-xs px-2.5 py-1 rounded-full bg-[#0055a5]/10 dark:bg-cyan-950/40 border border-[#00c2cb]/30 text-cyan-600 dark:text-cyan-400 font-mono text-[11px] font-semibold"
+            title={language === 'hi' ? 'स्नैपशॉट: RUN-SIH-001 • मॉडल v2.4 • बेसलाइन: सीज़नल नेईव' : 'Snapshot: RUN-SIH-001 • Model v2.4 (Tri-Model Blend) • Baseline: Seasonal Naive'}
+          >
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#00c2cb] opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-[#00c2cb]"></span>
+            </span>
+            <span>RUN-SIH-001 · <strong>Oct 2024 Data</strong></span>
+          </div>
+
+          {/* Global Search trigger (Ctrl K / Cmd K) */}
           <button
             type="button"
             onClick={() => setCommandPaletteOpen(true)}
             aria-label={language === 'hi' ? 'कमांड पैलेट खोलें' : 'Open command palette'}
-            className="flex items-center gap-2 px-3 py-1.5 rounded-xl liquid-control text-xs text-[var(--text-muted)] hover:text-[var(--text)] cursor-pointer"
+            className="flex items-center gap-2 px-3 py-1.5 rounded-xl liquid-control text-xs text-[var(--text-muted)] hover:text-[var(--text)] hover:border-[#00c2cb]/50 cursor-pointer transition-colors"
             title={language === 'hi' ? 'कमांड पैलेट खोलें (Ctrl+K)' : 'Open Command Palette (Ctrl+K or ⌘+K)'}
           >
             <Search className="w-3.5 h-3.5 text-[var(--text-faint)]" />
@@ -110,10 +124,10 @@ export const Header: React.FC = () => {
             </kbd>
           </button>
 
-          {/* Data Source Segmented Control (§4.3, §5.2) */}
+          {/* Data Source Segmented Control */}
           <DataSourceControl />
 
-          {/* Focus Mode Toggle (§5.9) */}
+          {/* Focus Mode Toggle */}
           <button
             type="button"
             onClick={toggleFocusMode}
@@ -126,23 +140,7 @@ export const Header: React.FC = () => {
             {focusMode ? <Minimize2 className="w-4 h-4" /> : <Maximize2 className="w-4 h-4" />}
           </button>
 
-          {/* Last Run & Status Dot (§5.2) */}
-          <div 
-            className="hidden xl:flex items-center gap-1.5 text-xs px-2.5 py-1 rounded-xl glass border border-[var(--border)] text-[var(--text-muted)] font-mono text-[11px]"
-            title={language === 'hi' ? 'स्नैपशॉट: RUN-SIH-001 • मॉडल v2.4 • बेसलाइन: सीज़नल नेईव' : 'Snapshot: RUN-SIH-001 • Model v2.4 (Tri-Model Blend) • Baseline: Seasonal Naive'}
-          >
-            <span className="w-1.5 h-1.5 rounded-full bg-[var(--brand)] animate-pulse" />
-            <span>{language === 'hi' ? 'रन ' : 'Run '}<strong>RUN-SIH-001</strong> · {language === 'hi' ? '04 अक्तूबर 2026 · डेटा अक्तूबर 2024 तक' : '04 Oct 2026 · data through Oct 2024'}</span>
-          </div>
-
-          {/* Offline Fixture Indicator */}
-          {isOfflineFixture && (
-            <div className="flex items-center gap-1 text-[11px] px-2 py-0.5 rounded-lg bg-amber-500/15 text-amber-600 dark:text-amber-400 border border-amber-500/30 font-bold font-mono" title={language === 'hi' ? 'रन RUN-SIH-001 से पूर्व-गणना' : 'Precomputed from run RUN-SIH-001'}>
-              <span>{language === 'hi' ? 'रन RUN-SIH-001 से पूर्व-गणना' : 'Precomputed from run RUN-SIH-001'}</span>
-            </div>
-          )}
-
-          {/* Theme Selector (Light / Dark / System) (§4.7, §5.2) */}
+          {/* Theme Selector (Light / Dark / System) */}
           <ThemeToggle />
 
           {/* Bilingual Switcher (EN | हिन्दी) */}
@@ -150,7 +148,7 @@ export const Header: React.FC = () => {
             <button
               type="button"
               onClick={() => setLanguage('en')}
-              className={`px-2 py-1 rounded-lg transition-all cursor-pointer text-[11px] ${
+              className={`px-2 py-1 rounded-lg transition-all cursor-pointer text-[11px] font-mono ${
                 language === 'en' 
                   ? 'bg-[var(--surface-solid)] text-[var(--brand)] shadow-xs border border-[var(--border-strong)]' 
                   : 'text-[var(--text-muted)] hover:text-[var(--text)]'
@@ -161,7 +159,7 @@ export const Header: React.FC = () => {
             <button
               type="button"
               onClick={() => setLanguage('hi')}
-              className={`px-2 py-1 rounded-lg transition-all cursor-pointer text-[11px] ${
+              className={`px-2 py-1 rounded-lg transition-all cursor-pointer text-[11px] font-mono ${
                 language === 'hi' 
                   ? 'bg-[var(--surface-solid)] text-[var(--brand)] shadow-xs border border-[var(--border-strong)]' 
                   : 'text-[var(--text-muted)] hover:text-[var(--text)]'
@@ -181,7 +179,7 @@ export const Header: React.FC = () => {
           >
             <Bell className="w-4 h-4" />
             {unreadAlerts > 0 && (
-              <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-[var(--severe)] text-white text-[9px] font-mono font-bold flex items-center justify-center border border-[var(--surface-solid)]">
+              <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-[var(--severe)] text-white text-[9px] font-mono font-bold flex items-center justify-center border border-[var(--surface-solid)] shadow-[0_0_6px_#ff6600]">
                 {unreadAlerts}
               </span>
             )}
@@ -191,11 +189,11 @@ export const Header: React.FC = () => {
           <button
             type="button"
             onClick={() => setCopilotOpen(true)}
-            className="hidden sm:flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-[var(--brand)] text-white hover:opacity-90 transition-all font-bold text-xs shadow-xs cursor-pointer"
+            className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-gradient-to-r from-[#0055a5] to-[#00c2cb] text-white hover:opacity-90 transition-all font-bold text-xs shadow-md shadow-[#00c2cb]/20 cursor-pointer font-sans"
             title={language === 'hi' ? 'कौशल कोपायलट एआई खोलें' : 'Open Kaushal Copilot AI'}
           >
             <Bot className="w-3.5 h-3.5" />
-            <span>{language === 'hi' ? 'कोपायलट' : 'Copilot'}</span>
+            <span>{language === 'hi' ? 'कोपायलट' : 'Copilot AI'}</span>
           </button>
         </div>
       </div>

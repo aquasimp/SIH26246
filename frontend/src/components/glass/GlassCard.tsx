@@ -19,11 +19,11 @@ export const GlassCard: React.FC<GlassCardProps> = ({
   accentColor = 'neutral'
 }) => {
   const accentBorder = {
-    demand: 'border-l-4 border-l-orange-500',
-    supply: 'border-l-4 border-l-emerald-500',
-    shortage: 'border-l-4 border-l-red-500',
-    oversupply: 'border-l-4 border-l-indigo-500',
-    forecast: 'border-l-4 border-l-blue-500',
+    demand: 'border-l-4 border-l-amber-500',
+    supply: 'border-l-4 border-l-cyan-500',
+    shortage: 'border-l-4 border-l-[#ff6600]',
+    oversupply: 'border-l-4 border-l-blue-500',
+    forecast: 'border-l-4 border-l-[#00c2cb]',
     warning: 'border-l-4 border-l-amber-500',
     neutral: ''
   }[accentColor];
@@ -32,14 +32,14 @@ export const GlassCard: React.FC<GlassCardProps> = ({
     <div
       onClick={onClick}
       className={clsx(
-        'glass-card rounded-2xl p-5 relative overflow-hidden',
-        hoverEffect && 'cursor-pointer',
+        'hud-card rounded-2xl p-5 relative overflow-hidden transition-all duration-300',
+        hoverEffect && 'cursor-pointer hover:border-[#00c2cb]/60 hover:shadow-[0_8px_30px_rgba(0,194,203,0.15)]',
         accentBorder,
         className
       )}
     >
-      {/* Tiny subtle internal glass reflection on top edge */}
-      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/80 to-transparent pointer-events-none" />
+      {/* Subtle top edge specular highlight */}
+      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#00c2cb]/40 to-transparent pointer-events-none" />
       {children}
     </div>
   );

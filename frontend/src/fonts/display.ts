@@ -1,14 +1,32 @@
-// src/fonts/display.ts — Archivo variable font + Khand + Noto Sans Devanagari + JetBrains Mono
-// Strictly <= 4 font files in critical path (< 150 KB budget)
-import { Archivo, Khand, Noto_Sans_Devanagari, JetBrains_Mono } from 'next/font/google';
+// src/fonts/display.ts — DepthWizard Typography System
+// Primary UI: Plus Jakarta Sans
+// Tactical Display: Space Grotesk
+// Monospace/Telemetry: JetBrains Mono
+// Devanagari Headings & Body: Khand & Noto Sans Devanagari
+import { Plus_Jakarta_Sans, Space_Grotesk, JetBrains_Mono, Noto_Sans_Devanagari, Khand } from 'next/font/google';
 
-export const displayFont = Archivo({
+export const plusJakartaSans = Plus_Jakarta_Sans({
   subsets: ['latin'],
-  axes: ['wdth'],
+  weight: ['400', '500', '600', '700', '800'],
   display: 'swap',
-  variable: '--font-archivo',
+  variable: '--font-sans',
   preload: true,
-  adjustFontFallback: true,
+});
+
+export const spaceGrotesk = Space_Grotesk({
+  subsets: ['latin'],
+  weight: ['500', '600', '700'],
+  display: 'swap',
+  variable: '--font-display',
+  preload: true,
+});
+
+export const monoFont = JetBrains_Mono({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700'],
+  display: 'swap',
+  variable: '--font-mono',
+  preload: true,
 });
 
 export const khandFont = Khand({
@@ -27,9 +45,5 @@ export const notoDevanagariFont = Noto_Sans_Devanagari({
   preload: true,
 });
 
-export const monoFont = JetBrains_Mono({
-  subsets: ['latin'],
-  display: 'swap',
-  variable: '--font-mono',
-  preload: true,
-});
+// Backward-compatibility aliases
+export const displayFont = spaceGrotesk;

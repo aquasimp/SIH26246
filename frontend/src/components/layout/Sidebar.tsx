@@ -39,7 +39,7 @@ export const Sidebar: React.FC = () => {
   const [collapsed, setCollapsed] = useState(false);
   const { t, alerts, recommendations, setCopilotOpen, focusMode, language } = useApp();
 
-  // Below 1366px viewport width, default to collapsed icon rail (§5.1)
+  // Below 1366px viewport width, default to collapsed icon rail
   useEffect(() => {
     const handleResize = () => {
       if (typeof window !== 'undefined') {
@@ -53,7 +53,7 @@ export const Sidebar: React.FC = () => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  // When Focus Mode is active, hide sidebar for maximum analytical canvas (§5.9)
+  // When Focus Mode is active, hide sidebar for maximum analytical canvas
   if (focusMode) {
     return null;
   }
@@ -63,7 +63,7 @@ export const Sidebar: React.FC = () => {
 
   const navGroups: { title: string; items: NavItem[] }[] = [
     {
-      title: language === 'hi' ? 'इंटेलिजेंस' : 'INTELLIGENCE',
+      title: language === 'hi' ? '// इंटेलिजेंस' : '// INTELLIGENCE',
       items: [
         { href: '/overview', label: t.nav.overview, icon: LayoutDashboard },
         { href: '/intelligence', label: t.nav.intelligence, icon: TrendingUp },
@@ -72,21 +72,21 @@ export const Sidebar: React.FC = () => {
       ]
     },
     {
-      title: language === 'hi' ? 'कार्रवाई' : 'ACTION',
+      title: language === 'hi' ? '// कार्रवाई एवं सिमुलेशन' : '// DECISION SUPPORT',
       items: [
         { 
           href: '/alerts', 
           label: t.nav.alerts, 
           icon: AlertTriangle, 
           badge: '35', 
-          badgeColor: 'bg-[var(--severe)]/15 text-[var(--severe)] border-[var(--severe)]/30' 
+          badgeColor: 'bg-[var(--severe)]/15 text-[var(--severe)] border-[var(--severe)]/35' 
         },
         { 
           href: '/recommendations', 
           label: t.nav.recommendations, 
           icon: Lightbulb, 
           badge: `${pendingRecommendations || 4}`, 
-          badgeColor: 'bg-[var(--brand)]/15 text-[var(--brand)] border-[var(--brand)]/30' 
+          badgeColor: 'bg-cyan-500/15 text-cyan-600 dark:text-cyan-400 border-cyan-500/30' 
         },
         { 
           href: '/scenarios', 
@@ -97,7 +97,7 @@ export const Sidebar: React.FC = () => {
       ]
     },
     {
-      title: language === 'hi' ? 'अन्वेषण' : 'EXPLORE',
+      title: language === 'hi' ? '// अन्वेषण एवं वर्गीकरण' : '// EXPLORE & TAXONOMY',
       items: [
         { href: '/districts', label: t.nav.districts, icon: MapPin },
         { href: '/occupations', label: t.nav.occupations, icon: Briefcase },
@@ -105,7 +105,7 @@ export const Sidebar: React.FC = () => {
       ]
     },
     {
-      title: language === 'hi' ? 'सिस्टम' : 'SYSTEM',
+      title: language === 'hi' ? '// प्रणाली एवं मॉडल' : '// SYSTEM & GOVERNANCE',
       items: [
         { href: '/data-health', label: t.nav.dataHealth, icon: ShieldCheck },
         { href: '/methodology', label: t.nav.methodology || (language === 'hi' ? 'मॉडल कार्यप्रणाली' : 'Methodology'), icon: FileText },
@@ -119,7 +119,7 @@ export const Sidebar: React.FC = () => {
     <aside 
       aria-label="Primary Platform Navigation"
       className={`hidden md:flex flex-col shrink-0 transition-all duration-300 z-30 sticky top-0 h-screen py-3 pl-3 select-none ${
-        collapsed ? 'w-20' : 'w-[275px]'
+        collapsed ? 'w-20' : 'w-[280px]'
       }`}
     >
       <div className="glass-strong rounded-3xl h-full flex flex-col justify-between p-3 relative overflow-hidden border border-[var(--border)] shadow-xl">
@@ -127,16 +127,16 @@ export const Sidebar: React.FC = () => {
         <div className="flex flex-col min-h-0">
           <div className="flex items-center justify-between px-2 pt-1 pb-3 border-b border-[var(--border)]">
             <Link href="/" className="flex items-center gap-2.5 group" title={language === 'hi' ? 'कौशलयुवा होम' : 'KaushalYuva Home'}>
-              <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-[var(--brand)] to-blue-600 flex items-center justify-center text-white shadow-md shadow-[var(--brand)]/20 shrink-0 group-hover:scale-105 transition-transform font-mono font-extrabold text-sm tracking-wider">
+              <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-[#0055a5] to-[#00c2cb] flex items-center justify-center text-white shadow-md shadow-[#00c2cb]/20 shrink-0 group-hover:scale-105 transition-transform font-mono font-extrabold text-xs tracking-wider border border-[#00c2cb]/40">
                 KY
               </div>
               {!collapsed && (
                 <div className="flex flex-col min-w-0">
-                  <span className="text-sm font-bold tracking-tight text-[var(--text)] leading-tight flex items-center gap-1.5">
+                  <span className="text-sm font-extrabold tracking-tight text-[var(--text)] leading-tight flex items-center gap-1.5 font-display">
                     {t.appTitle}
-                    <span className="w-1.5 h-1.5 rounded-full bg-[var(--success)] animate-pulse shrink-0" />
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#00c2cb] animate-pulse shrink-0 shadow-[0_0_6px_#00c2cb]" />
                   </span>
-                  <span className="text-[9px] font-semibold text-[var(--text-faint)] uppercase tracking-wider truncate">
+                  <span className="text-[9px] font-mono font-semibold text-[var(--text-faint)] uppercase tracking-wider truncate">
                     {t.appSubtitle}
                   </span>
                 </div>
@@ -146,7 +146,7 @@ export const Sidebar: React.FC = () => {
             <button
               type="button"
               onClick={() => setCollapsed(!collapsed)}
-              className="w-7 h-7 rounded-xl liquid-control flex items-center justify-center text-[var(--text-muted)] hover:text-[var(--text)] cursor-pointer"
+              className="w-7 h-7 rounded-xl liquid-control flex items-center justify-center text-[var(--text-muted)] hover:text-[var(--text)] hover:border-[#00c2cb]/50 cursor-pointer transition-colors"
               title={collapsed ? 'Expand sidebar (Ctrl+B)' : 'Collapse sidebar'}
               aria-label={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
             >
@@ -159,7 +159,7 @@ export const Sidebar: React.FC = () => {
             {navGroups.map((group) => (
               <div key={group.title} className="space-y-1">
                 {!collapsed && (
-                  <span className="px-2.5 text-[9px] font-mono font-bold tracking-widest uppercase text-[var(--text-faint)] block">
+                  <span className="px-2.5 text-[9px] font-mono font-bold tracking-widest uppercase text-cyan-600/80 dark:text-cyan-400/80 block">
                     {group.title}
                   </span>
                 )}
@@ -174,17 +174,17 @@ export const Sidebar: React.FC = () => {
                         href={item.href}
                         className={`flex items-center gap-2.5 px-2.5 py-2 rounded-xl text-xs font-semibold transition-all relative group cursor-pointer ${
                           isActive
-                            ? 'bg-[var(--glass-strong)] text-[var(--text)] shadow-xs border-l-2 border-l-[var(--brand)] font-bold'
-                            : 'text-[var(--text-muted)] hover:text-[var(--text)] hover:bg-[var(--glass)]'
+                            ? 'bg-cyan-500/10 text-[var(--brand)] shadow-xs border-l-2 border-l-[#00c2cb] font-bold dark:bg-cyan-500/15 dark:text-[#00c2cb]'
+                            : 'text-[var(--text-muted)] hover:text-[var(--text)] hover:bg-[var(--glass)] hover:border-l hover:border-l-[var(--border-strong)]'
                         }`}
                         title={collapsed ? item.label : undefined}
                       >
                         <Icon className={`w-4 h-4 shrink-0 transition-transform group-hover:scale-110 ${
-                          isActive ? 'text-[var(--brand)]' : 'text-[var(--text-faint)]'
+                          isActive ? 'text-[#00c2cb]' : 'text-[var(--text-faint)]'
                         }`} />
                         
                         {!collapsed && (
-                          <span className="truncate flex-1 tracking-tight">
+                          <span className="truncate flex-1 tracking-tight font-medium">
                             {item.label}
                           </span>
                         )}
@@ -196,7 +196,7 @@ export const Sidebar: React.FC = () => {
                         )}
 
                         {!collapsed && item.special && (
-                          <span className="px-1.5 py-0.2 text-[9px] font-mono font-extrabold uppercase rounded-md bg-gradient-to-r from-amber-500 to-orange-500 text-white shadow-xs">
+                          <span className="px-1.5 py-0.2 text-[9px] font-mono font-extrabold uppercase rounded-md bg-gradient-to-r from-cyan-500 to-[#0055a5] text-white shadow-xs">
                             STUDIO
                           </span>
                         )}
@@ -209,21 +209,21 @@ export const Sidebar: React.FC = () => {
           </nav>
         </div>
 
-        {/* Bottom Copilot Mini Card */}
+        {/* Bottom Copilot Cockpit Mini Card */}
         <div className="pt-2 border-t border-[var(--border)]">
           {!collapsed ? (
-            <div className="p-2.5 rounded-2xl glass border border-[var(--border)] relative overflow-hidden">
+            <div className="p-2.5 rounded-2xl glass border border-[var(--border)] relative overflow-hidden group hover:border-[#00c2cb]/40 transition-colors">
               <div className="flex items-center justify-between mb-1.5">
                 <div className="flex items-center gap-1.5">
-                  <div className="w-5 h-5 rounded-lg bg-[var(--brand)] text-white flex items-center justify-center">
+                  <div className="w-5 h-5 rounded-lg bg-gradient-to-tr from-[#0055a5] to-[#00c2cb] text-white flex items-center justify-center">
                     <Bot className="w-3 h-3" />
                   </div>
-                  <span className="text-[11px] font-bold text-[var(--text)]">
+                  <span className="text-[11px] font-bold text-[var(--text)] font-display">
                     {t.copilot.title}
                   </span>
                 </div>
-                <span className="text-[9px] font-mono px-1 py-0.2 bg-[var(--brand)]/15 text-[var(--brand)] font-bold rounded border border-[var(--brand)]/20">
-                  {language === 'hi' ? 'सत्यापित' : 'Grounded'}
+                <span className="text-[9px] font-mono px-1 py-0.2 bg-cyan-500/15 text-cyan-600 dark:text-cyan-400 font-bold rounded border border-cyan-500/25">
+                  {language === 'hi' ? 'सत्यापित AI' : 'Grounded AI'}
                 </span>
               </div>
               <p className="text-[10px] text-[var(--text-muted)] leading-tight mb-2">
@@ -232,7 +232,7 @@ export const Sidebar: React.FC = () => {
               <button
                 type="button"
                 onClick={() => setCopilotOpen(true)}
-                className="w-full py-1.5 px-2 rounded-xl bg-[var(--brand)] hover:opacity-90 text-white text-[11px] font-bold flex items-center justify-center gap-1.5 transition-all shadow-xs cursor-pointer"
+                className="w-full py-1.5 px-2 rounded-xl bg-gradient-to-r from-[#0055a5] to-[#00c2cb] hover:opacity-90 text-white text-[11px] font-bold flex items-center justify-center gap-1.5 transition-all shadow-xs cursor-pointer font-sans"
               >
                 <Sparkles className="w-3 h-3 text-amber-300" />
                 <span>{t.actions.askCopilot}</span>

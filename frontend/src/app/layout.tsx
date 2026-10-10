@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { displayFont, khandFont, notoDevanagariFont, monoFont } from "@/fonts/display";
+import { plusJakartaSans, spaceGrotesk, khandFont, notoDevanagariFont, monoFont } from "@/fonts/display";
 import "./globals.css";
 import { Providers } from "./providers";
 import { AppProvider } from "@/lib/store";
@@ -8,8 +8,8 @@ import { cookies } from "next/headers";
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#F7F6F2" },
-    { media: "(prefers-color-scheme: dark)", color: "#090A0C" },
+    { media: "(prefers-color-scheme: light)", color: "#F4F8FD" },
+    { media: "(prefers-color-scheme: dark)", color: "#050811" },
   ],
 };
 
@@ -33,9 +33,9 @@ export default async function RootLayout({
     <html 
       lang={lang} 
       suppressHydrationWarning 
-      className={`${displayFont.variable} ${khandFont.variable} ${notoDevanagariFont.variable} ${monoFont.variable} scroll-smooth`}
+      className={`${plusJakartaSans.variable} ${spaceGrotesk.variable} ${khandFont.variable} ${notoDevanagariFont.variable} ${monoFont.variable} scroll-smooth`}
     >
-      <body className="min-h-screen text-[var(--text)] bg-[var(--bg)] antialiased selection:bg-[var(--brand)] selection:text-white">
+      <body className="min-h-screen text-[var(--text)] bg-[var(--bg)] antialiased selection:bg-[#ff6600]/30 selection:text-[#ff9944]">
         {/* Skip to Content for WCAG AA compliance */}
         <a 
           href="#main-content" 
