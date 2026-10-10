@@ -144,7 +144,7 @@ export const Header: React.FC = () => {
           <button
             type="button"
             onClick={toggleFocusMode}
-            className={`p-1.5 rounded-xl liquid-control cursor-pointer transition-all ${
+            className={`hidden sm:inline-flex p-1.5 rounded-xl liquid-control cursor-pointer transition-all ${
               focusMode ? 'bg-[var(--brand)] text-white shadow-xs' : 'text-[var(--text-muted)] hover:text-[var(--text)]'
             }`}
             title={focusMode ? (language === 'hi' ? 'फोकस मोड से बाहर निकलें (Esc)' : 'Exit Focus Mode (Esc)') : (language === 'hi' ? 'फोकस मोड सक्षम करें' : 'Enter Focus Mode (Maximize Workspace)')}
@@ -154,10 +154,12 @@ export const Header: React.FC = () => {
           </button>
 
           {/* Theme Selector (Light / Dark / System) */}
-          <ThemeToggle />
+          <div className="hidden sm:inline-flex">
+            <ThemeToggle />
+          </div>
 
           {/* Bilingual Switcher (EN | हिन्दी) */}
-          <div className="glass inline-flex items-center rounded-xl p-0.5 border border-[var(--border)] text-xs font-bold">
+          <div className="hidden sm:inline-flex glass items-center rounded-xl p-0.5 border border-[var(--border)] text-xs font-bold">
             <button
               type="button"
               onClick={() => setLanguage('en')}

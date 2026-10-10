@@ -74,11 +74,11 @@ export function MarketingTopbar() {
             <span>{EXPORT_METADATA.runId}</span>
           </span>
 
-          {/* Language Switcher */}
+          {/* Language Switcher (hidden on mobile, present in drawer) */}
           <div 
             role="radiogroup" 
             aria-label="Language selector"
-            className="glass inline-flex items-center rounded-full p-0.5 border border-[var(--border)] text-[11px] sm:text-xs font-bold font-mono"
+            className="hidden sm:inline-flex glass items-center rounded-full p-0.5 border border-[var(--border)] text-[11px] sm:text-xs font-bold font-mono"
           >
             <button
               type="button"
@@ -108,8 +108,10 @@ export function MarketingTopbar() {
             </button>
           </div>
 
-          {/* Theme Toggle */}
-          <ThemeToggle />
+          {/* Theme Toggle (hidden on mobile, present in drawer) */}
+          <div className="hidden sm:block">
+            <ThemeToggle />
+          </div>
 
           {/* Primary Open Dashboard CTA */}
           <Link
