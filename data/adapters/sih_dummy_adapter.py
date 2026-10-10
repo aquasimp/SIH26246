@@ -1,6 +1,6 @@
 """
 KaushalPulse Data Adapter: Official SIH Evaluation Dataset Adapter
-Ministry of Skill Development & Entrepreneurship (MSDE) — PS 26242
+Ministry of Skill Development & Entrepreneurship (MSDE) — PS 26246 (PS 26242)
 
 Ingests, normalizes, validates, and persists unformatted official SIH evaluation datasets.
 Translates heterogeneous raw columns into the canonical MSDE labor market intelligence schema.

@@ -1,6 +1,6 @@
 """
 KaushalPulse ML Module: Staged Supply & Skill Gap Engine
-Ministry of Skill Development & Entrepreneurship (MSDE) — PS 26242
+Ministry of Skill Development & Entrepreneurship (MSDE) — PS 26246 (PS 26242)
 
 Computes:
 1. Staged workforce conversion funnel

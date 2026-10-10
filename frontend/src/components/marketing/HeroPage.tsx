@@ -451,6 +451,110 @@ export function HeroPage() {
           </div>
         </div>
       </section>
+
+      {/* 5. PS 26246 Architecture & Compliance Grid (§MSDE Mandate) */}
+      <section className="w-full max-w-7xl px-4 sm:px-6 lg:px-8 py-8 space-y-4">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-[var(--border)] pb-3">
+          <div>
+            <span className="eyebrow">
+              <span className="eyebrow-bullet" />
+              {isHi ? 'स्मार्ट इंडिया हैकथॉन · PS 26246 अनुपालन' : 'SMART INDIA HACKATHON · PS 26246 COMPLIANCE'}
+            </span>
+            <h2 className="text-xl sm:text-2xl font-extrabold text-[var(--text)] tracking-tight mt-0.5">
+              {isHi ? 'एमएसडीई समस्या विवरण २६२४६: पूर्ण कार्यान्वयन ढांचा' : 'MSDE Problem Statement 26246: Full Implementation Matrix'}
+            </h2>
+          </div>
+          <Link
+            href="/methodology"
+            className="text-xs font-bold text-[var(--brand)] hover:underline inline-flex items-center gap-1 self-start sm:self-auto"
+          >
+            <span>{isHi ? 'संपूर्ण पद्धति एवं गणितीय प्रमाण' : 'View Methodology & Math Proof'}</span>
+            <ArrowRight className="w-3.5 h-3.5" />
+          </Link>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <Link
+            href="/occupations"
+            className="p-4 rounded-2xl glass-strong border border-[var(--border)] hover:border-[var(--brand)]/50 transition-all group block space-y-2"
+          >
+            <div className="flex items-center justify-between">
+              <span className="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold bg-blue-500/10 text-blue-700 dark:text-blue-300 border border-blue-500/25">
+                {isHi ? 'मांग सामान्यीकरण' : 'Demand Normalization'}
+              </span>
+              <CheckCircle2 className="w-4 h-4 text-emerald-500" />
+            </div>
+            <h3 className="text-sm font-extrabold text-[var(--text)] group-hover:text-[var(--brand)] transition-colors">
+              {isHi ? 'NCO/NSQF मांग सिग्नल' : 'NCO/NSQF Demand Signals'}
+            </h3>
+            <p className="text-xs text-[var(--text-muted)] leading-relaxed">
+              {isHi
+                ? 'जॉब पोर्टल्स, ई-श्रम, और NCS लिस्टिंग को NCO-2015 8-अंकीय कोड में 3-स्तरीय कैस्केड द्वारा सामान्यीकृत किया गया।'
+                : '3-tier fuzzy cascade maps unstructured jobs, e-Shram, and NCS listings to official NCO-2015 8-digit codes.'}
+            </p>
+          </Link>
+
+          <Link
+            href="/forecasts"
+            className="p-4 rounded-2xl glass-strong border border-[var(--border)] hover:border-[var(--brand)]/50 transition-all group block space-y-2"
+          >
+            <div className="flex items-center justify-between">
+              <span className="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold bg-amber-500/10 text-amber-700 dark:text-amber-400 border border-amber-500/25">
+                {isHi ? 'समय-श्रृंखला एमएल' : 'Time-Series ML'}
+              </span>
+              <CheckCircle2 className="w-4 h-4 text-emerald-500" />
+            </div>
+            <h3 className="text-sm font-extrabold text-[var(--text)] group-hover:text-[var(--brand)] transition-colors">
+              {isHi ? '3M · 6M · 12M पूर्वानुमान' : '3M · 6M · 12M Forecasts'}
+            </h3>
+            <p className="text-xs text-[var(--text-muted)] leading-relaxed">
+              {isHi
+                ? 'शून्य-रिसाव (t-1) LightGBM व त्रि-मॉडल एन्सेम्बल, 3.41% - 3.71% WAPE सटीकता के साथ।'
+                : 'Zero-leakage lagged LightGBM ensemble delivering 3.41%–3.71% out-of-sample WAPE across rolling origins.'}
+            </p>
+          </Link>
+
+          <Link
+            href="/scenarios"
+            className="p-4 rounded-2xl glass-strong border border-[var(--border)] hover:border-[var(--brand)]/50 transition-all group block space-y-2"
+          >
+            <div className="flex items-center justify-between">
+              <span className="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold bg-purple-500/10 text-purple-700 dark:text-purple-300 border border-purple-500/25">
+                {isHi ? 'LP अनुकूलन' : 'LP Optimization'}
+              </span>
+              <CheckCircle2 className="w-4 h-4 text-emerald-500" />
+            </div>
+            <h3 className="text-sm font-extrabold text-[var(--text)] group-hover:text-[var(--brand)] transition-colors">
+              {isHi ? 'सीट पुनर्आवंटन सॉल्वर' : 'PuLP Capacity Solver'}
+            </h3>
+            <p className="text-xs text-[var(--text-muted)] leading-relaxed">
+              {isHi
+                ? 'संतृप्त ट्रेडों से कमी वाले ट्रेडों में सीट स्थानांतरण, दाता गैर-रिक्तीकरण सुरक्षा (δ ≤ 0.05) के साथ।'
+                : 'Linear programming solver shifts surplus capacity to deficit trades under strict donor non-depletion rules.'}
+            </p>
+          </Link>
+
+          <Link
+            href="/api"
+            className="p-4 rounded-2xl glass-strong border border-[var(--border)] hover:border-[var(--brand)]/50 transition-all group block space-y-2"
+          >
+            <div className="flex items-center justify-between">
+              <span className="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 border border-emerald-500/25">
+                {isHi ? 'प्रशासनिक निर्यात' : 'Scheme API & Export'}
+              </span>
+              <CheckCircle2 className="w-4 h-4 text-emerald-500" />
+            </div>
+            <h3 className="text-sm font-extrabold text-[var(--text)] group-hover:text-[var(--brand)] transition-colors">
+              {isHi ? '13 REST Endpoints & CSV' : '13 REST Endpoints & CSV'}
+            </h3>
+            <p className="text-xs text-[var(--text-muted)] leading-relaxed">
+              {isHi
+                ? 'MSDE व SSC योजना योजनाकारों के लिए लाइव ओपनएपीआई/स्वैगर एंडपॉइंट और 1-क्लिक नीति संक्षिप्त डाउनलोड।'
+                : 'Live OpenAPI/Swagger backend and one-click structured CSV/JSON downloads for target-setting workflows.'}
+            </p>
+          </Link>
+        </div>
+      </section>
     </div>
   );
 }

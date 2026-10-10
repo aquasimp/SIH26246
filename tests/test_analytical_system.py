@@ -1,6 +1,6 @@
 """
 KaushalPulse Automated Test Suite
-Ministry of Skill Development & Entrepreneurship (MSDE) — PS 26242
+Ministry of Skill Development & Entrepreneurship (MSDE) — PS 26246 (PS 26242)
 
 Validates Canonical Data, Feature Engineering, LightGBM Inference,
 PuLP Optimization, SIH Adapter, and FastAPI Endpoints.

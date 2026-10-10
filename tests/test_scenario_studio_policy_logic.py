@@ -1,6 +1,6 @@
 """
 KaushalPulse — Scenario Studio & Policy Logic Sanity Test
-Ministry of Skill Development & Entrepreneurship (MSDE) — PS 26242
+Ministry of Skill Development & Entrepreneurship (MSDE) — PS 26246 (PS 26242)
 
 Validates Section 12 & 13:
 - Tests +10%, +20%, -10%, -20% seat adjustments

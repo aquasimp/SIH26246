@@ -1,6 +1,6 @@
 """
 Script: Generate Authentic Official SIH Dummy Dataset
-Problem Statement: PS 26242 - MSDE
+Problem Statement: PS 26246 (PS 26242) - MSDE
 Generates unnormalized, ministry-formatted raw evaluation dataset for testing ingestion adapters.
 """
 

@@ -2,7 +2,7 @@
 ## Rebrand · 100% Hindi · MVP Hero Page · Trade Gothic Heading System · UI Polish
 
 **Project (new name):** **KaushalYuva** (formerly KaushalPulse)
-**Problem statement:** SIH 2026 — PS 26242 (MSDE) — AI-Enabled Labour Market Intelligence and Skill Demand-Supply Forecasting Engine
+**Problem statement:** SIH 2026 — PS 26246 (MSDE) — AI-Enabled Labour Market Intelligence and Skill Demand-Supply Forecasting Engine
 **Live:** https://kaushalyuva.vercel.app/
 **Repo:** backend/ML at repo root (`pytest tests/ -v`), Next.js frontend in `frontend/` (`npm run build`)
 
@@ -240,7 +240,7 @@ Use route groups: `(marketing)` layout for `/` (slim topbar, footer, no sidebar)
 ## 5.1 Page structure (top → bottom, 12-column grid, max-width 1200–1280px, generous vertical rhythm)
 1. **Marketing topbar** (glass-strong, sticky): KY lockup · links *Dashboard · Scenario Studio · API* · language switch · theme toggle · primary button **Open dashboard / डैशबोर्ड खोलें**.
 2. **Hero** (`min-height: min(88svh, 820px)`): two columns ≥ 1024px (7 / 5), stacked on mobile with the CTAs above the fold at 375px.
-   - Eyebrow: `SIH 2026 · PS 26242 · MSDE`
+   - Eyebrow: `SIH 2026 · PS 26246 · MSDE`
    - **`<Display>` H1 EN:** "FORECAST THE SKILL GAP. FUND THE FIX." (data glyph after "GAP"; "FIX" in `--brand`) — **HI draft:** "कौशल अंतराल का पूर्वानुमान। समाधान में निवेश।"
    - Subhead EN: "KaushalYuva turns labour-market data into district-level forecasts, early warnings and seat-reallocation decisions for India's youth skilling system." — **HI draft:** "कौशलयुवा श्रम-बाज़ार के आँकड़ों को ज़िला-स्तरीय पूर्वानुमान, पूर्व चेतावनी और सीट-पुनर्आवंटन के निर्णयों में बदलता है — देश के युवाओं के कौशल विकास के लिए।"
    - CTAs: primary **Open dashboard / डैशबोर्ड खोलें**, secondary **Try Scenario Studio / परिदृश्य स्टूडियो आज़माएँ** (`/scenarios?preset=rec01`).

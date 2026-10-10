@@ -1,6 +1,6 @@
 """
 KaushalPulse ML Module: Hybrid Occupation Normalizer
-Ministry of Skill Development & Entrepreneurship (MSDE) — PS 26242
+Ministry of Skill Development & Entrepreneurship (MSDE) — PS 26246 (PS 26242)
 
 Maps arbitrary, unstructured job titles (e.g. "Solar technician", "PV panel installer", "Retail salesperson")
 into canonical NCO-2015 codes through a 3-tier cascade:

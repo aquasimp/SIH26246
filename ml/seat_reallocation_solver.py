@@ -1,6 +1,6 @@
 """
 KaushalPulse ML Module: Linear Programming Seat Reallocation Optimizer
-Ministry of Skill Development & Entrepreneurship (MSDE) — PS 26242
+Ministry of Skill Development & Entrepreneurship (MSDE) — PS 26246 (PS 26242)
 
 Uses PuLP to optimize training seat reallocations from saturated/oversupplied
 trades to high-deficit shortage trades subject to:
