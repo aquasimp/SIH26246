@@ -1,6 +1,14 @@
 # KaushalYuva (कौशलयुवा) — Frontend Application
 ### Enterprise Liquid-Glass Intelligence Platform for MSDE (SIH 2026 | PS 26246)
 
+<div align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="public/logo-dark.png">
+    <source media="(prefers-color-scheme: light)" srcset="public/logo.png">
+    <img src="public/logo.png" alt="KaushalYuva Official Logo" width="180" style="border-radius: 20px;" />
+  </picture>
+</div>
+
 [![Live Platform](https://img.shields.io/badge/Live_Platform-kaushalyuva.vercel.app-00c2cb?style=for-the-badge&logo=vercel&logoColor=white)](https://kaushalyuva.vercel.app/)
 [![Next.js 16](https://img.shields.io/badge/Next.js-16_App_Router-black?style=for-the-badge&logo=next.js&logoColor=white)](https://nextjs.org)
 [![Tailwind CSS v4](https://img.shields.io/badge/Tailwind-v4_CSS-38bdf8?style=for-the-badge&logo=tailwindcss&logoColor=white)](https://tailwindcss.com)

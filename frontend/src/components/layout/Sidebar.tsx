@@ -23,6 +23,7 @@ import {
   Bot,
   FileText
 } from 'lucide-react';
+import { BrandLogo } from '@/components/ui/BrandLogo';
 import { useApp } from '@/lib/store';
 
 interface NavItem {
@@ -127,9 +128,7 @@ export const Sidebar: React.FC = () => {
         <div className="flex flex-col min-h-0">
           <div className="flex items-center justify-between px-2 pt-1 pb-3 border-b border-[var(--border)]">
             <Link href="/" className="flex items-center gap-2.5 group" title={language === 'hi' ? 'कौशलयुवा होम' : 'KaushalYuva Home'}>
-              <div className="w-9 h-9 rounded-xl overflow-hidden shadow-md shadow-[#00c2cb]/20 shrink-0 group-hover:scale-105 transition-transform border border-[#00c2cb]/40 flex items-center justify-center bg-[#071321]">
-                <img src="/logo.png" alt="KaushalYuva Logo" className="w-full h-full object-cover" />
-              </div>
+              <BrandLogo size="lg" alt="KaushalYuva Logo" />
               {!collapsed && (
                 <div className="flex flex-col min-w-0">
                   <span className="text-sm font-extrabold tracking-tight text-[var(--text)] leading-tight flex items-center gap-1.5 font-display">

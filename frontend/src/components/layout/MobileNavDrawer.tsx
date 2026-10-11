@@ -30,6 +30,7 @@ import { ThemeToggle } from './ThemeToggle';
 import { LanguageSelector } from './LanguageSelector';
 import { siteConfig } from '@/lib/site.config';
 import { getLocalizedEntityName } from '@/lib/i18n';
+import { BrandLogo } from '@/components/ui/BrandLogo';
 
 interface NavItem {
   href: string;
@@ -165,9 +166,7 @@ export const MobileNavDrawer: React.FC = () => {
             onClick={() => setMobileMenuOpen(false)}
             className="flex items-center gap-2.5 group"
           >
-            <div className="w-8 h-8 rounded-xl overflow-hidden border border-[#00c2cb]/40 shrink-0 flex items-center justify-center bg-[#071321] shadow-md shadow-[#00c2cb]/20">
-              <img src="/logo.png" alt="KY" className="w-full h-full object-cover" />
-            </div>
+            <BrandLogo size="md" alt="KaushalYuva Logo" />
             <div className="flex flex-col min-w-0">
               <span className="text-sm font-extrabold tracking-tight text-[var(--text)] font-display flex items-center gap-1.5 leading-tight">
                 {isHi ? siteConfig.nameHi : siteConfig.name}
