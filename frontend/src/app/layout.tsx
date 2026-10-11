@@ -22,6 +22,9 @@ export const metadata: Metadata = {
   metadataBase: new URL('https://kaushalyuva.vercel.app'),
   title: "KaushalYuva — AI-Enabled Labour Market Intelligence & Skill Demand-Supply Forecasting Engine | MSDE",
   description: "Executive national intelligence platform predicting skill shortages, training oversupply, and policy interventions for Ministry of Skill Development and Entrepreneurship (MSDE).",
+  other: {
+    google: 'notranslate',
+  },
   icons: {
     icon: [
       { url: "/icon.svg", type: "image/svg+xml" },
@@ -59,10 +62,14 @@ export default async function RootLayout({
   return (
     <html 
       lang={lang} 
+      translate="no"
       suppressHydrationWarning 
-      className={`${plusJakartaSans.variable} ${spaceGrotesk.variable} ${khandFont.variable} ${notoDevanagariFont.variable} ${monoFont.variable} scroll-smooth`}
+      className={`notranslate ${plusJakartaSans.variable} ${spaceGrotesk.variable} ${khandFont.variable} ${notoDevanagariFont.variable} ${monoFont.variable} scroll-smooth`}
     >
-      <body className="min-h-screen text-[var(--text)] bg-[var(--bg)] antialiased selection:bg-[#ff6600]/30 selection:text-[#ff9944]">
+      <head>
+        <meta name="google" content="notranslate" />
+      </head>
+      <body className="notranslate min-h-screen text-[var(--text)] bg-[var(--bg)] antialiased selection:bg-[#ff6600]/30 selection:text-[#ff9944]">
         {/* Skip to Content for WCAG AA compliance */}
         <a 
           href="#main-content" 

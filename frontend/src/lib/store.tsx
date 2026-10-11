@@ -110,6 +110,14 @@ export const AppProvider = ({ children, initialLanguage }: { children: ReactNode
           }
         });
 
+        // Enforce browser translation suppression
+        document.documentElement.setAttribute('translate', 'no');
+        document.documentElement.classList.add('notranslate');
+        if (document.body) {
+          document.body.setAttribute('translate', 'no');
+          document.body.classList.add('notranslate');
+        }
+
         // Initialize language from storage or document lang
         const savedLang = (localStorage.getItem('kaushalyuva-lang') || 
                            document.documentElement.lang) as Language;
@@ -129,6 +137,12 @@ export const AppProvider = ({ children, initialLanguage }: { children: ReactNode
       document.cookie = `kaushalyuva-lang=${lang}; path=/; max-age=31536000; SameSite=Lax`;
       if (typeof document !== 'undefined') {
         document.documentElement.lang = lang;
+        document.documentElement.setAttribute('translate', 'no');
+        document.documentElement.classList.add('notranslate');
+        if (document.body) {
+          document.body.setAttribute('translate', 'no');
+          document.body.classList.add('notranslate');
+        }
       }
     } catch {}
   };
