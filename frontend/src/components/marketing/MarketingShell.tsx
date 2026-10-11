@@ -123,7 +123,7 @@ export function MarketingFooter() {
             <span className="font-extrabold text-[var(--text)] font-display tracking-tight text-sm">
               {t.appTitle || siteConfig.name}
             </span>
-            <span className="text-[10px] text-[var(--text-faint)] font-mono">
+            <span className="text-xs text-[var(--text-faint)] font-mono">
               SIH 2026 · Problem Statement 26246 · MSDE
             </span>
           </div>
@@ -144,9 +144,9 @@ export function MarketingFooter() {
           </Link>
         </div>
 
-        <div className="flex items-center gap-2 text-[11px] font-mono text-[var(--text-faint)]">
+        <div className="flex items-center gap-2 text-xs font-mono text-[var(--text-faint)]">
           <span className="w-1.5 h-1.5 rounded-full bg-[#00c2cb] animate-pulse" />
-          <span>{EXPORT_METADATA.runId} · {l('7 Scheduled Languages', '7 अनुसूचित भाषाएं')}</span>
+          <span>{EXPORT_METADATA.runId} · {l('Bilingual EN / HI (100% Localized)', 'द्विभाषी अंग्रेज़ी / हिन्दी (100% स्थानीयकृत)')}</span>
         </div>
       </div>
     </footer>

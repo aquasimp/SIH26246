@@ -53,8 +53,8 @@ export const FilterBar: React.FC = () => {
   };
 
   return (
-    <div className="glass rounded-2xl p-3 sm:p-4 mb-6 border border-[var(--border)] shadow-xs">
-      <div className="flex flex-col xl:flex-row xl:items-center justify-between gap-3">
+    <div className="sticky top-14 z-20 glass-strong backdrop-blur-md rounded-2xl p-2.5 sm:p-3 mb-6 border border-[var(--border)] shadow-md">
+      <div className="flex flex-col xl:flex-row xl:items-center justify-between gap-2.5">
         <div className="flex items-center justify-between gap-2">
           <div className="flex items-center gap-2 text-xs font-bold text-[var(--text)] uppercase tracking-wider font-mono">
             <SlidersHorizontal className="w-3.5 h-3.5 text-[var(--brand)]" />
@@ -64,7 +64,7 @@ export const FilterBar: React.FC = () => {
           <button
             type="button"
             onClick={handleReset}
-            className="px-2 py-1 rounded-lg liquid-control text-[11px] font-semibold text-[var(--text-muted)] hover:text-[var(--text)] flex items-center gap-1 cursor-pointer"
+            className="px-2.5 py-1 rounded-lg liquid-control text-xs font-semibold text-[var(--text-muted)] hover:text-[var(--text)] flex items-center gap-1 cursor-pointer min-h-[30px]"
             title={l('Reset filters to default', 'फ़िल्टर रीसेट करें')}
           >
             <RotateCcw className="w-3 h-3" />
@@ -72,10 +72,10 @@ export const FilterBar: React.FC = () => {
           </button>
         </div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2.5 flex-1 max-w-5xl">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2 flex-1 max-w-5xl">
           {/* State Filter */}
           <div className="relative">
-            <label htmlFor="state-filter" className="text-[10px] font-bold text-[var(--text-faint)] uppercase tracking-wider block mb-1 font-mono">
+            <label htmlFor="state-filter" className="text-xs font-bold text-[var(--text-muted)] uppercase tracking-wider block mb-1 font-mono">
               {l('State', 'राज्य')}
             </label>
             <div className="relative">
@@ -85,7 +85,7 @@ export const FilterBar: React.FC = () => {
                 aria-label={l('Filter by state', 'राज्य अनुसार फ़िल्टर करें')}
                 value={selectedState}
                 onChange={(e) => handleStateChange(e.target.value)}
-                className="w-full text-xs font-semibold pl-7 pr-3 py-2 min-h-[40px] rounded-xl liquid-control text-[var(--text)] cursor-pointer"
+                className="w-full text-xs font-semibold pl-7 pr-3 py-1.5 min-h-[36px] rounded-xl liquid-control text-[var(--text)] cursor-pointer"
               >
                 {STATES.map(s => (
                   <option key={s} value={s} className="bg-[var(--surface-solid)] text-[var(--text)]">
@@ -98,7 +98,7 @@ export const FilterBar: React.FC = () => {
 
           {/* District Filter */}
           <div className="relative">
-            <label htmlFor="district-filter" className="text-[10px] font-bold text-[var(--text-faint)] uppercase tracking-wider block mb-1 font-mono">
+            <label htmlFor="district-filter" className="text-xs font-bold text-[var(--text-muted)] uppercase tracking-wider block mb-1 font-mono">
               {l('District (LGD)', 'ज़िला (LGD)')}
             </label>
             <div className="relative">
@@ -108,7 +108,7 @@ export const FilterBar: React.FC = () => {
                 aria-label={l('Filter by district', 'ज़िला अनुसार फ़िल्टर करें')}
                 value={selectedDistrict}
                 onChange={(e) => setSelectedDistrict(e.target.value)}
-                className="w-full text-xs font-semibold pl-7 pr-3 py-2 min-h-[40px] rounded-xl liquid-control text-[var(--brand)] border-[var(--brand)]/30 cursor-pointer"
+                className="w-full text-xs font-semibold pl-7 pr-3 py-1.5 min-h-[36px] rounded-xl liquid-control text-[var(--brand)] border-[var(--brand)]/30 cursor-pointer"
               >
                 {availableDistricts.map(d => (
                   <option key={d.id} value={d.id} className="bg-[var(--surface-solid)] text-[var(--text)]">
@@ -121,7 +121,7 @@ export const FilterBar: React.FC = () => {
 
           {/* Sector Filter */}
           <div className="relative">
-            <label htmlFor="sector-filter" className="text-[10px] font-bold text-[var(--text-faint)] uppercase tracking-wider block mb-1 font-mono">
+            <label htmlFor="sector-filter" className="text-xs font-bold text-[var(--text-muted)] uppercase tracking-wider block mb-1 font-mono">
               {l('Sector', 'क्षेत्र')}
             </label>
             <div className="relative">
@@ -131,7 +131,7 @@ export const FilterBar: React.FC = () => {
                 aria-label={l('Filter by industrial sector', 'औद्योगिक क्षेत्र अनुसार फ़िल्टर करें')}
                 value={selectedSector}
                 onChange={(e) => setSelectedSector(e.target.value)}
-                className="w-full text-xs font-semibold pl-7 pr-3 py-2 min-h-[40px] rounded-xl liquid-control text-[var(--text)] cursor-pointer"
+                className="w-full text-xs font-semibold pl-7 pr-3 py-1.5 min-h-[36px] rounded-xl liquid-control text-[var(--text)] cursor-pointer"
               >
                 <option value="All Sectors" className="bg-[var(--surface-solid)] text-[var(--text)]">
                   {l('All Sectors (6)', 'सभी क्षेत्र (6)')}
@@ -147,7 +147,7 @@ export const FilterBar: React.FC = () => {
 
           {/* Occupation Filter */}
           <div className="relative">
-            <label htmlFor="occupation-filter" className="text-[10px] font-bold text-[var(--text-faint)] uppercase tracking-wider block mb-1 font-mono">
+            <label htmlFor="occupation-filter" className="text-xs font-bold text-[var(--text-muted)] uppercase tracking-wider block mb-1 font-mono">
               {l('Occupation (NCO)', 'व्यवसाय (NCO)')}
             </label>
             <div className="relative">
@@ -157,7 +157,7 @@ export const FilterBar: React.FC = () => {
                 aria-label={l('Filter by occupation NCO code', 'व्यवसाय अनुसार फ़िल्टर करें')}
                 value={selectedOccupationNco}
                 onChange={(e) => setSelectedOccupationNco(e.target.value)}
-                className="w-full text-xs font-semibold pl-7 pr-3 py-2 min-h-[40px] rounded-xl liquid-control text-[var(--text)] cursor-pointer truncate"
+                className="w-full text-xs font-semibold pl-7 pr-3 py-1.5 min-h-[36px] rounded-xl liquid-control text-[var(--text)] cursor-pointer truncate"
               >
                 {OCCUPATIONS.map(occ => (
                   <option key={occ.ncoCode} value={occ.ncoCode} className="bg-[var(--surface-solid)] text-[var(--text)]">
@@ -170,10 +170,10 @@ export const FilterBar: React.FC = () => {
 
           {/* Forecast Horizon Switcher */}
           <div className="relative col-span-2 sm:col-span-1">
-            <span className="text-[10px] font-bold text-[var(--text-faint)] uppercase tracking-wider block mb-1 font-mono">
+            <span className="text-xs font-bold text-[var(--text-muted)] uppercase tracking-wider block mb-1 font-mono">
               {l('Forecast Horizon', 'पूर्वानुमान अवधि')}
             </span>
-            <div className="flex rounded-xl p-0.5 liquid-control border border-[var(--border)] min-h-[40px] items-center" role="group" aria-label="Forecast Horizon Options">
+            <div className="flex rounded-xl p-0.5 liquid-control border border-[var(--border)] min-h-[36px] items-center" role="group" aria-label="Forecast Horizon Options">
               {(['3M', '6M', '12M'] as ForecastHorizon[]).map((hz) => (
                 <button
                   key={hz}
@@ -181,7 +181,7 @@ export const FilterBar: React.FC = () => {
                   aria-pressed={forecastHorizon === hz}
                   onClick={() => setForecastHorizon(hz)}
                   className={clsx(
-                    'flex-1 py-1.5 text-[11px] font-mono font-bold rounded-lg transition-all cursor-pointer min-h-[34px] flex items-center justify-center',
+                    'flex-1 py-1 text-xs font-mono font-bold rounded-lg transition-all cursor-pointer min-h-[30px] flex items-center justify-center',
                     forecastHorizon === hz
                       ? 'bg-[var(--brand)] text-white shadow-xs'
                       : 'text-[var(--text-muted)] hover:text-[var(--text)]'

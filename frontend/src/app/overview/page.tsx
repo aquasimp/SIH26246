@@ -318,9 +318,9 @@ export default function OverviewPage() {
           {RECOMMENDATIONS.slice(0, 2).map((rec) => (
             <div
               key={rec.id}
-              className="p-5 rounded-2xl glass border border-[var(--border)] shadow-sm flex flex-col justify-between hover:border-[var(--brand)] transition-all"
+              className="p-5 rounded-2xl glass border border-[var(--border)] shadow-sm flex flex-col justify-between h-full hover:border-[var(--brand)] transition-all"
             >
-              <div>
+              <div className="flex-1 flex flex-col">
                 <div className="flex items-center justify-between gap-3 mb-2">
                   <div className="flex items-center gap-2">
                     <span className="px-2 py-0.5 rounded-md bg-[var(--brand)] text-white font-mono text-xs font-bold">
@@ -339,14 +339,14 @@ export default function OverviewPage() {
                   {isHi && rec.titleHi ? rec.titleHi : rec.title}
                 </h3>
 
-                <p className="text-xs text-[var(--text-muted)] mb-3 leading-relaxed">
+                <p className="text-xs text-[var(--text-muted)] mb-3 leading-relaxed flex-1">
                   {isHi && rec.reasonHi ? rec.reasonHi : rec.reason}
                 </p>
 
                 {/* Score & Impact Stats */}
                 <div className="grid grid-cols-3 gap-2 p-2.5 rounded-xl glass border border-[var(--border)] mb-3 text-center">
                   <div>
-                    <span className="text-[10px] text-[var(--text-faint)] font-bold uppercase tracking-wider block">
+                    <span className="text-xs text-[var(--text-muted)] font-bold uppercase tracking-wider block">
                       {l('Seats', 'सीटें')}
                     </span>
                     <strong className="text-xs sm:text-sm font-bold text-[var(--text)] font-mono tabular-nums">
@@ -354,15 +354,15 @@ export default function OverviewPage() {
                     </strong>
                   </div>
                   <div>
-                    <span className="text-[10px] text-[var(--text-faint)] font-bold uppercase tracking-wider block">
+                    <span className="text-xs text-[var(--text-muted)] font-bold uppercase tracking-wider block">
                       {l('Shortfall Closed', 'कमी भरपाई')}
                     </span>
-                    <strong className="text-xs sm:text-sm font-bold text-[var(--success)] font-mono tabular-nums">
+                    <strong className="text-xs sm:text-sm font-bold text-[var(--brand)] font-mono tabular-nums">
                       ▼ {l(`${rec.expectedImpact.gapReductionPercent}% closed`, `कमी की ${rec.expectedImpact.gapReductionPercent}% भरपाई`)}
                     </strong>
                   </div>
                   <div>
-                    <span className="text-[10px] text-[var(--text-faint)] font-bold uppercase tracking-wider block">
+                    <span className="text-xs text-[var(--text-muted)] font-bold uppercase tracking-wider block">
                       {l('Target Trade', 'लक्षित व्यवसाय')}
                     </span>
                     <strong className="text-xs sm:text-sm font-bold text-[var(--brand)] truncate block">
@@ -370,38 +370,65 @@ export default function OverviewPage() {
                     </strong>
                   </div>
                 </div>
+
+                {/* Before / After Mini Bar (§6) */}
+                <div className="p-2.5 rounded-xl glass border border-[var(--border)] mb-3 space-y-1.5">
+                  <div className="flex items-center justify-between text-xs font-mono">
+                    <span className="text-[var(--text-muted)] font-semibold">{l('Deficit Before vs After:', 'घाटा: पहले बनाम बाद:')}</span>
+                    <span className="font-bold text-[var(--text)]">
+                      <span className="text-[var(--severe)]">{rec.recommendedSeats === 97 ? 711 : 400}</span>
+                      <span className="text-[var(--text-faint)] mx-1">→</span>
+                      <span className="text-[var(--brand)]">{rec.recommendedSeats === 97 ? 614 : 0}</span>
+                    </span>
+                  </div>
+                  <div className="w-full h-2 rounded-full bg-[var(--border)] overflow-hidden flex">
+                    <div 
+                      className="h-full bg-[var(--brand)] transition-all" 
+                      style={{ width: `${rec.recommendedSeats === 97 ? (614 / 711) * 100 : 35}%` }} 
+                    />
+                    <div 
+                      className="h-full bg-[var(--severe)] transition-all" 
+                      style={{ width: `${rec.recommendedSeats === 97 ? (97 / 711) * 100 : 65}%` }} 
+                    />
+                  </div>
+                  <div className="flex justify-between text-xs font-mono text-[var(--text-muted)]">
+                    <span>{l('After Policy Fix', 'हस्तक्षेप के बाद')}</span>
+                    <span className="text-[var(--brand)] font-bold">▼ {rec.expectedImpact.gapReductionPercent}% {l('Deficit Reduction', 'कमी में सुधार')}</span>
+                  </div>
+                </div>
               </div>
 
-              {/* Action Buttons */}
+              {/* Action Buttons: One Primary CTA with secondary actions */}
               <div className="flex items-center justify-between gap-2 pt-3 border-t border-[var(--border)]">
-                <button
-                  type="button"
-                  onClick={() => setActiveEvidence(rec)}
-                  className="px-3 py-1.5 rounded-xl liquid-control text-xs font-bold text-[var(--text)] hover:bg-[var(--glass-strong)] flex items-center gap-1.5 cursor-pointer"
-                >
-                  <Eye className="w-3.5 h-3.5 text-[var(--brand)]" />
-                  <span>{l('View Evidence', 'साक्ष्य देखें')}</span>
-                </button>
+                <div className="flex items-center gap-1.5">
+                  <button
+                    type="button"
+                    onClick={() => setActiveEvidence(rec)}
+                    className="px-2.5 py-1.5 rounded-xl liquid-control text-xs font-semibold text-[var(--text-muted)] hover:text-[var(--text)] flex items-center gap-1 cursor-pointer min-h-[36px]"
+                    title={l('View Evidence Dossier', 'साक्ष्य डोजियर देखें')}
+                  >
+                    <Eye className="w-3.5 h-3.5 text-[var(--brand)]" />
+                    <span>{l('Evidence', 'साक्ष्य')}</span>
+                  </button>
 
-                <div className="flex items-center gap-2">
                   <button
                     type="button"
                     onClick={() => handleExportAction(rec)}
-                    className="p-1.5 rounded-xl liquid-control text-[var(--text-muted)] hover:text-[var(--text)] cursor-pointer"
+                    className="p-2 rounded-xl liquid-control text-[var(--text-muted)] hover:text-[var(--text)] cursor-pointer min-h-[36px] min-w-[36px] flex items-center justify-center"
                     title={l('Export Action Brief CSV', 'कार्यवाही संक्षिप्त CSV निर्यात')}
                     aria-label={l('Export Action Brief CSV', 'कार्यवाही संक्षिप्त CSV निर्यात')}
                   >
-                    <Download className="w-4 h-4" />
+                    <Download className="w-3.5 h-3.5" />
                   </button>
-
-                  <Link
-                    href={`/scenarios?preset=rec0${rec.rank}`}
-                    className="px-3.5 py-1.5 rounded-xl bg-[var(--brand)] hover:opacity-90 text-white text-xs font-bold flex items-center gap-1.5 transition-all shadow-xs cursor-pointer"
-                  >
-                    <Sliders className="w-3.5 h-3.5 text-amber-300" />
-                    <span>{l('Simulate', 'सिम्युलेट')}</span>
-                  </Link>
                 </div>
+
+                <Link
+                  href={`/scenarios?preset=rec0${rec.rank}`}
+                  className="flex-1 py-2 px-3.5 rounded-xl bg-[var(--brand)] hover:opacity-90 text-white text-xs font-bold flex items-center justify-center gap-1.5 transition-all shadow-xs cursor-pointer min-h-[36px]"
+                >
+                  <Sliders className="w-3.5 h-3.5 text-amber-300" />
+                  <span>{l(`Simulate Intervention #${rec.rank}`, `हस्तक्षेप #${rec.rank} सिम्युलेट करें`)}</span>
+                </Link>
               </div>
             </div>
           ))}

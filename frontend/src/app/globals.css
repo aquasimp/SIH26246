@@ -48,17 +48,17 @@
     --ring: rgba(0, 85, 165, 0.4);
     --shadow: 0 4px 20px rgba(0, 85, 165, 0.08);
 
-    /* Tactical Severity Bands */
-    --shortage: #E65100;
-    --shortage-bg: rgba(230, 81, 0, 0.08);
+    /* Tactical Severity Bands — Colour-blind-safe Orange-Blue scale (no red/green) */
+    --shortage: #EA580C;
+    --shortage-bg: rgba(234, 88, 12, 0.08);
     --surplus: #0284C7;
     --surplus-bg: rgba(2, 132, 199, 0.08);
-    --severe: #E65100;
+    --severe: #EA580C;
     --moderate: #D97706;
-    --balanced: #059669;
-    --oversupply: #0284C7;
-    --warning: #E65100;
-    --success: #0055A5;
+    --balanced: #0284C7;
+    --oversupply: #4338CA;
+    --warning: #EA580C;
+    --success: #0284C7;
     --forecast: #0055A5;
   }
 
@@ -90,18 +90,45 @@
     --ring: rgba(0, 229, 255, 0.55);
     --shadow: 0 16px 48px -12px rgba(0, 0, 0, 0.95);
 
-    /* Tactical Severity Bands */
+    /* Tactical Severity Bands — Colour-blind-safe Orange-Blue scale (no red/green) */
     --shortage: #FF6600;
     --shortage-bg: rgba(255, 102, 0, 0.16);
-    --surplus: #00A3FF;
-    --surplus-bg: rgba(0, 163, 255, 0.16);
-    --severe: #FF5500;
+    --surplus: #38BDF8;
+    --surplus-bg: rgba(56, 189, 248, 0.16);
+    --severe: #FF6600;
     --moderate: #FBBF24;
-    --balanced: #10B981;
-    --oversupply: #00A3FF;
+    --balanced: #38BDF8;
+    --oversupply: #818CF8;
     --warning: #FF6600;
-    --success: #00E5FF;
+    --success: #38BDF8;
     --forecast: #00E5FF;
+  }
+}
+
+/* Typography & Accessibility Enhancements (§Requirement 2 & 9) */
+:lang(hi), [lang="hi"] {
+  text-transform: none !important;
+  letter-spacing: normal !important;
+}
+
+[lang="hi"] h1, 
+[lang="hi"] h2, 
+[lang="hi"] h3, 
+[lang="hi"] h4, 
+[lang="hi"] .font-display,
+[lang="hi"] .hero-heading {
+  line-height: 1.35 !important;
+  text-transform: none !important;
+  letter-spacing: normal !important;
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }
 

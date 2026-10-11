@@ -61,13 +61,21 @@ export const IndiaIntelligenceMap: React.FC = () => {
     }
   };
 
+  const top5DistrictIds = React.useMemo(() => {
+    return [...DISTRICTS]
+      .sort((a, b) => b.gapScore - a.gapScore)
+      .slice(0, 5)
+      .map(d => d.id);
+  }, []);
+
   const getDistrictRadius = (d: District) => {
     const isSelected = d.id === selectedDistrict;
     const isHovered = hoveredDistrict?.id === d.id;
-    let base = 8;
-    if (activeLayer === 'demand') base = (d.demandIndex / 100) * 14 + 6;
-    if (activeLayer === 'shortage') base = (d.gapScore / 100) * 15 + 6;
-    if (activeLayer === 'centres') base = Math.min(22, d.trainingCentresCount * 0.4 + 7);
+    let base = 6 + (d.gapScore / 100) * 12;
+    if (activeLayer === 'demand') base = 6 + (d.demandIndex / 100) * 12;
+    if (activeLayer === 'supply') base = 6 + (d.effectiveSupplyIndex / 100) * 12;
+    if (activeLayer === 'oversupply') base = 6 + ((100 - d.gapScore) / 100) * 12;
+    if (activeLayer === 'centres') base = Math.min(18, 6 + d.trainingCentresCount * 0.3);
 
     return isSelected ? base + 4 : isHovered ? base + 2 : base;
   };
@@ -80,29 +88,23 @@ export const IndiaIntelligenceMap: React.FC = () => {
   return (
     <div className="w-full flex flex-col xl:flex-row gap-6">
       {/* Left Main Map Container */}
-      <div className="flex-1 rounded-3xl glass p-4 sm:p-5 border border-[var(--border)] shadow-xs relative overflow-hidden">
-        {/* Floating Layer Switcher Controls */}
-        <div className="flex flex-wrap items-center justify-between gap-2.5 mb-3 pb-3 border-b border-[var(--border)]">
-          <div className="flex items-center gap-2">
-            <span className="text-xs font-bold uppercase tracking-wider text-[var(--text-muted)] flex items-center gap-1.5">
-              <Layers className="w-3.5 h-3.5 text-[var(--brand)]" />
-              {l("Intelligence Layer:", "इंटेलिजेंस लेयर:")}
-            </span>
-          </div>
-
-          <div className="flex items-center gap-1 overflow-x-auto scrollbar-none flex-nowrap py-1 px-1 rounded-xl glass border border-[var(--border)] max-w-full touch-pan-x">
+      <div className="flex-1 rounded-3xl glass p-3 sm:p-4 border border-[var(--border)] shadow-xs relative overflow-hidden">
+        {/* SVG India Map Graphic with District Nodes */}
+        <div className="relative w-full aspect-[6/5] flex items-center justify-center">
+          {/* Segmented Layer Switcher Floating on Map (§4, §5) */}
+          <div className="absolute top-3 left-3 z-10 flex items-center gap-1 p-1 rounded-xl glass-strong border border-[var(--border)] shadow-md backdrop-blur-md max-w-[calc(100%-24px)] overflow-x-auto scrollbar-none">
             {[
-              { id: 'shortage', label: l('Shortage Severity', 'कमी की गंभीरता') },
-              { id: 'demand', label: l('Demand Volume', 'मांग आयतन') },
-              { id: 'supply', label: l('Effective Supply', 'प्रभावी आपूर्ति') },
-              { id: 'oversupply', label: l('Oversupply', 'अतिआपूर्ति') },
-              { id: 'centres', label: l('Training Centres', 'प्रशिक्षण केंद्र') }
+              { id: 'shortage', label: l('Shortage', 'कमी') },
+              { id: 'demand', label: l('Demand', 'मांग') },
+              { id: 'supply', label: l('Supply', 'आपूर्ति') },
+              { id: 'oversupply', label: l('Oversupply', 'अधिशेष') },
+              { id: 'centres', label: l('Centres', 'केंद्र') }
             ].map(layer => (
               <button
                 key={layer.id}
                 type="button"
                 onClick={() => setActiveLayer(layer.id as MapLayer)}
-                className={`px-2.5 py-1 text-xs font-bold rounded-lg transition-all cursor-pointer shrink-0 min-h-[34px] ${
+                className={`px-2.5 py-1 text-xs font-bold rounded-lg transition-all cursor-pointer shrink-0 min-h-[30px] ${
                   activeLayer === layer.id
                     ? 'bg-[var(--brand)] text-white shadow-xs'
                     : 'text-[var(--text-muted)] hover:text-[var(--text)] hover:bg-[var(--glass-strong)]'
@@ -112,10 +114,7 @@ export const IndiaIntelligenceMap: React.FC = () => {
               </button>
             ))}
           </div>
-        </div>
 
-        {/* SVG India Map Graphic with District Nodes */}
-        <div className="relative w-full aspect-[6/5] flex items-center justify-center">
           <svg viewBox={`0 0 ${mapW} ${mapH}`} className="w-full h-full select-none overflow-visible">
             {/* Soft Ambient Map Silhouette of India Outline */}
             <path
@@ -150,6 +149,8 @@ export const IndiaIntelligenceMap: React.FC = () => {
               const color = getDistrictColor(d);
               const r = getDistrictRadius(d);
               const isSelected = d.id === selectedDistrict;
+              const isTop5 = top5DistrictIds.includes(d.id);
+              const showLabel = isSelected || hoveredDistrict?.id === d.id || isTop5;
               const displayName = isHi && d.nameHi ? d.nameHi : d.name;
 
               return (
@@ -206,58 +207,64 @@ export const IndiaIntelligenceMap: React.FC = () => {
                     className="transition-all hover:scale-110"
                   />
 
-                  {/* District Label Text */}
-                  <text
-                    x={cx}
-                    y={cy - r - 4}
-                    textAnchor="middle"
-                    fill={isSelected ? palette.text : palette.textMuted}
-                    fontSize={isSelected ? '11' : '10'}
-                    fontWeight={isSelected ? 'bold' : '600'}
-                    className="pointer-events-none drop-shadow-xs font-sans tracking-tight"
-                  >
-                    {displayName}
-                  </text>
+                  {/* District Label Text: only shown on hover, selected, or top 5 */}
+                  {showLabel && (
+                    <text
+                      x={cx}
+                      y={cy - r - 4}
+                      textAnchor="middle"
+                      fill={isSelected ? palette.text : palette.textMuted}
+                      fontSize={isSelected ? '12' : '11'}
+                      fontWeight={isSelected || isTop5 ? 'bold' : '600'}
+                      className="pointer-events-none drop-shadow-xs font-sans tracking-tight"
+                    >
+                      {displayName}
+                    </text>
+                  )}
                 </g>
               );
             })}
           </svg>
 
-          {/* Interactive Map Legend Overlay */}
-          <div className="absolute bottom-3 left-3 p-3 rounded-2xl overlay border border-[var(--border)] text-[10px] space-y-1.5 shadow-lg max-w-[210px] backdrop-blur-md">
-            <span className="font-bold text-[var(--text)] uppercase tracking-wider block">
+          {/* Interactive Map Legend Overlay on Map (§4, §5) */}
+          <div className="absolute bottom-3 left-3 p-3 rounded-2xl glass-strong border border-[var(--border)] text-xs space-y-2 shadow-lg max-w-[220px] backdrop-blur-md z-10">
+            <span className="font-bold text-[var(--text)] uppercase tracking-wider block text-xs">
               {activeLayer === 'shortage' && (l('Shortage Severity', 'कमी की गंभीरता'))}
-              {activeLayer === 'demand' && (l('Demand Volume Index', 'मांग आयतन सूचकांक'))}
-              {activeLayer === 'supply' && (l('Effective Supply Index', 'प्रभावी आपूर्ति सूचकांक'))}
+              {activeLayer === 'demand' && (l('Demand Index', 'मांग सूचकांक'))}
+              {activeLayer === 'supply' && (l('Effective Supply', 'प्रभावी आपूर्ति'))}
               {activeLayer === 'oversupply' && (l('Oversupply Index', 'अतिआपूर्ति सूचकांक'))}
               {activeLayer === 'centres' && (l('Training Centres', 'प्रशिक्षण केंद्र'))}
             </span>
 
             {activeLayer === 'shortage' && (
-              <div className="space-y-1">
-                <div className="flex items-center gap-1.5 text-[var(--text-muted)]">
-                  <span className="w-2.5 h-2.5 rounded-full bg-[var(--severe)] shrink-0" />
-                  <span>{l('Severe Shortage (Gap > 75)', 'गंभीर कमी (गैप > 75)')}</span>
+              <div className="space-y-1.5">
+                <div className="flex items-center gap-2 text-[var(--text-muted)]">
+                  <span className="w-3 h-3 rounded-full bg-[var(--severe)] shrink-0" />
+                  <span className="font-mono font-bold text-[var(--text)]">≥ 75</span>
+                  <span>{l('Severe', 'गंभीर')}</span>
                 </div>
-                <div className="flex items-center gap-1.5 text-[var(--text-muted)]">
-                  <span className="w-2.5 h-2.5 rounded-full bg-[var(--moderate)] shrink-0" />
-                  <span>{l('Moderate Shortage (60–75)', 'मध्यम कमी (60–75)')}</span>
+                <div className="flex items-center gap-2 text-[var(--text-muted)]">
+                  <span className="w-3 h-3 rounded-full bg-[var(--moderate)] shrink-0" />
+                  <span className="font-mono font-bold text-[var(--text)]">60–74</span>
+                  <span>{l('Moderate', 'मध्यम')}</span>
                 </div>
-                <div className="flex items-center gap-1.5 text-[var(--text-muted)]">
-                  <span className="w-2.5 h-2.5 rounded-full bg-[var(--balanced)] shrink-0" />
-                  <span>{l('Balanced Labour Pool (40–60)', 'संतुलित श्रम पूल (40–60)')}</span>
+                <div className="flex items-center gap-2 text-[var(--text-muted)]">
+                  <span className="w-3 h-3 rounded-full bg-[var(--balanced)] shrink-0" />
+                  <span className="font-mono font-bold text-[var(--text)]">40–59</span>
+                  <span>{l('Balanced', 'संतुलित')}</span>
                 </div>
-                <div className="flex items-center gap-1.5 text-[var(--text-muted)]">
-                  <span className="w-2.5 h-2.5 rounded-full bg-[var(--oversupply)] shrink-0" />
-                  <span>{l('Oversupply (Gap < 40)', 'अतिआपूर्ति (गैप < 40)')}</span>
+                <div className="flex items-center gap-2 text-[var(--text-muted)]">
+                  <span className="w-3 h-3 rounded-full bg-[var(--oversupply)] shrink-0" />
+                  <span className="font-mono font-bold text-[var(--text)]">&lt; 40</span>
+                  <span>{l('Oversupply', 'अतिआपूर्ति')}</span>
                 </div>
               </div>
             )}
 
             {activeLayer !== 'shortage' && (
-              <div className="flex items-center justify-between text-[9px] text-[var(--text-faint)] font-mono pt-0.5">
+              <div className="flex items-center justify-between text-xs text-[var(--text-muted)] font-mono pt-1">
                 <span>{l('Low', 'निम्न')}</span>
-                <span className="h-1.5 w-16 rounded-full bg-gradient-to-r from-[var(--balanced)] via-[var(--moderate)] to-[var(--severe)]" />
+                <span className="h-2 w-20 rounded-full bg-gradient-to-r from-[var(--balanced)] via-[var(--moderate)] to-[var(--severe)]" />
                 <span>{l('High', 'उच्च')}</span>
               </div>
             )}
@@ -275,7 +282,7 @@ export const IndiaIntelligenceMap: React.FC = () => {
             <div>
               <div className="flex items-start justify-between gap-3 mb-4 pb-3 border-b border-[var(--border)]">
                 <div>
-                  <span className="text-[10px] font-bold text-[var(--brand)] uppercase tracking-widest block font-mono">
+                  <span className="text-xs font-bold text-[var(--brand)] uppercase tracking-widest block font-mono">
                     {l('Selected Geography', 'चयनित भूगोल')}
                   </span>
                   <h3 className="text-xl font-extrabold text-[var(--text)] tracking-tight">
@@ -293,50 +300,50 @@ export const IndiaIntelligenceMap: React.FC = () => {
               {/* District KPI Grid */}
               <div className="grid grid-cols-2 gap-2.5 mb-4">
                 <div className="p-3 rounded-2xl glass border border-[var(--border)]">
-                  <span className="text-[10px] font-bold text-[var(--text-faint)] uppercase tracking-wider block">
+                  <span className="text-xs font-bold text-[var(--text-faint)] uppercase tracking-wider block">
                     {l('Solar Gap Score', 'सोलर गैप स्कोर')}
                   </span>
                   <div className="text-2xl font-extrabold text-[var(--severe)] mt-0.5 font-mono tabular-nums">
                     {d.gapScore}
                   </div>
-                  <span className="text-[10px] text-[var(--severe)] font-bold">
+                  <span className="text-xs text-[var(--severe)] font-bold">
                     {l('Severe Shortage', 'गंभीर कमी')}
                   </span>
                 </div>
 
                 <div className="p-3 rounded-2xl glass border border-[var(--border)]">
-                  <span className="text-[10px] font-bold text-[var(--text-faint)] uppercase tracking-wider block">
+                  <span className="text-xs font-bold text-[var(--text-faint)] uppercase tracking-wider block">
                     {l('6M Shortage Risk', '6M कमी जोखिम')}
                   </span>
                   <div className="text-2xl font-extrabold text-[var(--text)] mt-0.5 font-mono tabular-nums">
                     {d.shortageProbability6M}%
                   </div>
-                  <span className="text-[10px] text-[var(--text-muted)] font-semibold">
+                  <span className="text-xs text-[var(--text-muted)] font-semibold">
                     {l('Probability', 'संभावना')}
                   </span>
                 </div>
 
                 <div className="p-3 rounded-2xl glass border border-[var(--border)]">
-                  <span className="text-[10px] font-bold text-[var(--text-faint)] uppercase tracking-wider block">
+                  <span className="text-xs font-bold text-[var(--text-faint)] uppercase tracking-wider block">
                     {l('Training Capacity', 'प्रशिक्षण क्षमता')}
                   </span>
-                  <div className="text-sm font-bold text-[var(--text)] mt-0.5 font-mono tabular-nums">
+                  <div className="text-xs font-bold text-[var(--text)] mt-0.5 font-mono tabular-nums">
                     {d.id === 'gorakhpur' ? (l('217 Solar / 916 Retail', '217 सोलर / 916 रिटेल')) : `${d.totalTrainingSeats} ${l('Active Seats', 'सक्रिय सीटें')}`}
                   </div>
-                  <span className="text-[10px] text-[var(--text-muted)] font-mono">
+                  <span className="text-xs text-[var(--text-muted)] font-mono">
                     {d.trainingCentresCount} {l('Centres', 'केंद्र')} • {d.totalTrainingSeats} {l('Seats', 'सीटें')}
                   </span>
                 </div>
 
                 <div className="p-3 rounded-2xl glass border border-[var(--border)]">
-                  <span className="text-[10px] font-bold text-[var(--text-faint)] uppercase tracking-wider block">
+                  <span className="text-xs font-bold text-[var(--text-faint)] uppercase tracking-wider block">
                     {l('Active Employers', 'सक्रिय नियोक्ता')}
                   </span>
                   <div className="text-lg font-bold text-[var(--text)] mt-0.5 font-mono tabular-nums">
                     {d.activeEmployers}
                   </div>
-                  <span className="text-[10px] text-[var(--text-muted)] font-semibold">
-                    {l('Reported hiring (dummy dataset)', 'रिपोर्ट की गई नियुक्ति (डमी डेटासेट)')}
+                  <span className="text-xs text-[var(--text-muted)] font-semibold">
+                    {l('Reported hiring', 'रिपोर्ट की गई नियुक्ति')}
                   </span>
                 </div>
               </div>
@@ -344,7 +351,7 @@ export const IndiaIntelligenceMap: React.FC = () => {
               {/* Top Trade Imbalances */}
               <div className="space-y-3 mb-4">
                 <div>
-                  <span className="text-[11px] font-bold text-[var(--severe)] uppercase tracking-wider block mb-1.5 flex items-center gap-1">
+                  <span className="text-xs font-bold text-[var(--severe)] uppercase tracking-wider block mb-1.5 flex items-center gap-1">
                     <AlertCircle className="w-3.5 h-3.5 text-[var(--severe)]" />
                     {l('Top Shortage Trades:', 'शीर्ष कमी वाले ट्रेड्स:')}
                   </span>
@@ -352,14 +359,14 @@ export const IndiaIntelligenceMap: React.FC = () => {
                     {d.topShortageTrades.map((t, idx) => (
                       <div key={idx} className="text-xs font-semibold text-[var(--text)] py-1 px-2.5 rounded-xl glass border border-[var(--severe)]/20 flex items-center justify-between">
                         <span className="truncate">{isHi ? getLocalizedEntityName('occupations', t, 'hi') : t}</span>
-                        <span className="text-[10px] text-[var(--severe)] font-mono font-bold shrink-0 ml-1">{l('Deficit', 'घाटा')}</span>
+                        <span className="text-xs text-[var(--severe)] font-mono font-bold shrink-0 ml-1">{l('Deficit', 'घाटा')}</span>
                       </div>
                     ))}
                   </div>
                 </div>
 
                 <div>
-                  <span className="text-[11px] font-bold text-[var(--oversupply)] uppercase tracking-wider block mb-1.5 flex items-center gap-1">
+                  <span className="text-xs font-bold text-[var(--oversupply)] uppercase tracking-wider block mb-1.5 flex items-center gap-1">
                     <TrendingUp className="w-3.5 h-3.5 text-[var(--oversupply)]" />
                     {l('Capacity surplus (seats):', 'क्षमता अधिशेष (सीटें):')}
                   </span>
@@ -367,7 +374,7 @@ export const IndiaIntelligenceMap: React.FC = () => {
                     {(d.capacitySurplusTrades || d.topOversuppliedTrades || []).map((t: string, idx: number) => (
                       <div key={idx} className="text-xs font-semibold text-[var(--text)] py-1 px-2.5 rounded-xl glass border border-[var(--oversupply)]/20 flex items-center justify-between">
                         <span className="truncate">{isHi ? getLocalizedEntityName('occupations', t, 'hi') : t}</span>
-                        <span className="text-[10px] text-[var(--oversupply)] font-mono font-bold shrink-0 ml-1">{l('Surplus', 'अधिशेष')}</span>
+                        <span className="text-xs text-[var(--oversupply)] font-mono font-bold shrink-0 ml-1">{l('Surplus', 'अधिशेष')}</span>
                       </div>
                     ))}
                   </div>
@@ -377,7 +384,7 @@ export const IndiaIntelligenceMap: React.FC = () => {
 
             <Link
               href={`/districts/${d.id}`}
-              className="w-full py-2 px-3 rounded-xl bg-[var(--brand)] hover:opacity-90 text-white text-xs font-bold flex items-center justify-center gap-1.5 transition-all shadow-xs cursor-pointer"
+              className="w-full py-2.5 px-3 rounded-xl bg-[var(--brand)] hover:opacity-90 text-white text-xs font-bold flex items-center justify-center gap-1.5 transition-all shadow-xs cursor-pointer min-h-[40px]"
             >
               <span>{l(`Explore Complete ${displayName} Dossier`, `पूर्ण ${displayName} डोजियर देखें`)}</span>
               <ChevronRight className="w-4 h-4" />
