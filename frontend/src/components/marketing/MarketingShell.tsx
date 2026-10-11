@@ -17,8 +17,8 @@ export function MarketingTopbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
         {/* Brand Lockup */}
         <Link href="/" className="flex items-center gap-2.5 sm:gap-3 group focus:outline-hidden min-w-0 shrink">
-          <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-[#0055a5] to-[#00c2cb] flex items-center justify-center text-white shadow-md shadow-[#00c2cb]/25 shrink-0 font-mono font-extrabold text-xs tracking-wider group-hover:scale-105 transition-transform border border-[#00c2cb]/40">
-            {siteConfig.mark}
+          <div className="w-9 h-9 rounded-xl overflow-hidden shadow-md shadow-[#00c2cb]/25 shrink-0 group-hover:scale-105 transition-transform border border-[#00c2cb]/40 flex items-center justify-center bg-[#071321]">
+            <img src="/logo.png" alt="KaushalYuva Logo" className="w-full h-full object-cover" />
           </div>
           <div className="flex flex-col min-w-0">
             <span className="text-base font-extrabold tracking-tight text-[var(--text)] leading-tight flex items-center gap-1.5 font-display truncate">
@@ -116,8 +116,8 @@ export function MarketingFooter() {
     <footer className="w-full border-t border-[var(--border)] py-8 px-4 sm:px-6 lg:px-8 mt-12 glass bg-[var(--surface-muted)]/50 select-none">
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-[var(--text-muted)]">
         <div className="flex items-center gap-3">
-          <div className="w-7 h-7 rounded-lg bg-gradient-to-tr from-[#0055a5] to-[#00c2cb] flex items-center justify-center text-white font-mono font-extrabold text-[11px] shadow-sm">
-            KY
+          <div className="w-7 h-7 rounded-lg overflow-hidden border border-[#00c2cb]/40 flex items-center justify-center bg-[#071321] shadow-xs">
+            <img src="/logo.png" alt="KY" className="w-full h-full object-cover" />
           </div>
           <div className="flex flex-col">
             <span className="font-extrabold text-[var(--text)] font-display tracking-tight text-sm">

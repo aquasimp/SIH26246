@@ -371,8 +371,7 @@ def update_slide_6(slide):
             "• Constrained Seat Rebalancing — COIN-OR PuLP Simplex LP Solver [PULP] [DOCS]\n"
             "• Standard Classifications — NCO-2015 (8-digit), NSQF (Levels 3–6), LGD District Codes [NCO] [NSQF] [LGD]\n"
             "• Live Working Platform Links:\n"
-            "  - Web Engine: https://kaushalyuva.vercel.app [LIVE]\n"
-            "  - SIH Mirror: https://sih-26246.vercel.app [PORTAL]\n"
+            "  - Primary Web Platform: https://kaushalyuva.vercel.app [LIVE]\n"
             "  - Video Demo: https://youtu.be/zBtUsWTAiAc [VIDEO]\n"
             "  - Source Code: https://github.com/aquasimp/SIH26246 [REPO]"
         )

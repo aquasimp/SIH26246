@@ -217,7 +217,7 @@ def build_slide_3(slide):
         ([("• Predictive Modeling: ", 10.5, True, NAVY), ("Tri-Model ensemble (LightGBM + Theta + ETS) evaluated on 6 rolling origins, achieving 3.41%–3.71% WAPE with zero data leakage.", 10, False, SLATE_DARK)], 0, 8),
         ([("• Optimization Engine: ", 10.5, True, NAVY), ("PuLP Simplex LP allocates seat transfers subject to classroom capacity, capex ceilings, and non-depletion guardrails.", 10, False, SLATE_DARK)], 0, 8),
         ([("• Decision Delivery: ", 10.5, True, NAVY), ("Bilingual web platform (Next.js + FastAPI + SQLite/Postgres) with 13 REST APIs and 1-click policy briefs.", 10, False, SLATE_DARK)], 0, 4),
-        ([("• Live Platform URL: ", 10.5, True, CYAN), ("https://kaushalyuva.vercel.app  (Mirror: https://sih-26246.vercel.app)", 10, True, CYAN)], 0, 1)
+        ([("• Live Platform URL: ", 10.5, True, CYAN), ("https://kaushalyuva.vercel.app", 10, True, CYAN)], 0, 1)
     ]
     clear_and_set_runs(sh_c_rest, rest_bullets)
 
@@ -606,8 +606,7 @@ def build_slide_6(slide):
         ([("Measures of Forecast Accuracy (Hyndman & Koehler, IJF 2006) – ", 10.5, True, NAVY), ("Mathematical foundation for WAPE and MASE intermittent metrics.  ", 9.5, False, SLATE_DARK), ("Link", 10, True, CYAN)], 0, 13),
         ([("COIN-OR PuLP Simplex LP Solver – ", 10.5, True, NAVY), ("Exact linear programming implementation for constrained seat reallocations.  ", 9.5, False, SLATE_DARK), ("Link", 10, True, CYAN)], 0, 13),
         ([("National Classification of Occupations (NCO-2015, MoLE) – ", 10.5, True, NAVY), ("8-digit standardized occupational taxonomic hierarchy.  ", 9.5, False, SLATE_DARK), ("Link", 10, True, CYAN)], 0, 15),
-        ([("Live Web Platform: ", 10.5, True, CYAN), ("https://kaushalyuva.vercel.app  [Live Production Prototype]", 9.5, False, SLATE_DARK)], 0, 8),
-        ([("Portal Mirror: ", 10.5, True, CYAN), ("https://sih-26246.vercel.app  [Official Mirror]", 9.5, False, SLATE_DARK)], 0, 8),
+        ([("Live Platform: ", 10.5, True, CYAN), ("https://kaushalyuva.vercel.app  [Primary Production Engine]", 9.5, False, SLATE_DARK)], 0, 8),
         ([("Codebase Repository: ", 10.5, True, CYAN), ("https://github.com/aquasimp/SIH26246  [Complete Source Code]", 9.5, False, SLATE_DARK)], 0, 2)
     ]
     clear_and_set_runs(ref_box, ref_data)

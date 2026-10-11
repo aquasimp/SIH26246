@@ -165,8 +165,8 @@ export const MobileNavDrawer: React.FC = () => {
             onClick={() => setMobileMenuOpen(false)}
             className="flex items-center gap-2.5 group"
           >
-            <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-[#0055a5] to-[#00c2cb] flex items-center justify-center text-white font-mono font-extrabold text-xs shadow-md shadow-[#00c2cb]/20 border border-[#00c2cb]/40">
-              KY
+            <div className="w-8 h-8 rounded-xl overflow-hidden border border-[#00c2cb]/40 shrink-0 flex items-center justify-center bg-[#071321] shadow-md shadow-[#00c2cb]/20">
+              <img src="/logo.png" alt="KY" className="w-full h-full object-cover" />
             </div>
             <div className="flex flex-col min-w-0">
               <span className="text-sm font-extrabold tracking-tight text-[var(--text)] font-display flex items-center gap-1.5 leading-tight">

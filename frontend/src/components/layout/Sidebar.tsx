@@ -127,8 +127,8 @@ export const Sidebar: React.FC = () => {
         <div className="flex flex-col min-h-0">
           <div className="flex items-center justify-between px-2 pt-1 pb-3 border-b border-[var(--border)]">
             <Link href="/" className="flex items-center gap-2.5 group" title={language === 'hi' ? 'कौशलयुवा होम' : 'KaushalYuva Home'}>
-              <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-[#0055a5] to-[#00c2cb] flex items-center justify-center text-white shadow-md shadow-[#00c2cb]/20 shrink-0 group-hover:scale-105 transition-transform font-mono font-extrabold text-xs tracking-wider border border-[#00c2cb]/40">
-                KY
+              <div className="w-9 h-9 rounded-xl overflow-hidden shadow-md shadow-[#00c2cb]/20 shrink-0 group-hover:scale-105 transition-transform border border-[#00c2cb]/40 flex items-center justify-center bg-[#071321]">
+                <img src="/logo.png" alt="KaushalYuva Logo" className="w-full h-full object-cover" />
               </div>
               {!collapsed && (
                 <div className="flex flex-col min-w-0">
