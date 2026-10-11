@@ -219,7 +219,7 @@ function ScenarioStudioContent() {
       {/* Hero Impact Summary Bar (§8: Sticky before/after bar at all breakpoints) */}
       <div 
         aria-live="polite"
-        className="sticky top-14 z-20 p-3.5 sm:p-4 rounded-2xl glass-strong border border-[var(--border)] shadow-md flex flex-wrap items-center justify-between gap-3 sm:gap-4 backdrop-blur-md"
+        className="sticky top-14 z-10 p-3.5 sm:p-4 rounded-2xl glass-strong border border-[var(--border)] shadow-md flex flex-wrap items-center justify-between gap-3 sm:gap-4 backdrop-blur-md"
       >
         <div className="flex items-center gap-3">
           <span className="p-2 rounded-xl bg-[var(--brand)]/15 text-[var(--brand)]">

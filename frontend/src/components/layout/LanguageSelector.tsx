@@ -96,7 +96,7 @@ export const LanguageSelector: React.FC<LanguageSelectorProps> = ({
       {/* Floating Menu */}
       {open && (
         <div 
-          className="absolute right-0 mt-1.5 w-64 max-h-80 overflow-y-auto rounded-2xl glass-strong border border-[var(--border)] shadow-2xl p-1.5 z-50 animate-in fade-in zoom-in-95 duration-150 scrollbar-none"
+          className="absolute right-0 mt-1.5 w-64 max-h-80 overflow-y-auto overscroll-contain rounded-2xl bg-[var(--surface-solid)]/98 dark:bg-[#070b14]/98 backdrop-blur-2xl border border-[var(--border-strong)] shadow-[0_12px_40px_rgba(0,0,0,0.18)] dark:shadow-[0_12px_40px_rgba(0,0,0,0.6)] ring-1 ring-black/5 dark:ring-white/10 p-1.5 z-50 animate-in fade-in zoom-in-95 duration-150 scrollbar-none"
           role="listbox"
           tabIndex={-1}
         >

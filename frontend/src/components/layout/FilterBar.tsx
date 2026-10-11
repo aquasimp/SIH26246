@@ -51,7 +51,7 @@ export const FilterBar: React.FC = () => {
   };
 
   return (
-    <div className="sticky top-14 z-20 glass-strong backdrop-blur-md rounded-2xl p-2.5 sm:p-3 mb-6 border border-[var(--border)] shadow-md">
+    <div className="sticky top-14 z-10 glass-strong backdrop-blur-md rounded-2xl p-2.5 sm:p-3 mb-6 border border-[var(--border)] shadow-md">
       <div className="flex flex-col xl:flex-row xl:items-center justify-between gap-2.5">
         <div className="flex items-center justify-between gap-2">
           <div className="flex items-center gap-2 text-xs font-bold text-[var(--text)] uppercase tracking-wider font-mono">

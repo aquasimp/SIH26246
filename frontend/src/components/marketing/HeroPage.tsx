@@ -225,7 +225,7 @@ export function HeroPage() {
       </section>
 
       {/* 3. Single Sticky Compact State Filter Bar (Removed duplicate quick-jump) */}
-      <section className="sticky top-14 z-30 w-full glass-strong border-y border-[var(--border)] py-2 px-4 backdrop-blur-md">
+      <section className="sticky top-14 z-10 w-full glass-strong border-y border-[var(--border)] py-2 px-4 backdrop-blur-md">
         <div className="max-w-7xl mx-auto flex items-center justify-between gap-3 overflow-x-auto text-xs">
           <div className="flex items-center gap-1.5 shrink-0">
             <span className="text-xs font-mono font-bold text-cyan-700 dark:text-cyan-400 uppercase mr-1">

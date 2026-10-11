@@ -71,7 +71,7 @@ export const Header: React.FC = () => {
   const localizedDistrict = getLocalizedEntityName('districts', rawDistrict, language, rawDistrict);
 
   return (
-    <header className="sticky top-0 z-20 px-3 sm:px-6 py-2 glass-strong border-b border-[var(--border)] select-none backdrop-blur-xl">
+    <header className="sticky top-0 z-40 px-3 sm:px-6 py-2 glass-strong border-b border-[var(--border)] select-none backdrop-blur-xl">
       <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-2.5">
         {/* Top Mobile Row & Breadcrumb Trail */}
         <div className="flex items-center justify-between gap-2 w-full lg:w-auto">
