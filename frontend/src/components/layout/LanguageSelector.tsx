@@ -58,14 +58,14 @@ export const LanguageSelector: React.FC<LanguageSelectorProps> = ({
               className={`flex items-center justify-between px-3 py-2 rounded-xl text-xs transition-all cursor-pointer border text-left min-h-[44px] ${
                 isSelected
                   ? 'bg-[var(--brand)] text-white border-[var(--brand)] shadow-sm font-bold'
-                  : 'glass text-[var(--text)] border-[var(--border)] hover:bg-[var(--surface-muted)]'
+                  : 'bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-100 border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800 shadow-2xs'
               }`}
             >
               <div className="flex flex-col min-w-0 pr-1">
                 <span className="font-extrabold text-xs tracking-tight truncate">
                   {lang.nativeLabel}
                 </span>
-                <span className={`text-[10px] truncate ${isSelected ? 'text-white/80' : 'text-[var(--text-faint)]'}`}>
+                <span className={`text-[10px] truncate ${isSelected ? 'text-white/80' : 'text-slate-500 dark:text-slate-400'}`}>
                   {lang.label}
                 </span>
               </div>
@@ -96,11 +96,11 @@ export const LanguageSelector: React.FC<LanguageSelectorProps> = ({
       {/* Floating Menu */}
       {open && (
         <div 
-          className="absolute right-0 mt-1.5 w-64 max-h-80 overflow-y-auto overscroll-contain rounded-2xl bg-[var(--surface-solid)]/98 dark:bg-[#070b14]/98 backdrop-blur-2xl border border-[var(--border-strong)] shadow-[0_12px_40px_rgba(0,0,0,0.18)] dark:shadow-[0_12px_40px_rgba(0,0,0,0.6)] ring-1 ring-black/5 dark:ring-white/10 p-1.5 z-50 animate-in fade-in zoom-in-95 duration-150 scrollbar-none"
+          className="absolute right-0 mt-1.5 w-64 max-h-80 overflow-y-auto overscroll-contain rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-2xl p-1.5 z-50 animate-in fade-in zoom-in-95 duration-150 scrollbar-none"
           role="listbox"
           tabIndex={-1}
         >
-          <div className="px-2.5 py-1 text-[10px] font-mono font-bold uppercase tracking-wider text-[var(--text-faint)] border-b border-[var(--border)] mb-1">
+          <div className="px-2.5 py-1 text-[10px] font-mono font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 border-b border-slate-100 dark:border-slate-800 mb-1">
             Official Indian Languages (7)
           </div>
           <div className="space-y-0.5">
@@ -116,14 +116,14 @@ export const LanguageSelector: React.FC<LanguageSelectorProps> = ({
                   className={`w-full flex items-center justify-between px-2.5 py-2 rounded-xl text-xs transition-colors cursor-pointer text-left ${
                     isSelected
                       ? 'bg-[var(--brand)] text-white shadow-xs font-bold'
-                      : 'text-[var(--text)] hover:bg-[var(--surface-muted)]'
+                      : 'text-slate-800 dark:text-slate-100 hover:bg-slate-100 dark:hover:bg-slate-800/80'
                   }`}
                 >
                   <div className="flex flex-col min-w-0 pr-2">
                     <span className="font-extrabold text-xs">
-                      {lang.nativeLabel} <span className={`text-[11px] font-normal opacity-85`}>({lang.label})</span>
+                      {lang.nativeLabel} <span className="text-[11px] font-normal opacity-75">({lang.label})</span>
                     </span>
-                    <span className={`text-[10px] truncate ${isSelected ? 'text-white/80' : 'text-[var(--text-faint)]'}`}>
+                    <span className={`text-[10px] truncate ${isSelected ? 'text-white/80' : 'text-slate-500 dark:text-slate-400'}`}>
                       {lang.region}
                     </span>
                   </div>
