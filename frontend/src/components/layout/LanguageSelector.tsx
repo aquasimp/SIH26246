@@ -7,11 +7,13 @@ import { Languages, ChevronDown, Check } from 'lucide-react';
 
 interface LanguageSelectorProps {
   variant?: 'dropdown' | 'pills';
+  align?: 'left' | 'right';
   className?: string;
 }
 
 export const LanguageSelector: React.FC<LanguageSelectorProps> = ({ 
   variant = 'dropdown',
+  align = 'right',
   className = ''
 }) => {
   const { language, setLanguage } = useApp();
@@ -57,19 +59,19 @@ export const LanguageSelector: React.FC<LanguageSelectorProps> = ({
               onClick={() => handleSelect(lang.code)}
               className={`flex items-center justify-between px-3 py-2 rounded-xl text-xs transition-all cursor-pointer border text-left min-h-[44px] ${
                 isSelected
-                  ? 'bg-[var(--brand)] text-white border-[var(--brand)] shadow-sm font-bold'
-                  : 'bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-100 border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800 shadow-2xs'
+                  ? 'bg-[var(--brand)] text-white dark:text-slate-950 border-[var(--brand)] shadow-sm font-bold'
+                  : 'bg-[var(--surface-solid)] text-[var(--text)] border-[var(--border)] hover:bg-[var(--surface-muted)] shadow-2xs'
               }`}
             >
               <div className="flex flex-col min-w-0 pr-1">
                 <span className="font-extrabold text-xs tracking-tight truncate">
                   {lang.nativeLabel}
                 </span>
-                <span className={`text-[10px] truncate ${isSelected ? 'text-white/80' : 'text-slate-500 dark:text-slate-400'}`}>
+                <span className={`text-[10px] truncate ${isSelected ? 'text-white/80 dark:text-slate-900/80' : 'text-[var(--text-faint)]'}`}>
                   {lang.label}
                 </span>
               </div>
-              {isSelected && <Check className="w-3.5 h-3.5 shrink-0 text-white" />}
+              {isSelected && <Check className="w-3.5 h-3.5 shrink-0 text-white dark:text-slate-950" />}
             </button>
           );
         })}
@@ -96,11 +98,11 @@ export const LanguageSelector: React.FC<LanguageSelectorProps> = ({
       {/* Floating Menu */}
       {open && (
         <div 
-          className="absolute right-0 mt-1.5 w-64 max-h-80 overflow-y-auto overscroll-contain rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-2xl p-1.5 z-50 animate-in fade-in zoom-in-95 duration-150 scrollbar-none"
+          className={`absolute ${align === 'left' ? 'left-0' : 'right-0'} mt-1.5 w-64 max-h-80 overflow-y-auto overscroll-contain rounded-2xl bg-[var(--surface-solid)] text-[var(--text)] border border-[var(--border)] shadow-2xl ring-1 ring-black/5 dark:ring-white/10 p-1.5 z-50 animate-in fade-in zoom-in-95 duration-150 scrollbar-none`}
           role="listbox"
           tabIndex={-1}
         >
-          <div className="px-2.5 py-1 text-[10px] font-mono font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 border-b border-slate-100 dark:border-slate-800 mb-1">
+          <div className="px-2.5 py-1 text-[10px] font-mono font-bold uppercase tracking-wider text-[var(--text-faint)] border-b border-[var(--border)] mb-1">
             Official Indian Languages (7)
           </div>
           <div className="space-y-0.5">
@@ -115,19 +117,19 @@ export const LanguageSelector: React.FC<LanguageSelectorProps> = ({
                   onClick={() => handleSelect(lang.code)}
                   className={`w-full flex items-center justify-between px-2.5 py-2 rounded-xl text-xs transition-colors cursor-pointer text-left ${
                     isSelected
-                      ? 'bg-[var(--brand)] text-white shadow-xs font-bold'
-                      : 'text-slate-800 dark:text-slate-100 hover:bg-slate-100 dark:hover:bg-slate-800/80'
+                      ? 'bg-[var(--brand)] text-white dark:text-slate-950 shadow-xs font-bold'
+                      : 'text-[var(--text)] hover:bg-[var(--surface-muted)]'
                   }`}
                 >
                   <div className="flex flex-col min-w-0 pr-2">
                     <span className="font-extrabold text-xs">
                       {lang.nativeLabel} <span className="text-[11px] font-normal opacity-75">({lang.label})</span>
                     </span>
-                    <span className={`text-[10px] truncate ${isSelected ? 'text-white/80' : 'text-slate-500 dark:text-slate-400'}`}>
+                    <span className={`text-[10px] truncate ${isSelected ? 'text-white/80 dark:text-slate-900/80' : 'text-[var(--text-faint)]'}`}>
                       {lang.region}
                     </span>
                   </div>
-                  {isSelected && <Check className="w-4 h-4 shrink-0 text-white" />}
+                  {isSelected && <Check className="w-4 h-4 shrink-0 text-white dark:text-slate-950" />}
                 </button>
               );
             })}

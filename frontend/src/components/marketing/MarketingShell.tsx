@@ -75,7 +75,7 @@ export function MarketingTopbar() {
 
           {/* Multilingual Selector (7 Languages) */}
           <div className="hidden sm:inline-flex">
-            <LanguageSelector />
+            <LanguageSelector align="left" />
           </div>
 
           {/* Theme Toggle (hidden on mobile, present in drawer) */}
