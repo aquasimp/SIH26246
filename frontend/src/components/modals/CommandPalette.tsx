@@ -34,7 +34,7 @@ interface CommandPaletteProps {
 
 export function CommandPalette({ open, onOpenChange, onToggleFocusMode }: CommandPaletteProps) {
   const router = useRouter();
-  const { theme, setTheme } = useTheme();
+  const { theme, setTheme, resolvedTheme } = useTheme();
   const { setSelectedDistrict, setSelectedOccupationNco, language, setLanguage, t, l} = useApp();
 
   // Listen for Ctrl+K / Cmd+K and Escape
@@ -122,11 +122,11 @@ export function CommandPalette({ open, onOpenChange, onToggleFocusMode }: Comman
 
               <Command.Item
                 onSelect={() => handleSelect(() => {
-                  setTheme(theme === 'dark' ? 'light' : 'dark');
+                  setTheme(resolvedTheme === 'dark' ? 'light' : 'dark');
                 })}
                 className="flex items-center gap-2.5 px-3 py-2 rounded-xl text-[var(--text)] hover:bg-[var(--glass-strong)] cursor-pointer aria-selected:bg-[var(--glass-strong)] transition-colors"
               >
-                {theme === 'dark' ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4 text-blue-400" />}
+                {resolvedTheme === 'dark' ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4 text-blue-400" />}
                 <div className="flex-1">
                   <strong className="block text-[var(--text)]">{l("Toggle Color Theme", "कलर थीम बदलें")}</strong>
                   <span className="text-[11px] text-[var(--text-muted)]">{l("Switch between Graphite Dark and Ivory Light", "डार्क और लाइट थीम के बीच स्विच करें")}</span>

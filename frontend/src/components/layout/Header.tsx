@@ -114,14 +114,14 @@ export const Header: React.FC = () => {
         <div className="flex items-center flex-wrap gap-2 self-end lg:self-auto">
           {/* DepthWizard Tactical Telemetry Pill — High Contrast Obsidian & Light Styling */}
           <div 
-            className="hidden xl:flex items-center gap-2 px-3 py-1 rounded-full bg-slate-100/90 dark:bg-black/95 border border-slate-300/80 dark:border-cyan-500/40 text-slate-700 dark:text-[#00e5ff] font-mono text-[11px] font-bold shadow-xs dark:shadow-[0_0_15px_rgba(0,229,255,0.25)] backdrop-blur-md"
+            className="hidden xl:flex items-center gap-2 px-3 py-1 rounded-full bg-[#0055a5]/10 dark:bg-cyan-950/40 border border-[#0055a5]/25 dark:border-cyan-500/40 text-[#0055a5] dark:text-[#00e5ff] font-mono text-[11px] font-bold shadow-xs dark:shadow-[0_0_15px_rgba(0,229,255,0.25)] backdrop-blur-md"
             title={l('Snapshot: RUN-SIH-001 • Model v2.4 (Tri-Model Blend) • Baseline: Seasonal Naive', 'स्नैपशॉट: RUN-SIH-001 • मॉडल v2.4 • बेसलाइन: सीज़नल नेईव')}
           >
             <span className="relative flex h-2 w-2">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-500 dark:bg-[#00e5ff] opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-cyan-600 dark:bg-[#00e5ff]"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-[#0055a5] dark:bg-[#00e5ff]"></span>
             </span>
-            <span>RUN-SIH-001 <span className="opacity-40">·</span> <strong className="text-slate-900 dark:text-white font-semibold">{l('Oct 2024 Data', 'अक्टूबर 2024 डेटा')}</strong></span>
+            <span>RUN-SIH-001 <span className="opacity-40">·</span> <strong className="text-[var(--text)] font-semibold">{l('Oct 2024 Data', 'अक्टूबर 2024 डेटा')}</strong></span>
           </div>
 
           {/* Global Search trigger (Ctrl K / Cmd K) */}

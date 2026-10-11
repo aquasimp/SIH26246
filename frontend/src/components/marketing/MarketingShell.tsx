@@ -64,12 +64,12 @@ export function MarketingTopbar() {
 
         {/* Right Controls: Dataset Chip, Language, Theme, Open Dashboard CTA */}
         <div className="flex items-center gap-2 sm:gap-3 shrink-0">
-          {/* DepthWizard Tactical Chip — Obsidian Pitch Dark Crisp Styling */}
+          {/* DepthWizard Tactical Chip — Theme-Reactive Styling */}
           <span 
-            className="hidden sm:inline-flex items-center gap-2 px-3 py-1 rounded-full text-[10px] font-mono font-bold bg-slate-900/90 dark:bg-black/90 text-cyan-700 dark:text-[#00e5ff] border border-[#0055a5]/30 dark:border-cyan-500/40 shadow-xs dark:shadow-[0_0_15px_rgba(0,229,255,0.2)] tracking-tight backdrop-blur-md"
+            className="hidden sm:inline-flex items-center gap-2 px-3 py-1 rounded-full text-[10px] font-mono font-bold bg-[#0055a5]/10 dark:bg-cyan-950/40 text-[#0055a5] dark:text-[#00e5ff] border border-[#0055a5]/25 dark:border-cyan-500/40 shadow-xs dark:shadow-[0_0_15px_rgba(0,229,255,0.2)] tracking-tight backdrop-blur-md"
             title={`${EXPORT_METADATA.runId} · ${EXPORT_METADATA.dataThrough}`}
           >
-            <span className="w-1.5 h-1.5 rounded-full bg-[#00c2cb] dark:bg-[#00e5ff] animate-ping" />
+            <span className="w-1.5 h-1.5 rounded-full bg-[#0055a5] dark:bg-[#00e5ff] animate-ping" />
             <span>{EXPORT_METADATA.runId}</span>
           </span>
 

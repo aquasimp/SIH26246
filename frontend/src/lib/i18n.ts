@@ -586,6 +586,62 @@ export const sectorsLocalized: Record<Language, Record<string, string>> = {
   }
 };
 
+export function isDevanagari(text: string): boolean {
+  // Exclude shared punctuation Danda U+0964 and Double Danda U+0965
+  return /[\u0900-\u0963\u0966-\u097F]/.test(text);
+}
+
+export function isValidTranslationForLang(text: string, lang: Language): boolean {
+  if (!text || !text.trim()) return false;
+  // Non-Devanagari languages should NEVER contain Devanagari text
+  if ((lang === 'ta' || lang === 'te' || lang === 'kn' || lang === 'bn') && isDevanagari(text)) {
+    return false;
+  }
+  return true;
+}
+
+export const lgdCodeToDistrictEn: Record<string, string> = {
+  '178': 'Gorakhpur',
+  '180': 'Lucknow',
+  '201': 'Varanasi',
+  '168': 'Gautam Buddha Nagar',
+  '164': 'Kanpur Nagar',
+  '179': 'Kanpur Nagar',
+  '485': 'Pune',
+  '475': 'Nagpur',
+  '488': 'Chhatrapati Sambhajinagar',
+  '486': 'Nashik',
+  '557': 'Bengaluru Urban',
+  '570': 'Mysuru',
+  '545': 'Dharwad',
+  '560': 'Dakshina Kannada',
+  '438': 'Ahmedabad',
+  '462': 'Surat',
+  '464': 'Vadodara',
+  '455': 'Rajkot',
+  '602': 'Coimbatore'
+};
+
+export const ncoCodeToOccupationEn: Record<string, string> = {
+  '2512.0101': 'AI/ML Data Annotation Specialist',
+  '4132.0101': 'Data Entry Operator',
+  '5223.0101': 'Retail Sales Associate',
+  '3253.0101': 'Community Health Assistant',
+  '7126.0101': 'Solar PV Installer',
+  '7126.0201': 'Solar Pump Technician',
+  '7127.0101': 'Cold Storage & HVAC Mechanic',
+  '7212.0101': 'Drone Maintenance Technician',
+  '7231.0101': 'Automotive Assembly Fitter',
+  '7233.0102': 'EV Service Technician',
+  '7411.0101': 'Smart Meter Installation Technician',
+  '7411.0201': 'Domestic Electrician & Wireman',
+  '7412.0101': 'Industrial Automation Technician',
+  '8151.0101': 'CNC Machine Operator',
+  '7223.0101': 'CNC Machine Operator',
+  '8153.0101': 'Sewing Machine Operator',
+  '9333.0101': 'Warehouse Logistics Executive'
+};
+
 /**
  * Resolves localized name for state, district, sector, occupation, or severity band
  */
@@ -596,63 +652,89 @@ export function getLocalizedEntityName(
   fallback?: string
 ): string {
   const strKey = String(key);
-  if (lang !== 'en') {
-    if (MASTER_LEXICON && MASTER_LEXICON[strKey] && MASTER_LEXICON[strKey][lang]) {
-      return MASTER_LEXICON[strKey][lang];
-    }
-    if (type === 'districts') {
-      const map = districtNamesLocalized[lang];
-      if (map && map[strKey]) return map[strKey];
-      if (map) {
-        const match = Object.entries(map).find(([k]) => k.toLowerCase() === strKey.toLowerCase());
-        if (match) return match[1];
-      }
-    }
-    if (type === 'states') {
-      const map = stateNamesLocalized[lang];
-      if (map && map[strKey]) return map[strKey];
-      if (map) {
-        const match = Object.entries(map).find(([k]) => k.toLowerCase() === strKey.toLowerCase());
-        if (match) return match[1];
-      }
-    }
-    if (type === 'sectors') {
-      const map = sectorsLocalized[lang];
-      if (map && map[strKey]) return map[strKey];
-      if (map) {
-        const match = Object.entries(map).find(([k]) => k.toLowerCase() === strKey.toLowerCase());
-        if (match) return match[1];
-      }
-    }
-    if (type === 'occupations') {
-      const map = occupationsLocalized[lang];
-      if (map && map[strKey]) return map[strKey];
-      if (map) {
-        const match = Object.entries(map).find(([k]) => k.toLowerCase() === strKey.toLowerCase());
-        if (match) return match[1];
-      }
-    }
-    if (type === 'severityBands') {
-      const map = severityBandsLocalized[lang];
-      if (map && map[strKey]) return map[strKey];
-    }
-    const hiMap = referenceData[type];
-    if (hiMap && hiMap[strKey]) {
-      return hiMap[strKey];
+  if (lang === 'en') return fallback || strKey;
+
+  // Resolve code to canonical English key if numeric code
+  let canonicalEn = strKey;
+  if (type === 'districts' && lgdCodeToDistrictEn[strKey]) {
+    canonicalEn = lgdCodeToDistrictEn[strKey];
+  } else if (type === 'occupations' && ncoCodeToOccupationEn[strKey]) {
+    canonicalEn = ncoCodeToOccupationEn[strKey];
+  }
+
+  // 1. Check specialized typed dictionaries FIRST
+  if (type === 'districts') {
+    const map = districtNamesLocalized[lang];
+    if (map && map[canonicalEn] && isValidTranslationForLang(map[canonicalEn], lang)) return map[canonicalEn];
+    if (map) {
+      const match = Object.entries(map).find(([k]) => k.toLowerCase() === canonicalEn.toLowerCase());
+      if (match && isValidTranslationForLang(match[1], lang)) return match[1];
     }
   }
-  return fallback || strKey;
+  if (type === 'states') {
+    const map = stateNamesLocalized[lang];
+    if (map && map[canonicalEn] && isValidTranslationForLang(map[canonicalEn], lang)) return map[canonicalEn];
+    if (map) {
+      const match = Object.entries(map).find(([k]) => k.toLowerCase() === canonicalEn.toLowerCase());
+      if (match && isValidTranslationForLang(match[1], lang)) return match[1];
+    }
+  }
+  if (type === 'occupations') {
+    const map = occupationsLocalized[lang];
+    if (map && map[canonicalEn] && isValidTranslationForLang(map[canonicalEn], lang)) return map[canonicalEn];
+    if (map) {
+      const match = Object.entries(map).find(([k]) => k.toLowerCase() === canonicalEn.toLowerCase());
+      if (match && isValidTranslationForLang(match[1], lang)) return match[1];
+    }
+  }
+  if (type === 'sectors') {
+    const map = sectorsLocalized[lang];
+    if (map && map[canonicalEn] && isValidTranslationForLang(map[canonicalEn], lang)) return map[canonicalEn];
+    if (map) {
+      const match = Object.entries(map).find(([k]) => k.toLowerCase() === canonicalEn.toLowerCase());
+      if (match && isValidTranslationForLang(match[1], lang)) return match[1];
+    }
+  }
+  if (type === 'severityBands') {
+    const map = severityBandsLocalized[lang];
+    if (map && map[canonicalEn] && isValidTranslationForLang(map[canonicalEn], lang)) return map[canonicalEn];
+  }
+
+  // 2. Check MASTER_LEXICON with script validation
+  if (MASTER_LEXICON && MASTER_LEXICON[canonicalEn] && MASTER_LEXICON[canonicalEn][lang]) {
+    const val = MASTER_LEXICON[canonicalEn][lang];
+    if (isValidTranslationForLang(val, lang)) {
+      return val;
+    }
+  }
+  if (MASTER_LEXICON && MASTER_LEXICON[strKey] && MASTER_LEXICON[strKey][lang]) {
+    const val = MASTER_LEXICON[strKey][lang];
+    if (isValidTranslationForLang(val, lang)) {
+      return val;
+    }
+  }
+
+  // 3. Fallback: ONLY return Hindi reference data if lang is 'hi'
+  if (lang === 'hi') {
+    const hiMap = referenceData[type];
+    if (hiMap && hiMap[strKey]) return hiMap[strKey];
+    if (hiMap && hiMap[canonicalEn]) return hiMap[canonicalEn];
+  }
+
+  return fallback || canonicalEn;
 }
 
 export function localizeSector(sector: string, lang: Language = 'en'): string {
   if (lang !== 'en') {
     if (sectorsLocalized[lang] && sectorsLocalized[lang][sector]) {
-      return sectorsLocalized[lang][sector];
+      const val = sectorsLocalized[lang][sector];
+      if (isValidTranslationForLang(val, lang)) return val;
     }
     if (MASTER_LEXICON && MASTER_LEXICON[sector] && MASTER_LEXICON[sector][lang]) {
-      return MASTER_LEXICON[sector][lang];
+      const val = MASTER_LEXICON[sector][lang];
+      if (isValidTranslationForLang(val, lang)) return val;
     }
-    if (referenceData.sectors[sector]) {
+    if (lang === 'hi' && referenceData.sectors[sector]) {
       return referenceData.sectors[sector];
     }
   }
@@ -667,33 +749,50 @@ export function resolveDisplayName(
   lang: Language = 'en'
 ): string {
   if (!item) return '';
-  if (lang !== 'en') {
-    if (item.name && districtNamesLocalized[lang] && districtNamesLocalized[lang][item.name]) {
-      return districtNamesLocalized[lang][item.name];
-    }
-    if (item.title && occupationsLocalized[lang] && occupationsLocalized[lang][item.title]) {
-      return occupationsLocalized[lang][item.title];
-    }
-    if (item.sector && sectorsLocalized[lang] && sectorsLocalized[lang][item.sector]) {
-      return sectorsLocalized[lang][item.sector];
-    }
-    if (item.title && MASTER_LEXICON && MASTER_LEXICON[item.title]?.[lang]) {
-      return MASTER_LEXICON[item.title][lang];
-    }
-    if (item.name && MASTER_LEXICON && MASTER_LEXICON[item.name]?.[lang]) {
-      return MASTER_LEXICON[item.name][lang];
-    }
-    if (item.titleHi && (lang === 'hi' || lang === 'mr')) return item.titleHi;
-    if (item.nameHi && (lang === 'hi' || lang === 'mr')) return item.nameHi;
-    if (item.ncoCode && referenceData.occupations[item.ncoCode]) {
-      const occName = referenceData.occupations[item.ncoCode];
-      return occupationsLocalized[lang]?.[occName] || MASTER_LEXICON?.[occName]?.[lang] || occName;
-    }
-    if (item.lgdCode && referenceData.districts[String(item.lgdCode)]) {
-      const distName = referenceData.districts[String(item.lgdCode)];
-      return districtNamesLocalized[lang]?.[distName] || MASTER_LEXICON?.[distName]?.[lang] || distName;
-    }
+  if (lang === 'en') return item.title || item.name || '';
+
+  // 1. Direct typed lookups by English title / name / sector
+  if (item.name && districtNamesLocalized[lang]?.[item.name]) {
+    const val = districtNamesLocalized[lang][item.name];
+    if (isValidTranslationForLang(val, lang)) return val;
   }
+  if (item.title && occupationsLocalized[lang]?.[item.title]) {
+    const val = occupationsLocalized[lang][item.title];
+    if (isValidTranslationForLang(val, lang)) return val;
+  }
+  if (item.sector && sectorsLocalized[lang]?.[item.sector]) {
+    const val = sectorsLocalized[lang][item.sector];
+    if (isValidTranslationForLang(val, lang)) return val;
+  }
+
+  // 2. MASTER_LEXICON lookup
+  if (item.title && MASTER_LEXICON?.[item.title]?.[lang]) {
+    const val = MASTER_LEXICON[item.title][lang];
+    if (isValidTranslationForLang(val, lang)) return val;
+  }
+  if (item.name && MASTER_LEXICON?.[item.name]?.[lang]) {
+    const val = MASTER_LEXICON[item.name][lang];
+    if (isValidTranslationForLang(val, lang)) return val;
+  }
+
+  // 3. Codes resolution via canonical English
+  if (item.ncoCode && ncoCodeToOccupationEn[item.ncoCode]) {
+    const occEn = ncoCodeToOccupationEn[item.ncoCode];
+    const loc = occupationsLocalized[lang]?.[occEn] || (MASTER_LEXICON?.[occEn]?.[lang]);
+    if (loc && isValidTranslationForLang(loc, lang)) return loc;
+  }
+  if (item.lgdCode && lgdCodeToDistrictEn[String(item.lgdCode)]) {
+    const distEn = lgdCodeToDistrictEn[String(item.lgdCode)];
+    const loc = districtNamesLocalized[lang]?.[distEn] || (MASTER_LEXICON?.[distEn]?.[lang]);
+    if (loc && isValidTranslationForLang(loc, lang)) return loc;
+  }
+
+  // 4. Hindi-specific fallback ONLY when lang is 'hi'
+  if (lang === 'hi') {
+    if (item.titleHi) return item.titleHi;
+    if (item.nameHi) return item.nameHi;
+  }
+
   return item.title || item.name || '';
 }
 
@@ -752,9 +851,10 @@ export const localizedSkills: Record<string, string> = {
 export function localizeSkill(skill: string, lang: Language = 'en'): string {
   if (lang !== 'en') {
     if (MASTER_LEXICON && MASTER_LEXICON[skill] && MASTER_LEXICON[skill][lang]) {
-      return MASTER_LEXICON[skill][lang];
+      const val = MASTER_LEXICON[skill][lang];
+      if (isValidTranslationForLang(val, lang)) return val;
     }
-    if (localizedSkills[skill]) {
+    if (lang === 'hi' && localizedSkills[skill]) {
       return localizedSkills[skill];
     }
   }
@@ -784,16 +884,17 @@ export const localizedQualifications: Record<string, string> = {
 export function localizeQualification(qual: string, lang: Language = 'en'): string {
   if (lang !== 'en') {
     if (MASTER_LEXICON && MASTER_LEXICON[qual] && MASTER_LEXICON[qual][lang]) {
-      return MASTER_LEXICON[qual][lang];
+      const val = MASTER_LEXICON[qual][lang];
+      if (isValidTranslationForLang(val, lang)) return val;
     }
-    if (localizedQualifications[qual]) {
+    if (lang === 'hi' && localizedQualifications[qual]) {
       return localizedQualifications[qual];
     }
   }
   return qual;
 }
 
-export const MASTER_LEXICON: Record<string, Record<Language, string>> = masterLexiconData as any;
+export const MASTER_LEXICON: Record<string, Record<Language, string>> = masterLexiconData as unknown as Record<string, Record<Language, string>>;
 
 /**
  * Universal Multilingual Translator (§3.2)
@@ -802,15 +903,54 @@ export const MASTER_LEXICON: Record<string, Record<Language, string>> = masterLe
 export function l(enText: string, lang: Language = 'en', hiFallback?: string): string {
   if (!enText) return '';
   if (lang === 'en') return enText;
+
+  // 1. Check MASTER_LEXICON
   const entry = MASTER_LEXICON[enText];
-  if (entry && entry[lang]) return entry[lang];
-  if (lang === 'hi' && hiFallback) return hiFallback;
-  if (entry && entry.hi) return entry.hi;
-  if (hiFallback) return hiFallback;
+  if (entry && entry[lang]) {
+    const val = entry[lang];
+    if (isValidTranslationForLang(val, lang)) {
+      return val;
+    }
+  }
+
+  // 2. Check typed entity dictionaries
+  if (occupationsLocalized[lang]?.[enText]) {
+    const val = occupationsLocalized[lang][enText];
+    if (isValidTranslationForLang(val, lang)) return val;
+  }
+  if (districtNamesLocalized[lang]?.[enText]) {
+    const val = districtNamesLocalized[lang][enText];
+    if (isValidTranslationForLang(val, lang)) return val;
+  }
+  if (stateNamesLocalized[lang]?.[enText]) {
+    const val = stateNamesLocalized[lang][enText];
+    if (isValidTranslationForLang(val, lang)) return val;
+  }
+  if (sectorsLocalized[lang]?.[enText]) {
+    const val = sectorsLocalized[lang][enText];
+    if (isValidTranslationForLang(val, lang)) return val;
+  }
+  if (severityBandsLocalized[lang]?.[enText]) {
+    const val = severityBandsLocalized[lang][enText];
+    if (isValidTranslationForLang(val, lang)) return val;
+  }
+
+  // 3. Fallback: ONLY return Hindi if the requested language is Hindi!
+  if (lang === 'hi') {
+    if (hiFallback) return hiFallback;
+    if (entry && entry.hi) return entry.hi;
+    if (referenceData.districts[enText]) return referenceData.districts[enText];
+    if (referenceData.states[enText]) return referenceData.states[enText];
+    if (referenceData.sectors[enText]) return referenceData.sectors[enText];
+    if (referenceData.occupations[enText]) return referenceData.occupations[enText];
+  }
+
+  // For ta, te, kn, bn, mr: NEVER leak Hindi strings! Return enText as clean fallback
   return enText;
 }
 
 export function localizeText(enText: string, lang: Language = 'en', hiFallback?: string): string {
   return l(enText, lang, hiFallback);
 }
+
 
