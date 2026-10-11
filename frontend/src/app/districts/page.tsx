@@ -7,7 +7,7 @@ import { FilterBar } from '@/components/layout/FilterBar';
 import { GlassPanel } from '@/components/glass/GlassPanel';
 import { Provenance } from '@/components/common/Provenance';
 import { DISTRICTS, STATES } from '@/lib/demoData';
-import { getLocalizedEntityName } from '@/lib/i18n';
+import { getLocalizedEntityName, resolveDisplayName } from '@/lib/i18n';
 import { clsx } from 'clsx';
 import { 
   MapPin, 
@@ -20,8 +20,7 @@ import {
 } from 'lucide-react';
 
 export default function DistrictsOverviewPage() {
-  const { selectedState, setSelectedState, language, l} = useApp();
-  const isHi = language === 'hi';
+  const { selectedState, setSelectedState, language, l } = useApp();
   const [searchTerm, setSearchTerm] = useState('');
 
   const filteredDistricts = DISTRICTS.filter(d => {
@@ -93,7 +92,7 @@ export default function DistrictsOverviewPage() {
                 </div>
 
                 <h3 className="text-base font-extrabold text-[var(--text)] group-hover:text-[var(--brand)] transition-colors">
-                  {isHi && d.nameHi ? d.nameHi : d.name}
+                  {resolveDisplayName(d, language)}
                 </h3>
                 <span className="text-xs text-[var(--text-muted)] font-medium block mb-3">
                   {getLocalizedEntityName('states', d.state, language, d.state)}
@@ -125,7 +124,7 @@ export default function DistrictsOverviewPage() {
                       <span className="font-semibold text-[var(--severe)]">
                         {l('Top Deficit: ', 'शीर्ष घाटा: ')}
                       </span>
-                      {isHi ? getLocalizedEntityName('occupations', d.topShortageTrades[0], 'hi') : d.topShortageTrades[0]}
+                      {getLocalizedEntityName('occupations', d.topShortageTrades[0], language, d.topShortageTrades[0])}
                     </div>
                 </div>
               </div>

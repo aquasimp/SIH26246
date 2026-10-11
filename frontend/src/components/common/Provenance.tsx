@@ -33,8 +33,7 @@ export function Provenance({
   compact = false, 
   className = '' 
 }: ProvenanceProps) {
-  const { language, l} = useApp();
-  const isHi = language === 'hi';
+  const { language, l } = useApp();
   const raw = String(type || source || 'SIH dummy dataset').toLowerCase();
 
   let label = l('SIH dummy dataset', 'SIH डमी डेटासेट');

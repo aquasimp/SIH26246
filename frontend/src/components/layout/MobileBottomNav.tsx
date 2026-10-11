@@ -14,8 +14,7 @@ import { useApp } from '@/lib/store';
 
 export const MobileBottomNav: React.FC = () => {
   const pathname = usePathname();
-  const { mobileMenuOpen, setMobileMenuOpen, language, t, alerts, l} = useApp();
-  const isHi = language === 'hi';
+  const { mobileMenuOpen, setMobileMenuOpen, language, t, alerts, l } = useApp();
 
   const unreadAlerts = alerts.filter(a => !a.acknowledged).length || 35;
 

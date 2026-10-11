@@ -60,8 +60,6 @@ export function CommandPalette({ open, onOpenChange, onToggleFocusMode }: Comman
 
   if (!open) return null;
 
-  const isHi = language === 'hi';
-
   return (
     <div
       role="dialog"

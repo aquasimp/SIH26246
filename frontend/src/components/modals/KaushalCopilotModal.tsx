@@ -27,15 +27,16 @@ interface Message {
 }
 
 export const KaushalCopilotModal: React.FC = () => {
-  const { copilotOpen, setCopilotOpen, language, t } = useApp();
+  const { copilotOpen, setCopilotOpen, language, t, l } = useApp();
   const [input, setInput] = useState('');
   const [messages, setMessages] = useState<Message[]>([
     {
       id: 'init-1',
       sender: 'assistant',
-      text: language === 'hi' 
-        ? 'नमस्ते! मैं कौशल कोपायलट हूँ — एमएसडीई श्रम बाजार बुद्धिमत्ता सहायक। आप मुझसे किसी भी जिले में कौशल अंतराल, मांग पूर्वानुमान, या सीट पुनर्वितरण के बारे में पूछ सकते हैं।'
-        : 'Welcome! I am Kaushal Copilot — MSDE Labour Market Intelligence Assistant. Ask me about district shortages, 6-month forecasts, explainability drivers, or policy seat reallocation impacts.',
+      text: l(
+        'Welcome! I am Kaushal Copilot — MSDE Labour Market Intelligence Assistant. Ask me about district shortages, 6-month forecasts, explainability drivers, or policy seat reallocation impacts.',
+        'नमस्ते! मैं कौशल कोपायलट हूँ — एमएसडीई श्रम बाजार बुद्धिमत्ता सहायक। आप मुझसे किसी भी जिले में कौशल अंतराल, मांग पूर्वानुमान, या सीट पुनर्वितरण के बारे में पूछ सकते हैं।'
+      ),
       timestamp: 'Just now',
       source: 'LMIS Analytics Engine',
       runId: 'RUN-2026-10-04-001',
@@ -86,7 +87,7 @@ export const KaushalCopilotModal: React.FC = () => {
         botResponse = {
           id: `bot-${Date.now()}`,
           sender: 'assistant',
-          text: language === 'hi' ? match.answerHi : match.answer,
+          text: l(match.answer, match.answerHi || match.answer),
           timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
           source: 'LMIS Analytics Multi-Source Aggregate',
           runId: 'RUN-SIH-001',
@@ -97,9 +98,10 @@ export const KaushalCopilotModal: React.FC = () => {
         botResponse = {
           id: `bot-${Date.now()}`,
           sender: 'assistant',
-          text: language === 'hi'
-            ? 'मेरे पास इस प्रश्न का विश्वसनीय उत्तर देने के लिए पर्याप्त डेटा नहीं है। कृपया किसी मान्य एमएसडीई जिले (जैसे गोरखपुर, लखनऊ, पुणे, बेंगलुरु) या मान्यता प्राप्त NCO व्यापार कोड के बारे में पूछें।'
-            : "I don't have enough data to answer this reliably. Please query a valid MSDE district (e.g., Gorakhpur, Lucknow, Pune, Bengaluru) or recognized NCO-2015 trade code.",
+          text: l(
+            "I don't have enough data to answer this reliably. Please query a valid MSDE district (e.g., Gorakhpur, Lucknow, Pune, Bengaluru) or recognized NCO-2015 trade code.",
+            'मेरे पास इस प्रश्न का विश्वसनीय उत्तर देने के लिए पर्याप्त डेटा नहीं है। कृपया किसी मान्य एमएसडीई जिले (जैसे गोरखपुर, लखनऊ, पुणे, बेंगलुरु) या मान्यता प्राप्त NCO व्यापार कोड के बारे में पूछें।'
+          ),
           timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
           source: 'Data Governance Insufficient Evidence Protocol',
           runId: 'RUN-2026-10-04-001',

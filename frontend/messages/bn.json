@@ -57,7 +57,16 @@
     "safeCap": "নিরাপদ সীমা",
     "export": "রপ্তানি",
     "notAvailableInDataset": "এই ডেটাসেটে উপলব্ধ নেই",
-    "pipelineSnapshotNote": "পাইপলাইন স্ন্যাপশট — লাইভ ফিড নয়"
+    "pipelineSnapshotNote": "পাইপলাইন স্ন্যাপশট — লাইভ ফিড নয়",
+    "shortage": "ঘাটতি",
+    "oversupply": "উদ্বৃত্ত সরবরাহ",
+    "deficit": "ঘাটতি",
+    "reallocation": "পুনর্বণ্টন",
+    "forecast": "পূর্বাভাস",
+    "earlyWarning": "আগাম সতর্কবার্তা",
+    "trainingCentre": "প্রশিক্ষণ কেন্দ্র",
+    "scenarioStudio": "দৃশ্যপট স্টুডিও",
+    "atRiskTrades": "ঝুঁকিপূর্ণ পেশা"
   },
   "common": {
     "search": "অনুসন্ধান করুন",
@@ -95,7 +104,7 @@
     "learnMore": "আরও জানুন"
   },
   "hero": {
-    "eyebrow": "SIH 2026 · PS 26246 · MSDE",
+    "eyebrow": "স্মার্ট ইন্ডিয়া হ্যাকাথন 2026 · PS 26246 · MSDE",
     "titlePrefix": "দক্ষতার ব্যবধানের পূর্বাভাস দিন।",
     "titleAction": "সমাধানে তহবিল বরাদ্দ করুন।",
     "subhead": "কৌশলযুবা শ্রমবাজারের উপাত্তকে জেলা-স্তরের ৩M/৬M/১২M পূর্বাভাস, আগাম সতর্কতা এবং আসন পুনর্বণ্টন সিদ্ধান্তে রূপান্তর করে।",

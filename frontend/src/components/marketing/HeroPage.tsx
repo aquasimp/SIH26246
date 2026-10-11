@@ -19,8 +19,7 @@ import {
 import { getLocalizedEntityName } from '@/lib/i18n';
 
 export function HeroPage() {
-  const { language, selectedState, setSelectedState, l } = useApp();
-  const isHi = language === 'hi';
+  const { language, selectedState, setSelectedState, t, l } = useApp();
 
   return (
     <div className="w-full flex flex-col items-center">
@@ -42,15 +41,10 @@ export function HeroPage() {
 
               {/* Tagline in condensed display font */}
               <h1 className="text-3xl sm:text-4xl lg:text-[2.65rem] font-extrabold text-[var(--text)] tracking-tight font-display leading-[1.12]">
-                {isHi ? (
-                  <>
-                    कौशल अंतराल का पूर्वानुमान। <span className="text-[#0055a5] dark:text-[#00c2cb]">समाधान में निवेश।</span>
-                  </>
-                ) : (
-                  <>
-                    FORECAST THE SKILL GAP. <span className="text-[#0055a5] dark:text-[#00c2cb]">FUND THE FIX.</span>
-                  </>
-                )}
+                {t.hero?.titlePrefix || 'FORECAST THE SKILL GAP.'}{' '}
+                <span className="text-[#0055a5] dark:text-[#00c2cb]">
+                  {t.hero?.titleAction || 'FUND THE FIX.'}
+                </span>
               </h1>
 
               {/* Subtitle with exact text fix */}
@@ -94,15 +88,23 @@ export function HeroPage() {
 
                 {/* Sentence heading in normal case with key figure 711 larger in accent */}
                 <h2 className="text-sm sm:text-base font-bold text-[var(--text)] leading-snug">
-                  {isHi ? (
-                    <>
-                      गोरखपुर में <span className="text-2xl sm:text-3xl font-extrabold text-amber-500 font-mono align-baseline mx-0.5">711</span> सोलर पीवी इंस्टॉलर की कमी है।
-                    </>
-                  ) : (
-                    <>
-                      Gorakhpur is short by <span className="text-2xl sm:text-3xl font-extrabold text-amber-500 font-mono align-baseline mx-0.5">711</span> solar installers.
-                    </>
-                  )}
+                  {(() => {
+                    const alertSentences: Record<string, { prefix: string; suffix: string }> = {
+                      en: { prefix: 'Gorakhpur is short by ', suffix: ' solar installers.' },
+                      hi: { prefix: 'गोरखपुर में ', suffix: ' सोलर पीवी इंस्टॉलर की कमी है।' },
+                      mr: { prefix: 'गोरखपूरमध्ये ', suffix: ' सोलर पीव्ही इन्स्टॉलर्सची तूट आहे.' },
+                      ta: { prefix: 'கோரக்பூரில் ', suffix: ' சோலார் பிவி நிறுவுநர்கள் பற்றாக்குறை உள்ளது.' },
+                      te: { prefix: 'గోరఖ్‌పూర్‌లో ', suffix: ' సోలార్ పివి ఇన్‌స్టాలర్ల కొరత ఉంది.' },
+                      kn: { prefix: 'ಗೋರಖ್‌ಪುರದಲ್ಲಿ ', suffix: ' ಸೋಲಾರ್ ಪಿವಿ ಇನ್‌ಸ್ಟಾಲರ್‌ಗಳ ಕೊರತೆಯಿದೆ.' },
+                      bn: { prefix: 'গোরক্ষপুরে ', suffix: ' সোলার পিভি ইনস্টলারের ঘাটতি রয়েছে।' },
+                    };
+                    const s = alertSentences[language] || alertSentences.en;
+                    return (
+                      <>
+                        {s.prefix}<span className="text-2xl sm:text-3xl font-extrabold text-amber-500 font-mono align-baseline mx-0.5">711</span>{s.suffix}
+                      </>
+                    );
+                  })()}
                 </h2>
 
                 {/* Demand-vs-Supply Visual Bar */}
@@ -251,7 +253,7 @@ export function HeroPage() {
                     : 'text-[var(--text-muted)] hover:text-[var(--text)] hover:bg-[var(--glass)]'
                 }`}
               >
-                {isHi ? getLocalizedEntityName('states', s, 'hi') : s}
+                {language === 'en' ? s : getLocalizedEntityName('states', s, language)}
               </button>
             ))}
           </div>
@@ -259,7 +261,7 @@ export function HeroPage() {
           <div className="text-xs font-mono text-[var(--text-faint)] shrink-0 hidden sm:block">
             {selectedState === 'All' 
               ? l('16 Priority Districts Active', '16 प्राथमिकता ज़िले सक्रिय') 
-              : l(`Filtered to ${selectedState}`, `${getLocalizedEntityName('states', selectedState, 'hi')} चयनित`)}
+              : l(`Filtered to ${selectedState}`, `${getLocalizedEntityName('states', selectedState, language)} ${language === 'en' ? 'Active' : 'चयनित'}`)}
           </div>
         </div>
       </section>

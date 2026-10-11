@@ -7,15 +7,14 @@ import { FilterBar } from '@/components/layout/FilterBar';
 import { GlassPanel } from '@/components/glass/GlassPanel';
 import { Provenance } from '@/components/common/Provenance';
 import { OCCUPATIONS } from '@/lib/demoData';
-import { localizeSkill, localizeQualification } from '@/lib/i18n';
+import { localizeSkill, localizeQualification, resolveDisplayName } from '@/lib/i18n';
 import { 
   CheckCircle2, 
   Search 
 } from 'lucide-react';
 
 export default function QualificationsPage() {
-  const { language, l} = useApp();
-  const isHi = language === 'hi';
+  const { language, l } = useApp();
   const [searchTerm, setSearchTerm] = useState('');
 
   const filtered = OCCUPATIONS.filter(o => {
@@ -144,7 +143,7 @@ export default function QualificationsPage() {
               <div className="space-y-2 flex-1">
                 <div className="flex items-center gap-2 flex-wrap">
                   <span className="text-xs font-bold text-[var(--text)]">
-                    {isHi && occ.titleHi ? occ.titleHi : occ.title}
+                    {resolveDisplayName(occ, language)}
                   </span>
                   <span className="text-xs font-mono text-[var(--brand)] bg-[var(--brand)]/10 px-2 py-0.5 rounded-md border border-[var(--brand)]/20">
                     NCO {occ.ncoCode}
@@ -158,13 +157,13 @@ export default function QualificationsPage() {
                   <strong className="text-[var(--text)]">
                     {l('Approved Packs:', 'स्वीकृत पैक:')}{' '}
                   </strong>
-                  {occ.qualifications.map(q => isHi ? localizeQualification(q, 'hi') : q).join(' • ')}
+                  {occ.qualifications.map(q => localizeQualification(q, language)).join(' • ')}
                 </div>
 
                 <div className="flex flex-wrap gap-1.5 pt-1">
                   {occ.keySkills.map((s, idx) => (
                     <span key={idx} className="text-[11px] px-2 py-0.5 rounded-md glass text-[var(--text-muted)] font-medium border border-[var(--border)]">
-                      {isHi ? localizeSkill(s, 'hi') : s}
+                      {localizeSkill(s, language)}
                     </span>
                   ))}
                 </div>

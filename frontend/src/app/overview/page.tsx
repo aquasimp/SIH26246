@@ -23,10 +23,10 @@ import {
 import { downloadCSV } from '@/lib/exportUtils';
 import { toast } from 'sonner';
 import { getLocalizedEntityName } from '@/lib/i18n';
+import { formatNumber } from '@/lib/formatters';
 
 export default function OverviewPage() {
   const { t, setActiveEvidence, setSelectedDistrict, setSelectedOccupationNco, language, l} = useApp();
-  const isHi = language === 'hi';
 
   const metrics = useMemo(() => {
     const totalDemand = OCCUPATIONS.reduce((acc, o) => acc + o.currentDemand, 0);
@@ -34,14 +34,14 @@ export default function OverviewPage() {
     const netShortfall = Math.max(0, totalDemand - totalEffectiveSupply);
     const atRiskTrades = OCCUPATIONS.filter(o => o.gapScore >= 75 || o.gapScore <= 25).length;
     return {
-      demandFormatted: isHi ? totalDemand.toLocaleString('hi-IN') : (totalDemand / 1000).toFixed(1) + 'K',
-      supplyFormatted: isHi ? totalEffectiveSupply.toLocaleString('hi-IN') : (totalEffectiveSupply / 1000).toFixed(1) + 'K',
-      shortfallFormatted: isHi ? netShortfall.toLocaleString('hi-IN') : (netShortfall / 1000).toFixed(1) + 'K',
+      demandFormatted: formatNumber(totalDemand, language, { compact: true }),
+      supplyFormatted: formatNumber(totalEffectiveSupply, language, { compact: true }),
+      shortfallFormatted: formatNumber(netShortfall, language, { compact: true }),
       atRiskCount: atRiskTrades,
       activeAlertsCount: 35, // 35 verified anomalies from alert engine (§4.1)
       recommendationsCount: RECOMMENDATIONS.length
     };
-  }, [isHi]);
+  }, [language]);
 
   const handleExportAction = (rec: typeof RECOMMENDATIONS[0]) => {
     const rows = [
@@ -172,15 +172,11 @@ export default function OverviewPage() {
               </span>
             </div>
             <p className="text-[var(--text-muted)] text-[11px] leading-relaxed">
-              {isHi ? (
-                <>
-                  अनुमानित 6M कमी की संभावना <strong className="text-[var(--severe)] font-mono">88%</strong> है (कमी: 711 उम्मीदवार)। अनुशंसित हस्तक्षेप: रिटेल सेल्स एसोसिएट से <strong className="text-[var(--brand)] font-mono">97 सीटें</strong> पुनर्आवंटित करें (नई क्षमता के मुकाबले ₹6.3 लाख की बचत)।
-                </>
-              ) : (
-                <>
-                  Projected 6M shortage probability is <strong className="text-[var(--severe)] font-mono">88%</strong> (Shortfall: 711 candidates). Recommended intervention: Reallocate <strong className="text-[var(--brand)] font-mono">97 seats</strong> from Retail Sales Associate (saving ₹6.3L vs new capacity).
-                </>
-              )}
+              {l('Projected 6M shortage probability is', 'अनुमानित 6M कमी की संभावना')}{' '}
+              <strong className="text-[var(--severe)] font-mono">88%</strong>{' '}
+              {l('(Shortfall: 711 candidates). Recommended intervention: Reallocate', '(कमी: 711 उम्मीदवार)। अनुशंसित हस्तक्षेप: पुनर्आवंटित करें')}{' '}
+              <strong className="text-[var(--brand)] font-mono">97 {l('seats', 'सीटें')}</strong>{' '}
+              {l('from Retail Sales Associate (saving ₹6.3L vs new capacity).', 'रिटेल सेल्स एसोसिएट से (नई क्षमता के मुकाबले ₹6.3 लाख की बचत)।')}
             </p>
           </div>
         </div>
@@ -227,11 +223,9 @@ export default function OverviewPage() {
             >
               <ArrowDownRight className="w-3.5 h-3.5 text-[var(--severe)]" />
               <span>
-                {isHi ? (
-                  <><strong>सोलर पीवी इंस्टॉलर</strong> मांग वृद्धि <strong>-0.1%</strong> गोरखपुर में (तीव्र कमी बरकरार)</>
-                ) : (
-                  <><strong>Solar PV Installer</strong> demand growth <strong>-0.1%</strong> in Gorakhpur (acute shortfall persists)</>
-                )}
+                <strong>{getLocalizedEntityName('occupations', 'Solar PV Installer', language)}</strong>{' '}
+                {l('demand growth', 'मांग वृद्धि')} <strong>-0.1%</strong>{' '}
+                {l('in', 'में')} {getLocalizedEntityName('districts', 'Gorakhpur', language)} ({l('acute shortfall persists', 'तीव्र कमी बरकरार')})
               </span>
             </button>
 
@@ -247,11 +241,8 @@ export default function OverviewPage() {
             >
               <ArrowDownRight className="w-3.5 h-3.5 text-[var(--text-faint)]" />
               <span>
-                {isHi ? (
-                  <><strong>रिटेल सेल्स एसोसिएट</strong> मांग <strong>-10.0%</strong> नरम हुई (भौतिक क्षमता अधिशेष)</>
-                ) : (
-                  <><strong>Retail Sales Associate</strong> softened <strong>-10.0%</strong> (physical capacity surplus)</>
-                )}
+                <strong>{getLocalizedEntityName('occupations', 'Retail Sales Associate', language)}</strong>{' '}
+                {l('softened', 'मांग नरम हुई')} <strong>-10.0%</strong> ({l('physical capacity surplus', 'भौतिक क्षमता अधिशेष')})
               </span>
             </button>
 
@@ -263,11 +254,8 @@ export default function OverviewPage() {
             >
               <AlertTriangle className="w-3.5 h-3.5 text-[var(--severe)]" />
               <span>
-                {isHi ? (
-                  <><strong>गोरखपुर</strong> में कमी का जोखिम <strong>88%</strong> संभावना पर पहुंचा</>
-                ) : (
-                  <><strong>Gorakhpur</strong> shortage risk reached <strong>88%</strong> probability</>
-                )}
+                <strong>{getLocalizedEntityName('districts', 'Gorakhpur', language)}</strong>{' '}
+                {l('shortage risk reached', 'में कमी का जोखिम')} <strong>88%</strong> {l('probability', 'संभावना पर पहुंचा')}
               </span>
             </Link>
           </div>
@@ -327,7 +315,7 @@ export default function OverviewPage() {
                       #{String(rec.rank).padStart(2, '0')}
                     </span>
                     <span className="text-xs font-bold text-[var(--text-muted)] uppercase tracking-wider font-mono">
-                      {isHi ? `${getLocalizedEntityName('districts', rec.district, 'hi')}, ${getLocalizedEntityName('states', rec.state, 'hi')}` : `${rec.district}, ${rec.state}`}
+                      {getLocalizedEntityName('districts', rec.district, language)}, {getLocalizedEntityName('states', rec.state, language)}
                     </span>
                   </div>
                   <Badge variant="balanced" size="sm">
@@ -336,11 +324,11 @@ export default function OverviewPage() {
                 </div>
 
                 <h3 className="text-base font-bold text-[var(--text)] mb-1">
-                  {isHi && rec.titleHi ? rec.titleHi : rec.title}
+                  {l(rec.title, rec.titleHi)}
                 </h3>
 
                 <p className="text-xs text-[var(--text-muted)] mb-3 leading-relaxed flex-1">
-                  {isHi && rec.reasonHi ? rec.reasonHi : rec.reason}
+                  {l(rec.reason, rec.reasonHi)}
                 </p>
 
                 {/* Score & Impact Stats */}
@@ -366,7 +354,7 @@ export default function OverviewPage() {
                       {l('Target Trade', 'लक्षित व्यवसाय')}
                     </span>
                     <strong className="text-xs sm:text-sm font-bold text-[var(--brand)] truncate block">
-                      {isHi && rec.toTradeHi ? rec.toTradeHi : rec.toTrade}
+                      {getLocalizedEntityName('occupations', rec.toTrade, language, rec.toTradeHi || rec.toTrade)}
                     </strong>
                   </div>
                 </div>

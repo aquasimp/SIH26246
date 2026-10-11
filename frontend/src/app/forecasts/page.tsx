@@ -8,7 +8,7 @@ import { Badge } from '@/components/common/Badge';
 import { Provenance } from '@/components/common/Provenance';
 import { OCCUPATIONS, DATA_HEALTH_METRIC } from '@/lib/demoData';
 import { OUT_OF_SAMPLE_BENCHMARKS } from '@/lib/benchmarkMetrics';
-import { getLocalizedEntityName } from '@/lib/i18n';
+import { getLocalizedEntityName, resolveDisplayName } from '@/lib/i18n';
 
 export default function ForecastPage() {
   const { 
@@ -19,7 +19,6 @@ export default function ForecastPage() {
     selectedState,
     language, l} = useApp();
 
-  const isHi = language === 'hi';
   const [activeModel, setActiveModel] = useState<'lightgbm' | 'naive'>('lightgbm');
 
   const occ = OCCUPATIONS.find(o => o.ncoCode === selectedOccupationNco) || OCCUPATIONS[0];
@@ -75,12 +74,10 @@ export default function ForecastPage() {
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-[var(--border)]">
           <div>
             <h2 className="text-lg font-extrabold text-[var(--text)]">
-              {l(`Forecast Trajectory: ${occ.title} (${occ.ncoCode})`, `पूर्वानुमान प्रक्षेपवक्र: ${occ.titleHi || occ.title} (${occ.ncoCode})`)}
+              {l(`Forecast Trajectory: ${occ.title} (${occ.ncoCode})`, `पूर्वानुमान प्रक्षेपवक्र: ${resolveDisplayName(occ, language)} (${occ.ncoCode})`)}
             </h2>
             <p className="text-xs text-[var(--text-muted)]">
-              {isHi
-                ? `ऐतिहासिक वास्तविक डेटा (2024–2026) बनाम ${getLocalizedEntityName('districts', selectedDistrict, 'hi')}, ${getLocalizedEntityName('states', selectedState, 'hi')} में ${forecastHorizon} अग्रिम प्रक्षेपण।`
-                : `Historical actuals (2024–2026) vs. ${forecastHorizon} forward projection in ${selectedDistrict}, ${selectedState}.`}
+              {`${l('Historical actuals (2024–2026) vs.', 'ऐतिहासिक वास्तविक डेटा (2024–2026) बनाम')} ${forecastHorizon} ${l('forward projection in', 'अग्रिम प्रक्षेपण')} ${getLocalizedEntityName('districts', selectedDistrict, language)}, ${getLocalizedEntityName('states', selectedState, language)}.`}
             </p>
           </div>
           <div className="flex items-center gap-2">
@@ -95,7 +92,7 @@ export default function ForecastPage() {
 
         <ForecastChart
           data={occ.timeSeries}
-          occupationTitle={isHi && occ.titleHi ? occ.titleHi : occ.title}
+          occupationTitle={resolveDisplayName(occ, language)}
           horizon={forecastHorizon}
           model={activeModel}
           onModelChange={setActiveModel}
@@ -116,7 +113,9 @@ export default function ForecastPage() {
               </span>
             </div>
             <h3 className="text-base font-extrabold text-[var(--text)]">
-              {isHi ? (benchmark.primaryModel.includes('Blend') ? 'त्रि-मॉडल मिश्रण (LightGBM + ARIMA + ETS)' : 'LightGBM रीग्रेसर') : benchmark.primaryModel}
+              {benchmark.primaryModel.includes('Blend') 
+                ? l(benchmark.primaryModel, 'त्रि-मॉडल मिश्रण (LightGBM + ARIMA + ETS)') 
+                : l(benchmark.primaryModel, 'LightGBM रीग्रेसर')}
             </h3>
             <p className="text-xs text-[var(--text-muted)] mt-1 leading-relaxed">
               {l('Fitted strictly on Origins 1–3 and backtested out-of-sample on Origins 4–6 without temporal feature leakage.', 'उत्पत्ति 1-3 पर प्रशिक्षित और बिना टेम्पोरल लीकेज के उत्पत्ति 4-6 पर आउट-ऑफ-सैंपल परीक्षण किया गया।')}

@@ -21,7 +21,7 @@ import {
   X
 } from 'lucide-react';
 import { District, SEVERITY_BANDS } from '@/lib/types';
-import { getLocalizedEntityName } from '@/lib/i18n';
+import { getLocalizedEntityName, Language } from '@/lib/i18n';
 import choroplethDataRaw from '@/data/india_choropleth.json';
 import tradeMetricsRaw from '@/data/trade_district_metrics.json';
 
@@ -42,6 +42,30 @@ export const MAP_LAYERS: MapLayerConfig[] = [
   { id: 'supply', labelEn: 'Effective Supply', labelHi: 'प्रभावी आपूर्ति', unitEn: 'Candidates', unitHi: 'उम्मीदवार' },
   { id: 'surplus', labelEn: 'Capacity Surplus', labelHi: 'क्षमता अधिशेष', unitEn: 'Seats', unitHi: 'सीटें' },
 ];
+
+export const LAYER_LABELS: Record<MapLayer, Record<Language, string>> = {
+  severity: {
+    en: 'Severity', hi: 'गंभीरता', mr: 'तीव्रता', ta: 'தீவிரம்', te: 'తీవ్రత', kn: 'ತೀವ್ರತೆ', bn: 'তীব্রতা'
+  },
+  demand: {
+    en: 'Demand', hi: 'मांग', mr: 'मागणी', ta: 'தேவை', te: 'డిమాండ్', kn: 'ಬೇಡಿಕೆ', bn: 'চাহিদা'
+  },
+  supply: {
+    en: 'Effective Supply', hi: 'प्रभावी आपूर्ति', mr: 'प्रभावी पुरवठा', ta: 'செயல்திறன் வழங்கல்', te: 'సమర్థవంతమైన సరఫరా', kn: 'ಪರಿಣಾಮಕಾರಿ ಪೂರೈಕೆ', bn: 'কার্যকর সরবরাহ'
+  },
+  surplus: {
+    en: 'Capacity Surplus', hi: 'क्षमता अधिशेष', mr: 'क्षमता अधिशेष', ta: 'திறன் உபரி', te: 'సామర్థ్య మిగులు', kn: 'ಸಾಮರ್ಥ್ಯ ಹೆಚ್ಚುವರಿ', bn: 'সক্ষমতা উদ্বৃত্ত'
+  }
+};
+
+export const STATE_TAB_LABELS: Record<string, Record<Language, string>> = {
+  all: { en: 'All States', hi: 'सभी राज्य', mr: 'सर्व राज्ये', ta: 'அனைத்து மாநிலங்களும்', te: 'అన్ని రాష్ట్రాలు', kn: 'ಎಲ್ಲಾ ರಾಜ್ಯಗಳು', bn: 'সব রাজ্য' },
+  uttar_pradesh: { en: 'UP', hi: 'उ.प्र.', mr: 'उ.प्र.', ta: 'உ.பி.', te: 'యు.పి.', kn: 'ಯು.ಪಿ.', bn: 'ইউ.পি.' },
+  maharashtra: { en: 'MH', hi: 'महाराष्ट्र', mr: 'महाराष्ट्र', ta: 'மகாராஷ்டிரா', te: 'మహారాష్ట్ర', kn: 'ಮಹಾರಾಷ್ಟ್ರ', bn: 'মহারাষ্ট্র' },
+  karnataka: { en: 'KA', hi: 'कर्नाटक', mr: 'कर्नाटक', ta: 'கர்நாடகா', te: 'కర్ణాటక', kn: 'ಕರ್ನಾಟಕ', bn: 'কর্ণাটক' },
+  gujarat: { en: 'GJ', hi: 'गुजरात', mr: 'गुजरात', ta: 'குஜராத்', te: 'గుజరాత్', kn: 'ಗುಜರಾತ್', bn: 'গুজরাট' },
+  tamil_nadu: { en: 'TN', hi: 'तमिलनाडु', mr: 'तमिळनाडू', ta: 'தமிழ்நாடு', te: 'తమిళనాడు', kn: 'ತಮಿಳುನಾಡು', bn: 'তামিলநாডু' }
+};
 
 export const ALL_TRADES_OPTION = '__all_trades__';
 
@@ -82,7 +106,6 @@ export const IndiaIntelligenceMap: React.FC = () => {
   const mapContainerRef = useRef<HTMLDivElement>(null);
 
   const palette = useChartPalette();
-  const isHi = language === 'hi';
 
   // Available trades extracted from metrics
   const availableTrades = useMemo(() => {
@@ -133,7 +156,7 @@ export const IndiaIntelligenceMap: React.FC = () => {
         supply: 400,
         surplus: 0,
         confidence: 80,
-        tradeTitle: selectedTrade === ALL_TRADES_OPTION ? (isHi ? 'सभी व्यवसाय: अधिकतम' : 'All trades: max') : selectedTrade,
+        tradeTitle: selectedTrade === ALL_TRADES_OPTION ? l('All trades: max', 'सभी व्यवसाय: अधिकतम') : selectedTrade,
         band: SEVERITY_BANDS[2]
       };
     }
@@ -153,7 +176,7 @@ export const IndiaIntelligenceMap: React.FC = () => {
         supply: dMetrics.overallSupply,
         surplus: dMetrics.overallSurplus,
         confidence: 86,
-        tradeTitle: isHi ? 'सभी व्यवसाय (अधिकतम गंभीरता)' : 'All trades (Max Severity)',
+        tradeTitle: language === 'en' ? 'All trades (Max Severity)' : l('All trades: max severity', 'सभी व्यवसाय (अधिकतम गंभीरता)'),
         band
       };
     }
@@ -180,7 +203,7 @@ export const IndiaIntelligenceMap: React.FC = () => {
       supply: tData.effectiveSupply,
       surplus: tData.capacitySurplusSeats,
       confidence: tData.confidence,
-      tradeTitle: isHi && tData.titleHi ? tData.titleHi : selectedTrade,
+      tradeTitle: language === 'en' ? selectedTrade : getLocalizedEntityName('occupations', selectedTrade, language, tData.titleHi || selectedTrade),
       band
     };
   };
@@ -256,16 +279,16 @@ export const IndiaIntelligenceMap: React.FC = () => {
               className="liquid-control px-3 py-1.5 rounded-xl text-xs font-semibold text-[var(--text)] border border-[var(--border)] focus:outline-hidden focus:ring-2 focus:ring-[var(--brand)] cursor-pointer"
             >
               <option value="Solar PV Installer">
-                {isHi ? 'सोलर पीवी इंस्टॉलर (डिफ़ॉल्ट)' : 'Solar PV Installer (Default)'}
+                {language === 'en' ? 'Solar PV Installer' : `${getLocalizedEntityName('occupations', 'Solar PV Installer', language)} (${l('Default', 'डिफ़ॉल्ट')})`}
               </option>
               <option value={ALL_TRADES_OPTION}>
-                {isHi ? 'सभी व्यवसाय: अधिकतम गंभीरता' : 'All trades: max severity'}
+                {language === 'en' ? 'All trades: max severity' : l('All trades: max severity', 'सभी व्यवसाय: अधिकतम गंभीरता')}
               </option>
               {availableTrades
                 .filter(t => t !== 'Solar PV Installer')
                 .map(trade => (
                   <option key={trade} value={trade}>
-                    {isHi ? getLocalizedEntityName('occupations', trade, 'hi') : trade}
+                    {language === 'en' ? trade : getLocalizedEntityName('occupations', trade, language)}
                   </option>
                 ))}
             </select>
@@ -285,7 +308,7 @@ export const IndiaIntelligenceMap: React.FC = () => {
                 }`}
                 aria-pressed={activeLayer === layer.id}
               >
-                {isHi ? layer.labelHi : layer.labelEn}
+                {LAYER_LABELS[layer.id]?.[language] || layer.labelEn}
               </button>
             ))}
           </div>
@@ -295,28 +318,24 @@ export const IndiaIntelligenceMap: React.FC = () => {
         <div className="flex items-center gap-2.5 flex-wrap justify-between lg:justify-end">
           {/* State Tabs Zoom to Fit (§6) */}
           <div className="flex items-center gap-1 p-1 rounded-xl glass-strong border border-[var(--border)] text-xs font-semibold">
-            {[
-              { id: 'all', labelEn: 'All States', labelHi: 'सभी राज्य' },
-              { id: 'uttar_pradesh', labelEn: 'UP', labelHi: 'उ.प्र.' },
-              { id: 'maharashtra', labelEn: 'MH', labelHi: 'महाराष्ट्र' },
-              { id: 'karnataka', labelEn: 'KA', labelHi: 'कर्नाटक' },
-              { id: 'gujarat', labelEn: 'GJ', labelHi: 'गुजरात' },
-              { id: 'tamil_nadu', labelEn: 'TN', labelHi: 'तमिलनाडु' },
-            ].map(tab => (
-              <button
-                key={tab.id}
-                type="button"
-                onClick={() => setSelectedStateFilter(tab.id)}
-                className={`px-2.5 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer ${
-                  selectedStateFilter === tab.id
-                    ? 'bg-[var(--brand)] text-white shadow-xs'
-                    : 'text-[var(--text-muted)] hover:text-[var(--text)]'
-                }`}
-                title={isHi ? tab.labelHi : tab.labelEn}
-              >
-                {isHi ? tab.labelHi : tab.labelEn}
-              </button>
-            ))}
+            {['all', 'uttar_pradesh', 'maharashtra', 'karnataka', 'gujarat', 'tamil_nadu'].map(tabId => {
+              const label = STATE_TAB_LABELS[tabId]?.[language] || STATE_TAB_LABELS[tabId]?.en || tabId;
+              return (
+                <button
+                  key={tabId}
+                  type="button"
+                  onClick={() => setSelectedStateFilter(tabId)}
+                  className={`px-2.5 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+                    selectedStateFilter === tabId
+                      ? 'bg-[var(--brand)] text-white shadow-xs'
+                      : 'text-[var(--text-muted)] hover:text-[var(--text)]'
+                  }`}
+                  title={label}
+                >
+                  {label}
+                </button>
+              );
+            })}
           </div>
 
           {/* View as Table Toggle (§5) */}
@@ -395,7 +414,9 @@ export const IndiaIntelligenceMap: React.FC = () => {
                     const isSelected = selectedDistrict === dId;
                     const fillColor = getDistrictFill(dId, isHovered, isSelected);
                     const metric = getDistrictMetric(dId);
-                    const dName = isHi ? distFeat.properties.name_hi : distFeat.properties.name;
+                    const dName = language === 'en' 
+                      ? distFeat.properties.name 
+                      : getLocalizedEntityName('districts', distFeat.properties.name, language, distFeat.properties.name_hi);
 
                     // Centroid coordinates for label placement
                     const centroid = pathGenerator.centroid(distFeat as any);
@@ -461,7 +482,9 @@ export const IndiaIntelligenceMap: React.FC = () => {
                     const m = getDistrictMetric(hoveredDistrictId);
                     const dInfo = tradeMetrics[hoveredDistrictId];
                     if (!dInfo) return null;
-                    const displayName = isHi ? dInfo.districtNameHi : dInfo.districtName;
+                    const displayName = language === 'en' 
+                      ? dInfo.districtName 
+                      : getLocalizedEntityName('districts', dInfo.districtName, language, dInfo.districtNameHi);
 
                     return (
                       <div className="space-y-1.5">
@@ -475,15 +498,13 @@ export const IndiaIntelligenceMap: React.FC = () => {
                         </div>
 
                         <div className="text-[11px] text-[var(--text-muted)] font-medium">
-                          {isHi ? 'चयनित व्यवसाय: ' : 'Trade: '}
+                          {l('Trade: ', 'चयनित व्यवसाय: ')}
                           <span className="text-[var(--text)] font-bold">{m.tradeTitle}</span>
                         </div>
 
                         <div className="flex items-center justify-between text-xs py-1">
                           <span className="font-semibold text-[var(--text-faint)]">
-                            {isHi 
-                              ? MAP_LAYERS.find(l => l.id === activeLayer)?.labelHi 
-                              : MAP_LAYERS.find(l => l.id === activeLayer)?.labelEn}
+                            {LAYER_LABELS[activeLayer]?.[language] || activeLayer}
                           </span>
                           <span className="font-mono font-extrabold text-sm text-[var(--text)]">
                             {m.value} {activeLayer === 'severity' ? '/ 100' : ''}
@@ -495,7 +516,7 @@ export const IndiaIntelligenceMap: React.FC = () => {
                             className="px-2 py-0.5 rounded-full font-bold text-[10px] text-white"
                             style={{ backgroundColor: m.band.color }}
                           >
-                            {isHi ? m.band.labelHi : m.band.labelEn}
+                            {getLocalizedEntityName('severityBands', m.band.labelEn, language)}
                           </span>
                           <span className="font-mono text-[var(--text-faint)]">
                             {l('Confidence: ', 'विश्वसनीयता: ')}{m.confidence}%
@@ -522,7 +543,7 @@ export const IndiaIntelligenceMap: React.FC = () => {
                         className="w-3 h-3 rounded-full shrink-0 shadow-2xs" 
                         style={{ backgroundColor: band.color }}
                       />
-                      <span>{isHi ? band.labelHi : band.labelEn}</span>
+                      <span>{getLocalizedEntityName('severityBands', band.labelEn, language)}</span>
                     </div>
                     <span className="font-mono font-bold text-[var(--text)] text-[10px]">
                       {band.min === 75 ? '≥ 75' : band.min === 0 ? '< 25' : `${band.min}–${band.max}`}
@@ -539,19 +560,19 @@ export const IndiaIntelligenceMap: React.FC = () => {
               {/* Header Badge */}
               <div className="flex items-center justify-between gap-2 border-b border-[var(--border)] pb-3 mb-3">
                 <span className="text-xs font-mono font-bold text-[var(--brand)] uppercase tracking-wider">
-                  {isHi ? getLocalizedEntityName('states', selectedDistrictData.state, 'hi') : selectedDistrictData.state} · LGD {selectedDistrictData.lgdCode}
+                  {getLocalizedEntityName('states', selectedDistrictData.state, language, selectedDistrictData.state)} · LGD {selectedDistrictData.lgdCode}
                 </span>
                 <span 
                   className="px-2.5 py-0.5 rounded-full text-xs font-bold text-white font-mono"
                   style={{ backgroundColor: selectedDistrictMetric.band.color }}
                 >
-                  {isHi ? selectedDistrictMetric.band.labelHi : selectedDistrictMetric.band.labelEn}
+                  {getLocalizedEntityName('severityBands', selectedDistrictMetric.band.labelEn, language, selectedDistrictMetric.band.labelEn)}
                 </span>
               </div>
 
               {/* District Title */}
               <h2 className="text-2xl font-extrabold text-[var(--text)] tracking-tight">
-                {isHi ? selectedDistrictData.districtNameHi : selectedDistrictData.districtName}
+                {language === 'en' ? selectedDistrictData.districtName : getLocalizedEntityName('districts', selectedDistrictData.districtName, language, selectedDistrictData.districtNameHi)}
               </h2>
               <span className="text-xs text-[var(--text-muted)] font-medium block mt-0.5">
                 {l('Selected Trade Diagnostic: ', 'चयनित व्यवसाय विश्लेषण: ')}
@@ -568,7 +589,7 @@ export const IndiaIntelligenceMap: React.FC = () => {
                     {selectedDistrictMetric.gapScore}
                   </div>
                   <span className="text-[10px] text-orange-600 dark:text-orange-400 font-semibold">
-                    {isHi ? selectedDistrictMetric.band.labelHi : selectedDistrictMetric.band.labelEn}
+                    {getLocalizedEntityName('severityBands', selectedDistrictMetric.band.labelEn, language, selectedDistrictMetric.band.labelEn)}
                   </span>
                 </div>
 
@@ -695,10 +716,10 @@ export const IndiaIntelligenceMap: React.FC = () => {
                       onClick={() => handleDistrictSelect(d.districtId)}
                     >
                       <td className="py-3 px-4 font-bold text-[var(--text)]">
-                        {isHi ? d.districtNameHi : d.districtName}
+                        {getLocalizedEntityName('districts', d.districtName, language, d.districtNameHi)}
                       </td>
                       <td className="py-3 px-4 text-[var(--text-muted)]">
-                        {isHi ? getLocalizedEntityName('states', d.state, 'hi') : d.state}
+                        {getLocalizedEntityName('states', d.state, language, d.state)}
                       </td>
                       <td className="py-3 px-4 font-mono font-semibold text-[var(--text-faint)]">
                         {d.lgdCode}
@@ -723,7 +744,7 @@ export const IndiaIntelligenceMap: React.FC = () => {
                           className="px-2 py-0.5 rounded-full text-[10px] font-bold text-white font-mono"
                           style={{ backgroundColor: m.band.color }}
                         >
-                          {isHi ? m.band.labelHi : m.band.labelEn}
+                          {getLocalizedEntityName('severityBands', m.band.labelEn, language, m.band.labelEn)}
                         </span>
                       </td>
                       <td className="py-3 px-4 text-right">
@@ -752,10 +773,10 @@ export const IndiaIntelligenceMap: React.FC = () => {
             <div className="flex items-center justify-between border-b border-[var(--border)] pb-3">
               <div>
                 <span className="text-xs font-mono font-bold text-[var(--brand)] uppercase">
-                  {isHi ? getLocalizedEntityName('states', selectedDistrictData.state, 'hi') : selectedDistrictData.state} · LGD {selectedDistrictData.lgdCode}
+                  {language === 'en' ? selectedDistrictData.state : getLocalizedEntityName('states', selectedDistrictData.state, language)} · LGD {selectedDistrictData.lgdCode}
                 </span>
                 <h3 className="text-xl font-extrabold text-[var(--text)]">
-                  {isHi ? selectedDistrictData.districtNameHi : selectedDistrictData.districtName}
+                  {language === 'en' ? selectedDistrictData.districtName : getLocalizedEntityName('districts', selectedDistrictData.districtName, language, selectedDistrictData.districtNameHi)}
                 </h3>
               </div>
               <button

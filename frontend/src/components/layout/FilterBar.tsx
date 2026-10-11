@@ -28,9 +28,7 @@ export const FilterBar: React.FC = () => {
     setSelectedOccupationNco,
     forecastHorizon,
     setForecastHorizon,
-    language, l} = useApp();
-
-  const isHi = language === 'hi';
+    language, l } = useApp();
 
   // Filter districts belonging to selected state
   const availableDistricts = DISTRICTS.filter(d => d.state === selectedState);

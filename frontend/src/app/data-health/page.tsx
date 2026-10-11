@@ -19,72 +19,66 @@ import {
 } from 'lucide-react';
 
 export default function DataHealthPage() {
-  const { language, l} = useApp();
-  const isHi = language === 'hi';
+  const { language, l } = useApp();
   const m = DATA_HEALTH_METRIC;
 
   const getLocalizedModelName = (name: string) => {
-    if (!isHi) return name;
-    if (name.includes('LightGBM Regressor (Production)')) return 'LightGBM समाश्रयण (उत्पादन)';
-    if (name.includes('LightGBM Regressor')) return 'LightGBM समाश्रयण';
-    if (name.includes('ARIMA Baseline')) return 'ARIMA आधार रेखा';
-    if (name.includes('Holt-Winters Seasonal')) return 'Holt-Winters मौसमी';
-    if (name.includes('Random Forest Regressor')) return 'Random Forest समाश्रयण';
-    if (name.includes('Production Blend')) return 'उत्पादन त्रि-मिश्रण';
+    if (name.includes('LightGBM Regressor (Production)')) return l(name, 'LightGBM समाश्रयण (उत्पादन)');
+    if (name.includes('LightGBM Regressor')) return l(name, 'LightGBM समाश्रयण');
+    if (name.includes('ARIMA Baseline')) return l(name, 'ARIMA आधार रेखा');
+    if (name.includes('Holt-Winters Seasonal')) return l(name, 'Holt-Winters मौसमी');
+    if (name.includes('Random Forest Regressor')) return l(name, 'Random Forest समाश्रयण');
+    if (name.includes('Production Blend')) return l(name, 'उत्पादन त्रि-मिश्रण');
     return name;
   };
 
   const getLocalizedSourceName = (name: string) => {
-    if (!isHi) return name;
-    if (name.includes('SIH Monthly Intelligence')) return 'SIH मासिक आसूचना विहित डेटासेट';
-    if (name.includes('Local Government Directory')) return 'स्थानीय सरकारी निर्देशिका (LGD) मास्टर';
-    if (name.includes('National Classification of Occupations')) return 'राष्ट्रीय व्यवसाय वर्गीकरण (NCO-2015)';
-    if (name.includes('National Career Service')) return 'राष्ट्रीय करियर सेवा (NCS) API फ़ीड';
-    if (name.includes('Skill India Digital Hub')) return 'कौशल भारत डिजिटल हब (SIDH) प्रशिक्षण क्षमता';
-    if (name.includes('e-Shram')) return 'ई-श्रम अनौपचारिक श्रम पंजीकरण';
-    if (name.includes('NCO-2015')) return 'NCO-2015 / LGD मानकीकरण पदानुक्रम';
-    if (name.includes('Periodic Labour Force Survey')) return 'आवधिक श्रम बल सर्वेक्षण (PLFS) जिला बेंचमार्क';
-    if (name.includes('National Apprenticeship Promotion Scheme')) return 'राष्ट्रीय शिक्षुता संवर्धन योजना (NAPS)';
-    if (name.includes('Private Job Portals')) return 'निजी नौकरी पोर्टल बहु-स्रोत संकलक';
-    if (name.includes('MSDE Purvanchal Pilot')) return 'एमएसडीई पूर्वांचल पायलट जमीनी मूल्यांकन';
-    if (name.includes('Direct EPFO Payroll')) return 'प्रत्यक्ष ईपीएफओ पेरोल रीयल-टाइम स्ट्रीम';
-    if (name.includes('State Directorate of Employment')) return 'राज्य रोजगार एवं प्रशिक्षण निदेशालय (DET) एपीआई';
-    if (name.includes('GST E-Way Bill')) return 'जीएसटी ई-वे बिल औद्योगिक परिवहन संकेत';
+    if (name.includes('SIH Monthly Intelligence')) return l(name, 'SIH मासिक आसूचना विहित डेटासेट');
+    if (name.includes('Local Government Directory')) return l(name, 'स्थानीय सरकारी निर्देशिका (LGD) मास्टर');
+    if (name.includes('National Classification of Occupations')) return l(name, 'राष्ट्रीय व्यवसाय वर्गीकरण (NCO-2015)');
+    if (name.includes('National Career Service')) return l(name, 'राष्ट्रीय करियर सेवा (NCS) API फ़ीड');
+    if (name.includes('Skill India Digital Hub')) return l(name, 'कौशल भारत डिजिटल हब (SIDH) प्रशिक्षण क्षमता');
+    if (name.includes('e-Shram')) return l(name, 'ई-श्रम अनौपचारिक श्रम पंजीकरण');
+    if (name.includes('NCO-2015')) return l(name, 'NCO-2015 / LGD मानकीकरण पदानुक्रम');
+    if (name.includes('Periodic Labour Force Survey')) return l(name, 'आवधिक श्रम बल सर्वेक्षण (PLFS) जिला बेंचमार्क');
+    if (name.includes('National Apprenticeship Promotion Scheme')) return l(name, 'राष्ट्रीय शिक्षुता संवर्धन योजना (NAPS)');
+    if (name.includes('Private Job Portals')) return l(name, 'निजी नौकरी पोर्टल बहु-स्रोत संकलक');
+    if (name.includes('MSDE Purvanchal Pilot')) return l(name, 'एमएसडीई पूर्वांचल पायलट जमीनी मूल्यांकन');
+    if (name.includes('Direct EPFO Payroll')) return l(name, 'प्रत्यक्ष ईपीएफओ पेरोल रीयल-टाइम स्ट्रीम');
+    if (name.includes('State Directorate of Employment')) return l(name, 'राज्य रोजगार एवं प्रशिक्षण निदेशालय (DET) एपीआई');
+    if (name.includes('GST E-Way Bill')) return l(name, 'जीएसटी ई-वे बिल औद्योगिक परिवहन संकेत');
     return name;
   };
 
   const getLocalizedRecords = (records: string) => {
-    if (!isHi) return records;
-    if (records.includes('Districts')) return records.replace('Districts', 'जिले');
-    if (records.includes('Trades')) return records.replace('Trades', 'ट्रेड्स');
-    if (records === 'Scheduled') return 'अनुसूचित';
-    if (records.includes('Vacancy Records')) return records.replace('Vacancy Records', 'रिक्ति रिकॉर्ड');
-    if (records.includes('Training Centres')) return records.replace('Training Centres', 'प्रशिक्षण केंद्र');
-    if (records.includes('Worker Profiles')) return records.replace('Worker Profiles', 'श्रमिक प्रोफाइल');
-    if (records.includes('Occupation Codes')) return records.replace('Occupation Codes', 'व्यवसाय कोड');
-    if (records.includes('Survey Samples')) return records.replace('Survey Samples', 'सर्वेक्षण नमूने');
-    if (records.includes('Active Contracts')) return records.replace('Active Contracts', 'सक्रिय अनुबंध');
-    if (records.includes('Scraped Listings')) return records.replace('Scraped Listings', 'संकलित सूचियां');
-    if (records.includes('Local Employer Audits')) return records.replace('Local Employer Audits', 'स्थानीय नियोक्ता ऑडिट');
-    if (records.includes('In MoL&E Integration Sandbox')) return 'श्रम मंत्रालय एकीकरण सैंडबॉक्स में';
-    if (records.includes('Awaiting State API Gateway')) return 'राज्य एपीआई गेटवे की प्रतीक्षा में';
-    if (records.includes('Scheduled Phase-2 Feed')) return 'अनुसूचित चरण-2 फ़ीड';
+    if (records.includes('Districts')) return records.replace('Districts', l('Districts', 'जिले'));
+    if (records.includes('Trades')) return records.replace('Trades', l('Trades', 'ट्रेड्स'));
+    if (records === 'Scheduled') return l('Scheduled', 'अनुसूचित');
+    if (records.includes('Vacancy Records')) return records.replace('Vacancy Records', l('Vacancy Records', 'रिक्ति रिकॉर्ड'));
+    if (records.includes('Training Centres')) return records.replace('Training Centres', l('Training Centres', 'प्रशिक्षण केंद्र'));
+    if (records.includes('Worker Profiles')) return records.replace('Worker Profiles', l('Worker Profiles', 'श्रमिक प्रोफाइल'));
+    if (records.includes('Occupation Codes')) return records.replace('Occupation Codes', l('Occupation Codes', 'व्यवसाय कोड'));
+    if (records.includes('Survey Samples')) return records.replace('Survey Samples', l('Survey Samples', 'सर्वेक्षण नमूने'));
+    if (records.includes('Active Contracts')) return records.replace('Active Contracts', l('Active Contracts', 'सक्रिय अनुबंध'));
+    if (records.includes('Scraped Listings')) return records.replace('Scraped Listings', l('Scraped Listings', 'संकलित सूचियां'));
+    if (records.includes('Local Employer Audits')) return records.replace('Local Employer Audits', l('Local Employer Audits', 'स्थानीय नियोक्ता ऑडिट'));
+    if (records.includes('In MoL&E Integration Sandbox')) return l(records, 'श्रम मंत्रालय एकीकरण सैंडबॉक्स में');
+    if (records.includes('Awaiting State API Gateway')) return l(records, 'राज्य एपीआई गेटवे की प्रतीक्षा में');
+    if (records.includes('Scheduled Phase-2 Feed')) return l(records, 'अनुसूचित चरण-2 फ़ीड');
     return records;
   };
 
   const getLocalizedType = (type: string) => {
-    if (!isHi) return type;
-    if (type === 'Public Aggregate') return 'सार्वजनिक संकलन';
-    if (type === 'Demo Dataset') return 'डेमो डेटासेट';
-    if (type === 'Planned Government Feed') return 'नियोजित सरकारी फ़ीड';
+    if (type === 'Public Aggregate') return l('Public Aggregate', 'सार्वजनिक संकलन');
+    if (type === 'Demo Dataset') return l('Demo Dataset', 'डेमो डेटासेट');
+    if (type === 'Planned Government Feed') return l('Planned Government Feed', 'नियोजित सरकारी फ़ीड');
     return type;
   };
 
   const getLocalizedStatus = (status: string) => {
-    if (!isHi) return status;
-    if (status === 'Active') return 'सक्रिय';
-    if (status === 'Synced') return 'सिंक किया गया';
-    if (status === 'Pending') return 'लंबित';
+    if (status === 'Active') return l('Active', 'सक्रिय');
+    if (status === 'Synced') return l('Synced', 'सिंक किया गया');
+    if (status === 'Pending') return l('Pending', 'लंबित');
     return status;
   };
 
@@ -182,7 +176,7 @@ export default function DataHealthPage() {
             {m.lastRunId}
           </div>
           <span className="text-[10px] text-[var(--text-faint)] block mt-0.5 font-mono">
-            {isHi ? '2026-10-04 (डेटा अक्टूबर 2024 तक)' : m.lastRunTimestamp}
+            {l(m.lastRunTimestamp || '2026-10-04 (data through Oct 2024)', '2026-10-04 (डेटा अक्टूबर 2024 तक)')}
           </span>
         </div>
       </div>
@@ -207,7 +201,7 @@ export default function DataHealthPage() {
                     'text-[10px] font-mono font-bold px-2 py-0.5 rounded-full border shrink-0',
                     mod.status === 'optimal' ? 'text-[var(--brand)] bg-[var(--brand)]/10 border-[var(--brand)]/20' : 'text-[var(--text-faint)] glass border-[var(--border)]'
                   )}>
-                    {isHi ? (mod.status === 'optimal' ? 'इष्टतम' : 'स्वस्थ') : mod.status}
+                    {mod.status === 'optimal' ? l('Optimal', 'इष्टतम') : l('Healthy', 'स्वस्थ')}
                   </span>
                 </div>
 
@@ -329,21 +323,23 @@ export default function DataHealthPage() {
           <strong className="text-[var(--text)] block mb-1">
             {l('Methodology & Critical Model Limitation Disclosure:', 'प्रणाली एवं महत्वपूर्ण मॉडल सीमा प्रकटीकरण:')}
           </strong>
-          {isHi ? (
-            <>
-              आधिकारिक SIH मासिक डेटासेट पर 1,536 श्रृंखला-क्षितिज अवलोकनों पर 6 वॉक-फॉरवर्ड लौकिक उद्गमों (<span className="font-mono">2023-05-01</span> से <span className="font-mono">2023-10-01</span>) में मूल्यांकित। मॉडल सख्ती से t-1 विलंबित इनपुट (शून्य रिसाव) के साथ प्रशिक्षित। 
-              <span className="block mt-1 font-semibold text-[var(--text)]">
-                सीमा: केवल LightGBM सभी क्षितिजों में सर्वोत्तम एकल मॉडल नहीं है।
-              </span>
-              Theta 3M (4.93% बनाम 5.67% WAPE) और 6M (5.91% बनाम 7.11% WAPE) पर LightGBM से बेहतर प्रदर्शन करता है, जबकि ETS 12M (3.92% बनाम 5.29% WAPE) पर बेहतर प्रदर्शन करता है। इसलिए उत्पादन पूर्वानुमान बिना किसी पूर्वाग्रह के आउट-ऑफ-फ़ोल्ड व्युत्क्रम-WAPE भारित <strong>त्रि-मॉडल पहनावा मिश्रण (LightGBM + Theta + ETS)</strong> को तैनात करते हैं, जो अच्छी तरह से कैलिब्रेट किए गए 80% (~79.2%) और 95% (~95.8%) अंतराल कवरेज को बनाए रखते हुए सबसे कम समग्र त्रुटि (12M पर 3.46% WAPE) प्राप्त करते हैं।
-            </>
-          ) : (
+          {language === 'en' ? (
             <>
               Evaluated across 6 walk-forward temporal origins (<span className="font-mono">2023-05-01</span> through <span className="font-mono">2023-10-01</span>) on the SIH dummy dataset across 1,536 series-horizon observations. Models trained strictly with $t-1$ lagged inputs (zero leakage). 
               <span className="block mt-1 font-semibold text-[var(--text)]">
                 Limitation: LightGBM alone is not the best single model across horizons.
               </span>
               Theta outperforms LightGBM at 3M (4.93% vs 5.67% WAPE) and 6M (5.91% vs 7.11% WAPE), while ETS outperforms at 12M (3.92% vs 5.29% WAPE). Production forecasts therefore deploy an out-of-fold inverse-WAPE weighted <strong>Tri-Model Ensemble Blend (LightGBM + Theta + ETS)</strong> without look-ahead bias, achieving the lowest overall error (3.46% WAPE at 12M) while maintaining well-calibrated 80% (~79.2%) and 95% (~95.8%) interval coverage.
+            </>
+          ) : (
+            <>
+              {l('Evaluated across 6 walk-forward temporal origins on the SIH dummy dataset across 1,536 series-horizon observations.', 'आधिकारिक SIH मासिक डेटासेट पर 1,536 श्रृंखला-क्षितिज अवलोकनों पर 6 वॉक-फॉरवर्ड लौकिक उद्गमों (')}
+              <span className="font-mono">2023-05-01</span> {l('through', 'से')} <span className="font-mono">2023-10-01</span>
+              {l('). Models trained strictly with t-1 lagged inputs (zero leakage).', ') में मूल्यांकित। मॉडल सख्ती से t-1 विलंबित इनपुट (शून्य रिसाव) के साथ प्रशिक्षित।')} 
+              <span className="block mt-1 font-semibold text-[var(--text)]">
+                {l('Limitation: LightGBM alone is not the best single model across horizons.', 'सीमा: केवल LightGBM सभी क्षितिजों में सर्वोत्तम एकल मॉडल नहीं है।')}
+              </span>
+              {l('Production forecasts deploy an out-of-fold inverse-WAPE weighted Tri-Model Ensemble Blend (LightGBM + Theta + ETS).', 'Theta 3M और 6M पर LightGBM से बेहतर प्रदर्शन करता है, जबकि ETS 12M पर बेहतर प्रदर्शन करता है। इसलिए उत्पादन पूर्वानुमान बिना किसी पूर्वाग्रह के ')} <strong>{l('Tri-Model Ensemble Blend (LightGBM + Theta + ETS)', 'त्रि-मॉडल पहनावा मिश्रण (LightGBM + Theta + ETS)')}</strong> {l('achieving lowest overall error while maintaining calibrated coverage.', 'को तैनात करते हैं, जो अच्छी तरह से कैलिब्रेट किए गए 80% और 95% अंतराल कवरेज को बनाए रखते हुए सबसे कम समग्र त्रुटि प्राप्त करते हैं।')}
             </>
           )}
         </div>

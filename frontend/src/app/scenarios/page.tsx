@@ -30,20 +30,15 @@ import {
   ArrowUpRight
 } from 'lucide-react';
 
+import { getLocalizedEntityName, resolveDisplayName } from '@/lib/i18n';
+
 function ScenarioStudioContent() {
   const searchParams = useSearchParams();
   const { selectedOccupationNco, selectedDistrict, setSelectedOccupationNco, setSelectedDistrict, language, t, l} = useApp();
-  const isHi = language === 'hi';
 
   const localizeSeverity = (band?: string) => {
     if (!band) return '';
-    if (!isHi) return band;
-    const lower = band.toLowerCase();
-    if (lower.includes('severe')) return 'गंभीर कमी';
-    if (lower.includes('moderate')) return 'मध्यम कमी';
-    if (lower.includes('balanced')) return 'संतुलित';
-    if (lower.includes('oversupply')) return 'अधिशेष';
-    return band;
+    return getLocalizedEntityName('severityBands', band, language, band);
   };
 
   // Scenario Levers State (§6.4)
@@ -235,7 +230,7 @@ function ScenarioStudioContent() {
               {l('Simulated policy impact summary', 'सिम्युलेटेड नीति प्रभाव सारांश')}
             </span>
             <span className="text-xs font-bold text-[var(--text)]">
-              {isHi ? `${targetOcc.titleHi || targetOcc.title} (${selectedDistrict === 'gorakhpur' ? 'गोरखपुर' : selectedDistrict} में)` : `${targetOcc.title} in ${selectedDistrict}`}
+              {resolveDisplayName(targetOcc, language)} ({getLocalizedEntityName('districts', selectedDistrict, language)})
             </span>
           </div>
         </div>
@@ -586,17 +581,17 @@ function ScenarioStudioContent() {
                   </span>
                 </div>
                 <p className="leading-relaxed text-[var(--text-muted)]">
-                  {isHi ? (
-                    <>
-                      अनुरोधित पुनर्आवंटन <strong className="text-[var(--text)] font-mono">{simulation.requestedSeats}</strong> से घटकर <strong className="text-[var(--brand)] font-mono">{simulation.actualSeatsShifted} सीटों</strong> पर सीमित हो गया। 
-                      {simulation.requestedSeats} सीटों के स्थानांतरण से {donorOcc.titleHi || donorOcc.title} की आपूर्ति गिरकर 184 हो जाती और अंतर स्कोर 76 (गंभीर कमी) पर पहुंच जाता। 
-                      LP गैर-रिक्तीकरण प्रतिबंध ने सुरक्षित संतुलित संतुलन बनाए रखने के लिए स्थानांतरण को सीमित कर दिया (<strong className="text-[var(--brand)] font-mono">स्कोर {simulation.donorTrade?.gap_score_after}</strong>, {localizeSeverity(simulation.donorTrade?.severity_after)})।
-                    </>
-                  ) : (
+                  {language === 'en' ? (
                     <>
                       Requested reallocation shrunk from <strong className="text-[var(--text)] font-mono">{simulation.requestedSeats}</strong> to <strong className="text-[var(--brand)] font-mono">{simulation.actualSeatsShifted} seats</strong>. 
                       Shifting {simulation.requestedSeats} seats would drop {donorOcc.title}&apos;s supply to 184 and push its Gap Score to 76 (Severe Shortage). 
                       The LP non-depletion constraint capped the shift to guarantee {donorOcc.title} preserves a safe Balanced equilibrium (<strong className="text-[var(--brand)] font-mono">Score {simulation.donorTrade?.gap_score_after}</strong>, {simulation.donorTrade?.severity_after}).
+                    </>
+                  ) : (
+                    <>
+                      {l('Requested reallocation shrunk from', 'अनुरोधित पुनर्आवंटन')} <strong className="text-[var(--text)] font-mono">{simulation.requestedSeats}</strong> {l('to', 'से घटकर')} <strong className="text-[var(--brand)] font-mono">{simulation.actualSeatsShifted} {l('seats', 'सीटों')}</strong>. 
+                      {l(`Shifting ${simulation.requestedSeats} seats would drop ${resolveDisplayName(donorOcc, language)}'s supply to 184 and push its Gap Score to 76 (Severe Shortage).`, `${simulation.requestedSeats} सीटों के स्थानांतरण से ${resolveDisplayName(donorOcc, language)} की आपूर्ति गिरकर 184 हो जाती और अंतर स्कोर 76 (गंभीर कमी) पर पहुंच जाता।`)} 
+                      {l('The LP non-depletion constraint capped the shift to guarantee safe Balanced equilibrium', 'LP गैर-रिक्तीकरण प्रतिबंध ने सुरक्षित संतुलित संतुलन बनाए रखने के लिए स्थानांतरण को सीमित कर दिया')} (<strong className="text-[var(--brand)] font-mono">{l('Score', 'स्कोर')} {simulation.donorTrade?.gap_score_after}</strong>, {localizeSeverity(simulation.donorTrade?.severity_after)}).
                     </>
                   )}
                 </p>
@@ -612,7 +607,7 @@ function ScenarioStudioContent() {
                   {l('Target Shortage Occupation (Recipient)', 'लक्षित कमी व्यवसाय (प्राप्तकर्ता)')}
                 </span>
                 <h2 className="text-lg font-extrabold text-[var(--text)]">
-                  {isHi ? (targetOcc.titleHi || targetOcc.title) : targetOcc.title} ({targetOcc.ncoCode})
+                  {resolveDisplayName(targetOcc, language)} ({targetOcc.ncoCode})
                 </h2>
               </div>
               <div className="flex items-center gap-2">
@@ -712,7 +707,7 @@ function ScenarioStudioContent() {
                   {l('Capacity Donor Trade (Source)', 'क्षमता दाता व्यवसाय (स्रोत)')}
                 </span>
                 <h2 className="text-lg font-extrabold text-[var(--text)]">
-                  {isHi ? (donorOcc.titleHi || donorOcc.title) : donorOcc.title} ({donorOcc.ncoCode})
+                  {resolveDisplayName(donorOcc, language)} ({donorOcc.ncoCode})
                 </h2>
               </div>
               <span className="text-xs font-mono font-bold px-2.5 py-1 rounded-full bg-[var(--brand)]/15 text-[var(--brand)] border border-[var(--brand)]/30">
@@ -798,9 +793,7 @@ function ScenarioStudioContent() {
                           <td className="py-2.5 px-2.5 font-sans font-bold text-[var(--text)] flex items-center gap-1.5">
                             {isActive && <span className="w-1.5 h-1.5 rounded-full bg-[var(--brand)] inline-block" />}
                             <span>
-                              {isHi 
-                                ? (row.rule <= 0.06 ? 'सख्त (≤ 0.05)' : row.rule <= 0.12 ? 'मध्यम (≤ 0.10)' : 'अनुदार (स्कोर ≤ 59)')
-                                : row.label}
+                              {row.rule <= 0.06 ? l('Strict (≤ 0.05)', 'सख्त (≤ 0.05)') : row.rule <= 0.12 ? l('Moderate (≤ 0.10)', 'मध्यम (≤ 0.10)') : l('Permissive (Score ≤ 59)', 'अनुदार (स्कोर ≤ 59)')}
                             </span>
                             {isDefaultStrict && (
                               <span className="px-1.5 py-0.2 text-[9px] font-mono bg-blue-500/20 text-blue-400 rounded border border-blue-500/30">
@@ -822,13 +815,13 @@ function ScenarioStudioContent() {
               </div>
 
               <p className="text-[10px] text-[var(--text-faint)] leading-relaxed pt-1">
-                {isHi ? (
+                {language === 'en' ? (
                   <>
-                    <strong>लेखांकन आधार:</strong> अंतर-जिला गतिशीलता अतिरिक्त आपूर्ति पर गणना की जाती है। शीर्षक पुनर्आवंटन <strong className="text-[var(--text)]">6.2%–13.8%</strong> के बीच रहता है; ग्रीनफील्ड लैब के साथ यह <strong className="text-[var(--text)]">15.6%–23.2%</strong> तक पहुंचता है।
+                    <strong>Accounting Basis:</strong> Inter-district mobility is calculated on added supply. Headline reallocation ranges strictly between <strong className="text-[var(--text)]">6.2%–13.8%</strong>; combo with greenfield lab reaches <strong className="text-[var(--text)]">15.6%–23.2%</strong>.
                   </>
                 ) : (
                   <>
-                    <strong>Accounting Basis:</strong> Inter-district mobility is calculated on added supply. Headline reallocation ranges strictly between <strong className="text-[var(--text)]">6.2%–13.8%</strong>; combo with greenfield lab reaches <strong className="text-[var(--text)]">15.6%–23.2%</strong>.
+                    <strong>{l('Accounting Basis:', 'लेखांकन आधार:')}</strong> {l('Inter-district mobility is calculated on added supply. Headline reallocation ranges strictly between', 'अंतर-जिला गतिशीलता अतिरिक्त आपूर्ति पर गणना की जाती है। शीर्षक पुनर्आवंटन')} <strong className="text-[var(--text)]">6.2%–13.8%</strong> {l('; combo with greenfield lab reaches', 'के बीच रहता है; ग्रीनफील्ड लैब के साथ यह')} <strong className="text-[var(--text)]">15.6%–23.2%</strong> {l('target.', 'तक पहुंचता है।')}
                   </>
                 )}
               </p>
@@ -844,24 +837,24 @@ function ScenarioStudioContent() {
               <Provenance source="SIH dummy dataset" />
             </div>
             <p className="text-[var(--text-muted)] leading-relaxed text-[11px]">
-              {isHi ? (
+              {language === 'en' ? (
                 <>
-                  गोरखपुर और पूरे उत्तर प्रदेश में सभी व्यवसायों के पूर्ण स्कैन से पुष्टि होती है कि <strong>शून्य व्यवसायों में प्रभावी आपूर्ति मांग के 1.2× से अधिक है</strong>। कानपुर नगर रिटेल 1.19× पर उच्चतम है, इसके बाद गोरखपुर रिटेल 1.06× पर है (मांग 380, प्रभावी आपूर्ति 404, अधिशेष +24 उम्मीदवार)।
+                  A complete scan of all trades in Gorakhpur and across Uttar Pradesh confirms that <strong>zero trades feature effective supply exceeding 1.2× demand</strong>. Kanpur Nagar Retail is highest at 1.19×, followed by Gorakhpur Retail at 1.06× (demand 380, effective supply 404, surplus +24 candidates).
                 </>
               ) : (
                 <>
-                  A complete scan of all trades in Gorakhpur and across Uttar Pradesh confirms that <strong>zero trades feature effective supply exceeding 1.2× demand</strong>. Kanpur Nagar Retail is highest at 1.19×, followed by Gorakhpur Retail at 1.06× (demand 380, effective supply 404, surplus +24 candidates).
+                  {l('A complete scan of all trades in Gorakhpur and across Uttar Pradesh confirms that zero trades feature effective supply exceeding 1.2x demand.', 'गोरखपुर और पूरे उत्तर प्रदेश में सभी व्यवसायों के पूर्ण स्कैन से पुष्टि होती है कि ')} <strong>{l('zero trades feature effective supply exceeding 1.2× demand', 'शून्य व्यवसायों में प्रभावी आपूर्ति मांग के 1.2× से अधिक है')}</strong>. {l('Kanpur Nagar Retail is highest at 1.19×, followed by Gorakhpur Retail at 1.06× (demand 380, effective supply 404, surplus +24 candidates).', 'कानपुर नगर रिटेल 1.19× पर उच्चतम है, इसके बाद गोरखपुर रिटेल 1.06× पर है (मांग 380, प्रभावी आपूर्ति 404, अधिशेष +24 उम्मीदवार)।')}
                 </>
               )}
             </p>
             <p className="text-[var(--text-muted)] leading-relaxed text-[11px]">
-              {isHi ? (
+              {language === 'en' ? (
                 <>
-                  <strong>नीतिगत तथ्य:</strong> अकेले पुनर्आवंटन से गोरखपुर सोलर की 711 व्यक्तियों की कमी का ठीक <strong className="text-[var(--text)]">6.2%–13.8%</strong> पूरा होता है। शेष को बंद करने के लिए नए पूंजीगत आवंटन (+150 ग्रीनफील्ड सोलर लैब सीटें) की आवश्यकता होती है।
+                  <strong>Policy Fact:</strong> Reallocation alone closes strictly <strong className="text-[var(--text)]">6.2%–13.8%</strong> of Gorakhpur Solar&apos;s 711-person deficit. Closing the remainder requires net-new capital sanctions (+150 greenfield solar lab seats).
                 </>
               ) : (
                 <>
-                  <strong>Policy Fact:</strong> Reallocation alone closes strictly <strong className="text-[var(--text)]">6.2%–13.8%</strong> of Gorakhpur Solar&apos;s 711-person deficit. Closing the remainder requires net-new capital sanctions (+150 greenfield solar lab seats).
+                  <strong>{l('Policy Fact:', 'नीतिगत तथ्य:')}</strong> {l('Reallocation alone closes strictly', 'अकेले पुनर्आवंटन से गोरखपुर सोलर की 711 व्यक्तियों की कमी का ठीक')} <strong className="text-[var(--text)]">6.2%–13.8%</strong> {l("of Gorakhpur Solar's 711-person deficit. Closing the remainder requires net-new capital sanctions (+150 greenfield solar lab seats).", 'पूरा होता है। शेष को बंद करने के लिए नए पूंजीगत आवंटन (+150 ग्रीनफील्ड सोलर लैब सीटें) की आवश्यकता होती है।')}
                 </>
               )}
             </p>
@@ -908,13 +901,13 @@ function ScenarioStudioContent() {
 
             <div className="space-y-3 text-xs text-[var(--text-muted)] leading-relaxed">
               <p>
-                {isHi ? (
+                {language === 'en' ? (
                   <>
-                    असंतुलन से बचने के लिए, प्लेटफ़ॉर्म एक <strong>रैखिक प्रोग्रामिंग गैर-रिक्तीकरण सीमा (Linear Programming non-depletion boundary)</strong> लागू करता है जो प्रशिक्षण सीट पुनर्आवंटन को प्रतिबंधित करता है ताकि दाता व्यवसाय कभी भी कमी क्षेत्र में प्रवेश न करे।
+                    To avoid robbing Peter to pay Paul, the platform implements a <strong>Linear Programming non-depletion boundary</strong> that restricts training seat reallocation so the donor trade never crosses into shortage territory.
                   </>
                 ) : (
                   <>
-                    To avoid robbing Peter to pay Paul, the platform implements a <strong>Linear Programming non-depletion boundary</strong> that restricts training seat reallocation so the donor trade never crosses into shortage territory.
+                    {l('To avoid robbing Peter to pay Paul, the platform implements a', 'असंतुलन से बचने के लिए, प्लेटफ़ॉर्म एक')} <strong>{l('Linear Programming non-depletion boundary', 'रैखिक प्रोग्रामिंग गैर-रिक्तीकरण सीमा')}</strong> {l('that restricts training seat reallocation so the donor trade never crosses into shortage territory.', 'लागू करता है जो प्रशिक्षण सीट पुनर्आवंटन को प्रतिबंधित करता है ताकि दाता व्यवसाय कभी भी कमी क्षेत्र में प्रवेश न करे।')}
                   </>
                 )}
               </p>
@@ -937,13 +930,13 @@ function ScenarioStudioContent() {
               </div>
 
               <p>
-                {isHi ? (
+                {language === 'en' ? (
                   <>
-                    गोरखपुर में, रिटेल सेल्स एसोसिएट आधारभूत में <strong className="text-[var(--text)]">916 प्रशिक्षण सीटें</strong>, <strong className="text-[var(--text)]">380 मांग</strong>, और <strong className="text-[var(--text)]">404 प्रभावी आपूर्ति</strong> हैं। बिना प्रतिबंध के 500 सीटों के स्थानांतरण से आपूर्ति गिरकर 184 हो जाएगी और अंतर स्कोर 76 (गंभीर कमी) हो जाएगा। LP अनुकूलक डिफ़ॉल्ट सख्त नियम के तहत स्थानांतरण को ठीक 97 सीटों पर सीमित करता है।
+                    In Gorakhpur, Retail Sales Associate baseline has <strong className="text-[var(--text)]">916 training seats</strong>, <strong className="text-[var(--text)]">380 demand</strong>, and <strong className="text-[var(--text)]">404 effective supply</strong>. Shifting 500 seats unconstrained would drop supply to 184 and spike gap score to 76 (Severe Shortage). The LP optimizer caps the shift strictly at 97 seats under the default Strict rule.
                   </>
                 ) : (
                   <>
-                    In Gorakhpur, Retail Sales Associate baseline has <strong className="text-[var(--text)]">916 training seats</strong>, <strong className="text-[var(--text)]">380 demand</strong>, and <strong className="text-[var(--text)]">404 effective supply</strong>. Shifting 500 seats unconstrained would drop supply to 184 and spike gap score to 76 (Severe Shortage). The LP optimizer caps the shift strictly at 97 seats under the default Strict rule.
+                    {l('In Gorakhpur, Retail Sales Associate baseline has 916 training seats, 380 demand, and 404 effective supply.', 'गोरखपुर में, रिटेल सेल्स एसोसिएट आधारभूत में')} <strong className="text-[var(--text)]">916 {l('seats', 'प्रशिक्षण सीटें')}</strong>, <strong className="text-[var(--text)]">380 {l('demand', 'मांग')}</strong>, {l('and', 'और')} <strong className="text-[var(--text)]">404 {l('effective supply', 'प्रभावी आपूर्ति')}</strong> {l('have.', 'हैं।')} {l('Shifting 500 seats unconstrained would drop supply to 184 and spike gap score to 76 (Severe Shortage). The LP optimizer caps the shift strictly at 97 seats under the default Strict rule.', 'बिना प्रतिबंध के 500 सीटों के स्थानांतरण से आपूर्ति गिरकर 184 हो जाएगी और अंतर स्कोर 76 (गंभीर कमी) हो जाएगा। LP अनुकूलक डिफ़ॉल्ट सख्त नियम के तहत स्थानांतरण को ठीक 97 सीटों पर सीमित करता है।')}
                   </>
                 )}
               </p>

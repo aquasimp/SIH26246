@@ -5,8 +5,7 @@ import { useApp } from '@/lib/store';
 import { Info, Database, Sparkles } from 'lucide-react';
 
 export function DataSourceControl() {
-  const { datasetMode, setDatasetMode, language, l} = useApp();
-  const isHi = language === 'hi';
+  const { datasetMode, setDatasetMode, language, l } = useApp();
   const [showTooltip, setShowTooltip] = useState(false);
 
   return (

@@ -22,22 +22,15 @@ import {
   Search,
   Filter
 } from 'lucide-react';
-import { getLocalizedEntityName, localizeSector } from '@/lib/i18n';
+import { getLocalizedEntityName, localizeSector, resolveDisplayName } from '@/lib/i18n';
 
 export default function LabourIntelligencePage() {
-  const { t, selectedSector, setSelectedOccupationNco, selectedOccupationNco, datasetMode, language, l} = useApp();
-  const isHi = language === 'hi';
+  const { t, selectedSector, setSelectedOccupationNco, selectedOccupationNco, datasetMode, language, l } = useApp();
   const [searchTerm, setSearchTerm] = useState('');
   const [sortField, setSortField] = useState<'demand' | 'growth' | 'pressure'>('demand');
 
   const getLocalizedSeverity = (severity: string) => {
-    if (!isHi) return severity;
-    const lower = severity.toLowerCase();
-    if (lower.includes('severe') && lower.includes('shortage')) return 'गंभीर कमी';
-    if (lower.includes('moderate') && lower.includes('shortage')) return 'मध्यम कमी';
-    if (lower.includes('severe') && lower.includes('oversupply')) return 'गंभीर अधिशेष';
-    if (lower.includes('balanced')) return 'संतुलित';
-    return severity;
+    return getLocalizedEntityName('severityBands', severity, language, severity);
   };
 
   // Filter occupations
@@ -283,7 +276,7 @@ export default function LabourIntelligencePage() {
                     )}
                   >
                     <td className="py-3.5 px-3">
-                      <div className="font-bold text-[var(--text)]">{isHi ? (occ.titleHi || occ.title) : occ.title}</div>
+                      <div className="font-bold text-[var(--text)]">{resolveDisplayName(occ, language)}</div>
                       <div className="text-[10px] text-[var(--text-faint)] font-mono mt-0.5">
                         {l(`NCO: ${occ.ncoCode} | NSQF L${occ.nsqfLevel}`, `NCO: ${occ.ncoCode} | NSQF स्तर ${occ.nsqfLevel}`)}
                       </div>

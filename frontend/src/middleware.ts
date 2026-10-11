@@ -5,7 +5,8 @@ export function middleware(request: NextRequest) {
   const langParam = request.nextUrl.searchParams.get('lang');
   const response = NextResponse.next();
 
-  if (langParam && (langParam === 'en' || langParam === 'hi')) {
+  const validLanguages = ['en', 'hi', 'mr', 'ta', 'te', 'kn', 'bn'];
+  if (langParam && validLanguages.includes(langParam)) {
     response.cookies.set('kaushalyuva-lang', langParam, {
       path: '/',
       maxAge: 31536000,

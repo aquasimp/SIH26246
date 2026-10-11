@@ -53,9 +53,7 @@ export const MobileNavDrawer: React.FC = () => {
     recommendations,
     setCopilotOpen,
     selectedDistrict,
-    selectedState, l} = useApp();
-
-  const isHi = language === 'hi';
+    selectedState, l } = useApp();
 
   // Close drawer on Escape key and prevent background scroll when open
   useEffect(() => {
@@ -169,7 +167,7 @@ export const MobileNavDrawer: React.FC = () => {
             <BrandLogo size="md" alt="KaushalYuva Logo" />
             <div className="flex flex-col min-w-0">
               <span className="text-sm font-extrabold tracking-tight text-[var(--text)] font-display flex items-center gap-1.5 leading-tight">
-                {isHi ? siteConfig.nameHi : siteConfig.name}
+                {t.appTitle || siteConfig.name}
                 <span className="w-1.5 h-1.5 rounded-full bg-[#00c2cb] animate-pulse" />
               </span>
               <span className="text-[9px] font-mono font-semibold text-cyan-600 dark:text-cyan-400 uppercase tracking-wider truncate">
@@ -276,7 +274,7 @@ export const MobileNavDrawer: React.FC = () => {
           {/* Language Selection Grid (7 Languages) */}
           <div className="space-y-1.5 pt-1">
             <div className="flex items-center justify-between text-[10px] font-mono font-bold tracking-wider text-[var(--text-faint)] uppercase px-1">
-              <span>// LANGUAGE · भाषा</span>
+              <span>// {l('OFFICIAL LANGUAGES (7)', 'आधिकारिक भाषाएं (7)')}</span>
               <ThemeToggle />
             </div>
             <LanguageSelector variant="pills" />

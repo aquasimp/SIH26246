@@ -146,6 +146,11 @@ export const ALLOWED_LATIN_TOKENS = new Set([
   'Oct',
   'English',
   'Hindi',
+  'Marathi',
+  'Tamil',
+  'Telugu',
+  'Kannada',
+  'Bengali',
 
   // System marks
   'KY',

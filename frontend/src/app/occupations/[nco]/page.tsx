@@ -4,7 +4,7 @@ import React, { use } from 'react';
 import Link from 'next/link';
 import { useApp } from '@/lib/store';
 import { OCCUPATIONS, RECOMMENDATIONS } from '@/lib/demoData';
-import { getLocalizedEntityName, localizeSkill, localizeQualification } from '@/lib/i18n';
+import { getLocalizedEntityName, resolveDisplayName, localizeSkill, localizeQualification } from '@/lib/i18n';
 import { ForecastChart } from '@/components/charts/ForecastChart';
 import { ContributionChart } from '@/components/charts/ContributionChart';
 import { GlassPanel } from '@/components/glass/GlassPanel';
@@ -19,7 +19,6 @@ export default function OccupationDetailPage({ params }: { params: Promise<{ nco
   const resolvedParams = use(params);
   const ncoCode = resolvedParams.nco;
   const { language, l} = useApp();
-  const isHi = language === 'hi';
 
   const occ = OCCUPATIONS.find(o => o.ncoCode === ncoCode) || OCCUPATIONS[0];
   const rec = RECOMMENDATIONS.find(r => r.toNco === occ.ncoCode || r.fromNco === occ.ncoCode);
@@ -47,13 +46,7 @@ export default function OccupationDetailPage({ params }: { params: Promise<{ nco
   };
 
   const getLocalizedSeverity = (severity: string) => {
-    if (!isHi) return severity;
-    const lower = severity.toLowerCase();
-    if (lower.includes('severe')) return 'गंभीर कमी';
-    if (lower.includes('moderate')) return 'मध्यम कमी';
-    if (lower.includes('balanced')) return 'संतुलित';
-    if (lower.includes('oversupply')) return 'अधिशेष';
-    return severity;
+    return getLocalizedEntityName('severityBands', severity, language, severity);
   };
 
   return (
@@ -88,12 +81,12 @@ export default function OccupationDetailPage({ params }: { params: Promise<{ nco
               NSQF {l('Level', 'स्तर')} {occ.nsqfLevel}
             </span>
             <span className="text-xs text-[var(--text-muted)] font-medium">
-              {isHi ? `क्षेत्र: ${getLocalizedEntityName('sectors', occ.sector, 'hi', occ.sector)}` : `Sector: ${occ.sector}`}
+              {l('Sector', 'क्षेत्र')}: {getLocalizedEntityName('sectors', occ.sector, language, occ.sector)}
             </span>
           </div>
 
           <h1 className="text-2xl sm:text-4xl font-extrabold text-[var(--text)] tracking-tight">
-            {isHi && occ.titleHi ? occ.titleHi : occ.title}
+            {resolveDisplayName(occ, language)}
           </h1>
 
           <p className="text-xs sm:text-sm text-[var(--text-muted)] mt-1 max-w-2xl leading-relaxed">
@@ -255,12 +248,12 @@ export default function OccupationDetailPage({ params }: { params: Promise<{ nco
 
       {/* Forecast Chart & Attribution */}
       <GlassPanel
-        title={l(`Forecast & Demand Trajectory: ${occ.title}`, `पूर्वानुमान और मांग प्रक्षेपवक्र: ${occ.titleHi || occ.title}`)}
+        title={l(`Forecast & Demand Trajectory: ${occ.title}`, `पूर्वानुमान और मांग प्रक्षेपवक्र: ${resolveDisplayName(occ, language)}`)}
         subtitle={l('36-Month Historical trend and forward projections with 95% Confidence Intervals.', '36-महीने का ऐतिहासिक रुझान और 95% विश्वास अंतराल के साथ अग्रिम अनुमान।')}
       >
         <ForecastChart
           data={occ.timeSeries}
-          occupationTitle={isHi && occ.titleHi ? occ.titleHi : occ.title}
+          occupationTitle={resolveDisplayName(occ, language)}
           horizon="6M"
           model="lightgbm"
         />
@@ -273,7 +266,7 @@ export default function OccupationDetailPage({ params }: { params: Promise<{ nco
       >
         <ContributionChart
           factors={occ.explainability}
-          occupationTitle={isHi && occ.titleHi ? occ.titleHi : occ.title}
+          occupationTitle={resolveDisplayName(occ, language)}
         />
       </GlassPanel>
 
@@ -289,7 +282,7 @@ export default function OccupationDetailPage({ params }: { params: Promise<{ nco
                 key={idx}
                 className="px-3 py-1.5 rounded-xl glass text-[var(--brand)] text-xs font-semibold border border-[var(--brand)]/20"
               >
-                {isHi ? localizeSkill(skill, 'hi') : skill}
+                {localizeSkill(skill, language)}
               </span>
             ))}
           </div>
@@ -305,7 +298,7 @@ export default function OccupationDetailPage({ params }: { params: Promise<{ nco
                 key={idx}
                 className="p-3 rounded-xl glass-strong border border-[var(--border)] text-xs font-semibold text-[var(--text)] flex items-center justify-between"
               >
-                <span>{isHi ? localizeQualification(qp, 'hi') : qp}</span>
+                <span>{localizeQualification(qp, language)}</span>
                 <span className="text-[10px] font-bold text-[var(--balanced)] bg-[var(--balanced)]/10 px-2 py-0.5 rounded-md border border-[var(--balanced)]/20 font-mono">
                   {l('Approved NSQF', 'स्वीकृत NSQF')}
                 </span>

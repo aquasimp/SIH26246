@@ -57,7 +57,16 @@
     "safeCap": "सुरक्षित मर्यादा",
     "export": "निर्यात",
     "notAvailableInDataset": "या डेटासेटमध्ये उपलब्ध नाही",
-    "pipelineSnapshotNote": "पाइपलाइन स्नॅपशॉट — थेट फीड नाही"
+    "pipelineSnapshotNote": "पाइपलाइन स्नॅपशॉट — थेट फीड नाही",
+    "shortage": "तुटवडा",
+    "oversupply": "अधिशेष",
+    "deficit": "तूट",
+    "reallocation": "पुनर्वाटप",
+    "forecast": "अंदाज",
+    "earlyWarning": "पूर्वसूचना",
+    "trainingCentre": "प्रशिक्षण केंद्र",
+    "scenarioStudio": "परिदृश्य स्टुडिओ",
+    "atRiskTrades": "धोक्यात असलेले व्यवसाय"
   },
   "common": {
     "search": "शोधा",
@@ -95,7 +104,7 @@
     "learnMore": "अधिक जाणून घ्या"
   },
   "hero": {
-    "eyebrow": "SIH 2026 · PS 26246 · MSDE",
+    "eyebrow": "स्मार्ट इंडिया हॅकाथॉन 2026 · PS 26246 · MSDE",
     "titlePrefix": "कौशल्य तफावतीचा अंदाज.",
     "titleAction": "उपाययोजनांसाठी निधी.",
     "subhead": "कौशलयुवा कामगार बाजारातील डेटाचे जिल्हा-स्तरीय 3M/6M/12M अंदाज, पूर्व चेतावणी आणि जागा पुनर्वितरण निर्णयांमध्ये रूपांतर करते.",

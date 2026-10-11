@@ -22,8 +22,7 @@ export const ForecastChart: React.FC<ForecastChartProps> = ({
   model,
   onModelChange
 }) => {
-  const { language, l} = useApp();
-  const isHi = language === 'hi';
+  const { language, l } = useApp();
   const [hoverIndex, setHoverIndex] = useState<number | null>(null);
   const palette = useChartPalette();
   const benchmark = OUT_OF_SAMPLE_BENCHMARKS[horizon];

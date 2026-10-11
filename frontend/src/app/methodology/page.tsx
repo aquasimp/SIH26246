@@ -26,8 +26,7 @@ import {
 } from 'lucide-react';
 
 export default function MethodologyPage() {
-  const { language, l} = useApp();
-  const isHi = language === 'hi';
+  const { language, l } = useApp();
   const [activeTab, setActiveTab] = useState<'funnel' | 'leakage' | 'backtest' | 'solver' | 'governance'>('funnel');
 
   const handleExportMethodology = () => {
@@ -243,9 +242,10 @@ export default function MethodologyPage() {
             </div>
 
             <p className="text-sm text-[var(--text-muted)] leading-relaxed max-w-4xl">
-              {isHi
-                ? 'अधिकांश हैकथॉन मॉडलों में एक गंभीर छिपी खामी होती है: वे वर्तमान माह की मांग का अनुमान लगाने के लिए उसी माह की प्रशिक्षण सीटों, वेतन विज्ञापनों और नियोक्ता संख्याओं का उपयोग करते हैं। इसे "समकालीन रिसाव" (Contemporaneous Leakage) कहा जाता है। कौशलयुवा में, सभी सुविधाएँ सख्त t-1 लैग पर आधारित हैं।'
-                : 'A fatal flaw in many predictive labor dashboards is data leakage: using current-period training seats, contemporaneous wages, or real-time employer hiring counts to predict current-period demand. KaushalYuva enforces a mathematically verified temporal barrier: every feature is strictly lagged to t-1.'}
+              {l(
+                'A fatal flaw in many predictive labor dashboards is data leakage: using current-period training seats, contemporaneous wages, or real-time employer hiring counts to predict current-period demand. KaushalYuva enforces a mathematically verified temporal barrier: every feature is strictly lagged to t-1.',
+                'अधिकांश हैकथॉन मॉडलों में एक गंभीर छिपी खामी होती है: वे वर्तमान माह की मांग का अनुमान लगाने के लिए उसी माह की प्रशिक्षण सीटों, वेतन विज्ञापनों और नियोक्ता संख्याओं का उपयोग करते हैं। इसे "समकालीन रिसाव" (Contemporaneous Leakage) कहा जाता है। कौशलयुवा में, सभी सुविधाएँ सख्त t-1 लैग पर आधारित हैं।'
+              )}
             </p>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">

@@ -38,7 +38,7 @@ interface NavItem {
 export const Sidebar: React.FC = () => {
   const pathname = usePathname();
   const [collapsed, setCollapsed] = useState(false);
-  const { t, alerts, recommendations, setCopilotOpen, focusMode, language } = useApp();
+  const { t, alerts, recommendations, setCopilotOpen, focusMode, language, l } = useApp();
 
   // Below 1366px viewport width, default to collapsed icon rail
   useEffect(() => {
@@ -64,7 +64,7 @@ export const Sidebar: React.FC = () => {
 
   const navGroups: { title: string; items: NavItem[] }[] = [
     {
-      title: language === 'hi' ? '// इंटेलिजेंस' : '// INTELLIGENCE',
+      title: l('// INTELLIGENCE', '// इंटेलिजेंस'),
       items: [
         { href: '/overview', label: t.nav.overview, icon: LayoutDashboard },
         { href: '/intelligence', label: t.nav.intelligence, icon: TrendingUp },
@@ -73,7 +73,7 @@ export const Sidebar: React.FC = () => {
       ]
     },
     {
-      title: language === 'hi' ? '// कार्रवाई एवं सिमुलेशन' : '// DECISION SUPPORT',
+      title: l('// DECISION SUPPORT', '// कार्रवाई एवं सिमुलेशन'),
       items: [
         { 
           href: '/alerts', 
@@ -98,7 +98,7 @@ export const Sidebar: React.FC = () => {
       ]
     },
     {
-      title: language === 'hi' ? '// अन्वेषण एवं वर्गीकरण' : '// EXPLORE & TAXONOMY',
+      title: l('// EXPLORE & TAXONOMY', '// अन्वेषण एवं वर्गीकरण'),
       items: [
         { href: '/districts', label: t.nav.districts, icon: MapPin },
         { href: '/occupations', label: t.nav.occupations, icon: Briefcase },
@@ -106,10 +106,10 @@ export const Sidebar: React.FC = () => {
       ]
     },
     {
-      title: language === 'hi' ? '// प्रणाली एवं मॉडल' : '// SYSTEM & GOVERNANCE',
+      title: l('// SYSTEM & GOVERNANCE', '// प्रणाली एवं मॉडल'),
       items: [
         { href: '/data-health', label: t.nav.dataHealth, icon: ShieldCheck },
-        { href: '/methodology', label: t.nav.methodology || (language === 'hi' ? 'मॉडल कार्यप्रणाली' : 'Methodology'), icon: FileText },
+        { href: '/methodology', label: t.nav.methodology || l('Methodology', 'मॉडल कार्यप्रणाली'), icon: FileText },
         { href: '/api', label: t.nav.apiExports, icon: DownloadCloud },
         { href: '/settings', label: t.nav.settings, icon: Settings }
       ]
@@ -127,7 +127,7 @@ export const Sidebar: React.FC = () => {
         {/* Top Brand & Header */}
         <div className="flex flex-col min-h-0">
           <div className="flex items-center justify-between px-2 pt-1 pb-3 border-b border-[var(--border)]">
-            <Link href="/" className="flex items-center gap-2.5 group" title={language === 'hi' ? 'कौशलयुवा होम' : 'KaushalYuva Home'}>
+            <Link href="/" className="flex items-center gap-2.5 group" title={l('KaushalYuva Home', 'कौशलयुवा होम')}>
               <BrandLogo size="lg" alt="KaushalYuva Logo" />
               {!collapsed && (
                 <div className="flex flex-col min-w-0">
@@ -222,11 +222,11 @@ export const Sidebar: React.FC = () => {
                   </span>
                 </div>
                 <span className="text-[9px] font-mono px-1 py-0.2 bg-cyan-500/15 text-cyan-600 dark:text-cyan-400 font-bold rounded border border-cyan-500/25">
-                  {language === 'hi' ? 'सत्यापित AI' : 'Grounded AI'}
+                  {l('Grounded AI', 'सत्यापित AI')}
                 </span>
               </div>
               <p className="text-[10px] text-[var(--text-muted)] leading-tight mb-2">
-                {language === 'hi' ? 'वर्तमान विश्लेषणात्मक एपीआई पर आधारित द्विभाषी नीति व पूर्वानुमान सहायक।' : 'Bilingual policy & forecast assistant over current API.'}
+                {l('Multilingual policy & forecast assistant over current API.', 'वर्तमान विश्लेषणात्मक एपीआई पर आधारित नीति व पूर्वानुमान सहायक।')}
               </p>
               <button
                 type="button"

@@ -18,8 +18,7 @@ import {
 import { LanguageSelector } from '@/components/layout/LanguageSelector';
 
 export default function SettingsPage() {
-  const { demoMode, setDemoMode, language, setLanguage, t, l} = useApp();
-  const isHi = language === 'hi';
+  const { demoMode, setDemoMode, language, setLanguage, t, l } = useApp();
 
   return (
     <div className="space-y-6">
@@ -100,19 +99,20 @@ export default function SettingsPage() {
                 </div>
                 <div>
                   <h3 className="text-base font-bold text-[var(--text)]">
-                    {language === 'hi' ? 'बहुभाषी भाषा स्थानीयकरण (7 अनुसूचित भाषाएं)' : 'Multilingual Language Localization (7 Languages)'}
+                    {l('Multilingual Language Localization (7 Languages)', 'बहुभाषी भाषा स्थानीयकरण (7 अनुसूचित भाषाएं)')}
                   </h3>
                   <span className="text-[10px] text-[var(--text-faint)] font-mono">
-                    {language === 'hi' ? 'अंग्रेजी, हिन्दी, मराठी, தமிழ், తెలుగు, ಕನ್ನಡ, বাংলা' : 'EN, HI, MR, TA, TE, KN, BN Official Schemas'}
+                    {l('EN, HI, MR, TA, TE, KN, BN Official Schemas', 'अंग्रेजी, हिन्दी, मराठी, தமிழ், తెలుగు, ಕನ್ನಡ, বাংলা')}
                   </span>
                 </div>
               </div>
             </div>
 
             <p className="text-xs text-[var(--text-muted)] leading-relaxed mb-4">
-              {language === 'hi'
-                ? 'मंत्रालयीय योजनाकारों, राज्य निदेशालयों और ज़िला कौशल समितियों (DSCs) के लिए संपूर्ण सिस्टम शब्दकोश 7 अनुसूचित भारतीय भाषाओं में तुरंत बदलें।'
-                : 'Switch complete system dictionary and administrative terminology across 7 scheduled Indian languages for ministerial planners, state skill directorates, and District Skill Committees.'}
+              {l(
+                'Switch complete system dictionary and administrative terminology across 7 scheduled Indian languages for ministerial planners, state skill directorates, and District Skill Committees.',
+                'मंत्रालयीय योजनाकारों, राज्य निदेशालयों और ज़िला कौशल समितियों (DSCs) के लिए संपूर्ण सिस्टम शब्दकोश 7 अनुसूचित भारतीय भाषाओं में तुरंत बदलें।'
+              )}
             </p>
 
             <LanguageSelector variant="pills" />

@@ -143,7 +143,7 @@ export function MarketingFooter() {
 
         <div className="flex items-center gap-2 text-xs font-mono text-[var(--text-faint)]">
           <span className="w-1.5 h-1.5 rounded-full bg-[#00c2cb] animate-pulse" />
-          <span>{EXPORT_METADATA.runId} · {l('Bilingual EN / HI (100% Localized)', 'द्विभाषी अंग्रेज़ी / हिन्दी (100% स्थानीयकृत)')}</span>
+          <span>{EXPORT_METADATA.runId} · {l('7 Official Indian Languages (100% Localized)', '7 आधिकारिक भारतीय भाषाएं (100% स्थानीयकृत)')}</span>
         </div>
       </div>
     </footer>

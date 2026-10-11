@@ -25,8 +25,7 @@ import {
 import { downloadCSV, formatINR } from '@/lib/exportUtils';
 
 export default function RecommendationsPage() {
-  const { recommendations, approveRecommendation, setActiveEvidence, language, t, l} = useApp();
-  const isHi = language === 'hi';
+  const { recommendations, approveRecommendation, setActiveEvidence, language, t, l } = useApp();
 
   const handleExportAll = () => {
     const rows = [
@@ -198,7 +197,7 @@ export default function RecommendationsPage() {
                     </span>
                   </div>
                   <div className="text-sm font-bold text-[var(--text)] mt-0.5">
-                    {isHi ? `${getLocalizedEntityName('districts', rec.district, 'hi')}, ${getLocalizedEntityName('states', rec.state, 'hi')}` : `${rec.district}, ${rec.state}`}
+                    {getLocalizedEntityName('districts', rec.district, language)}, {getLocalizedEntityName('states', rec.state, language)}
                   </div>
                 </div>
               </div>
@@ -220,10 +219,10 @@ export default function RecommendationsPage() {
             {/* Recommendation Title & Rationale */}
             <div className="mb-4">
               <h2 className="text-lg sm:text-xl font-extrabold text-[var(--text)] tracking-tight mb-1.5">
-                {isHi && rec.titleHi ? rec.titleHi : rec.title}
+                {l(rec.title, rec.titleHi)}
               </h2>
               <p className="text-xs sm:text-sm text-[var(--text-muted)] leading-relaxed max-w-4xl">
-                {isHi && rec.reasonHi ? rec.reasonHi : rec.reason}
+                {l(rec.reason, rec.reasonHi)}
               </p>
             </div>
 
@@ -235,7 +234,7 @@ export default function RecommendationsPage() {
                     {l('Capacity Donor Trade (Surplus)', 'क्षमता दाता व्यवसाय (अधिशेष)')}
                   </span>
                   <strong className="text-[var(--text)] font-semibold truncate block">
-                    {isHi && rec.fromTradeHi ? rec.fromTradeHi : rec.fromTrade}
+                    {getLocalizedEntityName('occupations', rec.fromTrade, language, rec.fromTradeHi || rec.fromTrade)}
                   </strong>
                   <span className="text-[10px] text-[var(--text-faint)] font-mono block">NCO {rec.fromNco}</span>
                 </div>
@@ -252,7 +251,7 @@ export default function RecommendationsPage() {
                     {l('Target Trade (Severe Shortage)', 'लक्षित व्यवसाय (गंभीर कमी)')}
                   </span>
                   <strong className="text-[var(--text)] font-semibold truncate block">
-                    {isHi && rec.toTradeHi ? rec.toTradeHi : rec.toTrade}
+                    {getLocalizedEntityName('occupations', rec.toTrade, language, rec.toTradeHi || rec.toTrade)}
                   </strong>
                   <span className="text-[10px] text-[var(--text-faint)] font-mono block">NCO {rec.toNco}</span>
                 </div>
@@ -278,15 +277,15 @@ export default function RecommendationsPage() {
                         </span>
                         <div>
                           <span className="font-extrabold text-[var(--text)] block">
-                            {isHi ? opt.labelHi : opt.label}
+                            {l(opt.label, opt.labelHi)}
                           </span>
                           <span className="text-[11px] text-[var(--text-muted)] font-mono">
-                            {isHi ? opt.detailsHi : opt.detailsEn}
+                            {l(opt.detailsEn, opt.detailsHi)}
                           </span>
                         </div>
                       </div>
                       <div className="flex items-center gap-3 shrink-0 font-mono self-end sm:self-auto">
-                        <span className="px-2 py-0.5 rounded-md bg-[var(--success)]/15 text-[var(--success)] font-extrabold">
+                        <span className="px-2.5 py-0.5 rounded-md bg-[var(--success)]/15 text-[var(--success)] font-extrabold">
                           {opt.gapReductionPercent}% {l('Reduction', 'कमी')}
                         </span>
                         <span className="font-extrabold text-[var(--text)]">
@@ -324,11 +323,11 @@ export default function RecommendationsPage() {
                   </div>
                   <div className="p-2 rounded-lg bg-[var(--surface-card)] border border-[var(--border)] sm:col-span-2">
                     <span className="text-[var(--text-faint)] block text-[10px] uppercase">{l('Capex Rate', 'पूंजी व्यय दर')}</span>
-                    <strong className="text-[var(--text)] font-semibold">{isHi && rec.assumptions.capexRateHi ? rec.assumptions.capexRateHi : rec.assumptions.capexRate}</strong>
+                    <strong className="text-[var(--text)] font-semibold">{l(rec.assumptions.capexRate, rec.assumptions.capexRateHi)}</strong>
                   </div>
                   <div className="p-2 rounded-lg bg-[var(--surface-card)] border border-[var(--border)] col-span-1 sm:col-span-2 lg:col-span-4">
                     <span className="text-[var(--text-faint)] block text-[10px] uppercase">{l('Staged Funnel Conversion', 'चरणबद्ध फ़नल रूपांतरण')}</span>
-                    <span className="text-[var(--text-muted)] text-[10px]">{isHi && rec.assumptions.funnelConversionHi ? rec.assumptions.funnelConversionHi : rec.assumptions.funnelConversion}</span>
+                    <span className="text-[var(--text-muted)] text-[10px]">{l(rec.assumptions.funnelConversion, rec.assumptions.funnelConversionHi)}</span>
                   </div>
                 </div>
               </div>

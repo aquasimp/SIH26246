@@ -80,7 +80,7 @@ export const Header: React.FC = () => {
             type="button"
             onClick={() => setMobileMenuOpen(true)}
             className="md:hidden p-1.5 rounded-xl liquid-control text-[var(--text-muted)] hover:text-[var(--text)] cursor-pointer flex items-center justify-center shrink-0 min-h-[36px] min-w-[36px]"
-            aria-label={language === 'hi' ? 'नेविगेशन मेनू खोलें' : 'Open navigation menu'}
+            aria-label={l('Open navigation menu', 'नेविगेशन मेनू खोलें')}
           >
             <Menu className="w-4 h-4" />
           </button>
@@ -90,14 +90,14 @@ export const Header: React.FC = () => {
             <Link 
               href="/" 
               className="flex items-center gap-1 text-[var(--brand)] hover:underline font-bold text-xs pr-2 border-r border-[var(--border)] mr-0.5 group shrink-0"
-              title={language === 'hi' ? 'कौशलयुवा मुख्य पृष्ठ' : 'KaushalYuva Home'}
+              title={l('KaushalYuva Home', 'कौशलयुवा मुख्य पृष्ठ')}
             >
               <ArrowLeft className="w-3.5 h-3.5 group-hover:-translate-x-0.5 transition-transform" />
-              <span>{language === 'hi' ? 'होम' : 'Home'}</span>
+              <span>{l('Home', 'होम')}</span>
             </Link>
             <span className="font-bold text-[var(--text)] flex items-center gap-1.5 shrink-0">
               <span className="w-2 h-2 rounded-full bg-[#00c2cb] shrink-0 shadow-[0_0_6px_#00c2cb] animate-pulse" />
-              {language === 'hi' ? 'एमएसडीई' : 'MSDE'}
+              {l('MSDE', 'एमएसडीई')}
             </span>
             <span className="text-[var(--text-faint)] shrink-0">/</span>
             <span className="text-[var(--text)] font-semibold shrink-0">{localizedState}</span>

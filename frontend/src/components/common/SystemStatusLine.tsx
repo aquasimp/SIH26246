@@ -5,8 +5,7 @@ import { useApp } from '@/lib/store';
 import { EXPORT_METADATA } from '@/lib/demoData';
 
 export function SystemStatusLine({ className = '' }: { className?: string }) {
-  const { language, l} = useApp();
-  const isHi = language === 'hi';
+  const { language, l } = useApp();
 
   return (
     <div
@@ -14,7 +13,7 @@ export function SystemStatusLine({ className = '' }: { className?: string }) {
     >
       <span className="font-bold text-[var(--brand)]">{EXPORT_METADATA.runId}</span>
       <span>•</span>
-      <span>{isHi ? 'SIH डमी डेटासेट' : EXPORT_METADATA.dataSource}</span>
+      <span>{l(EXPORT_METADATA.dataSource, 'SIH डमी डेटासेट')}</span>
       <span>•</span>
       <span>v2.1.0</span>
       <span>•</span>

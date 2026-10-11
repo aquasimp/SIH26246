@@ -7,7 +7,7 @@ import { FilterBar } from '@/components/layout/FilterBar';
 import { GlassPanel } from '@/components/glass/GlassPanel';
 import { Provenance } from '@/components/common/Provenance';
 import { OCCUPATIONS } from '@/lib/demoData';
-import { getLocalizedEntityName, localizeSkill } from '@/lib/i18n';
+import { getLocalizedEntityName, resolveDisplayName, localizeSkill } from '@/lib/i18n';
 import { clsx } from 'clsx';
 import { 
   Search, 
@@ -16,7 +16,6 @@ import {
 
 export default function OccupationsOverviewPage() {
   const { selectedSector, language, l} = useApp();
-  const isHi = language === 'hi';
   const [searchTerm, setSearchTerm] = useState('');
 
   const filteredOccupations = OCCUPATIONS.filter(o => {
@@ -29,13 +28,7 @@ export default function OccupationsOverviewPage() {
   });
 
   const getLocalizedSeverity = (severity: string) => {
-    if (!isHi) return severity;
-    const lower = severity.toLowerCase();
-    if (lower.includes('severe') && lower.includes('shortage')) return 'गंभीर कमी';
-    if (lower.includes('moderate') && lower.includes('shortage')) return 'मध्यम कमी';
-    if (lower.includes('severe') && lower.includes('oversupply')) return 'गंभीर अधिशेष';
-    if (lower.includes('balanced')) return 'संतुलित';
-    return severity;
+    return getLocalizedEntityName('severityBands', severity, language, severity);
   };
 
   return (
@@ -99,7 +92,7 @@ export default function OccupationsOverviewPage() {
                 </div>
 
                 <h3 className="text-base font-extrabold text-[var(--text)] group-hover:text-[var(--brand)] transition-colors">
-                  {isHi && occ.titleHi ? occ.titleHi : occ.title}
+                  {resolveDisplayName(occ, language)}
                 </h3>
                 <span className="text-xs text-[var(--text-muted)] font-medium block mb-3">
                   {getLocalizedEntityName('sectors', occ.sector, language, occ.sector)} (NSQF {l('Level', 'स्तर')} {occ.nsqfLevel})
@@ -130,7 +123,7 @@ export default function OccupationsOverviewPage() {
                   <span className="font-semibold text-[var(--text)]">
                     {l('Top Skills:', 'शीर्ष कौशल:')}{' '}
                   </span>
-                  {occ.keySkills.slice(0, 2).map(s => isHi ? localizeSkill(s, 'hi') : s).join(', ')}...
+                  {occ.keySkills.slice(0, 2).map(s => localizeSkill(s, language)).join(', ')}...
                 </div>
               </div>
 

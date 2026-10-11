@@ -7,7 +7,7 @@ import { DISTRICTS, OCCUPATIONS, RECOMMENDATIONS } from '@/lib/demoData';
 import { GlassPanel } from '@/components/glass/GlassPanel';
 import { Provenance } from '@/components/common/Provenance';
 import { Badge } from '@/components/common/Badge';
-import { getLocalizedEntityName } from '@/lib/i18n';
+import { getLocalizedEntityName, resolveDisplayName } from '@/lib/i18n';
 import { clsx } from 'clsx';
 import { 
   MapPin, 
@@ -29,8 +29,7 @@ import { downloadCSV } from '@/lib/exportUtils';
 export default function DistrictDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const resolvedParams = use(params);
   const districtId = resolvedParams.id;
-  const { language, l} = useApp();
-  const isHi = language === 'hi';
+  const { language, l } = useApp();
 
   const d = DISTRICTS.find(item => item.id.toLowerCase() === districtId.toLowerCase()) || DISTRICTS[0];
 
@@ -55,6 +54,7 @@ export default function DistrictDetailPage({ params }: { params: Promise<{ id: s
     downloadCSV(`KaushalPulse_District_${d.name}.csv`, rows);
   };
 
+  const localizedDistrictName = resolveDisplayName(d, language);
   const localizedState = getLocalizedEntityName('states', d.state, language, d.state);
 
   return (
@@ -83,7 +83,7 @@ export default function DistrictDetailPage({ params }: { params: Promise<{ id: s
         <div>
           <div className="flex items-center gap-2 mb-2">
             <span className="text-xs font-mono font-bold text-[var(--brand)] uppercase tracking-wider">
-              {l('India', 'भारत')} → {localizedState} → {isHi && d.nameHi ? d.nameHi : d.name}
+              {l('India', 'भारत')} → {localizedState} → {localizedDistrictName}
             </span>
             <span className="text-xs font-mono text-[var(--text-faint)]">
               [LGD: {d.lgdCode}]
@@ -91,8 +91,7 @@ export default function DistrictDetailPage({ params }: { params: Promise<{ id: s
           </div>
 
           <h1 className="text-3xl sm:text-4xl font-extrabold text-[var(--text)] tracking-tight flex items-center gap-3">
-            {isHi && d.nameHi ? d.nameHi : d.name}
-            {!isHi && d.nameHi && <span className="text-xl sm:text-2xl text-[var(--text-faint)] font-normal">({d.nameHi})</span>}
+            {localizedDistrictName}
           </h1>
 
           <p className="text-xs sm:text-sm text-[var(--text-muted)] mt-1 max-w-2xl leading-relaxed">
@@ -198,7 +197,7 @@ export default function DistrictDetailPage({ params }: { params: Promise<{ id: s
                   </span>
                   <div>
                     <strong className="text-xs sm:text-sm font-bold text-[var(--text)] block">
-                      {isHi ? getLocalizedEntityName('occupations', trade, 'hi') : trade}
+                      {getLocalizedEntityName('occupations', trade, language, trade)}
                     </strong>
                     <span className="text-[10px] text-[var(--severe)] font-semibold">
                       {l('Deficit requiring urgent seat reallocation', 'तत्काल सीट पुनर्वितरण की आवश्यकता वाला घाटा')}
@@ -234,7 +233,7 @@ export default function DistrictDetailPage({ params }: { params: Promise<{ id: s
                   </span>
                   <div>
                     <strong className="text-xs sm:text-sm font-bold text-[var(--text)] block">
-                      {isHi ? getLocalizedEntityName('occupations', trade, 'hi') : trade}
+                      {getLocalizedEntityName('occupations', trade, language, trade)}
                     </strong>
                     <span className="text-[10px] text-[var(--oversupply)] font-semibold">
                       {l('Candidate placement rate falling below 45%', 'उम्मीदवार प्लेसमेंट दर ४५% से कम हो रही है')}
@@ -253,7 +252,7 @@ export default function DistrictDetailPage({ params }: { params: Promise<{ id: s
 
       {/* Recommended Government Interventions for this District (Section 24) */}
       <GlassPanel
-        title={l(`Recommended Government Interventions for ${d.name}`, `${d.nameHi || d.name} के लिए अनुशंसित सरकारी हस्तक्षेप`)}
+        title={l(`Recommended Government Interventions for ${localizedDistrictName}`, `${localizedDistrictName} के लिए अनुशंसित सरकारी हस्तक्षेप`)}
         subtitle={l('Ranked policy actions ready for ministerial consideration.', 'मंत्रिस्तरीय विचार के लिए तैयार क्रमबद्ध नीतिगत कार्य।')}
       >
         <div className="space-y-3">
@@ -269,11 +268,11 @@ export default function DistrictDetailPage({ params }: { params: Promise<{ id: s
                       #{rec.rank}
                     </span>
                     <h3 className="text-sm font-bold text-[var(--text)]">
-                      {isHi && rec.titleHi ? rec.titleHi : rec.title}
+                      {l(rec.title, rec.titleHi || rec.title)}
                     </h3>
                   </div>
                   <p className="text-xs text-[var(--text-muted)] max-w-2xl leading-relaxed">
-                    {isHi && rec.reasonHi ? rec.reasonHi : rec.reason}
+                    {l(rec.reason, rec.reasonHi || rec.reason)}
                   </p>
                 </div>
 

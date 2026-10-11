@@ -35,8 +35,18 @@ export default async function RootLayout({
   const cookieStore = await cookies();
   const headersList = await headers();
   const rawLang = headersList.get("x-lang") || cookieStore.get("kaushalyuva-lang")?.value;
-  const validLanguages: Language[] = ['en', 'hi'];
+  const validLanguages: Language[] = ['en', 'hi', 'mr', 'ta', 'te', 'kn', 'bn'];
   const lang: Language = (validLanguages.includes(rawLang as any) ? rawLang : "en") as Language;
+
+  const skipToContentText: Record<Language, string> = {
+    en: 'Skip to main content',
+    hi: 'मुख्य सामग्री पर जाएं',
+    mr: 'मुख्य मजकुरावर जा',
+    ta: 'முக்கிய உள்ளடக்கத்திற்குச் செல்க',
+    te: 'ప్రధాన కంటెంట్‌కు వెళ్లండి',
+    kn: 'ಮುಖ್ಯ ವಿಷಯಕ್ಕೆ ಹೋಗಿ',
+    bn: 'মূল বিষয়বস্তুতে যান'
+  };
 
   return (
     <html 
@@ -50,7 +60,7 @@ export default async function RootLayout({
           href="#main-content" 
           className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-50 focus:px-4 focus:py-2 focus:bg-[var(--surface-solid)] focus:text-[var(--brand)] focus:border focus:border-[var(--brand)] focus:rounded-xl focus:shadow-2xl focus:font-bold text-xs"
         >
-          {lang === 'hi' ? 'मुख्य सामग्री पर जाएं' : 'Skip to main content'}
+          {skipToContentText[lang] || skipToContentText.en}
         </a>
 
         <Providers>

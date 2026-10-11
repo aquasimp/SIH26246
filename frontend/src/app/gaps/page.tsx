@@ -23,25 +23,18 @@ import {
   Filter
 } from 'lucide-react';
 import { downloadCSV } from '@/lib/exportUtils';
-import { getLocalizedEntityName } from '@/lib/i18n';
+import { getLocalizedEntityName, resolveDisplayName } from '@/lib/i18n';
 import { toast } from 'sonner';
 
 export default function SkillGapsPage() {
-  const { selectedOccupationNco, setSelectedOccupationNco, selectedDistrict, language, l} = useApp();
-  const isHi = language === 'hi';
+  const { selectedOccupationNco, setSelectedOccupationNco, selectedDistrict, language, l } = useApp();
   const [severityFilter, setSeverityFilter] = useState<'all' | 'shortage' | 'oversupply'>('all');
   const [searchTerm, setSearchTerm] = useState('');
 
   const activeOcc = OCCUPATIONS.find(o => o.ncoCode === selectedOccupationNco) || OCCUPATIONS[0];
 
   const getLocalizedSeverity = (severity: string) => {
-    if (!isHi) return severity;
-    const lower = severity.toLowerCase();
-    if (lower.includes('severe') && lower.includes('shortage')) return 'गंभीर कमी';
-    if (lower.includes('moderate') && lower.includes('shortage')) return 'मध्यम कमी';
-    if (lower.includes('severe') && lower.includes('oversupply')) return 'गंभीर अधिशेष';
-    if (lower.includes('balanced')) return 'संतुलित';
-    return severity;
+    return getLocalizedEntityName('severityBands', severity, language, severity);
   };
 
   const handleExportGaps = () => {
@@ -220,19 +213,18 @@ export default function SkillGapsPage() {
         const isShortage = isSolar ? true : isRetail ? false : netVelocityMismatch > 0;
 
         const getFeatureLabel = (feature: string) => {
-          if (!isHi) return feature;
           switch (feature) {
-            case 'rolling_mean_3': return '3-माह चलती औसत';
-            case 'rolling_mean_12': return '12-माह चलती औसत';
-            case 'rolling_mean_6': return '6-माह चलती औसत';
-            case 'rolling_std_6': return '6-माह रिक्ति अस्थिरता';
-            case 'lag_1': return 'पूर्व माह मांग';
-            case 'lag_12': return 'वार्षिक अंतराल';
-            case 'month': return 'कैलेंडर माह प्रभाव';
-            case 'nco_code': return 'व्यवसाय कोड प्रभाव';
-            case 'demand_growth_12m': return '12-माह मांग विस्तार';
-            case 'demand_growth_3m': return '3-माह मांग विस्तार';
-            case 'lag_1_wage_signal': return 'स्थानीय पारिश्रमिक संकेत';
+            case 'rolling_mean_3': return l('3-Month Rolling Mean', '3-माह चलती औसत');
+            case 'rolling_mean_12': return l('12-Month Rolling Mean', '12-माह चलती औसत');
+            case 'rolling_mean_6': return l('6-Month Rolling Mean', '6-माह चलती औसत');
+            case 'rolling_std_6': return l('6-Month Vacancy Volatility', '6-माह रिक्ति अस्थिरता');
+            case 'lag_1': return l('Prior Month Demand (t-1)', 'पूर्व माह मांग');
+            case 'lag_12': return l('Annual Gap (t-12)', 'वार्षिक अंतराल');
+            case 'month': return l('Calendar Month Seasonality', 'कैलेंडर माह प्रभाव');
+            case 'nco_code': return l('Occupation Code Constraint', 'व्यवसाय कोड प्रभाव');
+            case 'demand_growth_12m': return l('12-Month Demand Expansion', '12-माह मांग विस्तार');
+            case 'demand_growth_3m': return l('3-Month Demand Expansion', '3-माह मांग विस्तार');
+            case 'lag_1_wage_signal': return l('Local Wage Signal', 'स्थानीय पारिश्रमिक संकेत');
             default: return feature;
           }
         };
@@ -290,7 +282,7 @@ export default function SkillGapsPage() {
                       {demandGrowth6M > 0 ? `+${demandGrowth6M}%` : `${demandGrowth6M}%`}
                     </span>
                     <span className="text-[8px] text-[var(--text-faint)] block mt-0.5">
-                      {isHi ? (demandGrowth6M >= 0 ? 'विस्तार' : 'संकुचन') : (demandGrowth6M >= 0 ? 'Expansion' : 'Contraction')}
+                      {demandGrowth6M >= 0 ? l('Expansion', 'विस्तार') : l('Contraction', 'संकुचन')}
                     </span>
                   </div>
                   <div className="p-2.5 rounded-xl bg-[var(--brand)]/10 border border-[var(--brand)]/20">
@@ -299,7 +291,7 @@ export default function SkillGapsPage() {
                       {supplyGrowth6M > 0 ? `+${supplyGrowth6M}%` : `${supplyGrowth6M}%`}
                     </span>
                     <span className="text-[8px] text-[var(--text-faint)] block mt-0.5">
-                      {isHi ? (supplyGrowth6M > 5 ? 'उच्च पाइपलाइन' : 'बाधित') : (supplyGrowth6M > 5 ? 'High Pipeline' : 'Constrained')}
+                      {supplyGrowth6M > 5 ? l('High Pipeline', 'उच्च पाइपलाइन') : l('Constrained', 'बाधित')}
                     </span>
                   </div>
                   <div className={clsx(
@@ -319,29 +311,29 @@ export default function SkillGapsPage() {
                       {netVelocityMismatch > 0 ? `+${netVelocityMismatch}%` : `${netVelocityMismatch}%`}
                     </span>
                     <span className="text-[8px] text-[var(--text-faint)] block mt-0.5">
-                      {isHi ? (isShortage ? 'घाटा' : 'अधिशेष') : (isShortage ? 'Deficit' : 'Surplus')}
+                      {isShortage ? l('Deficit', 'घाटा') : l('Surplus', 'अधिशेष')}
                     </span>
                   </div>
                 </div>
                 <p className="text-xs text-[var(--text-muted)] leading-relaxed pt-1">
                   {isShortage ? (
-                    isHi ? (
-                      <>
-                        सोलर पीवी इंस्टॉलर की मांग (808) प्रभावी प्रमाणित आपूर्ति (97 उम्मीदवार) से कहीं अधिक है। मामूली आपूर्ति वृद्धि (+6.6%) के बावजूद, गंभीर प्रयोगशाला सीट अड़चनों के कारण <strong className="text-[var(--severe)]">711 व्यक्तियों का स्थानीय घाटा</strong> बना हुआ है।
-                      </>
-                    ) : (
+                    language === 'en' ? (
                       <>
                         Solar PV Installer demand (808) massively outstrips effective certified supply (97 candidates). Despite slight supply growth (+6.6%), severe laboratory seat bottlenecks drive a <strong className="text-[var(--severe)]">711-person local deficit</strong>.
                       </>
+                    ) : (
+                      <>
+                        {l('Solar PV Installer demand (808) massively outstrips effective certified supply (97 candidates). Despite slight supply growth (+6.6%), severe laboratory seat bottlenecks drive a local deficit.', 'सोलर पीवी इंस्टॉलर की मांग (808) प्रभावी प्रमाणित आपूर्ति (97 उम्मीदवार) से कहीं अधिक है। मामूली आपूर्ति वृद्धि (+6.6%) के बावजूद, गंभीर प्रयोगशाला सीट अड़चनों के कारण ')} <strong className="text-[var(--severe)]">{l('711-person local deficit', '711 व्यक्तियों का स्थानीय घाटा')}</strong>.
+                      </>
                     )
                   ) : (
-                    isHi ? (
+                    language === 'en' ? (
                       <>
-                        रिटेल सेल्स एसोसिएट के लिए प्रमाणित प्रशिक्षण आपूर्ति (404 उम्मीदवार) स्थानीय नियोक्ता अवशोषण (380 मांग) से अधिक है। पिछले 6 महीनों में मांग (-10.0%) और आपूर्ति (-13.7%) दोनों संकुचित हुईं, जिससे मामूली <strong className="text-[var(--oversupply)]">24 व्यक्तियों का अधिशेष</strong> रहा।
+                        Certified training supply for Retail Sales Associate (404 candidates) exceeds local employer absorption (380 demand). Both demand (-10.0%) and supply (-13.7%) contracted over the past 6 months, leaving a modest <strong className="text-[var(--oversupply)]">24-person surplus</strong>.
                       </>
                     ) : (
                       <>
-                        Certified training supply for Retail Sales Associate (404 candidates) exceeds local employer absorption (380 demand). Both demand (-10.0%) and supply (-13.7%) contracted over the past 6 months, leaving a modest <strong className="text-[var(--oversupply)]">24-person surplus</strong>.
+                        {l('Certified training supply for Retail Sales Associate (404 candidates) exceeds local employer absorption (380 demand). Both demand (-10.0%) and supply (-13.7%) contracted over the past 6 months, leaving a modest surplus.', 'रिटेल सेल्स एसोसिएट के लिए प्रमाणित प्रशिक्षण आपूर्ति (404 उम्मीदवार) स्थानीय नियोक्ता अवशोषण (380 मांग) से अधिक है। पिछले 6 महीनों में मांग (-10.0%) और आपूर्ति (-13.7%) दोनों संकुचित हुईं, जिससे मामूली ')} <strong className="text-[var(--oversupply)]">{l('24-person surplus', '24 व्यक्तियों का अधिशेष')}</strong>.
                       </>
                     )
                   )}
@@ -503,7 +495,7 @@ export default function SkillGapsPage() {
                     )}
                   >
                     <td className="py-3.5 px-3">
-                      <div className="font-bold text-[var(--text)]">{isHi ? (occ.titleHi || occ.title) : occ.title}</div>
+                      <div className="font-bold text-[var(--text)]">{resolveDisplayName(occ, language)}</div>
                       <div className="text-[10px] text-[var(--text-faint)] font-mono mt-0.5">
                         NCO: {occ.ncoCode}
                       </div>
@@ -562,7 +554,7 @@ export default function SkillGapsPage() {
                           'text-[9px] font-bold px-1.5 py-0.2 rounded border font-mono',
                           isActionable ? 'bg-[var(--balanced)]/10 text-[var(--balanced)] border-[var(--balanced)]/20' : 'bg-[var(--warning)]/10 text-[var(--warning)] border-[var(--warning)]/20'
                         )}>
-                          {isHi ? (isActionable ? 'कार्रवाई योग्य' : 'संकेतात्मक') : (isActionable ? 'Actionable' : 'Indicative')}
+                          {isActionable ? l('Actionable', 'कार्रवाई योग्य') : l('Indicative', 'संकेतात्मक')}
                         </span>
                       </div>
                     </td>

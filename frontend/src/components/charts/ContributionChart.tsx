@@ -22,8 +22,7 @@ export const ContributionChart: React.FC<ContributionChartProps> = ({
   factors,
   occupationTitle
 }) => {
-  const { language, l} = useApp();
-  const isHi = language === 'hi';
+  const { language, l } = useApp();
 
   const getIcon = (type: ExplainabilityFactor['signalType']) => {
     switch (type) {
@@ -36,69 +35,68 @@ export const ContributionChart: React.FC<ContributionChartProps> = ({
   };
 
   const getSignalTypeLabel = (type: ExplainabilityFactor['signalType']) => {
-    if (!isHi) return type;
     switch (type) {
-      case 'vacancy': return 'रिक्ति संकेत';
-      case 'employer': return 'नियोक्ता आदेश';
-      case 'capex': return 'पूंजीगत व्यय';
-      case 'skill': return 'कौशल बाधा';
-      case 'seasonality': return 'मौसमी बदलाव';
+      case 'vacancy': return l('Vacancy Signal', 'रिक्ति संकेत');
+      case 'employer': return l('Employer Orders', 'नियोक्ता आदेश');
+      case 'capex': return l('Capital Expenditure', 'पूंजीगत व्यय');
+      case 'skill': return l('Skill Bottleneck', 'कौशल बाधा');
+      case 'seasonality': return l('Seasonal Shift', 'मौसमी बदलाव');
+      default: return type;
     }
   };
 
   const getFactorLabel = (name: string) => {
-    if (!isHi) return name;
     switch (name) {
-      case 'demand_growth_12m': return '12-माह मांग वृद्धि';
+      case 'demand_growth_12m': return l('12-Month Demand Growth', '12-माह मांग वृद्धि');
       case 'rolling_mean_6':
-      case 'rolling_mean_6m': return '6-माह चलती औसत';
-      case 'rolling_mean_3': return '3-माह चलती औसत';
-      case 'rolling_mean_12': return '12-माह चलती औसत';
-      case 'lag_1': return 'पूर्व माह मांग (t-1)';
-      case 'lag_12': return 'वार्षिक अंतराल (t-12)';
-      case 'lag_1_effective_supply': return 'प्रभावी आपूर्ति आधार (t-1)';
-      case 'inter_district_migration_rate': return 'उम्मीदवार प्रवासन दर';
+      case 'rolling_mean_6m': return l('6-Month Rolling Mean', '6-माह चलती औसत');
+      case 'rolling_mean_3': return l('3-Month Rolling Mean', '3-माह चलती औसत');
+      case 'rolling_mean_12': return l('12-Month Rolling Mean', '12-माह चलती औसत');
+      case 'lag_1': return l('Prior Month Demand (t-1)', 'पूर्व माह मांग (t-1)');
+      case 'lag_12': return l('Annual Gap (t-12)', 'वार्षिक अंतराल (t-12)');
+      case 'lag_1_effective_supply': return l('Effective Supply Baseline (t-1)', 'प्रभावी आपूर्ति आधार (t-1)');
+      case 'inter_district_migration_rate': return l('Candidate Migration Rate', 'उम्मीदवार प्रवासन दर');
       case 'wage_signal':
-      case 'wage_signal_growth': return 'मजदूरी संकेत वृद्धि';
-      case 'month': return 'कैलेंडर माह मौसमी';
-      case 'nco_code': return 'व्यवसाय कोड बाधा';
+      case 'wage_signal_growth': return l('Wage Signal Growth', 'मजदूरी संकेत वृद्धि');
+      case 'month': return l('Calendar Month Seasonality', 'कैलेंडर माह मौसमी');
+      case 'nco_code': return l('Occupation Code Constraint', 'व्यवसाय कोड बाधा');
       default: return name;
     }
   };
 
   const getFactorDescription = (factor: ExplainabilityFactor) => {
-    if (!isHi) return factor.description;
+    if (language === 'en') return factor.description;
     switch (factor.name) {
       case 'rolling_mean_3':
-        return 'अल्पकालिक 3-माह चलती औसत आधारभूत मांग (+108.91 SHAP)';
+        return l('Short-term 3-month moving average baseline demand (+108.91 SHAP)', 'अल्पकालिक 3-माह चलती औसत आधारभूत मांग (+108.91 SHAP)');
       case 'lag_1':
         return factor.impactPercent >= 0 
-          ? 'पूर्ववर्ती माह भर्ती आदेश आधार रेखा t-1 (+102.25 SHAP)'
-          : 'पूर्ववर्ती माह भर्ती आदेश आधार रेखा t-1 (-34.21 SHAP)';
+          ? l('Prior month recruitment orders baseline t-1 (+102.25 SHAP)', 'पूर्ववर्ती माह भर्ती आदेश आधार रेखा t-1 (+102.25 SHAP)')
+          : l('Prior month recruitment orders baseline t-1 (-34.21 SHAP)', 'पूर्ववर्ती माह भर्ती आदेश आधार रेखा t-1 (-34.21 SHAP)');
       case 'rolling_mean_12':
         return factor.impactPercent >= 0
-          ? 'वार्षिक 12-माह चलती औसत श्रम मांग (+100.45 SHAP)'
-          : 'वार्षिक 12-माह चलती औसत श्रम मांग (-16.61 SHAP)';
+          ? l('Annual 12-month moving average labour demand (+100.45 SHAP)', 'वार्षिक 12-माह चलती औसत श्रम मांग (+100.45 SHAP)')
+          : l('Annual 12-month moving average labour demand (-16.61 SHAP)', 'वार्षिक 12-माह चलती औसत श्रम मांग (-16.61 SHAP)');
       case 'lag_12':
-        return 'पूर्व वर्ष समान माह मौसमी आधार t-12 (+21.95 SHAP)';
+        return l('Prior year same month seasonal baseline t-12 (+21.95 SHAP)', 'पूर्व वर्ष समान माह मौसमी आधार t-12 (+21.95 SHAP)');
       case 'month':
-        return 'कैलेंडर मौसमी और वित्तीय खरीद चक्र मील के पत्थर (-10.79 SHAP)';
+        return l('Calendar seasonality & fiscal procurement cycle milestones (-10.79 SHAP)', 'कैलेंडर मौसमी और वित्तीय खरीद चक्र मील के पत्थर (-10.79 SHAP)');
       case 'nco_code':
-        return 'व्यवसाय-विशिष्ट कौशल विशेषज्ञता बाधा (-5.06 SHAP)';
+        return l('Occupation-specific skill specialization barrier (-5.06 SHAP)', 'व्यवसाय-विशिष्ट कौशल विशेषज्ञता बाधा (-5.06 SHAP)');
       case 'demand_growth_12m':
-        return '12-माह संरचनात्मक मांग प्रक्षेपवक्र वृद्धि (+14.2% रुझान)';
+        return l('12-month structural demand trajectory growth (+14.2% trend)', '12-माह संरचनात्मक मांग प्रक्षेपवक्र वृद्धि (+14.2% रुझान)');
       case 'rolling_mean_6':
       case 'rolling_mean_6m':
-        return '6-माह चलती औसत आधारभूत मांग प्रक्षेपवक्र';
+        return l('6-month moving average baseline demand trajectory', '6-माह चलती औसत आधारभूत मांग प्रक्षेपवक्र');
       case 'lag_1_effective_supply':
-        return 'पूर्ववर्ती माह प्रभावी रोजगार योग्य आपूर्ति आधार t-1';
+        return l('Prior month effective employable supply baseline t-1', 'पूर्ववर्ती माह प्रभावी रोजगार योग्य आपूर्ति आधार t-1');
       case 'inter_district_migration_rate':
-        return 'अंतर-जिला उम्मीदवार प्रवासन दर एवं श्रम तरलता';
+        return l('Inter-district candidate migration rate and labor liquidity', 'अंतर-जिला उम्मीदवार प्रवासन दर एवं श्रम तरलता');
       case 'wage_signal':
       case 'wage_signal_growth':
-        return 'मजदूरी वृद्धि गतिशीलता एवं वेतन प्रीमियम संकेत';
+        return l('Wage growth momentum and compensation premium signals', 'मजदूरी वृद्धि गतिशीलता एवं वेतन प्रीमियम संकेत');
       default:
-        return 'मॉडल भविष्यवाणी की व्याख्या करने वाला अनुभवजन्य कारक अपघटन';
+        return factor.description || l('Empirical factor decomposition explaining model forecast', 'मॉडल भविष्यवाणी की व्याख्या करने वाला अनुभवजन्य कारक अपघटन');
     }
   };
 

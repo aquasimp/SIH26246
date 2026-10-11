@@ -6,6 +6,8 @@ import { GapSeverity } from '@/lib/types';
 import { useChartPalette } from '@/lib/useChartPalette';
 import { useApp } from '@/lib/store';
 
+import { getLocalizedEntityName } from '@/lib/i18n';
+
 interface GapChartProps {
   score: number;             // e.g. 84
   severity: GapSeverity;     // 'Severe Shortage'
@@ -26,17 +28,10 @@ export const GapChart: React.FC<GapChartProps> = ({
   confidence
 }) => {
   const palette = useChartPalette();
-  const { language, l} = useApp();
-  const isHi = language === 'hi';
+  const { language, l } = useApp();
 
   const getLocalizedSeverity = (sev: string) => {
-    if (!isHi) return sev;
-    const lower = sev.toLowerCase();
-    if (lower.includes('severe') && lower.includes('shortage')) return 'गंभीर कमी';
-    if (lower.includes('moderate') && lower.includes('shortage')) return 'मध्यम कमी';
-    if (lower.includes('severe') && lower.includes('oversupply')) return 'गंभीर अधिशेष';
-    if (lower.includes('balanced')) return 'संतुलित';
-    return sev;
+    return getLocalizedEntityName('severityBands', sev, language, sev);
   };
 
   // Score color

@@ -6,6 +6,7 @@ import { Provenance } from '@/components/common/Provenance';
 import { OCCUPATIONS, DISTRICTS, RECOMMENDATIONS } from '@/lib/demoData';
 import { downloadCSV, downloadJSON } from '@/lib/exportUtils';
 import { useApp } from '@/lib/store';
+import { resolveDisplayName } from '@/lib/i18n';
 import { 
   DownloadCloud, 
   Copy, 
@@ -15,8 +16,7 @@ import {
 import { clsx } from 'clsx';
 
 export default function ApiExportsPage() {
-  const { language, l} = useApp();
-  const isHi = language === 'hi';
+  const { language, l } = useApp();
   const [activeTab, setActiveTab] = useState<'forecast' | 'gap' | 'recommendation' | 'district' | 'occupation'>('forecast');
   const [copied, setCopied] = useState(false);
 
@@ -51,7 +51,7 @@ export default function ApiExportsPage() {
           summary: { shortage_count: 124, balanced_count: 416, oversupply_count: 87 },
           top_gaps: OCCUPATIONS.slice(0, 3).map(o => ({
             nco: o.ncoCode,
-            title: isHi && o.titleHi ? o.titleHi : o.title,
+            title: resolveDisplayName(o, language),
             current_demand: o.currentDemand,
             effective_supply: o.effectiveSupply,
             gap_score: o.gapScore,

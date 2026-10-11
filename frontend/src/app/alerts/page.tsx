@@ -25,8 +25,7 @@ import { getLocalizedEntityName } from '@/lib/i18n';
 import { toast } from 'sonner';
 
 export default function AlertsPage() {
-  const { alerts, acknowledgeAlert, language, l} = useApp();
-  const isHi = language === 'hi';
+  const { alerts, acknowledgeAlert, language, l } = useApp();
   const [selectedSeverity, setSelectedSeverity] = useState<string>('all');
   const [selectedType, setSelectedType] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState<string>('');
@@ -48,13 +47,13 @@ export default function AlertsPage() {
         a.id,
         a.severity,
         a.type,
-        isHi ? (a.titleHi || a.title) : a.title,
-        isHi ? (a.geographyHi || a.geography) : a.geography,
-        isHi ? (a.occupationHi || a.occupation) : a.occupation,
-        isHi ? (a.triggerHi || a.trigger) : a.trigger,
+        l(a.title, a.titleHi || a.title),
+        getLocalizedEntityName('districts', a.geography, language, a.geographyHi || a.geography),
+        getLocalizedEntityName('occupations', a.occupation, language, a.occupationHi || a.occupation),
+        l(a.trigger, a.triggerHi || a.trigger),
         a.forecastHorizon,
         `${a.confidence}%`,
-        isHi ? (a.recommendedActionHi || a.recommendedAction) : a.recommendedAction,
+        l(a.recommendedAction, a.recommendedActionHi || a.recommendedAction),
         a.acknowledged ? (l('Acknowledged', 'स्वीकृत')) : (l('Active', 'सक्रिय'))
       ])
     ];
@@ -63,10 +62,9 @@ export default function AlertsPage() {
   };
 
   const getSeverityBadgeText = (sev: string) => {
-    if (!isHi) return sev;
-    if (sev === 'critical') return 'अति गंभीर';
-    if (sev === 'warning') return 'चेतावनी';
-    if (sev === 'info') return 'सूचना';
+    if (sev === 'critical') return l('Critical', 'अति गंभीर');
+    if (sev === 'warning') return l('Warning', 'चेतावनी');
+    if (sev === 'info') return l('Info', 'सूचना');
     return sev;
   };
 
@@ -112,13 +110,13 @@ export default function AlertsPage() {
             </span>
           </div>
           <p className="text-[var(--text-muted)] text-[11px] leading-relaxed">
-            {isHi ? (
+            {language === 'en' ? (
               <>
-                6 एल्गोरिद्मिक अलर्ट श्रेणियों में से <strong>4 श्रेणियां आधिकारिक डेटासेट पर ट्रिगर होती हैं</strong>: <strong>1 सतत गंभीर कमी</strong> (गोरखपुर सोलर पीवी इंस्टॉलर, अंतर स्कोर 94 पर 3/3 अवधियां), <strong>1 महत्वपूर्ण उभरती कमी</strong> (राजकोट में ड्रोन रखरखाव), <strong>30 क्षमता अक्षमताएं</strong> (भौतिक प्रशिक्षण सीटें मांग से 2.0 गुना अधिक), और <strong>3 कौशल अप्रचलन जोखिम</strong> (पारंपरिक वस्त्र व एचवीएसी)। शीर्ष प्राथमिकता वाले अलर्ट नीचे प्रदर्शित हैं।
+                Of the 6 algorithmic alert categories, <strong>4 categories fire on the official dataset</strong>: <strong>1 Persistent Severe Shortage</strong> (Gorakhpur Solar PV Installer with 3/3 periods at Gap Score 94), <strong>1 Critical Emerging Shortage</strong> (Drone Maintenance in Rajkot), <strong>30 Capacity Inefficiencies</strong> (physical training seats &gt; 2.0× demand, ranked by wasted seats), and <strong>3 Skill Obsolescence Risks</strong> (legacy garments &amp; HVAC). The top prioritized alerts are surfaced below.
               </>
             ) : (
               <>
-                Of the 6 algorithmic alert categories, <strong>4 categories fire on the official dataset</strong>: <strong>1 Persistent Severe Shortage</strong> (Gorakhpur Solar PV Installer with 3/3 periods at Gap Score 94), <strong>1 Critical Emerging Shortage</strong> (Drone Maintenance in Rajkot), <strong>30 Capacity Inefficiencies</strong> (physical training seats &gt; 2.0× demand, ranked by wasted seats), and <strong>3 Skill Obsolescence Risks</strong> (legacy garments &amp; HVAC). The top prioritized alerts are surfaced below.
+                {l('Of the 6 algorithmic alert categories, 4 categories fire on the official dataset: 1 Persistent Severe Shortage (Gorakhpur Solar PV Installer with 3/3 periods at Gap Score 94), 1 Critical Emerging Shortage (Drone Maintenance in Rajkot), 30 Capacity Inefficiencies (physical training seats > 2.0x demand), and 3 Skill Obsolescence Risks (legacy garments & HVAC). The top prioritized alerts are surfaced below.', '6 एल्गोरिद्मिक अलर्ट श्रेणियों में से 4 श्रेणियां आधिकारिक डेटासेट पर ट्रिगर होती हैं: 1 सतत गंभीर कमी (गोरखपुर सोलर पीवी इंस्टॉलर, अंतर स्कोर 94 पर 3/3 अवधियां), 1 महत्वपूर्ण उभरती कमी (राजकोट में ड्रोन रखरखाव), 30 क्षमता अक्षमताएं (भौतिक प्रशिक्षण सीटें मांग से 2.0 गुना अधिक), और 3 कौशल अप्रचलन जोखिम (पारंपरिक वस्त्र व एचवीएसी)। शीर्ष प्राथमिकता वाले अलर्ट नीचे प्रदर्शित हैं।')}
               </>
             )}
           </p>
@@ -201,13 +199,13 @@ export default function AlertsPage() {
                   </span>
 
                   <span className="text-xs font-bold text-[var(--text)]">
-                    {isHi ? (alert.geographyHi || alert.geography) : alert.geography}
+                    {getLocalizedEntityName('districts', alert.geography, language, alert.geographyHi || alert.geography)}
                   </span>
 
                   <span className="text-xs text-[var(--text-faint)]">•</span>
 
                   <span className="text-xs font-semibold text-[var(--brand)] bg-[var(--brand)]/10 px-2.5 py-0.5 rounded-md border border-[var(--brand)]/20">
-                    {isHi ? (alert.occupationHi || alert.occupation) : alert.occupation} (NCO {alert.ncoCode})
+                    {getLocalizedEntityName('occupations', alert.occupation, language, alert.occupationHi || alert.occupation)} (NCO {alert.ncoCode})
                   </span>
 
                   {alert.wastedSeats && (
@@ -226,11 +224,11 @@ export default function AlertsPage() {
 
               {/* Title & Trigger */}
               <h3 className="text-base font-bold text-[var(--text)] mb-1.5">
-                {isHi ? (alert.titleHi || alert.title) : alert.title}
+                {l(alert.title, alert.titleHi || alert.title)}
               </h3>
 
               <p className="text-xs sm:text-sm text-[var(--text-muted)] mb-3 leading-relaxed">
-                <strong className="text-[var(--text)]">{l('Trigger:', 'ट्रिगर:')}</strong> {isHi ? (alert.triggerHi || alert.trigger) : alert.trigger}
+                <strong className="text-[var(--text)]">{l('Trigger:', 'ट्रिगर:')}</strong> {l(alert.trigger, alert.triggerHi || alert.trigger)}
               </p>
 
               {/* Context Label Callout (Section 4: Context, not model output) */}
@@ -242,9 +240,12 @@ export default function AlertsPage() {
                       {l('Context, not model output', 'संदर्भ, मॉडल आउटपुट नहीं')}
                     </span>
                     <p className="text-[var(--text)] font-normal mt-0.5 leading-relaxed">
-                      {isHi 
-                        ? (alert.contextHi || alert.context || '').replace(/^संदर्भ,\s*मॉडल आउटपुट नहीं:\s*/i, '')
-                        : (alert.context || '').replace(/^Context,\s*not model output:\s*/i, '')}
+                      {language === 'en'
+                        ? (alert.context || '').replace(/^Context,\s*not model output:\s*/i, '')
+                        : l(
+                            (alert.context || '').replace(/^Context,\s*not model output:\s*/i, ''),
+                            (alert.contextHi || alert.context || '').replace(/^संदर्भ,\s*मॉडल आउटपुट नहीं:\s*/i, '')
+                          )}
                     </p>
                   </div>
                 </div>
@@ -256,7 +257,7 @@ export default function AlertsPage() {
                   {l('Algorithmic Policy Recommendation', 'एल्गोरिद्मिक नीति सिफारिश')}
                 </span>
                 <p className="text-[var(--text)] font-medium leading-relaxed">
-                  {isHi ? (alert.recommendedActionHi || alert.recommendedAction) : alert.recommendedAction}
+                  {l(alert.recommendedAction, alert.recommendedActionHi || alert.recommendedAction)}
                 </p>
               </div>
             </div>
