@@ -149,8 +149,8 @@ export function CommandPalette({ open, onOpenChange, onToggleFocusMode }: Comman
               )}
             </Command.Group>
 
-            {/* Languages (7 Scheduled Regional Languages) */}
-            <Command.Group heading={<span className="px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-[var(--text-faint)] block mt-2">{l("Languages & Localization (7 Scheduled Languages)", "भाषा स्थानीयकरण (7 अनुसूचित भाषाएं)")}</span>}>
+            {/* Languages */}
+            <Command.Group heading={<span className="px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-[var(--text-faint)] block mt-2">{l("Languages & Localization", "भाषा एवं स्थानीयकरण")}</span>}>
               {SUPPORTED_LANGUAGES.map((langItem) => {
                 const isCurrent = language === langItem.code;
                 return (

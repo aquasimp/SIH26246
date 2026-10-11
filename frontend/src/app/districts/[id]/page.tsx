@@ -171,10 +171,10 @@ export default function DistrictDetailPage({ params }: { params: Promise<{ id: s
             {l('Training Capacity', 'प्रशिक्षण क्षमता')}
           </span>
           <div className="text-xl sm:text-2xl font-extrabold text-[var(--brand)] font-mono my-1">
-            {d.trainingCentresCount} {l('Centres', 'केंद्र')}
+            {d.totalTrainingSeats} {l('Seats', 'सीटें')}
           </div>
           <span className="text-[11px] text-[var(--text-faint)] font-semibold">
-            {d.totalTrainingSeats} {l('Active Seats', 'सक्रिय सीटें')}
+            {d.activeEmployers} {l('Active Employers', 'सक्रिय नियोक्ता')}
           </span>
         </div>
       </div>

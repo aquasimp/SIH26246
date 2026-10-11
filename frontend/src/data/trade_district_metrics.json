@@ -1,0 +1,2258 @@
+{
+  "ahmedabad": {
+    "districtId": "ahmedabad",
+    "districtName": "Ahmedabad",
+    "districtNameHi": "अहमदाबाद",
+    "state": "Gujarat",
+    "lgdCode": 442,
+    "maxGapScore": 79,
+    "overallDemand": 77,
+    "overallSupply": 30,
+    "overallSurplus": -5373,
+    "trades": {
+      "AI/ML Data Annotation Specialist": {
+        "demand": 562,
+        "effectiveSupply": 242,
+        "gapScore": 78,
+        "capacitySurplusSeats": -320,
+        "confidence": 80,
+        "titleHi": "एआई/एमएल डेटा एनोटेशन विशेषज्ञ"
+      },
+      "Automotive Assembly Fitter": {
+        "demand": 644,
+        "effectiveSupply": 332,
+        "gapScore": 74,
+        "capacitySurplusSeats": -312,
+        "confidence": 81,
+        "titleHi": "ऑटोमोटिव असेंबली फिटर"
+      },
+      "CNC Machine Operator": {
+        "demand": 902,
+        "effectiveSupply": 456,
+        "gapScore": 75,
+        "capacitySurplusSeats": -446,
+        "confidence": 80,
+        "titleHi": "सीएनसी मशीन ऑपरेटर"
+      },
+      "Cold Storage & HVAC Mechanic": {
+        "demand": 336,
+        "effectiveSupply": 188,
+        "gapScore": 72,
+        "capacitySurplusSeats": -148,
+        "confidence": 81,
+        "titleHi": "कोल्ड स्टोरेज एवं एचवीएसी मैकेनिक"
+      },
+      "Community Health Assistant": {
+        "demand": 929,
+        "effectiveSupply": 399,
+        "gapScore": 79,
+        "capacitySurplusSeats": -530,
+        "confidence": 80,
+        "titleHi": "सामुदायिक स्वास्थ्य सहायक"
+      },
+      "Data Entry Operator": {
+        "demand": 522,
+        "effectiveSupply": 230,
+        "gapScore": 78,
+        "capacitySurplusSeats": -292,
+        "confidence": 80,
+        "titleHi": "डेटा एंट्री ऑपरेटर"
+      },
+      "Domestic Electrician & Wireman": {
+        "demand": 1176,
+        "effectiveSupply": 600,
+        "gapScore": 74,
+        "capacitySurplusSeats": -576,
+        "confidence": 81,
+        "titleHi": "घरेलू इलेक्ट्रीशियन एवं वायरमैन"
+      },
+      "Drone Maintenance Technician": {
+        "demand": 257,
+        "effectiveSupply": 111,
+        "gapScore": 78,
+        "capacitySurplusSeats": -146,
+        "confidence": 80,
+        "titleHi": "ड्रोन रखरखाव तकनीशियन"
+      },
+      "EV Service Technician": {
+        "demand": 683,
+        "effectiveSupply": 311,
+        "gapScore": 77,
+        "capacitySurplusSeats": -372,
+        "confidence": 80,
+        "titleHi": "ईवी सर्विस तकनीशियन"
+      },
+      "Industrial Automation Technician": {
+        "demand": 580,
+        "effectiveSupply": 276,
+        "gapScore": 76,
+        "capacitySurplusSeats": -304,
+        "confidence": 80,
+        "titleHi": "औद्योगिक स्वचालन तकनीशियन"
+      },
+      "Retail Sales Associate": {
+        "demand": 422,
+        "effectiveSupply": 203,
+        "gapScore": 76,
+        "capacitySurplusSeats": -219,
+        "confidence": 80,
+        "titleHi": "रिटेल सेल्स एसोसिएट"
+      },
+      "Sewing Machine Operator": {
+        "demand": 373,
+        "effectiveSupply": 192,
+        "gapScore": 74,
+        "capacitySurplusSeats": -181,
+        "confidence": 81,
+        "titleHi": "सिलाई मशीन ऑपरेटर"
+      },
+      "Smart Meter Installation Technician": {
+        "demand": 677,
+        "effectiveSupply": 294,
+        "gapScore": 78,
+        "capacitySurplusSeats": -383,
+        "confidence": 80,
+        "titleHi": "स्मार्ट मीटर इंस्टॉलेशन तकनीशियन"
+      },
+      "Solar PV Installer": {
+        "demand": 1013,
+        "effectiveSupply": 501,
+        "gapScore": 75,
+        "capacitySurplusSeats": -512,
+        "confidence": 80,
+        "titleHi": "सोलर पीवी इंस्टॉलर"
+      },
+      "Solar Pump Technician": {
+        "demand": 426,
+        "effectiveSupply": 213,
+        "gapScore": 75,
+        "capacitySurplusSeats": -213,
+        "confidence": 80,
+        "titleHi": "सोलर पंप तकनीशियन"
+      },
+      "Warehouse Logistics Executive": {
+        "demand": 776,
+        "effectiveSupply": 357,
+        "gapScore": 77,
+        "capacitySurplusSeats": -419,
+        "confidence": 80,
+        "titleHi": "वेयरहाउस लॉजिस्टिक्स एक्जीक्यूटिव"
+      }
+    }
+  },
+  "bengaluru_urban": {
+    "districtId": "bengaluru_urban",
+    "districtName": "Bengaluru Urban",
+    "districtNameHi": "बेंगलुरु शहरी",
+    "state": "Karnataka",
+    "lgdCode": 530,
+    "maxGapScore": 78,
+    "overallDemand": 84,
+    "overallSupply": 30,
+    "overallSurplus": -5694,
+    "trades": {
+      "AI/ML Data Annotation Specialist": {
+        "demand": 680,
+        "effectiveSupply": 330,
+        "gapScore": 76,
+        "capacitySurplusSeats": -350,
+        "confidence": 80,
+        "titleHi": "एआई/एमएल डेटा एनोटेशन विशेषज्ञ"
+      },
+      "Automotive Assembly Fitter": {
+        "demand": 662,
+        "effectiveSupply": 357,
+        "gapScore": 73,
+        "capacitySurplusSeats": -305,
+        "confidence": 81,
+        "titleHi": "ऑटोमोटिव असेंबली फिटर"
+      },
+      "CNC Machine Operator": {
+        "demand": 976,
+        "effectiveSupply": 439,
+        "gapScore": 78,
+        "capacitySurplusSeats": -537,
+        "confidence": 80,
+        "titleHi": "सीएनसी मशीन ऑपरेटर"
+      },
+      "Cold Storage & HVAC Mechanic": {
+        "demand": 388,
+        "effectiveSupply": 188,
+        "gapScore": 76,
+        "capacitySurplusSeats": -200,
+        "confidence": 80,
+        "titleHi": "कोल्ड स्टोरेज एवं एचवीएसी मैकेनिक"
+      },
+      "Community Health Assistant": {
+        "demand": 1164,
+        "effectiveSupply": 646,
+        "gapScore": 72,
+        "capacitySurplusSeats": -518,
+        "confidence": 81,
+        "titleHi": "सामुदायिक स्वास्थ्य सहायक"
+      },
+      "Data Entry Operator": {
+        "demand": 564,
+        "effectiveSupply": 245,
+        "gapScore": 78,
+        "capacitySurplusSeats": -319,
+        "confidence": 80,
+        "titleHi": "डेटा एंट्री ऑपरेटर"
+      },
+      "Domestic Electrician & Wireman": {
+        "demand": 1272,
+        "effectiveSupply": 579,
+        "gapScore": 77,
+        "capacitySurplusSeats": -693,
+        "confidence": 80,
+        "titleHi": "घरेलू इलेक्ट्रीशियन एवं वायरमैन"
+      },
+      "Drone Maintenance Technician": {
+        "demand": 301,
+        "effectiveSupply": 169,
+        "gapScore": 72,
+        "capacitySurplusSeats": -132,
+        "confidence": 81,
+        "titleHi": "ड्रोन रखरखाव तकनीशियन"
+      },
+      "EV Service Technician": {
+        "demand": 577,
+        "effectiveSupply": 280,
+        "gapScore": 76,
+        "capacitySurplusSeats": -297,
+        "confidence": 80,
+        "titleHi": "ईवी सर्विस तकनीशियन"
+      },
+      "Industrial Automation Technician": {
+        "demand": 466,
+        "effectiveSupply": 247,
+        "gapScore": 73,
+        "capacitySurplusSeats": -219,
+        "confidence": 81,
+        "titleHi": "औद्योगिक स्वचालन तकनीशियन"
+      },
+      "Retail Sales Associate": {
+        "demand": 397,
+        "effectiveSupply": 222,
+        "gapScore": 72,
+        "capacitySurplusSeats": -175,
+        "confidence": 81,
+        "titleHi": "रिटेल सेल्स एसोसिएट"
+      },
+      "Sewing Machine Operator": {
+        "demand": 513,
+        "effectiveSupply": 246,
+        "gapScore": 76,
+        "capacitySurplusSeats": -267,
+        "confidence": 80,
+        "titleHi": "सिलाई मशीन ऑपरेटर"
+      },
+      "Smart Meter Installation Technician": {
+        "demand": 861,
+        "effectiveSupply": 405,
+        "gapScore": 76,
+        "capacitySurplusSeats": -456,
+        "confidence": 80,
+        "titleHi": "स्मार्ट मीटर इंस्टॉलेशन तकनीशियन"
+      },
+      "Solar PV Installer": {
+        "demand": 1057,
+        "effectiveSupply": 497,
+        "gapScore": 76,
+        "capacitySurplusSeats": -560,
+        "confidence": 80,
+        "titleHi": "सोलर पीवी इंस्टॉलर"
+      },
+      "Solar Pump Technician": {
+        "demand": 476,
+        "effectiveSupply": 267,
+        "gapScore": 72,
+        "capacitySurplusSeats": -209,
+        "confidence": 81,
+        "titleHi": "सोलर पंप तकनीशियन"
+      },
+      "Warehouse Logistics Executive": {
+        "demand": 847,
+        "effectiveSupply": 390,
+        "gapScore": 77,
+        "capacitySurplusSeats": -457,
+        "confidence": 80,
+        "titleHi": "वेयरहाउस लॉजिस्टिक्स एक्जीक्यूटिव"
+      }
+    }
+  },
+  "chhatrapati_sambhajinagar": {
+    "districtId": "chhatrapati_sambhajinagar",
+    "districtName": "Chhatrapati Sambhajinagar",
+    "districtNameHi": "छत्रपति संभाजीनगर",
+    "state": "Maharashtra",
+    "lgdCode": 480,
+    "maxGapScore": 78,
+    "overallDemand": 50,
+    "overallSupply": 31,
+    "overallSurplus": -3271,
+    "trades": {
+      "AI/ML Data Annotation Specialist": {
+        "demand": 426,
+        "effectiveSupply": 205,
+        "gapScore": 76,
+        "capacitySurplusSeats": -221,
+        "confidence": 80,
+        "titleHi": "एआई/एमएल डेटा एनोटेशन विशेषज्ञ"
+      },
+      "Automotive Assembly Fitter": {
+        "demand": 556,
+        "effectiveSupply": 293,
+        "gapScore": 74,
+        "capacitySurplusSeats": -263,
+        "confidence": 81,
+        "titleHi": "ऑटोमोटिव असेंबली फिटर"
+      },
+      "CNC Machine Operator": {
+        "demand": 545,
+        "effectiveSupply": 318,
+        "gapScore": 71,
+        "capacitySurplusSeats": -227,
+        "confidence": 81,
+        "titleHi": "सीएनसी मशीन ऑपरेटर"
+      },
+      "Cold Storage & HVAC Mechanic": {
+        "demand": 223,
+        "effectiveSupply": 131,
+        "gapScore": 71,
+        "capacitySurplusSeats": -92,
+        "confidence": 81,
+        "titleHi": "कोल्ड स्टोरेज एवं एचवीएसी मैकेनिक"
+      },
+      "Community Health Assistant": {
+        "demand": 543,
+        "effectiveSupply": 241,
+        "gapScore": 78,
+        "capacitySurplusSeats": -302,
+        "confidence": 80,
+        "titleHi": "सामुदायिक स्वास्थ्य सहायक"
+      },
+      "Data Entry Operator": {
+        "demand": 321,
+        "effectiveSupply": 169,
+        "gapScore": 74,
+        "capacitySurplusSeats": -152,
+        "confidence": 81,
+        "titleHi": "डेटा एंट्री ऑपरेटर"
+      },
+      "Domestic Electrician & Wireman": {
+        "demand": 699,
+        "effectiveSupply": 368,
+        "gapScore": 74,
+        "capacitySurplusSeats": -331,
+        "confidence": 81,
+        "titleHi": "घरेलू इलेक्ट्रीशियन एवं वायरमैन"
+      },
+      "Drone Maintenance Technician": {
+        "demand": 224,
+        "effectiveSupply": 109,
+        "gapScore": 76,
+        "capacitySurplusSeats": -115,
+        "confidence": 80,
+        "titleHi": "ड्रोन रखरखाव तकनीशियन"
+      },
+      "EV Service Technician": {
+        "demand": 440,
+        "effectiveSupply": 227,
+        "gapScore": 74,
+        "capacitySurplusSeats": -213,
+        "confidence": 81,
+        "titleHi": "ईवी सर्विस तकनीशियन"
+      },
+      "Industrial Automation Technician": {
+        "demand": 376,
+        "effectiveSupply": 165,
+        "gapScore": 78,
+        "capacitySurplusSeats": -211,
+        "confidence": 80,
+        "titleHi": "औद्योगिक स्वचालन तकनीशियन"
+      },
+      "Retail Sales Associate": {
+        "demand": 304,
+        "effectiveSupply": 168,
+        "gapScore": 72,
+        "capacitySurplusSeats": -136,
+        "confidence": 81,
+        "titleHi": "रिटेल सेल्स एसोसिएट"
+      },
+      "Sewing Machine Operator": {
+        "demand": 231,
+        "effectiveSupply": 118,
+        "gapScore": 74,
+        "capacitySurplusSeats": -113,
+        "confidence": 81,
+        "titleHi": "सिलाई मशीन ऑपरेटर"
+      },
+      "Smart Meter Installation Technician": {
+        "demand": 375,
+        "effectiveSupply": 198,
+        "gapScore": 74,
+        "capacitySurplusSeats": -177,
+        "confidence": 81,
+        "titleHi": "स्मार्ट मीटर इंस्टॉलेशन तकनीशियन"
+      },
+      "Solar PV Installer": {
+        "demand": 600,
+        "effectiveSupply": 307,
+        "gapScore": 74,
+        "capacitySurplusSeats": -293,
+        "confidence": 81,
+        "titleHi": "सोलर पीवी इंस्टॉलर"
+      },
+      "Solar Pump Technician": {
+        "demand": 329,
+        "effectiveSupply": 146,
+        "gapScore": 78,
+        "capacitySurplusSeats": -183,
+        "confidence": 80,
+        "titleHi": "सोलर पंप तकनीशियन"
+      },
+      "Warehouse Logistics Executive": {
+        "demand": 457,
+        "effectiveSupply": 215,
+        "gapScore": 76,
+        "capacitySurplusSeats": -242,
+        "confidence": 80,
+        "titleHi": "वेयरहाउस लॉजिस्टिक्स एक्जीक्यूटिव"
+      }
+    }
+  },
+  "coimbatore": {
+    "districtId": "coimbatore",
+    "districtName": "Coimbatore",
+    "districtNameHi": "कोयंबटूर",
+    "state": "Tamil Nadu",
+    "lgdCode": 597,
+    "maxGapScore": 78,
+    "overallDemand": 67,
+    "overallSupply": 31,
+    "overallSurplus": -4058,
+    "trades": {
+      "AI/ML Data Annotation Specialist": {
+        "demand": 412,
+        "effectiveSupply": 192,
+        "gapScore": 77,
+        "capacitySurplusSeats": -220,
+        "confidence": 80,
+        "titleHi": "एआई/एमएल डेटा एनोटेशन विशेषज्ञ"
+      },
+      "Automotive Assembly Fitter": {
+        "demand": 516,
+        "effectiveSupply": 256,
+        "gapScore": 75,
+        "capacitySurplusSeats": -260,
+        "confidence": 80,
+        "titleHi": "ऑटोमोटिव असेंबली फिटर"
+      },
+      "CNC Machine Operator": {
+        "demand": 785,
+        "effectiveSupply": 410,
+        "gapScore": 74,
+        "capacitySurplusSeats": -375,
+        "confidence": 81,
+        "titleHi": "सीएनसी मशीन ऑपरेटर"
+      },
+      "Cold Storage & HVAC Mechanic": {
+        "demand": 390,
+        "effectiveSupply": 183,
+        "gapScore": 77,
+        "capacitySurplusSeats": -207,
+        "confidence": 80,
+        "titleHi": "कोल्ड स्टोरेज एवं एचवीएसी मैकेनिक"
+      },
+      "Community Health Assistant": {
+        "demand": 656,
+        "effectiveSupply": 295,
+        "gapScore": 78,
+        "capacitySurplusSeats": -361,
+        "confidence": 80,
+        "titleHi": "सामुदायिक स्वास्थ्य सहायक"
+      },
+      "Data Entry Operator": {
+        "demand": 358,
+        "effectiveSupply": 211,
+        "gapScore": 71,
+        "capacitySurplusSeats": -147,
+        "confidence": 81,
+        "titleHi": "डेटा एंट्री ऑपरेटर"
+      },
+      "Domestic Electrician & Wireman": {
+        "demand": 761,
+        "effectiveSupply": 362,
+        "gapScore": 76,
+        "capacitySurplusSeats": -399,
+        "confidence": 80,
+        "titleHi": "घरेलू इलेक्ट्रीशियन एवं वायरमैन"
+      },
+      "Drone Maintenance Technician": {
+        "demand": 223,
+        "effectiveSupply": 99,
+        "gapScore": 78,
+        "capacitySurplusSeats": -124,
+        "confidence": 80,
+        "titleHi": "ड्रोन रखरखाव तकनीशियन"
+      },
+      "EV Service Technician": {
+        "demand": 578,
+        "effectiveSupply": 323,
+        "gapScore": 72,
+        "capacitySurplusSeats": -255,
+        "confidence": 81,
+        "titleHi": "ईवी सर्विस तकनीशियन"
+      },
+      "Industrial Automation Technician": {
+        "demand": 495,
+        "effectiveSupply": 289,
+        "gapScore": 71,
+        "capacitySurplusSeats": -206,
+        "confidence": 81,
+        "titleHi": "औद्योगिक स्वचालन तकनीशियन"
+      },
+      "Retail Sales Associate": {
+        "demand": 338,
+        "effectiveSupply": 171,
+        "gapScore": 75,
+        "capacitySurplusSeats": -167,
+        "confidence": 80,
+        "titleHi": "रिटेल सेल्स एसोसिएट"
+      },
+      "Sewing Machine Operator": {
+        "demand": 380,
+        "effectiveSupply": 173,
+        "gapScore": 77,
+        "capacitySurplusSeats": -207,
+        "confidence": 80,
+        "titleHi": "सिलाई मशीन ऑपरेटर"
+      },
+      "Smart Meter Installation Technician": {
+        "demand": 594,
+        "effectiveSupply": 301,
+        "gapScore": 75,
+        "capacitySurplusSeats": -293,
+        "confidence": 80,
+        "titleHi": "स्मार्ट मीटर इंस्टॉलेशन तकनीशियन"
+      },
+      "Solar PV Installer": {
+        "demand": 719,
+        "effectiveSupply": 364,
+        "gapScore": 75,
+        "capacitySurplusSeats": -355,
+        "confidence": 80,
+        "titleHi": "सोलर पीवी इंस्टॉलर"
+      },
+      "Solar Pump Technician": {
+        "demand": 476,
+        "effectiveSupply": 256,
+        "gapScore": 73,
+        "capacitySurplusSeats": -220,
+        "confidence": 81,
+        "titleHi": "सोलर पंप तकनीशियन"
+      },
+      "Warehouse Logistics Executive": {
+        "demand": 606,
+        "effectiveSupply": 344,
+        "gapScore": 72,
+        "capacitySurplusSeats": -262,
+        "confidence": 81,
+        "titleHi": "वेयरहाउस लॉजिस्टिक्स एक्जीक्यूटिव"
+      }
+    }
+  },
+  "dharwad": {
+    "districtId": "dharwad",
+    "districtName": "Dharwad",
+    "districtNameHi": "धारवाड़",
+    "state": "Karnataka",
+    "lgdCode": 541,
+    "maxGapScore": 79,
+    "overallDemand": 48,
+    "overallSupply": 30,
+    "overallSurplus": -3112,
+    "trades": {
+      "AI/ML Data Annotation Specialist": {
+        "demand": 298,
+        "effectiveSupply": 136,
+        "gapScore": 77,
+        "capacitySurplusSeats": -162,
+        "confidence": 80,
+        "titleHi": "एआई/एमएल डेटा एनोटेशन विशेषज्ञ"
+      },
+      "Automotive Assembly Fitter": {
+        "demand": 397,
+        "effectiveSupply": 222,
+        "gapScore": 72,
+        "capacitySurplusSeats": -175,
+        "confidence": 81,
+        "titleHi": "ऑटोमोटिव असेंबली फिटर"
+      },
+      "CNC Machine Operator": {
+        "demand": 490,
+        "effectiveSupply": 211,
+        "gapScore": 78,
+        "capacitySurplusSeats": -279,
+        "confidence": 80,
+        "titleHi": "सीएनसी मशीन ऑपरेटर"
+      },
+      "Cold Storage & HVAC Mechanic": {
+        "demand": 219,
+        "effectiveSupply": 94,
+        "gapScore": 79,
+        "capacitySurplusSeats": -125,
+        "confidence": 80,
+        "titleHi": "कोल्ड स्टोरेज एवं एचवीएसी मैकेनिक"
+      },
+      "Community Health Assistant": {
+        "demand": 631,
+        "effectiveSupply": 268,
+        "gapScore": 79,
+        "capacitySurplusSeats": -363,
+        "confidence": 80,
+        "titleHi": "सामुदायिक स्वास्थ्य सहायक"
+      },
+      "Data Entry Operator": {
+        "demand": 239,
+        "effectiveSupply": 129,
+        "gapScore": 73,
+        "capacitySurplusSeats": -110,
+        "confidence": 81,
+        "titleHi": "डेटा एंट्री ऑपरेटर"
+      },
+      "Domestic Electrician & Wireman": {
+        "demand": 570,
+        "effectiveSupply": 302,
+        "gapScore": 74,
+        "capacitySurplusSeats": -268,
+        "confidence": 81,
+        "titleHi": "घरेलू इलेक्ट्रीशियन एवं वायरमैन"
+      },
+      "Drone Maintenance Technician": {
+        "demand": 235,
+        "effectiveSupply": 110,
+        "gapScore": 77,
+        "capacitySurplusSeats": -125,
+        "confidence": 80,
+        "titleHi": "ड्रोन रखरखाव तकनीशियन"
+      },
+      "EV Service Technician": {
+        "demand": 402,
+        "effectiveSupply": 211,
+        "gapScore": 74,
+        "capacitySurplusSeats": -191,
+        "confidence": 81,
+        "titleHi": "ईवी सर्विस तकनीशियन"
+      },
+      "Industrial Automation Technician": {
+        "demand": 358,
+        "effectiveSupply": 204,
+        "gapScore": 72,
+        "capacitySurplusSeats": -154,
+        "confidence": 81,
+        "titleHi": "औद्योगिक स्वचालन तकनीशियन"
+      },
+      "Retail Sales Associate": {
+        "demand": 274,
+        "effectiveSupply": 151,
+        "gapScore": 72,
+        "capacitySurplusSeats": -123,
+        "confidence": 81,
+        "titleHi": "रिटेल सेल्स एसोसिएट"
+      },
+      "Sewing Machine Operator": {
+        "demand": 275,
+        "effectiveSupply": 122,
+        "gapScore": 78,
+        "capacitySurplusSeats": -153,
+        "confidence": 80,
+        "titleHi": "सिलाई मशीन ऑपरेटर"
+      },
+      "Smart Meter Installation Technician": {
+        "demand": 438,
+        "effectiveSupply": 243,
+        "gapScore": 72,
+        "capacitySurplusSeats": -195,
+        "confidence": 81,
+        "titleHi": "स्मार्ट मीटर इंस्टॉलेशन तकनीशियन"
+      },
+      "Solar PV Installer": {
+        "demand": 593,
+        "effectiveSupply": 302,
+        "gapScore": 75,
+        "capacitySurplusSeats": -291,
+        "confidence": 80,
+        "titleHi": "सोलर पीवी इंस्टॉलर"
+      },
+      "Solar Pump Technician": {
+        "demand": 344,
+        "effectiveSupply": 163,
+        "gapScore": 76,
+        "capacitySurplusSeats": -181,
+        "confidence": 80,
+        "titleHi": "सोलर पंप तकनीशियन"
+      },
+      "Warehouse Logistics Executive": {
+        "demand": 438,
+        "effectiveSupply": 221,
+        "gapScore": 75,
+        "capacitySurplusSeats": -217,
+        "confidence": 80,
+        "titleHi": "वेयरहाउस लॉजिस्टिक्स एक्जीक्यूटिव"
+      }
+    }
+  },
+  "gorakhpur": {
+    "districtId": "gorakhpur",
+    "districtName": "Gorakhpur",
+    "districtNameHi": "गोरखपुर",
+    "state": "Uttar Pradesh",
+    "lgdCode": 178,
+    "maxGapScore": 94,
+    "overallDemand": 63,
+    "overallSupply": 30,
+    "overallSurplus": -4108,
+    "trades": {
+      "AI/ML Data Annotation Specialist": {
+        "demand": 510,
+        "effectiveSupply": 247,
+        "gapScore": 76,
+        "capacitySurplusSeats": -263,
+        "confidence": 80,
+        "titleHi": "एआई/एमएल डेटा एनोटेशन विशेषज्ञ"
+      },
+      "Automotive Assembly Fitter": {
+        "demand": 676,
+        "effectiveSupply": 365,
+        "gapScore": 73,
+        "capacitySurplusSeats": -311,
+        "confidence": 81,
+        "titleHi": "ऑटोमोटिव असेंबली फिटर"
+      },
+      "CNC Machine Operator": {
+        "demand": 732,
+        "effectiveSupply": 403,
+        "gapScore": 72,
+        "capacitySurplusSeats": -329,
+        "confidence": 81,
+        "titleHi": "सीएनसी मशीन ऑपरेटर"
+      },
+      "Cold Storage & HVAC Mechanic": {
+        "demand": 322,
+        "effectiveSupply": 156,
+        "gapScore": 76,
+        "capacitySurplusSeats": -166,
+        "confidence": 80,
+        "titleHi": "कोल्ड स्टोरेज एवं एचवीएसी मैकेनिक"
+      },
+      "Community Health Assistant": {
+        "demand": 662,
+        "effectiveSupply": 341,
+        "gapScore": 74,
+        "capacitySurplusSeats": -321,
+        "confidence": 81,
+        "titleHi": "सामुदायिक स्वास्थ्य सहायक"
+      },
+      "Data Entry Operator": {
+        "demand": 363,
+        "effectiveSupply": 183,
+        "gapScore": 75,
+        "capacitySurplusSeats": -180,
+        "confidence": 80,
+        "titleHi": "डेटा एंट्री ऑपरेटर"
+      },
+      "Domestic Electrician & Wireman": {
+        "demand": 675,
+        "effectiveSupply": 294,
+        "gapScore": 78,
+        "capacitySurplusSeats": -381,
+        "confidence": 80,
+        "titleHi": "घरेलू इलेक्ट्रीशियन एवं वायरमैन"
+      },
+      "Drone Maintenance Technician": {
+        "demand": 272,
+        "effectiveSupply": 122,
+        "gapScore": 78,
+        "capacitySurplusSeats": -150,
+        "confidence": 80,
+        "titleHi": "ड्रोन रखरखाव तकनीशियन"
+      },
+      "EV Service Technician": {
+        "demand": 506,
+        "effectiveSupply": 281,
+        "gapScore": 72,
+        "capacitySurplusSeats": -225,
+        "confidence": 81,
+        "titleHi": "ईवी सर्विस तकनीशियन"
+      },
+      "Industrial Automation Technician": {
+        "demand": 509,
+        "effectiveSupply": 237,
+        "gapScore": 77,
+        "capacitySurplusSeats": -272,
+        "confidence": 80,
+        "titleHi": "औद्योगिक स्वचालन तकनीशियन"
+      },
+      "Retail Sales Associate": {
+        "demand": 344,
+        "effectiveSupply": 391,
+        "gapScore": 44,
+        "capacitySurplusSeats": 536,
+        "confidence": 92,
+        "titleHi": "रिटेल सेल्स एसोसिएट"
+      },
+      "Sewing Machine Operator": {
+        "demand": 281,
+        "effectiveSupply": 121,
+        "gapScore": 78,
+        "capacitySurplusSeats": -160,
+        "confidence": 80,
+        "titleHi": "सिलाई मशीन ऑपरेटर"
+      },
+      "Smart Meter Installation Technician": {
+        "demand": 505,
+        "effectiveSupply": 273,
+        "gapScore": 73,
+        "capacitySurplusSeats": -232,
+        "confidence": 81,
+        "titleHi": "स्मार्ट मीटर इंस्टॉलेशन तकनीशियन"
+      },
+      "Solar PV Installer": {
+        "demand": 808,
+        "effectiveSupply": 97,
+        "gapScore": 94,
+        "capacitySurplusSeats": -711,
+        "confidence": 88,
+        "titleHi": "सोलर पीवी इंस्टॉलर"
+      },
+      "Solar Pump Technician": {
+        "demand": 808,
+        "effectiveSupply": 97,
+        "gapScore": 94,
+        "capacitySurplusSeats": -711,
+        "confidence": 88,
+        "titleHi": "सोलर पंप तकनीशियन"
+      },
+      "Warehouse Logistics Executive": {
+        "demand": 478,
+        "effectiveSupply": 246,
+        "gapScore": 74,
+        "capacitySurplusSeats": -232,
+        "confidence": 81,
+        "titleHi": "वेयरहाउस लॉजिस्टिक्स एक्जीक्यूटिव"
+      }
+    }
+  },
+  "kanpur_nagar": {
+    "districtId": "kanpur_nagar",
+    "districtName": "Kanpur Nagar",
+    "districtNameHi": "कानपुर नगर",
+    "state": "Uttar Pradesh",
+    "lgdCode": 179,
+    "maxGapScore": 78,
+    "overallDemand": 66,
+    "overallSupply": 31,
+    "overallSurplus": -4069,
+    "trades": {
+      "AI/ML Data Annotation Specialist": {
+        "demand": 501,
+        "effectiveSupply": 285,
+        "gapScore": 72,
+        "capacitySurplusSeats": -216,
+        "confidence": 81,
+        "titleHi": "एआई/एमएल डेटा एनोटेशन विशेषज्ञ"
+      },
+      "Automotive Assembly Fitter": {
+        "demand": 608,
+        "effectiveSupply": 289,
+        "gapScore": 76,
+        "capacitySurplusSeats": -319,
+        "confidence": 80,
+        "titleHi": "ऑटोमोटिव असेंबली फिटर"
+      },
+      "CNC Machine Operator": {
+        "demand": 693,
+        "effectiveSupply": 390,
+        "gapScore": 72,
+        "capacitySurplusSeats": -303,
+        "confidence": 81,
+        "titleHi": "सीएनसी मशीन ऑपरेटर"
+      },
+      "Cold Storage & HVAC Mechanic": {
+        "demand": 394,
+        "effectiveSupply": 212,
+        "gapScore": 73,
+        "capacitySurplusSeats": -182,
+        "confidence": 81,
+        "titleHi": "कोल्ड स्टोरेज एवं एचवीएसी मैकेनिक"
+      },
+      "Community Health Assistant": {
+        "demand": 938,
+        "effectiveSupply": 504,
+        "gapScore": 73,
+        "capacitySurplusSeats": -434,
+        "confidence": 81,
+        "titleHi": "सामुदायिक स्वास्थ्य सहायक"
+      },
+      "Data Entry Operator": {
+        "demand": 337,
+        "effectiveSupply": 157,
+        "gapScore": 77,
+        "capacitySurplusSeats": -180,
+        "confidence": 80,
+        "titleHi": "डेटा एंट्री ऑपरेटर"
+      },
+      "Domestic Electrician & Wireman": {
+        "demand": 767,
+        "effectiveSupply": 373,
+        "gapScore": 76,
+        "capacitySurplusSeats": -394,
+        "confidence": 80,
+        "titleHi": "घरेलू इलेक्ट्रीशियन एवं वायरमैन"
+      },
+      "Drone Maintenance Technician": {
+        "demand": 291,
+        "effectiveSupply": 153,
+        "gapScore": 74,
+        "capacitySurplusSeats": -138,
+        "confidence": 81,
+        "titleHi": "ड्रोन रखरखाव तकनीशियन"
+      },
+      "EV Service Technician": {
+        "demand": 508,
+        "effectiveSupply": 228,
+        "gapScore": 78,
+        "capacitySurplusSeats": -280,
+        "confidence": 80,
+        "titleHi": "ईवी सर्विस तकनीशियन"
+      },
+      "Industrial Automation Technician": {
+        "demand": 388,
+        "effectiveSupply": 223,
+        "gapScore": 71,
+        "capacitySurplusSeats": -165,
+        "confidence": 81,
+        "titleHi": "औद्योगिक स्वचालन तकनीशियन"
+      },
+      "Retail Sales Associate": {
+        "demand": 387,
+        "effectiveSupply": 206,
+        "gapScore": 73,
+        "capacitySurplusSeats": -181,
+        "confidence": 81,
+        "titleHi": "रिटेल सेल्स एसोसिएट"
+      },
+      "Sewing Machine Operator": {
+        "demand": 290,
+        "effectiveSupply": 142,
+        "gapScore": 76,
+        "capacitySurplusSeats": -148,
+        "confidence": 80,
+        "titleHi": "सिलाई मशीन ऑपरेटर"
+      },
+      "Smart Meter Installation Technician": {
+        "demand": 574,
+        "effectiveSupply": 285,
+        "gapScore": 75,
+        "capacitySurplusSeats": -289,
+        "confidence": 80,
+        "titleHi": "स्मार्ट मीटर इंस्टॉलेशन तकनीशियन"
+      },
+      "Solar PV Installer": {
+        "demand": 747,
+        "effectiveSupply": 359,
+        "gapScore": 76,
+        "capacitySurplusSeats": -388,
+        "confidence": 80,
+        "titleHi": "सोलर पीवी इंस्टॉलर"
+      },
+      "Solar Pump Technician": {
+        "demand": 451,
+        "effectiveSupply": 233,
+        "gapScore": 74,
+        "capacitySurplusSeats": -218,
+        "confidence": 81,
+        "titleHi": "सोलर पंप तकनीशियन"
+      },
+      "Warehouse Logistics Executive": {
+        "demand": 523,
+        "effectiveSupply": 289,
+        "gapScore": 72,
+        "capacitySurplusSeats": -234,
+        "confidence": 81,
+        "titleHi": "वेयरहाउस लॉजिस्टिक्स एक्जीक्यूटिव"
+      }
+    }
+  },
+  "lucknow": {
+    "districtId": "lucknow",
+    "districtName": "Lucknow",
+    "districtNameHi": "लखनऊ",
+    "state": "Uttar Pradesh",
+    "lgdCode": 180,
+    "maxGapScore": 78,
+    "overallDemand": 74,
+    "overallSupply": 31,
+    "overallSurplus": -4618,
+    "trades": {
+      "AI/ML Data Annotation Specialist": {
+        "demand": 540,
+        "effectiveSupply": 296,
+        "gapScore": 73,
+        "capacitySurplusSeats": -244,
+        "confidence": 81,
+        "titleHi": "एआई/एमएल डेटा एनोटेशन विशेषज्ञ"
+      },
+      "Automotive Assembly Fitter": {
+        "demand": 703,
+        "effectiveSupply": 345,
+        "gapScore": 75,
+        "capacitySurplusSeats": -358,
+        "confidence": 80,
+        "titleHi": "ऑटोमोटिव असेंबली फिटर"
+      },
+      "CNC Machine Operator": {
+        "demand": 718,
+        "effectiveSupply": 338,
+        "gapScore": 76,
+        "capacitySurplusSeats": -380,
+        "confidence": 80,
+        "titleHi": "सीएनसी मशीन ऑपरेटर"
+      },
+      "Cold Storage & HVAC Mechanic": {
+        "demand": 312,
+        "effectiveSupply": 160,
+        "gapScore": 74,
+        "capacitySurplusSeats": -152,
+        "confidence": 81,
+        "titleHi": "कोल्ड स्टोरेज एवं एचवीएसी मैकेनिक"
+      },
+      "Community Health Assistant": {
+        "demand": 901,
+        "effectiveSupply": 405,
+        "gapScore": 78,
+        "capacitySurplusSeats": -496,
+        "confidence": 80,
+        "titleHi": "सामुदायिक स्वास्थ्य सहायक"
+      },
+      "Data Entry Operator": {
+        "demand": 448,
+        "effectiveSupply": 199,
+        "gapScore": 78,
+        "capacitySurplusSeats": -249,
+        "confidence": 80,
+        "titleHi": "डेटा एंट्री ऑपरेटर"
+      },
+      "Domestic Electrician & Wireman": {
+        "demand": 947,
+        "effectiveSupply": 455,
+        "gapScore": 76,
+        "capacitySurplusSeats": -492,
+        "confidence": 80,
+        "titleHi": "घरेलू इलेक्ट्रीशियन एवं वायरमैन"
+      },
+      "Drone Maintenance Technician": {
+        "demand": 359,
+        "effectiveSupply": 191,
+        "gapScore": 73,
+        "capacitySurplusSeats": -168,
+        "confidence": 81,
+        "titleHi": "ड्रोन रखरखाव तकनीशियन"
+      },
+      "EV Service Technician": {
+        "demand": 502,
+        "effectiveSupply": 223,
+        "gapScore": 78,
+        "capacitySurplusSeats": -279,
+        "confidence": 80,
+        "titleHi": "ईवी सर्विस तकनीशियन"
+      },
+      "Industrial Automation Technician": {
+        "demand": 496,
+        "effectiveSupply": 238,
+        "gapScore": 76,
+        "capacitySurplusSeats": -258,
+        "confidence": 80,
+        "titleHi": "औद्योगिक स्वचालन तकनीशियन"
+      },
+      "Retail Sales Associate": {
+        "demand": 438,
+        "effectiveSupply": 258,
+        "gapScore": 71,
+        "capacitySurplusSeats": -180,
+        "confidence": 81,
+        "titleHi": "रिटेल सेल्स एसोसिएट"
+      },
+      "Sewing Machine Operator": {
+        "demand": 403,
+        "effectiveSupply": 196,
+        "gapScore": 76,
+        "capacitySurplusSeats": -207,
+        "confidence": 80,
+        "titleHi": "सिलाई मशीन ऑपरेटर"
+      },
+      "Smart Meter Installation Technician": {
+        "demand": 548,
+        "effectiveSupply": 286,
+        "gapScore": 74,
+        "capacitySurplusSeats": -262,
+        "confidence": 81,
+        "titleHi": "स्मार्ट मीटर इंस्टॉलेशन तकनीशियन"
+      },
+      "Solar PV Installer": {
+        "demand": 752,
+        "effectiveSupply": 400,
+        "gapScore": 73,
+        "capacitySurplusSeats": -352,
+        "confidence": 81,
+        "titleHi": "सोलर पीवी इंस्टॉलर"
+      },
+      "Solar Pump Technician": {
+        "demand": 395,
+        "effectiveSupply": 178,
+        "gapScore": 77,
+        "capacitySurplusSeats": -217,
+        "confidence": 80,
+        "titleHi": "सोलर पंप तकनीशियन"
+      },
+      "Warehouse Logistics Executive": {
+        "demand": 606,
+        "effectiveSupply": 282,
+        "gapScore": 77,
+        "capacitySurplusSeats": -324,
+        "confidence": 80,
+        "titleHi": "वेयरहाउस लॉजिस्टिक्स एक्जीक्यूटिव"
+      }
+    }
+  },
+  "mysuru": {
+    "districtId": "mysuru",
+    "districtName": "Mysuru",
+    "districtNameHi": "मैसूरु",
+    "state": "Karnataka",
+    "lgdCode": 552,
+    "maxGapScore": 79,
+    "overallDemand": 50,
+    "overallSupply": 29,
+    "overallSurplus": -3105,
+    "trades": {
+      "AI/ML Data Annotation Specialist": {
+        "demand": 401,
+        "effectiveSupply": 205,
+        "gapScore": 74,
+        "capacitySurplusSeats": -196,
+        "confidence": 81,
+        "titleHi": "एआई/एमएल डेटा एनोटेशन विशेषज्ञ"
+      },
+      "Automotive Assembly Fitter": {
+        "demand": 446,
+        "effectiveSupply": 192,
+        "gapScore": 78,
+        "capacitySurplusSeats": -254,
+        "confidence": 80,
+        "titleHi": "ऑटोमोटिव असेंबली फिटर"
+      },
+      "CNC Machine Operator": {
+        "demand": 404,
+        "effectiveSupply": 166,
+        "gapScore": 79,
+        "capacitySurplusSeats": -238,
+        "confidence": 80,
+        "titleHi": "सीएनसी मशीन ऑपरेटर"
+      },
+      "Cold Storage & HVAC Mechanic": {
+        "demand": 288,
+        "effectiveSupply": 153,
+        "gapScore": 73,
+        "capacitySurplusSeats": -135,
+        "confidence": 81,
+        "titleHi": "कोल्ड स्टोरेज एवं एचवीएसी मैकेनिक"
+      },
+      "Community Health Assistant": {
+        "demand": 490,
+        "effectiveSupply": 230,
+        "gapScore": 77,
+        "capacitySurplusSeats": -260,
+        "confidence": 80,
+        "titleHi": "सामुदायिक स्वास्थ्य सहायक"
+      },
+      "Data Entry Operator": {
+        "demand": 285,
+        "effectiveSupply": 124,
+        "gapScore": 78,
+        "capacitySurplusSeats": -161,
+        "confidence": 80,
+        "titleHi": "डेटा एंट्री ऑपरेटर"
+      },
+      "Domestic Electrician & Wireman": {
+        "demand": 575,
+        "effectiveSupply": 286,
+        "gapScore": 75,
+        "capacitySurplusSeats": -289,
+        "confidence": 80,
+        "titleHi": "घरेलू इलेक्ट्रीशियन एवं वायरमैन"
+      },
+      "Drone Maintenance Technician": {
+        "demand": 222,
+        "effectiveSupply": 100,
+        "gapScore": 77,
+        "capacitySurplusSeats": -122,
+        "confidence": 80,
+        "titleHi": "ड्रोन रखरखाव तकनीशियन"
+      },
+      "EV Service Technician": {
+        "demand": 356,
+        "effectiveSupply": 189,
+        "gapScore": 73,
+        "capacitySurplusSeats": -167,
+        "confidence": 81,
+        "titleHi": "ईवी सर्विस तकनीशियन"
+      },
+      "Industrial Automation Technician": {
+        "demand": 308,
+        "effectiveSupply": 141,
+        "gapScore": 77,
+        "capacitySurplusSeats": -167,
+        "confidence": 80,
+        "titleHi": "औद्योगिक स्वचालन तकनीशियन"
+      },
+      "Retail Sales Associate": {
+        "demand": 225,
+        "effectiveSupply": 117,
+        "gapScore": 74,
+        "capacitySurplusSeats": -108,
+        "confidence": 81,
+        "titleHi": "रिटेल सेल्स एसोसिएट"
+      },
+      "Sewing Machine Operator": {
+        "demand": 250,
+        "effectiveSupply": 116,
+        "gapScore": 77,
+        "capacitySurplusSeats": -134,
+        "confidence": 80,
+        "titleHi": "सिलाई मशीन ऑपरेटर"
+      },
+      "Smart Meter Installation Technician": {
+        "demand": 401,
+        "effectiveSupply": 171,
+        "gapScore": 79,
+        "capacitySurplusSeats": -230,
+        "confidence": 80,
+        "titleHi": "स्मार्ट मीटर इंस्टॉलेशन तकनीशियन"
+      },
+      "Solar PV Installer": {
+        "demand": 519,
+        "effectiveSupply": 263,
+        "gapScore": 75,
+        "capacitySurplusSeats": -256,
+        "confidence": 80,
+        "titleHi": "सोलर पीवी इंस्टॉलर"
+      },
+      "Solar Pump Technician": {
+        "demand": 342,
+        "effectiveSupply": 165,
+        "gapScore": 76,
+        "capacitySurplusSeats": -177,
+        "confidence": 80,
+        "titleHi": "सोलर पंप तकनीशियन"
+      },
+      "Warehouse Logistics Executive": {
+        "demand": 461,
+        "effectiveSupply": 250,
+        "gapScore": 73,
+        "capacitySurplusSeats": -211,
+        "confidence": 81,
+        "titleHi": "वेयरहाउस लॉजिस्टिक्स एक्जीक्यूटिव"
+      }
+    }
+  },
+  "nagpur": {
+    "districtId": "nagpur",
+    "districtName": "Nagpur",
+    "districtNameHi": "नागपुर",
+    "state": "Maharashtra",
+    "lgdCode": 505,
+    "maxGapScore": 78,
+    "overallDemand": 58,
+    "overallSupply": 31,
+    "overallSurplus": -3585,
+    "trades": {
+      "AI/ML Data Annotation Specialist": {
+        "demand": 470,
+        "effectiveSupply": 260,
+        "gapScore": 72,
+        "capacitySurplusSeats": -210,
+        "confidence": 81,
+        "titleHi": "एआई/एमएल डेटा एनोटेशन विशेषज्ञ"
+      },
+      "Automotive Assembly Fitter": {
+        "demand": 557,
+        "effectiveSupply": 247,
+        "gapScore": 78,
+        "capacitySurplusSeats": -310,
+        "confidence": 80,
+        "titleHi": "ऑटोमोटिव असेंबली फिटर"
+      },
+      "CNC Machine Operator": {
+        "demand": 639,
+        "effectiveSupply": 376,
+        "gapScore": 71,
+        "capacitySurplusSeats": -263,
+        "confidence": 81,
+        "titleHi": "सीएनसी मशीन ऑपरेटर"
+      },
+      "Cold Storage & HVAC Mechanic": {
+        "demand": 247,
+        "effectiveSupply": 128,
+        "gapScore": 74,
+        "capacitySurplusSeats": -119,
+        "confidence": 81,
+        "titleHi": "कोल्ड स्टोरेज एवं एचवीएसी मैकेनिक"
+      },
+      "Community Health Assistant": {
+        "demand": 582,
+        "effectiveSupply": 268,
+        "gapScore": 77,
+        "capacitySurplusSeats": -314,
+        "confidence": 80,
+        "titleHi": "सामुदायिक स्वास्थ्य सहायक"
+      },
+      "Data Entry Operator": {
+        "demand": 348,
+        "effectiveSupply": 153,
+        "gapScore": 78,
+        "capacitySurplusSeats": -195,
+        "confidence": 80,
+        "titleHi": "डेटा एंट्री ऑपरेटर"
+      },
+      "Domestic Electrician & Wireman": {
+        "demand": 871,
+        "effectiveSupply": 405,
+        "gapScore": 77,
+        "capacitySurplusSeats": -466,
+        "confidence": 80,
+        "titleHi": "घरेलू इलेक्ट्रीशियन एवं वायरमैन"
+      },
+      "Drone Maintenance Technician": {
+        "demand": 246,
+        "effectiveSupply": 137,
+        "gapScore": 72,
+        "capacitySurplusSeats": -109,
+        "confidence": 81,
+        "titleHi": "ड्रोन रखरखाव तकनीशियन"
+      },
+      "EV Service Technician": {
+        "demand": 418,
+        "effectiveSupply": 240,
+        "gapScore": 71,
+        "capacitySurplusSeats": -178,
+        "confidence": 81,
+        "titleHi": "ईवी सर्विस तकनीशियन"
+      },
+      "Industrial Automation Technician": {
+        "demand": 472,
+        "effectiveSupply": 229,
+        "gapScore": 76,
+        "capacitySurplusSeats": -243,
+        "confidence": 80,
+        "titleHi": "औद्योगिक स्वचालन तकनीशियन"
+      },
+      "Retail Sales Associate": {
+        "demand": 274,
+        "effectiveSupply": 144,
+        "gapScore": 74,
+        "capacitySurplusSeats": -130,
+        "confidence": 81,
+        "titleHi": "रिटेल सेल्स एसोसिएट"
+      },
+      "Sewing Machine Operator": {
+        "demand": 338,
+        "effectiveSupply": 159,
+        "gapScore": 76,
+        "capacitySurplusSeats": -179,
+        "confidence": 80,
+        "titleHi": "सिलाई मशीन ऑपरेटर"
+      },
+      "Smart Meter Installation Technician": {
+        "demand": 410,
+        "effectiveSupply": 184,
+        "gapScore": 78,
+        "capacitySurplusSeats": -226,
+        "confidence": 80,
+        "titleHi": "स्मार्ट मीटर इंस्टॉलेशन तकनीशियन"
+      },
+      "Solar PV Installer": {
+        "demand": 603,
+        "effectiveSupply": 327,
+        "gapScore": 73,
+        "capacitySurplusSeats": -276,
+        "confidence": 81,
+        "titleHi": "सोलर पीवी इंस्टॉलर"
+      },
+      "Solar Pump Technician": {
+        "demand": 336,
+        "effectiveSupply": 198,
+        "gapScore": 71,
+        "capacitySurplusSeats": -138,
+        "confidence": 81,
+        "titleHi": "सोलर पंप तकनीशियन"
+      },
+      "Warehouse Logistics Executive": {
+        "demand": 495,
+        "effectiveSupply": 266,
+        "gapScore": 73,
+        "capacitySurplusSeats": -229,
+        "confidence": 81,
+        "titleHi": "वेयरहाउस लॉजिस्टिक्स एक्जीक्यूटिव"
+      }
+    }
+  },
+  "nashik": {
+    "districtId": "nashik",
+    "districtName": "Nashik",
+    "districtNameHi": "नासिक",
+    "state": "Maharashtra",
+    "lgdCode": 516,
+    "maxGapScore": 78,
+    "overallDemand": 53,
+    "overallSupply": 31,
+    "overallSurplus": -3291,
+    "trades": {
+      "AI/ML Data Annotation Specialist": {
+        "demand": 429,
+        "effectiveSupply": 193,
+        "gapScore": 78,
+        "capacitySurplusSeats": -236,
+        "confidence": 80,
+        "titleHi": "एआई/एमएल डेटा एनोटेशन विशेषज्ञ"
+      },
+      "Automotive Assembly Fitter": {
+        "demand": 574,
+        "effectiveSupply": 294,
+        "gapScore": 74,
+        "capacitySurplusSeats": -280,
+        "confidence": 81,
+        "titleHi": "ऑटोमोटिव असेंबली फिटर"
+      },
+      "CNC Machine Operator": {
+        "demand": 546,
+        "effectiveSupply": 245,
+        "gapScore": 78,
+        "capacitySurplusSeats": -301,
+        "confidence": 80,
+        "titleHi": "सीएनसी मशीन ऑपरेटर"
+      },
+      "Cold Storage & HVAC Mechanic": {
+        "demand": 237,
+        "effectiveSupply": 127,
+        "gapScore": 73,
+        "capacitySurplusSeats": -110,
+        "confidence": 81,
+        "titleHi": "कोल्ड स्टोरेज एवं एचवीएसी मैकेनिक"
+      },
+      "Community Health Assistant": {
+        "demand": 658,
+        "effectiveSupply": 371,
+        "gapScore": 72,
+        "capacitySurplusSeats": -287,
+        "confidence": 81,
+        "titleHi": "सामुदायिक स्वास्थ्य सहायक"
+      },
+      "Data Entry Operator": {
+        "demand": 347,
+        "effectiveSupply": 169,
+        "gapScore": 76,
+        "capacitySurplusSeats": -178,
+        "confidence": 80,
+        "titleHi": "डेटा एंट्री ऑपरेटर"
+      },
+      "Domestic Electrician & Wireman": {
+        "demand": 817,
+        "effectiveSupply": 435,
+        "gapScore": 73,
+        "capacitySurplusSeats": -382,
+        "confidence": 81,
+        "titleHi": "घरेलू इलेक्ट्रीशियन एवं वायरमैन"
+      },
+      "Drone Maintenance Technician": {
+        "demand": 216,
+        "effectiveSupply": 127,
+        "gapScore": 71,
+        "capacitySurplusSeats": -89,
+        "confidence": 81,
+        "titleHi": "ड्रोन रखरखाव तकनीशियन"
+      },
+      "EV Service Technician": {
+        "demand": 528,
+        "effectiveSupply": 284,
+        "gapScore": 73,
+        "capacitySurplusSeats": -244,
+        "confidence": 81,
+        "titleHi": "ईवी सर्विस तकनीशियन"
+      },
+      "Industrial Automation Technician": {
+        "demand": 384,
+        "effectiveSupply": 200,
+        "gapScore": 74,
+        "capacitySurplusSeats": -184,
+        "confidence": 81,
+        "titleHi": "औद्योगिक स्वचालन तकनीशियन"
+      },
+      "Retail Sales Associate": {
+        "demand": 282,
+        "effectiveSupply": 165,
+        "gapScore": 71,
+        "capacitySurplusSeats": -117,
+        "confidence": 81,
+        "titleHi": "रिटेल सेल्स एसोसिएट"
+      },
+      "Sewing Machine Operator": {
+        "demand": 259,
+        "effectiveSupply": 139,
+        "gapScore": 73,
+        "capacitySurplusSeats": -120,
+        "confidence": 81,
+        "titleHi": "सिलाई मशीन ऑपरेटर"
+      },
+      "Smart Meter Installation Technician": {
+        "demand": 365,
+        "effectiveSupply": 198,
+        "gapScore": 73,
+        "capacitySurplusSeats": -167,
+        "confidence": 81,
+        "titleHi": "स्मार्ट मीटर इंस्टॉलेशन तकनीशियन"
+      },
+      "Solar PV Installer": {
+        "demand": 538,
+        "effectiveSupply": 286,
+        "gapScore": 73,
+        "capacitySurplusSeats": -252,
+        "confidence": 81,
+        "titleHi": "सोलर पीवी इंस्टॉलर"
+      },
+      "Solar Pump Technician": {
+        "demand": 325,
+        "effectiveSupply": 149,
+        "gapScore": 77,
+        "capacitySurplusSeats": -176,
+        "confidence": 80,
+        "titleHi": "सोलर पंप तकनीशियन"
+      },
+      "Warehouse Logistics Executive": {
+        "demand": 393,
+        "effectiveSupply": 225,
+        "gapScore": 71,
+        "capacitySurplusSeats": -168,
+        "confidence": 81,
+        "titleHi": "वेयरहाउस लॉजिस्टिक्स एक्जीक्यूटिव"
+      }
+    }
+  },
+  "pune": {
+    "districtId": "pune",
+    "districtName": "Pune",
+    "districtNameHi": "पुणे",
+    "state": "Maharashtra",
+    "lgdCode": 521,
+    "maxGapScore": 78,
+    "overallDemand": 79,
+    "overallSupply": 31,
+    "overallSurplus": -5050,
+    "trades": {
+      "AI/ML Data Annotation Specialist": {
+        "demand": 622,
+        "effectiveSupply": 366,
+        "gapScore": 71,
+        "capacitySurplusSeats": -256,
+        "confidence": 81,
+        "titleHi": "एआई/एमएल डेटा एनोटेशन विशेषज्ञ"
+      },
+      "Automotive Assembly Fitter": {
+        "demand": 773,
+        "effectiveSupply": 351,
+        "gapScore": 77,
+        "capacitySurplusSeats": -422,
+        "confidence": 80,
+        "titleHi": "ऑटोमोटिव असेंबली फिटर"
+      },
+      "CNC Machine Operator": {
+        "demand": 742,
+        "effectiveSupply": 376,
+        "gapScore": 75,
+        "capacitySurplusSeats": -366,
+        "confidence": 80,
+        "titleHi": "सीएनसी मशीन ऑपरेटर"
+      },
+      "Cold Storage & HVAC Mechanic": {
+        "demand": 321,
+        "effectiveSupply": 159,
+        "gapScore": 75,
+        "capacitySurplusSeats": -162,
+        "confidence": 80,
+        "titleHi": "कोल्ड स्टोरेज एवं एचवीएसी मैकेनिक"
+      },
+      "Community Health Assistant": {
+        "demand": 849,
+        "effectiveSupply": 461,
+        "gapScore": 73,
+        "capacitySurplusSeats": -388,
+        "confidence": 81,
+        "titleHi": "सामुदायिक स्वास्थ्य सहायक"
+      },
+      "Data Entry Operator": {
+        "demand": 502,
+        "effectiveSupply": 262,
+        "gapScore": 74,
+        "capacitySurplusSeats": -240,
+        "confidence": 81,
+        "titleHi": "डेटा एंट्री ऑपरेटर"
+      },
+      "Domestic Electrician & Wireman": {
+        "demand": 1073,
+        "effectiveSupply": 493,
+        "gapScore": 77,
+        "capacitySurplusSeats": -580,
+        "confidence": 80,
+        "titleHi": "घरेलू इलेक्ट्रीशियन एवं वायरमैन"
+      },
+      "Drone Maintenance Technician": {
+        "demand": 384,
+        "effectiveSupply": 185,
+        "gapScore": 76,
+        "capacitySurplusSeats": -199,
+        "confidence": 80,
+        "titleHi": "ड्रोन रखरखाव तकनीशियन"
+      },
+      "EV Service Technician": {
+        "demand": 688,
+        "effectiveSupply": 387,
+        "gapScore": 72,
+        "capacitySurplusSeats": -301,
+        "confidence": 81,
+        "titleHi": "ईवी सर्विस तकनीशियन"
+      },
+      "Industrial Automation Technician": {
+        "demand": 600,
+        "effectiveSupply": 267,
+        "gapScore": 78,
+        "capacitySurplusSeats": -333,
+        "confidence": 80,
+        "titleHi": "औद्योगिक स्वचालन तकनीशियन"
+      },
+      "Retail Sales Associate": {
+        "demand": 442,
+        "effectiveSupply": 201,
+        "gapScore": 77,
+        "capacitySurplusSeats": -241,
+        "confidence": 80,
+        "titleHi": "रिटेल सेल्स एसोसिएट"
+      },
+      "Sewing Machine Operator": {
+        "demand": 413,
+        "effectiveSupply": 192,
+        "gapScore": 77,
+        "capacitySurplusSeats": -221,
+        "confidence": 80,
+        "titleHi": "सिलाई मशीन ऑपरेटर"
+      },
+      "Smart Meter Installation Technician": {
+        "demand": 653,
+        "effectiveSupply": 307,
+        "gapScore": 76,
+        "capacitySurplusSeats": -346,
+        "confidence": 80,
+        "titleHi": "स्मार्ट मीटर इंस्टॉलेशन तकनीशियन"
+      },
+      "Solar PV Installer": {
+        "demand": 730,
+        "effectiveSupply": 358,
+        "gapScore": 75,
+        "capacitySurplusSeats": -372,
+        "confidence": 80,
+        "titleHi": "सोलर पीवी इंस्टॉलर"
+      },
+      "Solar Pump Technician": {
+        "demand": 602,
+        "effectiveSupply": 286,
+        "gapScore": 76,
+        "capacitySurplusSeats": -316,
+        "confidence": 80,
+        "titleHi": "सोलर पंप तकनीशियन"
+      },
+      "Warehouse Logistics Executive": {
+        "demand": 558,
+        "effectiveSupply": 251,
+        "gapScore": 78,
+        "capacitySurplusSeats": -307,
+        "confidence": 80,
+        "titleHi": "वेयरहाउस लॉजिस्टिक्स एक्जीक्यूटिव"
+      }
+    }
+  },
+  "rajkot": {
+    "districtId": "rajkot",
+    "districtName": "Rajkot",
+    "districtNameHi": "राजकोट",
+    "state": "Gujarat",
+    "lgdCode": 461,
+    "maxGapScore": 78,
+    "overallDemand": 53,
+    "overallSupply": 31,
+    "overallSurplus": -3258,
+    "trades": {
+      "AI/ML Data Annotation Specialist": {
+        "demand": 314,
+        "effectiveSupply": 141,
+        "gapScore": 78,
+        "capacitySurplusSeats": -173,
+        "confidence": 80,
+        "titleHi": "एआई/एमएल डेटा एनोटेशन विशेषज्ञ"
+      },
+      "Automotive Assembly Fitter": {
+        "demand": 514,
+        "effectiveSupply": 284,
+        "gapScore": 72,
+        "capacitySurplusSeats": -230,
+        "confidence": 81,
+        "titleHi": "ऑटोमोटिव असेंबली फिटर"
+      },
+      "CNC Machine Operator": {
+        "demand": 450,
+        "effectiveSupply": 230,
+        "gapScore": 74,
+        "capacitySurplusSeats": -220,
+        "confidence": 81,
+        "titleHi": "सीएनसी मशीन ऑपरेटर"
+      },
+      "Cold Storage & HVAC Mechanic": {
+        "demand": 234,
+        "effectiveSupply": 137,
+        "gapScore": 71,
+        "capacitySurplusSeats": -97,
+        "confidence": 81,
+        "titleHi": "कोल्ड स्टोरेज एवं एचवीएसी मैकेनिक"
+      },
+      "Community Health Assistant": {
+        "demand": 620,
+        "effectiveSupply": 330,
+        "gapScore": 73,
+        "capacitySurplusSeats": -290,
+        "confidence": 81,
+        "titleHi": "सामुदायिक स्वास्थ्य सहायक"
+      },
+      "Data Entry Operator": {
+        "demand": 273,
+        "effectiveSupply": 157,
+        "gapScore": 71,
+        "capacitySurplusSeats": -116,
+        "confidence": 81,
+        "titleHi": "डेटा एंट्री ऑपरेटर"
+      },
+      "Domestic Electrician & Wireman": {
+        "demand": 720,
+        "effectiveSupply": 331,
+        "gapScore": 77,
+        "capacitySurplusSeats": -389,
+        "confidence": 80,
+        "titleHi": "घरेलू इलेक्ट्रीशियन एवं वायरमैन"
+      },
+      "Drone Maintenance Technician": {
+        "demand": 242,
+        "effectiveSupply": 108,
+        "gapScore": 78,
+        "capacitySurplusSeats": -134,
+        "confidence": 80,
+        "titleHi": "ड्रोन रखरखाव तकनीशियन"
+      },
+      "EV Service Technician": {
+        "demand": 422,
+        "effectiveSupply": 218,
+        "gapScore": 74,
+        "capacitySurplusSeats": -204,
+        "confidence": 81,
+        "titleHi": "ईवी सर्विस तकनीशियन"
+      },
+      "Industrial Automation Technician": {
+        "demand": 345,
+        "effectiveSupply": 196,
+        "gapScore": 72,
+        "capacitySurplusSeats": -149,
+        "confidence": 81,
+        "titleHi": "औद्योगिक स्वचालन तकनीशियन"
+      },
+      "Retail Sales Associate": {
+        "demand": 325,
+        "effectiveSupply": 165,
+        "gapScore": 75,
+        "capacitySurplusSeats": -160,
+        "confidence": 80,
+        "titleHi": "रिटेल सेल्स एसोसिएट"
+      },
+      "Sewing Machine Operator": {
+        "demand": 306,
+        "effectiveSupply": 174,
+        "gapScore": 72,
+        "capacitySurplusSeats": -132,
+        "confidence": 81,
+        "titleHi": "सिलाई मशीन ऑपरेटर"
+      },
+      "Smart Meter Installation Technician": {
+        "demand": 425,
+        "effectiveSupply": 237,
+        "gapScore": 72,
+        "capacitySurplusSeats": -188,
+        "confidence": 81,
+        "titleHi": "स्मार्ट मीटर इंस्टॉलेशन तकनीशियन"
+      },
+      "Solar PV Installer": {
+        "demand": 722,
+        "effectiveSupply": 347,
+        "gapScore": 76,
+        "capacitySurplusSeats": -375,
+        "confidence": 80,
+        "titleHi": "सोलर पीवी इंस्टॉलर"
+      },
+      "Solar Pump Technician": {
+        "demand": 383,
+        "effectiveSupply": 170,
+        "gapScore": 78,
+        "capacitySurplusSeats": -213,
+        "confidence": 80,
+        "titleHi": "सोलर पंप तकनीशियन"
+      },
+      "Warehouse Logistics Executive": {
+        "demand": 415,
+        "effectiveSupply": 227,
+        "gapScore": 73,
+        "capacitySurplusSeats": -188,
+        "confidence": 81,
+        "titleHi": "वेयरहाउस लॉजिस्टिक्स एक्जीक्यूटिव"
+      }
+    }
+  },
+  "surat": {
+    "districtId": "surat",
+    "districtName": "Surat",
+    "districtNameHi": "सूरत",
+    "state": "Gujarat",
+    "lgdCode": 467,
+    "maxGapScore": 79,
+    "overallDemand": 71,
+    "overallSupply": 29,
+    "overallSurplus": -4745,
+    "trades": {
+      "AI/ML Data Annotation Specialist": {
+        "demand": 472,
+        "effectiveSupply": 244,
+        "gapScore": 74,
+        "capacitySurplusSeats": -228,
+        "confidence": 81,
+        "titleHi": "एआई/एमएल डेटा एनोटेशन विशेषज्ञ"
+      },
+      "Automotive Assembly Fitter": {
+        "demand": 789,
+        "effectiveSupply": 389,
+        "gapScore": 75,
+        "capacitySurplusSeats": -400,
+        "confidence": 80,
+        "titleHi": "ऑटोमोटिव असेंबली फिटर"
+      },
+      "CNC Machine Operator": {
+        "demand": 731,
+        "effectiveSupply": 343,
+        "gapScore": 77,
+        "capacitySurplusSeats": -388,
+        "confidence": 80,
+        "titleHi": "सीएनसी मशीन ऑपरेटर"
+      },
+      "Cold Storage & HVAC Mechanic": {
+        "demand": 360,
+        "effectiveSupply": 167,
+        "gapScore": 77,
+        "capacitySurplusSeats": -193,
+        "confidence": 80,
+        "titleHi": "कोल्ड स्टोरेज एवं एचवीएसी मैकेनिक"
+      },
+      "Community Health Assistant": {
+        "demand": 890,
+        "effectiveSupply": 473,
+        "gapScore": 73,
+        "capacitySurplusSeats": -417,
+        "confidence": 81,
+        "titleHi": "सामुदायिक स्वास्थ्य सहायक"
+      },
+      "Data Entry Operator": {
+        "demand": 469,
+        "effectiveSupply": 193,
+        "gapScore": 79,
+        "capacitySurplusSeats": -276,
+        "confidence": 80,
+        "titleHi": "डेटा एंट्री ऑपरेटर"
+      },
+      "Domestic Electrician & Wireman": {
+        "demand": 1103,
+        "effectiveSupply": 501,
+        "gapScore": 77,
+        "capacitySurplusSeats": -602,
+        "confidence": 80,
+        "titleHi": "घरेलू इलेक्ट्रीशियन एवं वायरमैन"
+      },
+      "Drone Maintenance Technician": {
+        "demand": 272,
+        "effectiveSupply": 129,
+        "gapScore": 76,
+        "capacitySurplusSeats": -143,
+        "confidence": 80,
+        "titleHi": "ड्रोन रखरखाव तकनीशियन"
+      },
+      "EV Service Technician": {
+        "demand": 493,
+        "effectiveSupply": 257,
+        "gapScore": 74,
+        "capacitySurplusSeats": -236,
+        "confidence": 81,
+        "titleHi": "ईवी सर्विस तकनीशियन"
+      },
+      "Industrial Automation Technician": {
+        "demand": 515,
+        "effectiveSupply": 227,
+        "gapScore": 78,
+        "capacitySurplusSeats": -288,
+        "confidence": 80,
+        "titleHi": "औद्योगिक स्वचालन तकनीशियन"
+      },
+      "Retail Sales Associate": {
+        "demand": 405,
+        "effectiveSupply": 176,
+        "gapScore": 78,
+        "capacitySurplusSeats": -229,
+        "confidence": 80,
+        "titleHi": "रिटेल सेल्स एसोसिएट"
+      },
+      "Sewing Machine Operator": {
+        "demand": 320,
+        "effectiveSupply": 165,
+        "gapScore": 74,
+        "capacitySurplusSeats": -155,
+        "confidence": 81,
+        "titleHi": "सिलाई मशीन ऑपरेटर"
+      },
+      "Smart Meter Installation Technician": {
+        "demand": 605,
+        "effectiveSupply": 304,
+        "gapScore": 75,
+        "capacitySurplusSeats": -301,
+        "confidence": 80,
+        "titleHi": "स्मार्ट मीटर इंस्टॉलेशन तकनीशियन"
+      },
+      "Solar PV Installer": {
+        "demand": 828,
+        "effectiveSupply": 384,
+        "gapScore": 77,
+        "capacitySurplusSeats": -444,
+        "confidence": 80,
+        "titleHi": "सोलर पीवी इंस्टॉलर"
+      },
+      "Solar Pump Technician": {
+        "demand": 389,
+        "effectiveSupply": 186,
+        "gapScore": 76,
+        "capacitySurplusSeats": -203,
+        "confidence": 80,
+        "titleHi": "सोलर पंप तकनीशियन"
+      },
+      "Warehouse Logistics Executive": {
+        "demand": 502,
+        "effectiveSupply": 260,
+        "gapScore": 74,
+        "capacitySurplusSeats": -242,
+        "confidence": 81,
+        "titleHi": "वेयरहाउस लॉजिस्टिक्स एक्जीक्यूटिव"
+      }
+    }
+  },
+  "vadodara": {
+    "districtId": "vadodara",
+    "districtName": "Vadodara",
+    "districtNameHi": "वडोदरा",
+    "state": "Gujarat",
+    "lgdCode": 468,
+    "maxGapScore": 78,
+    "overallDemand": 56,
+    "overallSupply": 31,
+    "overallSurplus": -3558,
+    "trades": {
+      "AI/ML Data Annotation Specialist": {
+        "demand": 433,
+        "effectiveSupply": 251,
+        "gapScore": 71,
+        "capacitySurplusSeats": -182,
+        "confidence": 81,
+        "titleHi": "एआई/एमएल डेटा एनोटेशन विशेषज्ञ"
+      },
+      "Automotive Assembly Fitter": {
+        "demand": 532,
+        "effectiveSupply": 234,
+        "gapScore": 78,
+        "capacitySurplusSeats": -298,
+        "confidence": 80,
+        "titleHi": "ऑटोमोटिव असेंबली फिटर"
+      },
+      "CNC Machine Operator": {
+        "demand": 458,
+        "effectiveSupply": 204,
+        "gapScore": 78,
+        "capacitySurplusSeats": -254,
+        "confidence": 80,
+        "titleHi": "सीएनसी मशीन ऑपरेटर"
+      },
+      "Cold Storage & HVAC Mechanic": {
+        "demand": 298,
+        "effectiveSupply": 140,
+        "gapScore": 77,
+        "capacitySurplusSeats": -158,
+        "confidence": 80,
+        "titleHi": "कोल्ड स्टोरेज एवं एचवीएसी मैकेनिक"
+      },
+      "Community Health Assistant": {
+        "demand": 689,
+        "effectiveSupply": 349,
+        "gapScore": 75,
+        "capacitySurplusSeats": -340,
+        "confidence": 80,
+        "titleHi": "सामुदायिक स्वास्थ्य सहायक"
+      },
+      "Data Entry Operator": {
+        "demand": 343,
+        "effectiveSupply": 172,
+        "gapScore": 75,
+        "capacitySurplusSeats": -171,
+        "confidence": 80,
+        "titleHi": "डेटा एंट्री ऑपरेटर"
+      },
+      "Domestic Electrician & Wireman": {
+        "demand": 731,
+        "effectiveSupply": 359,
+        "gapScore": 75,
+        "capacitySurplusSeats": -372,
+        "confidence": 80,
+        "titleHi": "घरेलू इलेक्ट्रीशियन एवं वायरमैन"
+      },
+      "Drone Maintenance Technician": {
+        "demand": 253,
+        "effectiveSupply": 111,
+        "gapScore": 78,
+        "capacitySurplusSeats": -142,
+        "confidence": 80,
+        "titleHi": "ड्रोन रखरखाव तकनीशियन"
+      },
+      "EV Service Technician": {
+        "demand": 520,
+        "effectiveSupply": 258,
+        "gapScore": 75,
+        "capacitySurplusSeats": -262,
+        "confidence": 80,
+        "titleHi": "ईवी सर्विस तकनीशियन"
+      },
+      "Industrial Automation Technician": {
+        "demand": 349,
+        "effectiveSupply": 173,
+        "gapScore": 75,
+        "capacitySurplusSeats": -176,
+        "confidence": 80,
+        "titleHi": "औद्योगिक स्वचालन तकनीशियन"
+      },
+      "Retail Sales Associate": {
+        "demand": 334,
+        "effectiveSupply": 181,
+        "gapScore": 73,
+        "capacitySurplusSeats": -153,
+        "confidence": 81,
+        "titleHi": "रिटेल सेल्स एसोसिएट"
+      },
+      "Sewing Machine Operator": {
+        "demand": 253,
+        "effectiveSupply": 127,
+        "gapScore": 75,
+        "capacitySurplusSeats": -126,
+        "confidence": 80,
+        "titleHi": "सिलाई मशीन ऑपरेटर"
+      },
+      "Smart Meter Installation Technician": {
+        "demand": 415,
+        "effectiveSupply": 238,
+        "gapScore": 71,
+        "capacitySurplusSeats": -177,
+        "confidence": 81,
+        "titleHi": "स्मार्ट मीटर इंस्टॉलेशन तकनीशियन"
+      },
+      "Solar PV Installer": {
+        "demand": 724,
+        "effectiveSupply": 400,
+        "gapScore": 72,
+        "capacitySurplusSeats": -324,
+        "confidence": 81,
+        "titleHi": "सोलर पीवी इंस्टॉलर"
+      },
+      "Solar Pump Technician": {
+        "demand": 427,
+        "effectiveSupply": 225,
+        "gapScore": 74,
+        "capacitySurplusSeats": -202,
+        "confidence": 81,
+        "titleHi": "सोलर पंप तकनीशियन"
+      },
+      "Warehouse Logistics Executive": {
+        "demand": 482,
+        "effectiveSupply": 261,
+        "gapScore": 73,
+        "capacitySurplusSeats": -221,
+        "confidence": 81,
+        "titleHi": "वेयरहाउस लॉजिस्टिक्स एक्जीक्यूटिव"
+      }
+    }
+  },
+  "varanasi": {
+    "districtId": "varanasi",
+    "districtName": "Varanasi",
+    "districtNameHi": "वाराणसी",
+    "state": "Uttar Pradesh",
+    "lgdCode": 198,
+    "maxGapScore": 77,
+    "overallDemand": 55,
+    "overallSupply": 32,
+    "overallSurplus": -3332,
+    "trades": {
+      "AI/ML Data Annotation Specialist": {
+        "demand": 421,
+        "effectiveSupply": 204,
+        "gapScore": 76,
+        "capacitySurplusSeats": -217,
+        "confidence": 80,
+        "titleHi": "एआई/एमएल डेटा एनोटेशन विशेषज्ञ"
+      },
+      "Automotive Assembly Fitter": {
+        "demand": 533,
+        "effectiveSupply": 276,
+        "gapScore": 74,
+        "capacitySurplusSeats": -257,
+        "confidence": 81,
+        "titleHi": "ऑटोमोटिव असेंबली फिटर"
+      },
+      "CNC Machine Operator": {
+        "demand": 578,
+        "effectiveSupply": 336,
+        "gapScore": 71,
+        "capacitySurplusSeats": -242,
+        "confidence": 81,
+        "titleHi": "सीएनसी मशीन ऑपरेटर"
+      },
+      "Cold Storage & HVAC Mechanic": {
+        "demand": 281,
+        "effectiveSupply": 160,
+        "gapScore": 72,
+        "capacitySurplusSeats": -121,
+        "confidence": 81,
+        "titleHi": "कोल्ड स्टोरेज एवं एचवीएसी मैकेनिक"
+      },
+      "Community Health Assistant": {
+        "demand": 775,
+        "effectiveSupply": 426,
+        "gapScore": 73,
+        "capacitySurplusSeats": -349,
+        "confidence": 81,
+        "titleHi": "सामुदायिक स्वास्थ्य सहायक"
+      },
+      "Data Entry Operator": {
+        "demand": 330,
+        "effectiveSupply": 185,
+        "gapScore": 72,
+        "capacitySurplusSeats": -145,
+        "confidence": 81,
+        "titleHi": "डेटा एंट्री ऑपरेटर"
+      },
+      "Domestic Electrician & Wireman": {
+        "demand": 718,
+        "effectiveSupply": 402,
+        "gapScore": 72,
+        "capacitySurplusSeats": -316,
+        "confidence": 81,
+        "titleHi": "घरेलू इलेक्ट्रीशियन एवं वायरमैन"
+      },
+      "Drone Maintenance Technician": {
+        "demand": 199,
+        "effectiveSupply": 120,
+        "gapScore": 70,
+        "capacitySurplusSeats": -79,
+        "confidence": 81,
+        "titleHi": "ड्रोन रखरखाव तकनीशियन"
+      },
+      "EV Service Technician": {
+        "demand": 373,
+        "effectiveSupply": 171,
+        "gapScore": 77,
+        "capacitySurplusSeats": -202,
+        "confidence": 80,
+        "titleHi": "ईवी सर्विस तकनीशियन"
+      },
+      "Industrial Automation Technician": {
+        "demand": 418,
+        "effectiveSupply": 214,
+        "gapScore": 74,
+        "capacitySurplusSeats": -204,
+        "confidence": 81,
+        "titleHi": "औद्योगिक स्वचालन तकनीशियन"
+      },
+      "Retail Sales Associate": {
+        "demand": 260,
+        "effectiveSupply": 128,
+        "gapScore": 75,
+        "capacitySurplusSeats": -132,
+        "confidence": 80,
+        "titleHi": "रिटेल सेल्स एसोसिएट"
+      },
+      "Sewing Machine Operator": {
+        "demand": 306,
+        "effectiveSupply": 173,
+        "gapScore": 72,
+        "capacitySurplusSeats": -133,
+        "confidence": 81,
+        "titleHi": "सिलाई मशीन ऑपरेटर"
+      },
+      "Smart Meter Installation Technician": {
+        "demand": 483,
+        "effectiveSupply": 276,
+        "gapScore": 71,
+        "capacitySurplusSeats": -207,
+        "confidence": 81,
+        "titleHi": "स्मार्ट मीटर इंस्टॉलेशन तकनीशियन"
+      },
+      "Solar PV Installer": {
+        "demand": 527,
+        "effectiveSupply": 247,
+        "gapScore": 77,
+        "capacitySurplusSeats": -280,
+        "confidence": 80,
+        "titleHi": "सोलर पीवी इंस्टॉलर"
+      },
+      "Solar Pump Technician": {
+        "demand": 408,
+        "effectiveSupply": 194,
+        "gapScore": 76,
+        "capacitySurplusSeats": -214,
+        "confidence": 80,
+        "titleHi": "सोलर पंप तकनीशियन"
+      },
+      "Warehouse Logistics Executive": {
+        "demand": 474,
+        "effectiveSupply": 240,
+        "gapScore": 75,
+        "capacitySurplusSeats": -234,
+        "confidence": 80,
+        "titleHi": "वेयरहाउस लॉजिस्टिक्स एक्जीक्यूटिव"
+      }
+    }
+  }
+}

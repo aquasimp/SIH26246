@@ -4,6 +4,7 @@ import React from 'react';
 import Link from 'next/link';
 import { useApp } from '@/lib/store';
 import { IndiaIntelligenceMap } from '@/components/maps/IndiaIntelligenceMap';
+import { Provenance } from '@/components/common/Provenance';
 import { STATES } from '@/lib/demoData';
 import { 
   ArrowRight, 
@@ -55,8 +56,8 @@ export function HeroPage() {
               {/* Subtitle with exact text fix */}
               <p className="text-xs sm:text-sm text-[var(--text-muted)] font-medium leading-relaxed max-w-xl">
                 {l(
-                  'KaushalYuva turns official SIH dataset; NCS / SIDH / e-Shram via adapters into granular district-level forecasts, early warnings, and mathematically guarded seat reallocations.',
-                  'कौशलयुवा आधिकारिक SIH डेटासेट; NCS / SIDH / e-Shram एडेप्टर के माध्यम से ज़िला-स्तरीय पूर्वानुमान, पूर्व चेतावनियाँ और गणितीय रूप से सुरक्षित सीट-पुनर्आवंटन प्रदान करता है।'
+                  'KaushalYuva turns official SIH dataset (NCS / e-Shram / PLFS adapters ready) into granular district-level forecasts, early warnings, and mathematically guarded seat reallocations.',
+                  'कौशलयुवा आधिकारिक SIH डेटासेट (NCS / e-Shram / PLFS एडेप्टर तैयार) के माध्यम से ज़िला-स्तरीय पूर्वानुमान, पूर्व चेतावनियाँ और गणितीय रूप से सुरक्षित सीट-पुनर्आवंटन प्रदान करता है।'
                 )}
               </p>
             </div>
@@ -78,14 +79,17 @@ export function HeroPage() {
           <div className="lg:col-span-5 flex flex-col">
             <div className="hud-card p-4 sm:p-5 rounded-2xl relative overflow-hidden border border-amber-500/35 bg-amber-500/5 dark:bg-[#0b1730]/85 h-full flex flex-col justify-between space-y-3.5">
               <div className="space-y-2.5">
-                <div className="flex items-center justify-between gap-2">
+                <div className="flex flex-wrap items-center justify-between gap-2">
                   <span className="eyebrow text-amber-600 dark:text-amber-400 text-xs">
                     <span className="w-2 h-2 rounded-full bg-amber-500 animate-pulse inline-block" />
                     {l('TOP EXECUTIVE ALERT · GORAKHPUR', 'शीर्ष कार्यकारी अलर्ट · गोरखपुर')}
                   </span>
-                  <span className="px-2 py-0.5 rounded-full text-xs font-mono font-bold bg-amber-500/15 text-amber-600 dark:text-amber-400 border border-amber-500/30">
-                    {l('Severe Shortage (Score 94)', 'गंभीर कमी (स्कोर 94)')}
-                  </span>
+                  <div className="flex items-center gap-1.5 flex-wrap">
+                    <Provenance source="SIH dummy dataset" note="RUN-SIH-001" compact={false} />
+                    <span className="px-2 py-0.5 rounded-full text-xs font-mono font-bold bg-amber-500/15 text-amber-600 dark:text-amber-400 border border-amber-500/30">
+                      {l('Severe Shortage (Score 94)', 'गंभीर कमी (स्कोर 94)')}
+                    </span>
+                  </div>
                 </div>
 
                 {/* Sentence heading in normal case with key figure 711 larger in accent */}
@@ -139,8 +143,8 @@ export function HeroPage() {
                 {/* Subtext with precise text fix */}
                 <p className="text-xs text-[var(--text-muted)] leading-relaxed">
                   {l(
-                    'Transferring 97 seats from Retail Sales closes 6.2% deficit with zero donor risk (score 52). Remaining deficit after 97 seats is about 667 persons (requires capital expansion).',
-                    'रिटेल सेल्स से 97 सीटें स्थानांतरित करने से शून्य दाता जोखिम (स्कोर 52) के साथ 6.2% कमी पूरी होती है। 97 सीटों के बाद शेष कमी लगभग 667 व्यक्ति है (पूंजीगत विस्तार आवश्यक)।'
+                    'Transferring 97 seats from Retail Sales closes 6.2% deficit (97 seats add ~44 candidates); donor stays Balanced (52). Remaining ~667 persons need new capacity.',
+                    'रिटेल सेल्स से 97 सीटें स्थानांतरित करने से 6.2% घाटा कम होता है (97 सीटें ~44 उम्मीदवार जोड़ती हैं); दाता संतुलित (52) रहता है। शेष ~667 व्यक्तियों के लिए नई क्षमता आवश्यक है।'
                   )}
                 </p>
               </div>
@@ -159,7 +163,7 @@ export function HeroPage() {
 
       {/* 2. Compact Proof Strip (Replacing 4 stat tiles with naive-vs-blend mini bar) */}
       <section className="w-full max-w-7xl px-4 sm:px-6 lg:px-8 py-2">
-        <div className="p-3 rounded-2xl glass border border-[var(--border)] shadow-xs flex flex-wrap md:flex-nowrap items-center justify-between gap-3 text-xs">
+        <div className="p-3 rounded-2xl glass border border-[var(--border)] shadow-xs flex flex-wrap lg:flex-nowrap items-center justify-between gap-3 text-xs overflow-hidden">
           {/* Geography */}
           <div className="flex items-center gap-2 px-2 shrink-0">
             <span className="text-xs font-mono font-bold text-cyan-700 dark:text-[#00c2cb] uppercase">
@@ -255,7 +259,7 @@ export function HeroPage() {
           <div className="text-xs font-mono text-[var(--text-faint)] shrink-0 hidden sm:block">
             {selectedState === 'All' 
               ? l('16 Priority Districts Active', '16 प्राथमिकता ज़िले सक्रिय') 
-              : l(`Filtered to ${selectedState}`, `${selectedState} चयनित`)}
+              : l(`Filtered to ${selectedState}`, `${getLocalizedEntityName('states', selectedState, 'hi')} चयनित`)}
           </div>
         </div>
       </section>
@@ -387,8 +391,8 @@ export function HeroPage() {
 
               <p className="text-xs text-[var(--text-muted)] leading-relaxed font-sans">
                 {l(
-                  'Proposed new EV training cluster in Chakan-Bhosari corridor adding 400 new seats, closing projected deficit by 54%.',
-                  'चाकण-भोसरी औद्योगिक क्षेत्र में ऑटोमोबाइल फिटर से 400 नई ईवी सर्विस सीटें स्थापित करने का प्रस्ताव।'
+                  '[Context, not model output] Chakan-Bhosari corridor. Model derivation: 741 deficit @ 54% funnel conversion → 400 seats @ ₹6,500/seat (Assumption) = ₹26.0L capex.',
+                  '[संदर्भ, मॉडल आउटपुट नहीं] चाकण-भोसरी क्लस्टर। मॉडल व्युत्पत्ति: 741 घाटा @ 54% फ़नल रूपांतरण → 400 सीटें @ ₹6,500/सीट (परिकल्पना) = ₹26.0 लाख पूंजी व्यय।'
                 )}
               </p>
 
@@ -464,8 +468,8 @@ export function HeroPage() {
 
               <p className="text-xs text-[var(--text-muted)] leading-relaxed font-sans">
                 {l(
-                  'Precision engineering and pump manufacturing corridor adding 350 new CNC seats, closing projected deficit by 48%.',
-                  'सटीक इंजीनियरिंग और पंप निर्माण क्लस्टर में 350 नई सीएनसी ऑपरेटर सीटें, अनुमानित कमी में 48% की कमी।'
+                  '[Context, not model output] Precision engineering and pump corridor. Model derivation: 729 deficit @ 48% funnel conversion → 350 seats @ ₹6,500/seat (Assumption) = ₹22.75L capex.',
+                  '[संदर्भ, मॉडल आउटपुट नहीं] सटीक इंजीनियरिंग और पंप क्लस्टर। मॉडल व्युत्पत्ति: 729 घाटा @ 48% फ़नल रूपांतरण → 350 सीटें @ ₹6,500/सीट (परिकल्पना) = ₹22.75 लाख पूंजी व्यय।'
                 )}
               </p>
 
@@ -584,8 +588,8 @@ export function HeroPage() {
               </div>
               <p className="text-xs text-[var(--text-muted)] truncate sm:whitespace-normal font-sans">
                 {l(
-                  'Lagged LightGBM ensemble delivering 3.41%–3.71% out-of-sample WAPE across 3M/6M/12M.',
-                  'लैग्ड LightGBM एन्सेम्बल जो 3M/6M/12M में 3.41% - 3.71% आउट-ऑफ-सैंपल WAPE प्रदान करता है।'
+                  'LightGBM + Theta + ETS blend delivering 3.41%–4.18% out-of-sample WAPE vs naive 6.05%–6.93% (31%–51% gain).',
+                  'LightGBM + Theta + ETS मिश्रण जो 3.41%–4.18% आउट-ऑफ-सैंपल WAPE प्रदान करता है (नाइव 6.05%–6.93% की तुलना में 31%–51% सुधार)।'
                 )}
               </p>
             </div>

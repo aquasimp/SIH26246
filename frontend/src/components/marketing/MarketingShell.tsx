@@ -121,7 +121,7 @@ export function MarketingFooter() {
               {t.appTitle || siteConfig.name}
             </span>
             <span className="text-xs text-[var(--text-faint)] font-mono">
-              SIH 2026 · Problem Statement 26246 · MSDE
+              {l('SIH 2026 · Problem Statement 26246 · MSDE', 'स्मार्ट इंडिया हैकथॉन 2026 · समस्या विवरण 26246 · MSDE')}
             </span>
           </div>
         </div>

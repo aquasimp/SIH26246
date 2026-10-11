@@ -27,11 +27,6 @@ export interface LanguageOption {
 export const SUPPORTED_LANGUAGES: LanguageOption[] = [
   { code: 'en', label: 'English', nativeLabel: 'English', region: 'National / Official', script: 'Latin' },
   { code: 'hi', label: 'Hindi', nativeLabel: 'हिन्दी', region: 'Uttar Pradesh & Central', script: 'Devanagari' },
-  { code: 'mr', label: 'Marathi', nativeLabel: 'मराठी', region: 'Maharashtra (Pune / Nashik)', script: 'Devanagari' },
-  { code: 'ta', label: 'Tamil', nativeLabel: 'தமிழ்', region: 'Tamil Nadu (Coimbatore)', script: 'Tamil' },
-  { code: 'te', label: 'Telugu', nativeLabel: 'తెలుగు', region: 'Telangana & Andhra Pradesh', script: 'Telugu' },
-  { code: 'kn', label: 'Kannada', nativeLabel: 'ಕನ್ನಡ', region: 'Karnataka (Bengaluru / Mysuru)', script: 'Kannada' },
-  { code: 'bn', label: 'Bengali', nativeLabel: 'বাংলা', region: 'West Bengal & Eastern Corridors', script: 'Bengali' },
 ];
 
 export interface ReferenceData {

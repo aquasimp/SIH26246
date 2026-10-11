@@ -36,7 +36,7 @@ export async function GET(request: Request) {
         upper: ciUpper,
         confidence_level: '95%'
       },
-      model: 'Global LightGBM Ensemble v3.2',
+      model: 'LightGBM + Theta + ETS blend',
       baseline_comparison: {
         seasonal_naive_demand: Math.round(o.currentDemand * 0.98),
         model_advantage_error_reduction: '69.9%'

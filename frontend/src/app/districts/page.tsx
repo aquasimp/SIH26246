@@ -119,7 +119,7 @@ export default function DistrictsOverviewPage() {
                     <span className="font-semibold text-[var(--text)]">
                       {l('Infrastructure: ', 'बुनियादी ढांचा: ')}
                     </span>
-                    {d.trainingCentresCount} {l('Centres', 'केंद्र')} ({d.totalTrainingSeats} {l('Seats', 'सीटें')})
+                    {d.totalTrainingSeats} {l('Seats', 'सीटें')} · {d.activeEmployers} {l('Employers', 'नियोक्ता')}
                   </div>
                     <div className="truncate">
                       <span className="font-semibold text-[var(--severe)]">

@@ -39,6 +39,8 @@ export const ALLOWED_LATIN_TOKENS = new Set([
   'GST',
   'EPFO',
   'PLFS',
+  'e-Shram',
+  'eShram',
   'NAPS',
   'MoL',
 
@@ -58,6 +60,10 @@ export const ALLOWED_LATIN_TOKENS = new Set([
   'MASE',
   'MAE',
   'RMSE',
+  'Naive',
+  'Blend',
+  'ROI',
+  'Assumption',
   'Pinball',
   'RUN-SIH-001',
   'SIH-2026',
@@ -137,6 +143,9 @@ export const ALLOWED_LATIN_TOKENS = new Set([
   '3M',
   '6M',
   '12M',
+  'Oct',
+  'English',
+  'Hindi',
 
   // System marks
   'KY',
@@ -171,7 +180,8 @@ export function isAllowedLatinToken(token: string): boolean {
   if (/^QP-[A-Z0-9_\-\.\/]+$/i.test(clean)) return true; // QP codes (e.g. QP-7126-V1.0)
   if (/^NCO(-[A-Z0-9]+|\/[A-Z0-9]+)?$/i.test(clean)) return true; // NCO, NCO-2015, NCO/LGD
   if (/^t-\d+$/i.test(clean)) return true; // Time lags (t-1, t-6, t-12)
-  if (/^\d+(\.\d+)?(ms|[KLM])$/i.test(clean)) return true; // Quantities with units (18.31L, 42ms, 9.0K)
+  if (/^\d+(\.\d+)?(ms|[KLMx])$/i.test(clean)) return true; // Quantities with units (18.31L, 42ms, 13.9x, 9.0K)
+  if (/^\d+(\.\d+)?\/seat$/i.test(clean)) return true; // Cost rates (500/seat, 857/seat)
   if (/^RUN-/i.test(clean)) return true; // RUN- prefix
   if (/^ALT-/i.test(clean)) return true; // ALT- alert prefix
   if (/^ALR-/i.test(clean)) return true; // ALR- alert ID prefix (e.g. ALR-2026-UP-001)

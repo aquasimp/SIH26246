@@ -259,6 +259,81 @@ export default function RecommendationsPage() {
               </div>
             )}
 
+            {/* REC-01 Two Explicit Rows (§8) */}
+            {rec.options && rec.options.length > 0 && (
+              <div className="mb-4 p-3.5 rounded-2xl glass border border-[var(--brand)]/30 space-y-2.5 bg-[var(--surface-solid)]/40">
+                <div className="flex items-center justify-between text-xs font-mono font-bold text-[var(--brand)] uppercase tracking-wider">
+                  <span>{l('Implementation Pathways (2 Options)', 'कार्यान्वयन विकल्प (2 विकल्प)')}</span>
+                  <span className="text-[10px] text-[var(--text-faint)]">{l('LP Solver Validated', 'एलपी सॉल्वर सत्यापित')}</span>
+                </div>
+                <div className="space-y-2">
+                  {rec.options.map((opt, idx) => (
+                    <div 
+                      key={idx}
+                      className="flex flex-col sm:flex-row sm:items-center justify-between p-2.5 rounded-xl border border-[var(--border)] bg-[var(--surface-card)] gap-2 text-xs"
+                    >
+                      <div className="flex items-center gap-2">
+                        <span className="w-5 h-5 rounded-full bg-[var(--brand)]/15 text-[var(--brand)] flex items-center justify-center font-mono font-bold text-[10px]">
+                          {idx + 1}
+                        </span>
+                        <div>
+                          <span className="font-extrabold text-[var(--text)] block">
+                            {isHi ? opt.labelHi : opt.label}
+                          </span>
+                          <span className="text-[11px] text-[var(--text-muted)] font-mono">
+                            {isHi ? opt.detailsHi : opt.detailsEn}
+                          </span>
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-3 shrink-0 font-mono self-end sm:self-auto">
+                        <span className="px-2 py-0.5 rounded-md bg-[var(--success)]/15 text-[var(--success)] font-extrabold">
+                          {opt.gapReductionPercent}% {l('Reduction', 'कमी')}
+                        </span>
+                        <span className="font-extrabold text-[var(--text)]">
+                          {formatINR(opt.costINR)}
+                        </span>
+                        <span className="text-[var(--text-muted)]">
+                          ({opt.seats} {l('seats', 'सीटें')})
+                        </span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* REC-02/03 Derivation and Assumptions (§9) */}
+            {rec.assumptions && (
+              <div className="mb-4 p-3.5 rounded-2xl glass border border-amber-500/25 space-y-2 bg-[var(--surface-solid)]/40 text-xs">
+                <div className="flex items-center justify-between text-xs font-mono font-bold uppercase tracking-wider">
+                  <span className="text-amber-600 dark:text-amber-400">
+                    {l('Model Derivation & Assumptions', 'मॉडल व्युत्पत्ति एवं परिकल्पनाएं')}
+                  </span>
+                  <span className="px-2 py-0.5 rounded-md bg-amber-500/15 text-amber-600 dark:text-amber-400 text-[10px] font-bold">
+                    {l('Assumption', 'परिकल्पना')}
+                  </span>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2 font-mono text-[11px]">
+                  <div className="p-2 rounded-lg bg-[var(--surface-card)] border border-[var(--border)]">
+                    <span className="text-[var(--text-faint)] block text-[10px] uppercase">{l('Deficit', 'घाटा')}</span>
+                    <strong className="text-[var(--severe)] font-extrabold">{rec.assumptions.deficit}</strong>
+                  </div>
+                  <div className="p-2 rounded-lg bg-[var(--surface-card)] border border-[var(--border)]">
+                    <span className="text-[var(--text-faint)] block text-[10px] uppercase">{l('Recommended Seats', 'अनुशंसित सीटें')}</span>
+                    <strong className="text-[var(--brand)] font-extrabold">{rec.assumptions.seats}</strong>
+                  </div>
+                  <div className="p-2 rounded-lg bg-[var(--surface-card)] border border-[var(--border)] sm:col-span-2">
+                    <span className="text-[var(--text-faint)] block text-[10px] uppercase">{l('Capex Rate', 'पूंजी व्यय दर')}</span>
+                    <strong className="text-[var(--text)] font-semibold">{isHi && rec.assumptions.capexRateHi ? rec.assumptions.capexRateHi : rec.assumptions.capexRate}</strong>
+                  </div>
+                  <div className="p-2 rounded-lg bg-[var(--surface-card)] border border-[var(--border)] col-span-1 sm:col-span-2 lg:col-span-4">
+                    <span className="text-[var(--text-faint)] block text-[10px] uppercase">{l('Staged Funnel Conversion', 'चरणबद्ध फ़नल रूपांतरण')}</span>
+                    <span className="text-[var(--text-muted)] text-[10px]">{isHi && rec.assumptions.funnelConversionHi ? rec.assumptions.funnelConversionHi : rec.assumptions.funnelConversion}</span>
+                  </div>
+                </div>
+              </div>
+            )}
+
             {/* Expected Impact Stats Grid in aligned 6-column responsive grid (§6.3) */}
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2 sm:gap-2.5 p-3 sm:p-3.5 rounded-2xl glass border border-[var(--border)] shadow-2xs mb-4 text-center">
               <div>
@@ -319,7 +394,7 @@ export default function RecommendationsPage() {
                   {formatINR(rec.expectedImpact.estimatedCostINR)}
                 </span>
                 <span className="text-[9px] text-[var(--brand)] font-semibold block font-mono">
-                  {rec.expectedImpact.roiMultiple ? `${rec.expectedImpact.roiMultiple}x ROI` : (l('₹6,500/seat', '₹6,500/सीट'))}
+                  {rec.expectedImpact.roiMultiple ? `${rec.expectedImpact.roiMultiple}x ${l('ROI', 'प्रतिफल')}` : (l('₹6,500/seat', '₹6,500/सीट'))}
                 </span>
               </div>
             </div>

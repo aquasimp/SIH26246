@@ -2463,7 +2463,27 @@ export const RECOMMENDATIONS: Recommendation[] = [
     confidence: 82,
     status: 'pending',
     datasetChip: 'SIH dummy dataset',
-    derivation: 'Linear Programming Solver (PuLP)'
+    derivation: 'Linear Programming Solver (PuLP)',
+    options: [
+      {
+        label: 'Reallocation alone',
+        labelHi: 'केवल पुनर्आवंटन',
+        gapReductionPercent: 6.2,
+        costINR: 631000,
+        seats: 97,
+        detailsEn: 'Reallocation alone (6.2% deficit closed, Rs 6.31L capex @ ₹6,500/seat retrofit)',
+        detailsHi: 'केवल पुनर्आवंटन (6.2% घाटा बंद, ₹6.31 लाख पूंजी व्यय @ ₹6,500/सीट रेट्रोफ़िट)'
+      },
+      {
+        label: 'With 150-seat lab expansion',
+        labelHi: '150-सीट लैब विस्तार के साथ',
+        gapReductionPercent: 15.6,
+        costINR: 1831000,
+        seats: 247,
+        detailsEn: 'With 150-seat lab expansion (15.6% deficit closed, Rs 18.31L total: ₹6.31L retrofit + ₹12.0L lab)',
+        detailsHi: '150-सीट लैब विस्तार के साथ (15.6% घाटा बंद, ₹18.31 लाख कुल: ₹6.31L रेट्रोफ़िट + ₹12.0L लैब)'
+      }
+    ]
   },
   // 2. Pune EV Diagnostics Hub (Illustrative, not model output)
   {
@@ -2478,8 +2498,8 @@ export const RECOMMENDATIONS: Recommendation[] = [
     district: 'Pune',
     state: 'Maharashtra',
     recommendedSeats: 400,
-    reason: 'High-voltage certified diagnostic technicians needed across automotive clusters in Chakan & Bhosari [Illustrative, not model output].',
-    reasonHi: 'चाकन और भोसरी के ऑटोमोटिव समूहों में उच्च-वोल्टेज प्रमाणित तकनीशियन आवश्यक [उदाहरणात्मक, मॉडल आउटपुट नहीं]।',
+    reason: 'High-voltage certified diagnostic technicians needed across automotive clusters in Chakan & Bhosari. Context, not model output: Regional auto cluster demand.',
+    reasonHi: 'चाकन और भोसरी के ऑटोमोटिव समूहों में उच्च-वोल्टेज प्रमाणित तकनीशियन आवश्यक। संदर्भ, मॉडल आउटपुट नहीं: क्षेत्रीय ऑटो क्लस्टर मांग।',
     evidence: {
       demandSignal: 'Reported hiring (dummy dataset): Dealership service networks report expanding diagnostic bay staffing requirements.',
       vacancyGrowth: 'Dealership service bays reporting 35+ days lead time to hire qualified battery diagnostic personnel [SIH dummy dataset].',
@@ -2487,6 +2507,14 @@ export const RECOMMENDATIONS: Recommendation[] = [
       employerHiringTrend: 'Auto ancillary consortium willing to support co-investment for training rigs [SIH dummy dataset].'
     },
     constraints: 'High-voltage safety clearances required under CEA regulations prior to live pack testing.',
+    assumptions: {
+      deficit: 400,
+      funnelConversion: '400 seats → 360 enrolled (90%) → 316 certified (88%) → 240 employable (76%)',
+      funnelConversionHi: '400 सीटें → 360 नामांकित (90%) → 316 प्रमाणित (88%) → 240 रोजगार योग्य (76%)',
+      seats: 400,
+      capexRate: '₹14,500/seat diagnostic equipment capex (Assumption)',
+      capexRateHi: '₹14,500/सीट डायग्नोस्टिक उपकरण पूंजी व्यय (परिकल्पना)'
+    },
     expectedImpact: {
       gapReductionPercent: 54,
       supplyCoveragePercent: 18,
@@ -2499,7 +2527,7 @@ export const RECOMMENDATIONS: Recommendation[] = [
     confidence: 81,
     status: 'pending',
     datasetChip: 'SIH dummy dataset',
-    derivation: 'Illustrative, not model output'
+    derivation: 'Deficit: 400 | Funnel conversion: 400 seats → 240 employable | Capex rate: ₹14,500/seat (Assumption)'
   },
   // 3. Lucknow Indic AI Hub (Illustrative, not model output)
   {
@@ -2514,8 +2542,8 @@ export const RECOMMENDATIONS: Recommendation[] = [
     district: 'Lucknow',
     state: 'Uttar Pradesh',
     recommendedSeats: 350,
-    reason: 'High-volume data annotation demand across regional tech corridor [Illustrative, not model output].',
-    reasonHi: 'क्षेत्रीय तकनीकी गलियारे में उच्च मात्रा में डेटा एनोटेशन मांग [उदाहरणात्मक, मॉडल आउटपुट नहीं]।',
+    reason: 'High-volume data annotation demand across regional tech initiatives. Context, not model output: Regional tech initiatives.',
+    reasonHi: 'क्षेत्रीय तकनीकी पहलों में उच्च मात्रा में डेटा एनोटेशन मांग। संदर्भ, मॉडल आउटपुट नहीं: क्षेत्रीय तकनीकी पहल।',
     evidence: {
       demandSignal: 'Reported hiring (dummy dataset): Digital services vendors posting annotation and linguistic validation positions.',
       vacancyGrowth: 'Regional tech services demand expanding outside metropolitan centers [SIH dummy dataset].',
@@ -2523,6 +2551,14 @@ export const RECOMMENDATIONS: Recommendation[] = [
       employerHiringTrend: 'IT BPM firms indicate recruitment interest upon qualification pack completion [SIH dummy dataset].'
     },
     constraints: 'Requires broadband computer labs with dual-monitor setups.',
+    assumptions: {
+      deficit: 350,
+      funnelConversion: '350 seats → 315 enrolled (90%) → 270 certified (86%) → 192 employable (71%)',
+      funnelConversionHi: '350 सीटें → 315 नामांकित (90%) → 270 प्रमाणित (86%) → 192 रोजगार योग्य (71%)',
+      seats: 350,
+      capexRate: '₹6,857/seat computing lab capex (Assumption)',
+      capexRateHi: '₹6,857/सीट कंप्यूटिंग लैब पूंजी व्यय (परिकल्पना)'
+    },
     expectedImpact: {
       gapReductionPercent: 58,
       supplyCoveragePercent: 21,
@@ -2535,7 +2571,7 @@ export const RECOMMENDATIONS: Recommendation[] = [
     confidence: 86,
     status: 'pending',
     datasetChip: 'SIH dummy dataset',
-    derivation: 'Illustrative, not model output'
+    derivation: 'Deficit: 350 | Funnel conversion: 350 seats → 192 employable | Capex rate: ₹6,857/seat (Assumption)'
   },
   // 4. Ahmedabad CNC Hub (Illustrative, not model output)
   {

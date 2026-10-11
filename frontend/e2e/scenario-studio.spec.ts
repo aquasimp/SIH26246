@@ -18,9 +18,9 @@ test.describe('KaushalYuva Scenario Studio & UI Quality Suite', () => {
     await expect(page.locator('text=88%').first()).toBeVisible();
 
     // Proof strip
-    await expect(page.locator('text=40+').first()).toBeVisible();
-    await expect(page.locator('text=12+').first()).toBeVisible();
-    await expect(page.locator('text=11.8%').first()).toBeVisible();
+    await expect(page.locator('text=16 Districts').first()).toBeVisible();
+    await expect(page.locator('text=16 NCO-2015 Trades').first()).toBeVisible();
+    await expect(page.locator('text=3.41%').first()).toBeVisible();
   });
 
   test('Scenario Studio: Load Recommendation #01 Preset enforces exact 97 seats, ₹18.31L, 15.6% combo, donor 52', async ({ page }) => {
@@ -101,9 +101,17 @@ test.describe('KaushalYuva Scenario Studio & UI Quality Suite', () => {
     await page.goto('/');
 
     // Switch to Hindi
-    const hiBtn = page.locator('button', { hasText: 'हिन्दी' }).first();
-    await expect(hiBtn).toBeVisible();
-    await hiBtn.click();
+    const langSelectBtn = page.locator('button[aria-label="Select language"]').first();
+    if (await langSelectBtn.isVisible()) {
+      await langSelectBtn.click();
+      const hiOption = page.locator('button[role="option"]', { hasText: 'हिन्दी' }).first();
+      await hiOption.click();
+    } else {
+      const hiBtn = page.locator('button', { hasText: 'हिन्दी' }).first();
+      if (await hiBtn.isVisible()) {
+        await hiBtn.click();
+      }
+    }
 
     await page.waitForTimeout(400);
 

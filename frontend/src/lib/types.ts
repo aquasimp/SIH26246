@@ -1,6 +1,24 @@
 export type ForecastHorizon = '3M' | '6M' | '12M';
 export type GapSeverity = 'Severe Shortage' | 'Moderate Shortage' | 'Balanced' | 'Moderate Oversupply' | 'Severe Oversupply';
 export type AlertSeverity = 'critical' | 'warning' | 'info';
+
+export interface SeverityBand {
+  min: number;
+  max: number;
+  labelEn: string;
+  labelHi: string;
+  code: string;
+  color: string;
+  darkColor: string;
+}
+
+export const SEVERITY_BANDS: SeverityBand[] = [
+  { min: 75, max: 100, labelEn: 'Severe Shortage', labelHi: 'गंभीर कमी', code: 'severe_shortage', color: '#EA580C', darkColor: '#FF6600' },
+  { min: 60, max: 74, labelEn: 'Moderate Shortage', labelHi: 'मध्यम कमी', code: 'moderate_shortage', color: '#D97706', darkColor: '#F59E0B' },
+  { min: 40, max: 59, labelEn: 'Balanced', labelHi: 'संतुलित', code: 'balanced', color: '#0284C7', darkColor: '#38BDF8' },
+  { min: 25, max: 39, labelEn: 'Moderate Oversupply', labelHi: 'मध्यम अधिशेष', code: 'moderate_oversupply', color: '#0369A1', darkColor: '#0284C7' },
+  { min: 0, max: 24, labelEn: 'Severe Oversupply', labelHi: 'गंभीर अधिशेष', code: 'severe_oversupply', color: '#4338CA', darkColor: '#6366F1' },
+];
 export type AlertType = 
   | 'emerging_shortage' 
   | 'emerging_oversupply' 
@@ -166,6 +184,23 @@ export interface Recommendation {
   };
   confidence: number;
   status: 'pending' | 'approved' | 'simulated';
+  options?: {
+    label: string;
+    labelHi: string;
+    gapReductionPercent: number;
+    costINR: number;
+    seats: number;
+    detailsEn: string;
+    detailsHi: string;
+  }[];
+  assumptions?: {
+    deficit: number;
+    funnelConversion: string;
+    funnelConversionHi?: string;
+    seats: number;
+    capexRate: string;
+    capexRateHi?: string;
+  };
 }
 
 export interface TradeBeforeAfter {

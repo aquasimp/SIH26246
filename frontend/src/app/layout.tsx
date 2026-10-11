@@ -4,7 +4,7 @@ import "./globals.css";
 import { Providers } from "./providers";
 import { AppProvider } from "@/lib/store";
 import { AppShell } from "@/components/layout/AppShell";
-import { cookies } from "next/headers";
+import { cookies, headers } from "next/headers";
 
 import { Language } from "@/lib/i18n";
 
@@ -33,8 +33,9 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const cookieStore = await cookies();
-  const rawLang = cookieStore.get("kaushalyuva-lang")?.value;
-  const validLanguages: Language[] = ['en', 'hi', 'mr', 'ta', 'te', 'kn', 'bn'];
+  const headersList = await headers();
+  const rawLang = headersList.get("x-lang") || cookieStore.get("kaushalyuva-lang")?.value;
+  const validLanguages: Language[] = ['en', 'hi'];
   const lang: Language = (validLanguages.includes(rawLang as any) ? rawLang : "en") as Language;
 
   return (
