@@ -9,42 +9,42 @@ export function DataSourceControl() {
   const [showTooltip, setShowTooltip] = useState(false);
 
   return (
-    <div className="relative inline-flex items-center gap-1.5">
-      <span className="hidden xl:inline text-[10px] font-bold uppercase tracking-wider text-[var(--text-faint)]">
+    <div className="relative inline-flex items-center gap-1.5 shrink-0">
+      <span className="hidden 2xl:inline text-[10px] font-bold uppercase tracking-wider text-[var(--text-faint)] shrink-0">
         {l('DATA SOURCE:', 'डेटा स्रोत:')}
       </span>
 
       <div
         role="group"
         aria-label={l('Dataset Source selector', 'डेटासेट स्रोत चयनकर्ता')}
-        className="glass inline-flex items-center rounded-xl p-0.5 border border-[var(--border)] text-xs"
+        className="liquid-glass-pill inline-flex items-center rounded-xl p-0.5 border border-[var(--border)] text-xs shrink-0"
       >
         <button
           type="button"
           onClick={() => setDatasetMode('sih')}
-          className={`flex items-center gap-1.5 px-2.5 py-1 rounded-lg font-bold text-[11px] transition-all cursor-pointer ${
+          className={`flex items-center gap-1.5 px-2.5 py-1 rounded-lg font-bold text-[11px] transition-all cursor-pointer shrink-0 ${
             datasetMode === 'sih'
               ? 'bg-[var(--surface-solid)] text-[var(--brand)] shadow-xs border border-[var(--border-strong)]'
               : 'text-[var(--text-muted)] hover:text-[var(--text)]'
           }`}
-          title={l('SIH dummy dataset', 'SIH डमी डेटासेट')}
+          title={l('SIH dummy dataset (Competition Baseline Snapshot)', 'SIH डमी डेटासेट (प्रतियोगिता बेसलाइन)')}
         >
-          <Database className="w-3 h-3 text-[var(--brand)]" />
-          <span>{l('SIH dummy dataset', 'SIH डमी डेटासेट')}</span>
+          <Database className="w-3 h-3 text-[var(--brand)] shrink-0" />
+          <span>{l('SIH Data', 'SIH डेटा')}</span>
         </button>
 
         <button
           type="button"
           onClick={() => setDatasetMode('synthetic')}
-          className={`flex items-center gap-1.5 px-2.5 py-1 rounded-lg font-bold text-[11px] transition-all cursor-pointer ${
+          className={`flex items-center gap-1.5 px-2.5 py-1 rounded-lg font-bold text-[11px] transition-all cursor-pointer shrink-0 ${
             datasetMode === 'synthetic'
               ? 'bg-[var(--surface-solid)] text-purple-400 shadow-xs border border-[var(--border-strong)]'
               : 'text-[var(--text-muted)] hover:text-[var(--text)]'
           }`}
-          title={l('Synthetic demo dataset', 'सिंथेटिक डेमो डेटासेट')}
+          title={l('Synthetic demo dataset (Multi-district benchmark)', 'सिंथेटिक डेमो डेटासेट (बहु-जिला बेंचमार्क)')}
         >
-          <Sparkles className="w-3 h-3 text-purple-400" />
-          <span>{l('Demo dataset', 'डेमो डेटासेट')}</span>
+          <Sparkles className="w-3 h-3 text-purple-400 shrink-0" />
+          <span>{l('Demo Data', 'डेमो डेटा')}</span>
         </button>
       </div>
 
@@ -54,7 +54,7 @@ export function DataSourceControl() {
         onMouseEnter={() => setShowTooltip(true)}
         onMouseLeave={() => setShowTooltip(false)}
         onClick={() => setShowTooltip(!showTooltip)}
-        className="text-[var(--text-faint)] hover:text-[var(--text)] p-1 rounded-full hover:bg-[var(--glass)] transition cursor-pointer"
+        className="text-[var(--text-faint)] hover:text-[var(--text)] p-1 rounded-lg liquid-glass-pill transition cursor-pointer shrink-0"
       >
         <Info className="w-3.5 h-3.5" />
       </button>

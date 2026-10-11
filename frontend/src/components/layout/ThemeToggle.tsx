@@ -26,7 +26,7 @@ export function ThemeToggle() {
     <div
       role="radiogroup"
       aria-label="Theme selector"
-      className="glass inline-flex items-center rounded-full p-0.5 border border-[var(--border)]"
+      className="liquid-glass-pill inline-flex items-center rounded-full p-0.5 border border-[var(--border)] h-[36px] shrink-0"
     >
       {OPTIONS.map(({ id, icon: Icon, label }) => {
         const isActive = theme === id;
@@ -38,9 +38,9 @@ export function ThemeToggle() {
             aria-label={`${label} theme`}
             title={`${label} theme`}
             onClick={() => setTheme(id)}
-            className={`grid h-7 w-7 place-items-center rounded-full transition-all cursor-pointer ${
+            className={`grid h-7 w-7 place-items-center rounded-full transition-all cursor-pointer shrink-0 ${
               isActive
-                ? 'bg-[var(--glass-strong)] text-[var(--brand)] shadow-xs font-bold border border-[var(--border-strong)]'
+                ? 'bg-[var(--surface-solid)] text-[var(--brand)] shadow-xs font-bold border border-[var(--border-strong)]'
                 : 'text-[var(--text-faint)] hover:text-[var(--text)]'
             }`}
           >

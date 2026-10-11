@@ -14,7 +14,8 @@ export function MarketingTopbar() {
   const { language, setLanguage, t, l, setMobileMenuOpen } = useApp();
 
   return (
-    <header className="sticky top-0 z-40 w-full glass-strong border-b border-[var(--border)] backdrop-blur-xl">
+    <header className="liquid-glass-header relative w-full select-none">
+      <div className="liquid-sheen-line" aria-hidden="true" />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
         {/* Brand Lockup */}
         <Link href="/" className="flex items-center gap-2.5 sm:gap-3 group focus:outline-hidden min-w-0 shrink">
@@ -66,27 +67,27 @@ export function MarketingTopbar() {
         <div className="flex items-center gap-2 sm:gap-3 shrink-0">
           {/* DepthWizard Tactical Chip — Theme-Reactive Styling */}
           <span 
-            className="hidden sm:inline-flex items-center gap-2 px-3 py-1 rounded-full text-[10px] font-mono font-bold bg-[#0055a5]/10 dark:bg-cyan-950/40 text-[#0055a5] dark:text-[#00e5ff] border border-[#0055a5]/25 dark:border-cyan-500/40 shadow-xs dark:shadow-[0_0_15px_rgba(0,229,255,0.2)] tracking-tight backdrop-blur-md"
+            className="hidden sm:inline-flex items-center gap-2 px-3 py-1 rounded-full text-[10px] font-mono font-bold bg-[#0055a5]/10 dark:bg-cyan-950/40 text-[#0055a5] dark:text-[#00e5ff] border border-[#0055a5]/25 dark:border-cyan-500/40 shadow-xs dark:shadow-[0_0_15px_rgba(0,229,255,0.2)] tracking-tight backdrop-blur-md shrink-0"
             title={`${EXPORT_METADATA.runId} · ${EXPORT_METADATA.dataThrough}`}
           >
             <span className="w-1.5 h-1.5 rounded-full bg-[#0055a5] dark:bg-[#00e5ff] animate-ping" />
             <span>{EXPORT_METADATA.runId}</span>
           </span>
 
-          {/* Multilingual Selector (7 Languages) */}
-          <div className="hidden sm:inline-flex">
+          {/* Multilingual Selector (7 Languages) — Static 112px Slot */}
+          <div className="hidden sm:inline-flex shrink-0">
             <LanguageSelector align="left" />
           </div>
 
           {/* Theme Toggle (hidden on mobile, present in drawer) */}
-          <div className="hidden sm:block">
+          <div className="hidden sm:block shrink-0">
             <ThemeToggle />
           </div>
 
           {/* Primary Open Dashboard CTA */}
           <Link
             href="/overview"
-            className="inline-flex items-center gap-1.5 px-3 py-2 sm:px-3.5 sm:py-2 rounded-xl bg-gradient-to-r from-[#0055a5] to-[#00c2cb] hover:opacity-90 text-white font-bold text-xs shadow-md shadow-[#00c2cb]/20 hover:-translate-y-0.5 transition-all cursor-pointer font-sans min-h-[36px]"
+            className="inline-flex items-center gap-1.5 px-3 py-2 sm:px-3.5 sm:py-2 rounded-xl bg-gradient-to-r from-[#0055a5] to-[#00c2cb] hover:opacity-90 text-white font-bold text-xs shadow-md shadow-[#00c2cb]/20 hover:-translate-y-0.5 transition-all cursor-pointer font-sans min-h-[36px] shrink-0"
           >
             <span className="hidden xs:inline">{t.nav.openDashboard || l('Open Dashboard', 'डैशबोर्ड खोलें')}</span>
             <span className="xs:hidden">{t.nav.overview || l('Dashboard', 'डैशबोर्ड')}</span>
@@ -97,7 +98,7 @@ export function MarketingTopbar() {
           <button
             type="button"
             onClick={() => setMobileMenuOpen(true)}
-            className="lg:hidden p-2 rounded-xl liquid-control text-[var(--text-muted)] hover:text-[var(--text)] cursor-pointer flex items-center justify-center min-h-[36px] min-w-[36px]"
+            className="lg:hidden p-2 rounded-xl liquid-glass-pill text-[var(--text-muted)] hover:text-[var(--text)] cursor-pointer flex items-center justify-center min-h-[36px] min-w-[36px] shrink-0"
             aria-label={l('Open menu', 'मेनू खोलें')}
           >
             <Menu className="w-4 h-4" />

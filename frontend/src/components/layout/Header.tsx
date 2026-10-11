@@ -71,21 +71,22 @@ export const Header: React.FC = () => {
   const localizedDistrict = getLocalizedEntityName('districts', rawDistrict, language, rawDistrict);
 
   return (
-    <header className="sticky top-0 z-40 px-3 sm:px-6 py-2 glass-strong border-b border-[var(--border)] select-none backdrop-blur-xl">
-      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-2.5">
-        {/* Top Mobile Row & Breadcrumb Trail */}
-        <div className="flex items-center justify-between gap-2 w-full lg:w-auto">
+    <header className="liquid-glass-header relative px-3 sm:px-5 py-2 select-none">
+      <div className="liquid-sheen-line" aria-hidden="true" />
+      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-2 lg:gap-3 min-w-0">
+        {/* Left Side: Mobile Hamburger Menu & Truncated Breadcrumb Trail */}
+        <div className="flex items-center justify-between gap-2 w-full lg:w-auto min-w-0 flex-1">
           {/* Mobile Hamburger Menu Button */}
           <button
             type="button"
             onClick={() => setMobileMenuOpen(true)}
-            className="md:hidden p-1.5 rounded-xl liquid-control text-[var(--text-muted)] hover:text-[var(--text)] cursor-pointer flex items-center justify-center shrink-0 min-h-[36px] min-w-[36px]"
+            className="md:hidden p-1.5 rounded-xl liquid-glass-pill text-[var(--text-muted)] hover:text-[var(--text)] cursor-pointer flex items-center justify-center shrink-0 h-[36px] w-[36px]"
             aria-label={l('Open navigation menu', 'नेविगेशन मेनू खोलें')}
           >
             <Menu className="w-4 h-4" />
           </button>
 
-          {/* Breadcrumb Trail with Home Link */}
+          {/* Breadcrumb Trail with Home Link — Truncated nodes to prevent push */}
           <nav aria-label="Breadcrumb" className="flex items-center overflow-x-auto scrollbar-none whitespace-nowrap gap-1.5 text-xs font-medium text-[var(--text-muted)] py-0.5 flex-1 min-w-0">
             <Link 
               href="/" 
@@ -100,21 +101,25 @@ export const Header: React.FC = () => {
               {l('MSDE', 'एमएसडीई')}
             </span>
             <span className="text-[var(--text-faint)] shrink-0">/</span>
-            <span className="text-[var(--text)] font-semibold shrink-0">{localizedState}</span>
+            <span className="text-[var(--text)] font-semibold shrink-0 max-w-[110px] truncate" title={localizedState}>
+              {localizedState}
+            </span>
             <span className="text-[var(--text-faint)] shrink-0">/</span>
-            <span className="font-bold text-[var(--brand)] bg-[var(--brand)]/10 px-2 py-0.5 rounded-md border border-[var(--brand)]/20 font-mono shrink-0">
+            <span className="font-bold text-[var(--brand)] bg-[var(--brand)]/10 px-2 py-0.5 rounded-md border border-[var(--brand)]/20 font-mono shrink-0 max-w-[125px] truncate" title={localizedDistrict}>
               {localizedDistrict}
             </span>
             <span className="text-[var(--text-faint)] shrink-0">/</span>
-            <span className="text-[var(--text)] font-semibold shrink-0">{currentPathLabel()}</span>
+            <span className="text-[var(--text)] font-semibold shrink-0 max-w-[135px] truncate" title={currentPathLabel()}>
+              {currentPathLabel()}
+            </span>
           </nav>
         </div>
 
-        {/* Center / Right Control Cluster */}
-        <div className="flex items-center flex-wrap gap-2 self-end lg:self-auto">
-          {/* DepthWizard Tactical Telemetry Pill — High Contrast Obsidian & Light Styling */}
+        {/* Center / Right Control Cluster — Strictly Non-wrapping on Desktop for 100% Layout Stability */}
+        <div className="flex items-center flex-nowrap gap-1.5 sm:gap-2 self-end lg:self-auto shrink-0">
+          {/* DepthWizard Tactical Telemetry Pill — Visible on wide displays (2xl+) */}
           <div 
-            className="hidden xl:flex items-center gap-2 px-3 py-1 rounded-full bg-[#0055a5]/10 dark:bg-cyan-950/40 border border-[#0055a5]/25 dark:border-cyan-500/40 text-[#0055a5] dark:text-[#00e5ff] font-mono text-[11px] font-bold shadow-xs dark:shadow-[0_0_15px_rgba(0,229,255,0.25)] backdrop-blur-md"
+            className="hidden 2xl:flex items-center gap-2 px-3 py-1 rounded-full bg-[#0055a5]/10 dark:bg-cyan-950/40 border border-[#0055a5]/25 dark:border-cyan-500/40 text-[#0055a5] dark:text-[#00e5ff] font-mono text-[11px] font-bold shadow-xs dark:shadow-[0_0_15px_rgba(0,229,255,0.25)] backdrop-blur-md shrink-0 h-[36px]"
             title={l('Snapshot: RUN-SIH-001 • Model v2.4 (Tri-Model Blend) • Baseline: Seasonal Naive', 'स्नैपशॉट: RUN-SIH-001 • मॉडल v2.4 • बेसलाइन: सीज़नल नेईव')}
           >
             <span className="relative flex h-2 w-2">
@@ -129,12 +134,12 @@ export const Header: React.FC = () => {
             type="button"
             onClick={() => setCommandPaletteOpen(true)}
             aria-label={l('Open command palette', 'कमांड पैलेट खोलें')}
-            className="flex items-center gap-2 px-3 py-1.5 rounded-xl liquid-control text-xs text-[var(--text-muted)] hover:text-[var(--text)] hover:border-[#00c2cb]/50 cursor-pointer transition-colors"
+            className="flex items-center gap-2 px-2.5 sm:px-3 py-1.5 rounded-xl liquid-glass-pill text-xs text-[var(--text-muted)] hover:text-[var(--text)] cursor-pointer transition-all shrink-0 h-[36px]"
             title={l('Open Command Palette (Ctrl+K or ⌘+K)', 'कमांड पैलेट खोलें (Ctrl+K)')}
           >
-            <Search className="w-3.5 h-3.5 text-[var(--text-faint)]" />
-            <span className="hidden sm:inline">{l('Search...', 'खोजें...')}</span>
-            <kbd className="hidden sm:inline-block px-1.5 py-0.2 text-[10px] font-mono text-[var(--text-faint)] bg-[var(--glass)] border border-[var(--border)] rounded">
+            <Search className="w-3.5 h-3.5 text-[var(--text-faint)] shrink-0" />
+            <span className="hidden xl:inline">{l('Search...', 'खोजें...')}</span>
+            <kbd className="hidden sm:inline-block px-1.5 py-0.2 text-[10px] font-mono text-[var(--text-faint)] bg-[var(--surface-muted)]/70 border border-[var(--border)] rounded">
               ⌘K
             </kbd>
           </button>
@@ -146,7 +151,7 @@ export const Header: React.FC = () => {
           <button
             type="button"
             onClick={toggleFocusMode}
-            className={`hidden sm:inline-flex p-1.5 rounded-xl liquid-control cursor-pointer transition-all ${
+            className={`hidden sm:inline-flex p-1.5 rounded-xl liquid-glass-pill cursor-pointer transition-all shrink-0 h-[36px] w-[36px] items-center justify-center ${
               focusMode ? 'bg-[var(--brand)] text-white shadow-xs' : 'text-[var(--text-muted)] hover:text-[var(--text)]'
             }`}
             title={focusMode ? l('Exit Focus Mode (Esc)', 'फोकस मोड से बाहर निकलें (Esc)') : l('Enter Focus Mode (Maximize Workspace)', 'फोकस मोड सक्षम करें')}
@@ -155,13 +160,13 @@ export const Header: React.FC = () => {
             {focusMode ? <Minimize2 className="w-4 h-4" /> : <Maximize2 className="w-4 h-4" />}
           </button>
 
-          {/* Theme Selector (Light / Dark / System) */}
-          <div className="hidden sm:inline-flex">
+          {/* Theme Selector (Light / Dark / System) — Static Slot */}
+          <div className="hidden sm:inline-flex shrink-0">
             <ThemeToggle />
           </div>
 
-          {/* Multilingual Selector (7 Languages) */}
-          <div className="hidden sm:inline-flex">
+          {/* Multilingual Selector (7 Languages) — Static 112px Slot */}
+          <div className="hidden sm:inline-flex shrink-0">
             <LanguageSelector />
           </div>
 
@@ -169,7 +174,7 @@ export const Header: React.FC = () => {
           <button
             type="button"
             onClick={() => setNotificationOpen(!notificationOpen)}
-            className="p-1.5 rounded-xl liquid-control relative text-[var(--text-muted)] hover:text-[var(--text)] cursor-pointer"
+            className="p-1.5 rounded-xl liquid-glass-pill relative text-[var(--text-muted)] hover:text-[var(--text)] cursor-pointer shrink-0 h-[36px] w-[36px] flex items-center justify-center"
             title={l('Early Warnings & Intelligence Signals', 'प्रारंभिक चेतावनियां और संकेत')}
             aria-label={l('Intelligence Notifications', 'सूचनाएं')}
           >
@@ -185,7 +190,7 @@ export const Header: React.FC = () => {
           <button
             type="button"
             onClick={() => setCopilotOpen(true)}
-            className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-gradient-to-r from-[#0055a5] to-[#00c2cb] text-white hover:opacity-90 transition-all font-bold text-xs shadow-md shadow-[#00c2cb]/20 cursor-pointer font-sans"
+            className="hidden sm:flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-[#0055a5] to-[#00c2cb] text-white hover:opacity-95 transition-all font-bold text-xs shadow-md shadow-[#00c2cb]/20 cursor-pointer font-sans shrink-0 h-[36px]"
             title={l('Open Kaushal Copilot AI', 'कौशल कोपायलट एआई खोलें')}
           >
             <Bot className="w-3.5 h-3.5" />

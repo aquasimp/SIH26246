@@ -81,18 +81,18 @@ export const LanguageSelector: React.FC<LanguageSelectorProps> = ({
 
   return (
     <div className={`relative inline-block text-left ${className}`} ref={dropdownRef}>
-      {/* Trigger Button */}
+      {/* Trigger Button — Locked static width so it never shifts or resizes across languages */}
       <button
         type="button"
         onClick={() => setOpen(!open)}
-        className="glass-strong inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl border border-[var(--border)] hover:border-[#00c2cb]/50 text-xs font-bold text-[var(--text)] transition-colors cursor-pointer min-h-[36px]"
+        className="liquid-glass-pill inline-flex items-center justify-between gap-1.5 w-[112px] min-w-[112px] shrink-0 px-2.5 py-1.5 rounded-xl border border-[var(--border)] hover:border-[#00c2cb]/50 text-xs font-bold text-[var(--text)] transition-all cursor-pointer h-[36px]"
         aria-haspopup="listbox"
         aria-expanded={open}
         aria-label="Select language"
       >
         <Languages className="w-3.5 h-3.5 text-[var(--brand)] shrink-0" />
-        <span className="font-extrabold">{currentOption.nativeLabel}</span>
-        <ChevronDown className={`w-3.5 h-3.5 text-[var(--text-faint)] transition-transform duration-200 ${open ? 'rotate-180' : ''}`} />
+        <span className="font-extrabold truncate text-center flex-1">{currentOption.nativeLabel}</span>
+        <ChevronDown className={`w-3.5 h-3.5 text-[var(--text-faint)] shrink-0 transition-transform duration-200 ${open ? 'rotate-180' : ''}`} />
       </button>
 
       {/* Floating Menu */}
