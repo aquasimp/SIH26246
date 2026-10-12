@@ -64,9 +64,20 @@ export const LanguageSelector: React.FC<LanguageSelectorProps> = ({
               }`}
             >
               <div className="flex flex-col min-w-0 pr-1">
-                <span className="font-extrabold text-xs tracking-tight truncate">
-                  {lang.nativeLabel}
-                </span>
+                <div className="flex items-center gap-1.5">
+                  <span className="font-extrabold text-xs tracking-tight truncate">
+                    {lang.nativeLabel}
+                  </span>
+                  {lang.isBeta && (
+                    <span className={`text-[9px] font-mono uppercase px-1 py-0.2 rounded font-bold ${
+                      isSelected
+                        ? 'bg-white/20 text-white dark:text-slate-950'
+                        : 'bg-amber-500/15 text-amber-500 border border-amber-500/30'
+                    }`}>
+                      Beta
+                    </span>
+                  )}
+                </div>
                 <span className={`text-[10px] truncate ${isSelected ? 'text-white/80 dark:text-slate-900/80' : 'text-[var(--text-faint)]'}`}>
                   {lang.label}
                 </span>
@@ -122,9 +133,20 @@ export const LanguageSelector: React.FC<LanguageSelectorProps> = ({
                   }`}
                 >
                   <div className="flex flex-col min-w-0 pr-2">
-                    <span className="font-extrabold text-xs">
-                      {lang.nativeLabel} <span className="text-[11px] font-normal opacity-75">({lang.label})</span>
-                    </span>
+                    <div className="flex items-center gap-1.5">
+                      <span className="font-extrabold text-xs">
+                        {lang.nativeLabel} <span className="text-[11px] font-normal opacity-75">({lang.label})</span>
+                      </span>
+                      {lang.isBeta && (
+                        <span className={`text-[9px] font-mono uppercase px-1 py-0.2 rounded font-bold ${
+                          isSelected
+                            ? 'bg-white/20 text-white dark:text-slate-950'
+                            : 'bg-amber-500/15 text-amber-500 border border-amber-500/30'
+                        }`}>
+                          Beta
+                        </span>
+                      )}
+                    </div>
                     <span className={`text-[10px] truncate ${isSelected ? 'text-white/80 dark:text-slate-900/80' : 'text-[var(--text-faint)]'}`}>
                       {lang.region}
                     </span>

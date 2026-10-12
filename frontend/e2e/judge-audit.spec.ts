@@ -25,6 +25,7 @@ const ALL_ROUTES = [
 test.describe('Judge Audit: Responsiveness & Overflow Inspection', () => {
   const viewports = [
     { name: 'Mobile 375px', width: 375, height: 812 },
+    { name: 'Mobile 390px', width: 390, height: 844 },
     { name: 'Tablet 768px', width: 768, height: 1024 },
     { name: 'Desktop 1440px', width: 1440, height: 900 }
   ];

@@ -53,10 +53,6 @@ export default function RecommendationsPage() {
     toast.success(l(`Exported ${recommendations.length} policy interventions to CSV`, `${recommendations.length} नीतिगत हस्तक्षेप CSV में निर्यात किए गए`));
   };
 
-  const totalYouthEmployed = recommendations.reduce((acc, r) => acc + (r.expectedImpact.youthEmployed || 0), 0);
-  const totalAnnualWages = recommendations.reduce((acc, r) => acc + (r.expectedImpact.annualWageIncomeINR || 0), 0);
-  const totalFundsSaved = recommendations.reduce((acc, r) => acc + (r.expectedImpact.publicFundsSavedINR || 0), 0);
-  const totalCost = recommendations.reduce((acc, r) => acc + (r.expectedImpact.estimatedCostINR || 0), 0);
 
   const handleApprove = (id: string, title: string) => {
     approveRecommendation(id);
@@ -106,12 +102,12 @@ export default function RecommendationsPage() {
                 {l('EXECUTIVE IMPACT DOSSIER · PORTFOLIO LEVEL', 'कार्यकारी प्रभाव विश्लेषण · पोर्टफोलियो स्तर')}
               </span>
               <h2 className="text-base font-extrabold text-[var(--text)]">
-                {l('Consolidated Economic & Employment Outcomes', 'अनुशंसित हस्तक्षेपों का समग्र आर्थिक एवं रोजगार प्रभाव')}
+                {l('Dossier Impact Overview (Portfolio Consolidation Pending Validation)', 'हस्तक्षेप प्रभाव अवलोकन (पोर्टफोलियो एकत्रीकरण सत्यापन लंबित)')}
               </h2>
             </div>
           </div>
-          <span className="px-3 py-1 rounded-full text-[10px] font-mono font-bold bg-[var(--brand)]/10 text-[var(--brand)] border border-[var(--brand)]/25 self-start sm:self-auto">
-            {l('4 High-Priority Dossiers', '4 उच्च-प्राथमिकता हस्तक्षेप')}
+          <span className="px-3 py-1 rounded-full text-[10px] font-mono font-bold bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/25 self-start sm:self-auto">
+            {l('Dossier-Level Modeling · 4 Priority Blueprints', 'दस्तावेज़-स्तरीय मॉडलिंग · 4 प्राथमिकता ब्लूप्रिंट')}
           </span>
         </div>
 
@@ -120,11 +116,11 @@ export default function RecommendationsPage() {
             <span className="text-[10px] font-mono font-bold text-[var(--text-faint)] uppercase tracking-wider block">
               {l('TOTAL YOUTH PLACED', 'कुल प्रमाणित युवा रोजगार')}
             </span>
-            <div className="text-2xl sm:text-3xl font-extrabold text-[var(--brand)] font-mono tabular-nums">
-              +{totalYouthEmployed}
+            <div className="text-2xl sm:text-3xl font-extrabold text-[var(--text-faint)] font-mono tabular-nums">
+              —
             </div>
-            <span className="text-[10px] text-[var(--text-muted)] font-semibold block">
-              {l('Skilled Formal Sector Placements', 'औपचारिक क्षेत्र में कुशल रोजगार')}
+            <span className="text-[10px] text-amber-600 dark:text-amber-400 font-semibold block">
+              {l('Validation Pending (Per-Dossier Below)', 'सत्यापन लंबित (नीचे प्रति-दस्तावेज़)')}
             </span>
           </div>
 
@@ -132,11 +128,11 @@ export default function RecommendationsPage() {
             <span className="text-[10px] font-mono font-bold text-[var(--text-faint)] uppercase tracking-wider block">
               {l('ANNUAL YOUTH WAGES', 'वार्षिक युवा वेतन आय')}
             </span>
-            <div className="text-2xl sm:text-3xl font-extrabold text-[var(--success)] font-mono tabular-nums">
-              {formatINR(totalAnnualWages)}
+            <div className="text-2xl sm:text-3xl font-extrabold text-[var(--text-faint)] font-mono tabular-nums">
+              —
             </div>
-            <span className="text-[10px] text-[var(--success)] font-semibold block">
-              {l('Unlocked into District Economies / yr', 'स्थानीय अर्थव्यवस्था में वार्षिक प्रवाह')}
+            <span className="text-[10px] text-amber-600 dark:text-amber-400 font-semibold block">
+              {l('Consolidated Wages Unvalidated', 'समेकित वेतन असत्यापित')}
             </span>
           </div>
 
@@ -144,23 +140,23 @@ export default function RecommendationsPage() {
             <span className="text-[10px] font-mono font-bold text-[var(--text-faint)] uppercase tracking-wider block">
               {l('PUBLIC CAPEX SAVED', 'सार्वजनिक पूंजी व्यय बचत')}
             </span>
-            <div className="text-2xl sm:text-3xl font-extrabold text-[var(--text)] font-mono tabular-nums">
-              {formatINR(totalFundsSaved)}
+            <div className="text-2xl sm:text-3xl font-extrabold text-[var(--text-faint)] font-mono tabular-nums">
+              —
             </div>
-            <span className="text-[10px] text-[var(--text-muted)] font-semibold block">
-              {l('Saved vs Greenfield Buildout', 'अप्रयुक्त सीटों के पुनरुपयोग से')}
+            <span className="text-[10px] text-amber-600 dark:text-amber-400 font-semibold block">
+              {l('Rollup Pending Field Audit', 'फील्ड ऑडिट लंबित')}
             </span>
           </div>
 
           <div className="p-3.5 rounded-2xl glass border border-[var(--border)] space-y-1">
             <span className="text-[10px] font-mono font-bold text-[var(--text-faint)] uppercase tracking-wider block">
-              {l('TOTAL PACKAGE CAPEX', 'कुल पैकेज निवेश')}
+              {l('PORTFOLIO STATUS', 'पोर्टफोलियो स्थिति')}
             </span>
-            <div className="text-2xl sm:text-3xl font-extrabold text-[var(--brand-secondary)] font-mono tabular-nums">
-              {formatINR(totalCost)}
+            <div className="text-xl sm:text-2xl font-extrabold text-[var(--brand)] font-mono tabular-nums">
+              {l('UNAGGREGATED', 'असमेकित')}
             </div>
             <span className="text-[10px] text-[var(--text-muted)] font-semibold block">
-              {l('1-Year Wage ROI: 17.6x', '1-वर्षीय वेतन ROI: 17.6x')}
+              {l('4 Standalone Dossiers Below', '4 स्वतंत्र हस्तक्षेप नीचे देखें')}
             </span>
           </div>
         </div>

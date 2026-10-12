@@ -106,34 +106,32 @@ export default function ForecastPage() {
           <div>
             <div className="flex flex-wrap items-center justify-between gap-1.5 mb-2">
               <span className="text-[10px] font-mono font-extrabold uppercase px-2 py-0.5 rounded-full bg-[var(--brand)]/15 text-[var(--brand)] border border-[var(--brand)]/30">
-                {l('Primary Architecture', 'प्राथमिक वास्तुकला')}
+                {l('Production Engine (Deployed)', 'उत्पादन इंजन (तैनात)')}
               </span>
               <span className="text-xs font-mono text-[var(--text-faint)] truncate">
                 {l(`${benchmark.sampleCount} Test Origins`, `${benchmark.sampleCount} टेस्ट ओरिजिन`)}
               </span>
             </div>
             <h3 className="text-base font-extrabold text-[var(--text)]">
-              {benchmark.primaryModel.includes('Blend') 
-                ? l(benchmark.primaryModel, 'त्रि-मॉडल मिश्रण (LightGBM + ARIMA + ETS)') 
-                : l(benchmark.primaryModel, 'LightGBM रीग्रेसर')}
+              {l('Tri-Model Ensemble Blend', 'त्रि-मॉडल मिश्रण (LightGBM + Theta + ETS)')}
             </h3>
             <p className="text-xs text-[var(--text-muted)] mt-1 leading-relaxed">
-              {l('Fitted strictly on Origins 1–3 and backtested out-of-sample on Origins 4–6 without temporal feature leakage.', 'उत्पत्ति 1-3 पर प्रशिक्षित और बिना टेम्पोरल लीकेज के उत्पत्ति 4-6 पर आउट-ऑफ-सैंपल परीक्षण किया गया।')}
+              {l('Production inverse-WAPE blend (LightGBM + Theta + ETS) fitted on Origins 1–3 and backtested out-of-sample on Origins 4–6 without temporal feature leakage.', 'उत्पत्ति 1-3 पर प्रशिक्षित और बिना टेम्पोरल लीकेज के उत्पत्ति 4-6 पर आउट-ऑफ-सैंपल परीक्षण किया गया उत्पादन मिश्रण (LightGBM + Theta + ETS)।')}
             </p>
           </div>
 
           <div className="mt-4 pt-3 border-t border-[var(--border)] flex items-center justify-between font-mono">
             <div>
               <span className="text-[10px] text-[var(--text-faint)] uppercase font-bold block">
-                {l('WAPE Error', 'WAPE त्रुटि')}
+                {l('Ensemble WAPE', 'मिश्रण WAPE')}
               </span>
               <span className="text-2xl font-extrabold text-[var(--brand)] tabular-nums">
-                {benchmark.wape}%
+                {benchmark.ensembleWape}%
               </span>
             </div>
-            <div className="text-right text-[11px] text-[var(--text-muted)]">
-              <div>MAE: <strong className="text-[var(--text)]">{benchmark.mae}</strong></div>
-              <div>RMSE: <strong className="text-[var(--text)]">{benchmark.rmse}</strong></div>
+            <div className="text-right text-[11px] text-[var(--text-muted)] font-mono">
+              <div>{l('Standalone LGB WAPE:', 'अकेला LGB WAPE:')} <strong className="text-[var(--text)]">{benchmark.lgbWape}%</strong></div>
+              <div>MAE: <strong className="text-[var(--text)]">{benchmark.ensembleMae}</strong> | RMSE: <strong className="text-[var(--text)]">{benchmark.ensembleRmse}</strong></div>
             </div>
           </div>
         </div>

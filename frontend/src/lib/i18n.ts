@@ -22,16 +22,17 @@ export interface LanguageOption {
   nativeLabel: string;
   region: string;
   script: string;
+  isBeta?: boolean;
 }
 
 export const SUPPORTED_LANGUAGES: LanguageOption[] = [
-  { code: 'en', label: 'English', nativeLabel: 'English', region: 'National / Official', script: 'Latin' },
-  { code: 'hi', label: 'Hindi', nativeLabel: 'हिन्दी', region: 'Uttar Pradesh & Central', script: 'Devanagari' },
-  { code: 'mr', label: 'Marathi', nativeLabel: 'मराठी', region: 'Maharashtra', script: 'Devanagari' },
-  { code: 'ta', label: 'Tamil', nativeLabel: 'தமிழ்', region: 'Tamil Nadu', script: 'Tamil' },
-  { code: 'te', label: 'Telugu', nativeLabel: 'తెలుగు', region: 'Andhra Pradesh & Telangana', script: 'Telugu' },
-  { code: 'kn', label: 'Kannada', nativeLabel: 'ಕನ್ನಡ', region: 'Karnataka', script: 'Kannada' },
-  { code: 'bn', label: 'Bengali', nativeLabel: 'বাংলা', region: 'West Bengal & Eastern', script: 'Bengali' },
+  { code: 'en', label: 'English', nativeLabel: 'English', region: 'National / Official', script: 'Latin', isBeta: false },
+  { code: 'hi', label: 'Hindi', nativeLabel: 'हिन्दी', region: 'Uttar Pradesh & Central', script: 'Devanagari', isBeta: false },
+  { code: 'mr', label: 'Marathi', nativeLabel: 'मराठी', region: 'Maharashtra', script: 'Devanagari', isBeta: true },
+  { code: 'ta', label: 'Tamil', nativeLabel: 'தமிழ்', region: 'Tamil Nadu', script: 'Tamil', isBeta: true },
+  { code: 'te', label: 'Telugu', nativeLabel: 'తెలుగు', region: 'Andhra Pradesh & Telangana', script: 'Telugu', isBeta: true },
+  { code: 'kn', label: 'Kannada', nativeLabel: 'ಕನ್ನಡ', region: 'Karnataka', script: 'Kannada', isBeta: true },
+  { code: 'bn', label: 'Bengali', nativeLabel: 'বাংলা', region: 'West Bengal & Eastern', script: 'Bengali', isBeta: true },
 ];
 
 export interface ReferenceData {

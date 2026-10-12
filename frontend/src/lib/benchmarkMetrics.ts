@@ -17,6 +17,15 @@ export interface HorizonMetric {
   naiveMae: number;
   naiveRmse: number;
   naiveMase: number;
+  // Explicit distinction between deployed production ensemble and standalone LightGBM benchmark
+  ensembleModel: string;
+  ensembleWape: number;
+  ensembleMae: number;
+  ensembleRmse: number;
+  lgbModel: string;
+  lgbWape: number;
+  lgbMae: number;
+  lgbRmse: number;
 }
 
 export const OUT_OF_SAMPLE_BENCHMARKS: Record<'3M' | '6M' | '12M', HorizonMetric> = {
@@ -32,7 +41,15 @@ export const OUT_OF_SAMPLE_BENCHMARKS: Record<'3M' | '6M' | '12M', HorizonMetric
     naiveWape: 6.49,
     naiveMae: 29.08,
     naiveRmse: 35.83,
-    naiveMase: 0.937
+    naiveMase: 0.937,
+    ensembleModel: 'Tri-Model Ensemble Blend (LightGBM + Theta + ETS)',
+    ensembleWape: 4.17,
+    ensembleMae: 18.69,
+    ensembleRmse: 23.18,
+    lgbModel: 'Standalone LightGBM Regressor',
+    lgbWape: 3.71,
+    lgbMae: 16.63,
+    lgbRmse: 20.80
   },
   '6M': {
     primaryModel: 'LightGBM Regressor',
@@ -46,7 +63,15 @@ export const OUT_OF_SAMPLE_BENCHMARKS: Record<'3M' | '6M' | '12M', HorizonMetric
     naiveWape: 6.05,
     naiveMae: 29.03,
     naiveRmse: 35.82,
-    naiveMase: 0.935
+    naiveMase: 0.935,
+    ensembleModel: 'Tri-Model Ensemble Blend (LightGBM + Theta + ETS)',
+    ensembleWape: 4.18,
+    ensembleMae: 20.06,
+    ensembleRmse: 24.82,
+    lgbModel: 'Standalone LightGBM Regressor',
+    lgbWape: 3.58,
+    lgbMae: 17.17,
+    lgbRmse: 21.23
   },
   '12M': {
     primaryModel: 'Tri-Model Ensemble Blend',
@@ -60,6 +85,14 @@ export const OUT_OF_SAMPLE_BENCHMARKS: Record<'3M' | '6M' | '12M', HorizonMetric
     naiveWape: 6.93,
     naiveMae: 33.08,
     naiveRmse: 40.81,
-    naiveMase: 1.066
+    naiveMase: 1.066,
+    ensembleModel: 'Tri-Model Ensemble Blend (LightGBM + Theta + ETS)',
+    ensembleWape: 3.41,
+    ensembleMae: 16.26,
+    ensembleRmse: 20.30,
+    lgbModel: 'Standalone LightGBM Regressor',
+    lgbWape: 3.55,
+    lgbMae: 16.96,
+    lgbRmse: 21.58
   }
 };

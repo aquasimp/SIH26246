@@ -49,6 +49,7 @@ export const ALLOWED_LATIN_TOKENS = new Set([
   'PuLP',
   'Simplex',
   'LightGBM',
+  'LGB',
   'Random Forest',
   'Holt-Winters',
   'ARIMA',
@@ -73,6 +74,7 @@ export const ALLOWED_LATIN_TOKENS = new Set([
   'v2.1',
   'v2.1.0',
   'v2.4',
+  'Beta',
 
   // Technical protocols & export formats
   'API',

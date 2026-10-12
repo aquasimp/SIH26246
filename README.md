@@ -48,7 +48,7 @@ KaushalYuva closes this gap through **five institutional pillars**:
 1. **Audited, Zero-Leakage Econometric Forecaster:** Predicts district-level occupational hiring demand across 3, 6, and 12-month rolling origins using strictly lagged features ($t-1$), achieving an out-of-sample **3.41% – 3.71% WAPE** (outperforming Seasonal Naive baselines by over 40%).
 2. **4-Stage Staged Supply Funnel:** Discards misleading raw seat counts and models real attrition ($\text{Authorized Seats} \to \text{Enrolled} \to \text{Certified} \to \text{Active Workforce} \to \text{Employable Pool}$).
 3. **PuLP Linear Programming Capacity Solver:** Mathematically shifts underutilized training capacity to acute shortage trades while enforcing **Donor Non-Depletion Constraints** ($\delta \le 0.05$) to ensure donor trades never slip into secondary deficits.
-4. **Projected Economic Impact & Public Capex Optimization:** Translates algorithmic reallocations into modeled policy projections: **638+ projected youth placed**, **₹21.20 Cr projected annual youth wages unlocked**, and **₹1.12 Cr in public funds saved** across priority intervention dossiers under planning cost assumptions.
+4. **Decision Support & Public Capex Optimization:** Translates algorithmic capacity reallocation into actionable policy dossiers, evaluating equipment retrofit rates, donor safety bounds, and public infrastructure savings over greenfield construction on a per-intervention basis.
 5. **Government-Grade Liquid-Glass Command Center:** Built with Next.js 16 and Tailwind CSS, featuring 100% automated bilingual English/Hindi localization, interactive choropleth maps, and an explainable AI Copilot grounded in audited API facts.
 
 ---
@@ -269,16 +269,14 @@ The demonstration scenario between **Solar PV Installer (NCO 7126.0101)** and **
 
 ---
 
-## 💼 Projected Economic Impact & Public Capex Optimization
+## 💼 Policy Intervention Evaluation & Public Capex Framework
 
-To provide civil servants and state planners with actionable outcome metrics, KaushalYuva aggregates portfolio-level economic projections across the four priority policy dossiers (modeled under standardized planning assumptions):
+To provide civil servants and state planners with actionable intervention blueprints, KaushalYuva evaluates proposed capacity reallocations on a per-dossier basis:
 
-- **638+ Projected Certified Youth Placements:** Estimated across priority dossiers in green energy, EV diagnostics, AI annotation, and precision CNC tooling.
-- **₹21.20 Crore Projected Annual Youth Wages Unlocked:** Modeled direct earnings flowing into local district household economies per year across the four modeled interventions.
-- **₹1.12 Crore Public Capex Saved:** Modeled by retrofitting existing classroom infrastructure (₹6,500/seat planning assumption) rather than building redundant greenfield centers.
-- **17.6× 1-Year Projected Wage ROI:** Comparing modeled first-year formal wages to targeted retrofit expenditure.
-
-*(Note: These figures represent illustrative planning model projections derived from the four recommended intervention dossiers, not historical post-placement audits).*
+- **Granular Intervention Dossiers:** Each recommendation (e.g. REC-01 Gorakhpur Solar PV) models specific seat reallocation, equipment retrofit costs (₹6,500/seat assumption), and targeted deficit mitigation.
+- **Capital Expenditure Optimization:** Evaluates existing classroom retrofit potential against redundant greenfield infrastructure construction.
+- **Donor Protection Guardrails:** Mathematically constrains capacity transfers so donor trades maintain balanced employment indices ($\delta \le 0.05$).
+- **Portfolio Consolidation Status:** Cross-district portfolio totals require multi-district administrative tracking and empirical longitudinal verification before cross-cluster summation. Individual dossier simulations remain active and verifiable in the Scenario Studio.
 
 ---
 
@@ -346,7 +344,7 @@ FastAPI serves 13 enterprise endpoints adhering to OpenAPI 3.1 standards:
 | Method | Endpoint | Description |
 | :--- | :--- | :--- |
 | `GET` | `/health` | Liveness check, database connection status, and active model version |
-| `GET` | `/overview` | National summary KPIs (youth placed, capex saved, top shortage trades) |
+| `GET` | `/overview` | National summary KPIs (projected demand, effective supply, net deficit, at-risk trades, active alerts) |
 | `GET` | `/districts` | Catalog of districts with geo-coordinates, LGD codes, and labor-market intelligence (16 pilot districts active in prototype) |
 | `GET` | `/districts/{id}` | Detailed district dossier with local industry profiles and historical trends |
 | `GET` | `/occupations` | NCO-2015 occupations with NSQF levels, Qualification Packs, and demand-supply metrics (16 in official SIH dataset, 32 in benchmark) |

@@ -49,7 +49,7 @@
 |---|---|---|---|---|---|
 | 1 | Problem Statement ID `PS 26242` | `run.ps1`, `run.sh`, docs | Official SIH 2026 Problem Statement Directory | Updated to canonical `PS 26246` | **Verified & Corrected** |
 | 2 | "780+ districts covered" | README, promotional text | `data/sih_canonical_dataset.csv` (16 pilot districts) | Clarified as "16 pilot districts in this prototype; national LGD schema ready for all 780+ districts" | **Verified & Qualified** |
-| 3 | "₹21.20 Cr wages unlocked, ₹1.12 Cr capex saved per district, 638+ youth placed" | Hero / README / Overview cards | `ml/seat_reallocation_solver.py` & recommendation dossiers | Labeled explicitly as *Projected Planning Assumptions across 4 proposed intervention dossiers*, not verified retrospective placement records | **Verified & Qualified** |
+| 3 | Legacy claims: "₹21.20 Cr wages unlocked, ₹1.12 Cr capex saved per district, 638+ youth placed" | Hero / README / Overview cards / Recommendations banner (Legacy) | `ml/seat_reallocation_solver.py` & recommendation dossiers | Superseded legacy aggregate figures. Fully removed from README, Recommendations banner, presentation scripts, and product surfaces. Portfolio totals marked as unaggregated/pending field validation; individual dossier models preserved. | **Superseded & Removed from Product Surfaces** |
 | 4 | "Simplex LP Optimization" | Narrative copy | `ml/seat_reallocation_solver.py` | Verified PuLP CBC / COIN-CMD integer/linear program with Strict, Moderate, and Permissive donor guardrails | **Verified & Truthfully Documented** |
 | 5 | "PM Surya Ghar directly drives the forecast" | Explanatory narrative | `ml/model_artifacts/feature_schema.json` | Verified `feature_schema.json` drivers: `demand_pressure`, `enrolment_rate`, `wage_signal`, `placement_rate`. Labeled policy narrative as "Context, not direct model input" | **Verified & Segregated** |
 | 6 | Gorakhpur Solar PV baseline deficit 711 | Hero, Overview, Scenario Studio | `data/sih_canonical_dataset.csv` & engine calculations | Verified: Demand 808, Supply 97 (using 0.70 readiness factor), Deficit 711, Gap Score 94 | **Verified & Exact Match** |
@@ -296,7 +296,7 @@ npx playwright test
 ## 11. REMAINING ISSUES & TRANSPARENT CAVEATS
 
 1. **Non-Ingested Data Feeds:** Live API feeds for EPFO, e-Shram, and real-time private job aggregators remain planned future adapters; the current operational platform is strictly grounded in the verified SIH dataset (8,704 observations) and synthetic benchmark (30,720 observations).
-2. **Economic Savings Language:** All capex savings (e.g. ₹1.12 Cr/district) and youth wage unlocks (e.g. ₹21.20 Cr) are modeled potential returns under stated planning assumptions (₹6,500/seat retrofit vs greenfield construction), not retrospective receipts.
+2. **Legacy Aggregate Figure Removal:** Headline aggregate totals (638+ youth placed, ₹21.20 Cr wages unlocked, ₹1.12 Cr capex saved) have been removed from all product surfaces, documentation, and presentation generators. Cross-district portfolio totals are displayed as unaggregated / pending field validation, while individual per-dossier calculations (REC-01 to REC-04) remain accessible and transparently qualified under stated planning cost assumptions.
 3. **Beta Translation Notice:** Hindi and Marathi dictionaries are verified; Tamil, Telugu, Kannada, and Bengali dictionaries have 100% key parity and passed automated crawl tests, but are transparently designated as *Beta* pending ongoing native-speaker field review.
 
 ---

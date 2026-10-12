@@ -260,7 +260,7 @@ def update_slide_5(slide):
     if "TextBox 136" in shapes_map:
         set_text(
             shapes_map["TextBox 136"],
-            "₹1.12 Cr public capex saved per district cluster by retrofitting idle labs. ₹21.20 Cr annual youth wages unlocked with 17.6× 1-year wage ROI.",
+            "Algorithmic capex optimization retrofits underutilized classroom infrastructure rather than building redundant greenfield facilities under planning constraints.",
             font_size=Pt(9),
             bold=False
         )
@@ -318,7 +318,7 @@ def update_slide_5(slide):
     if "TextBox 150" in shapes_map:
         set_text(
             shapes_map["TextBox 150"],
-            "Economic Return on Investment | 638+ Youth Placed | ₹21.20 Cr Wages Unlocked | ₹1.12 Cr Public Capex Saved",
+            "Decision Dossiers | PuLP Linear Programming Seat Optimization | Donor Safety Guardrails (δ ≤ 0.05)",
             font_size=Pt(9.5),
             bold=True,
             color=RGBColor(15, 23, 42)

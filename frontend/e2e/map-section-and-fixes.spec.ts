@@ -126,10 +126,38 @@ test.describe('Map Section & Discrepancy Fixes Verification', () => {
     expect(heroContent).toContain('LightGBM + Theta + ETS blend');
     expect(heroContent).not.toContain('LightGBM ensemble');
 
-    // Check Recommendations page (8 & 9)
+    // Check Recommendations page (8 & 9 + Compliance A-E)
     await page.goto('/recommendations');
     const recContent = await page.textContent('body');
 
+    // A. Portfolio banner shows validation-pending unaggregated state
+    expect(recContent).toContain('Validation Pending (Per-Dossier Below)');
+    expect(recContent).toContain('Consolidated Wages Unvalidated');
+    expect(recContent).toContain('Rollup Pending Field Audit');
+    expect(recContent).toContain('UNAGGREGATED');
+
+    // B. Prohibited aggregate headline totals are not displayed in the portfolio banner
+    const youthPlacedCard = page.locator('text=TOTAL YOUTH PLACED').locator('..');
+    await expect(youthPlacedCard).toContainText('—');
+    await expect(youthPlacedCard).not.toContainText('+638');
+    await expect(youthPlacedCard).not.toContainText('638');
+
+    const wagesCard = page.locator('text=ANNUAL YOUTH WAGES').locator('..');
+    await expect(wagesCard).toContainText('—');
+    await expect(wagesCard).not.toContainText('₹21.20 Cr');
+    await expect(wagesCard).not.toContainText('₹21.22 Cr');
+
+    const capexSavedCard = page.locator('text=PUBLIC CAPEX SAVED').locator('..');
+    await expect(capexSavedCard).toContainText('—');
+    await expect(capexSavedCard).not.toContainText('₹1.12 Cr');
+
+    // C. REC-01 to REC-04 remain available
+    expect(recContent).toContain('REC-2026-01');
+    expect(recContent).toContain('REC-2026-02');
+    expect(recContent).toContain('REC-2026-03');
+    expect(recContent).toContain('REC-2026-04');
+
+    // D. Individual scenario information intact
     // REC-01 shows two rows: reallocation alone and with 150-seat lab
     expect(recContent).toContain('Reallocation alone');
     expect(recContent).toContain('6.2%');
@@ -140,6 +168,14 @@ test.describe('Map Section & Discrepancy Fixes Verification', () => {
     expect(recContent).toContain('Model Derivation & Assumptions');
     expect(recContent).toContain('Assumption');
     expect(recContent).toContain('Context, not model output');
+
+    // E. Export functionality works
+    const exportBtn = page.locator('button:has-text("Export All Interventions")');
+    await expect(exportBtn).toBeVisible();
+    const downloadPromise = page.waitForEvent('download');
+    await exportBtn.click();
+    const download = await downloadPromise;
+    expect(download.suggestedFilename()).toBe('KaushalYuva_Recommended_Interventions_Dossier.csv');
   });
 
   test('6. Server-side first paint language test with cookie=hi', async ({ page }) => {

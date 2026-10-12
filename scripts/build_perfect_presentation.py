@@ -522,7 +522,7 @@ def build_slide_5(slide):
 
     # Benefits of the Solution (5 Columns on Top Right)
     set_simple_text(find_shape(slide, "object 93"), "Economic Efficiency", font_size=10, bold=True, color=WHITE, align=PP_ALIGN.CENTER)
-    set_simple_text(find_shape(slide, "object 79"), "₹1.12 Cr public capex saved per district cluster by retrofitting idle labs. ₹21.20 Cr annual youth wages unlocked with 17.6x wage ROI.", font_size=8.5, bold=False, color=SLATE_DARK, align=PP_ALIGN.CENTER)
+    set_simple_text(find_shape(slide, "object 79"), "Algorithmic capex optimization retrofits underutilized classroom infrastructure rather than building redundant greenfield facilities under planning constraints.", font_size=8.5, bold=False, color=SLATE_DARK, align=PP_ALIGN.CENTER)
 
     set_simple_text(find_shape(slide, "object 94"), "Operational Speed", font_size=10, bold=True, color=WHITE, align=PP_ALIGN.CENTER)
     set_simple_text(find_shape(slide, "object 81"), "<250ms optimization & instant PuLP scenario simulation · 13 REST API endpoints — replacing 1-year delayed audit reviews.", font_size=8.5, bold=False, color=SLATE_DARK, align=PP_ALIGN.CENTER)
