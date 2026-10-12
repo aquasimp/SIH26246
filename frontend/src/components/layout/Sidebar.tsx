@@ -37,14 +37,16 @@ interface NavItem {
 
 export const Sidebar: React.FC = () => {
   const pathname = usePathname();
-  const [collapsed, setCollapsed] = useState(false);
+  const [collapsed, setCollapsed] = useState(true);
   const { t, alerts, recommendations, setCopilotOpen, focusMode, language, l } = useApp();
 
-  // Below 1366px viewport width, default to collapsed icon rail
+  // Above 1366px viewport width, expand sidebar; below 1366px collapse to icon rail
   useEffect(() => {
     const handleResize = () => {
       if (typeof window !== 'undefined') {
-        if (window.innerWidth < 1366) {
+        if (window.innerWidth >= 1366) {
+          setCollapsed(false);
+        } else {
           setCollapsed(true);
         }
       }
@@ -120,7 +122,7 @@ export const Sidebar: React.FC = () => {
     <aside 
       aria-label="Primary Platform Navigation"
       className={`hidden md:flex flex-col shrink-0 transition-all duration-300 z-30 sticky top-0 h-screen py-3 pl-3 select-none ${
-        collapsed ? 'w-20' : 'w-[280px]'
+        collapsed ? 'w-20' : 'w-20 xl:w-[280px]'
       }`}
     >
       <div className="glass-strong rounded-3xl h-full flex flex-col justify-between p-3 relative overflow-hidden border border-[var(--border)] shadow-xl">

@@ -151,7 +151,7 @@ export const Header: React.FC = () => {
           <button
             type="button"
             onClick={toggleFocusMode}
-            className={`hidden sm:inline-flex p-1.5 rounded-xl liquid-glass-pill cursor-pointer transition-all shrink-0 h-[36px] w-[36px] items-center justify-center ${
+            className={`hidden lg:inline-flex p-1.5 rounded-xl liquid-glass-pill cursor-pointer transition-all shrink-0 h-[36px] w-[36px] items-center justify-center ${
               focusMode ? 'bg-[var(--brand)] text-white shadow-xs' : 'text-[var(--text-muted)] hover:text-[var(--text)]'
             }`}
             title={focusMode ? l('Exit Focus Mode (Esc)', 'फोकस मोड से बाहर निकलें (Esc)') : l('Enter Focus Mode (Maximize Workspace)', 'फोकस मोड सक्षम करें')}
@@ -190,7 +190,7 @@ export const Header: React.FC = () => {
           <button
             type="button"
             onClick={() => setCopilotOpen(true)}
-            className="hidden sm:flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-[#0055a5] to-[#00c2cb] text-white hover:opacity-95 transition-all font-bold text-xs shadow-md shadow-[#00c2cb]/20 cursor-pointer font-sans shrink-0 h-[36px]"
+            className="hidden lg:flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-[#0055a5] to-[#00c2cb] text-white hover:opacity-95 transition-all font-bold text-xs shadow-md shadow-[#00c2cb]/20 cursor-pointer font-sans shrink-0 h-[36px]"
             title={l('Open Kaushal Copilot AI', 'कौशल कोपायलट एआई खोलें')}
           >
             <Bot className="w-3.5 h-3.5" />

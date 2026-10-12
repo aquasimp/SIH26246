@@ -6,7 +6,7 @@
 import { Language } from './i18n';
 
 const COMPACT_UNITS: Record<Language, { cr: string; lk: string; k: string }> = {
-  en: { cr: 'Cr', lk: 'Lakhs', k: 'k' },
+  en: { cr: 'Cr', lk: 'L', k: 'K' },
   hi: { cr: 'करोड़', lk: 'लाख', k: 'हज़ार' },
   mr: { cr: 'कोटी', lk: 'लाख', k: 'हजार' },
   ta: { cr: 'கோடி', lk: 'லட்சம்', k: 'ஆயிரம்' },
@@ -29,6 +29,7 @@ function getLocale(lang: Language): string {
 
 /**
  * Format a number using Indian grouping and appropriate locale.
+ * Keeps compact values and suffixes strictly unbroken on one line.
  */
 export function formatNumber(
   val: number, 
@@ -43,15 +44,15 @@ export function formatNumber(
     const abs = Math.abs(val);
     if (abs >= 10000000) {
       const cr = (val / 10000000).toFixed(maximumFractionDigits).replace(/\.0$/, '');
-      return `${cr} ${units.cr}`;
+      return lang === 'en' ? `${cr}\u00A0${units.cr}` : `${cr}\u00A0${units.cr}`;
     }
     if (abs >= 100000) {
       const lk = (val / 100000).toFixed(maximumFractionDigits).replace(/\.0$/, '');
-      return `${lk} ${units.lk}`;
+      return lang === 'en' ? `${lk}${units.lk}` : `${lk}\u00A0${units.lk}`;
     }
     if (abs >= 1000) {
       const k = (val / 1000).toFixed(maximumFractionDigits).replace(/\.0$/, '');
-      return `${k} ${units.k}`;
+      return lang === 'en' ? `${k}${units.k}` : `${k}\u00A0${units.k}`;
     }
   }
 
@@ -77,11 +78,11 @@ export function formatCurrency(
     const abs = Math.abs(val);
     if (abs >= 10000000) {
       const cr = (val / 10000000).toFixed(maximumFractionDigits).replace(/\.00$/, '');
-      return `₹${cr} ${units.cr}`;
+      return `₹${cr}\u00A0${units.cr}`;
     }
     if (abs >= 100000) {
       const lk = (val / 100000).toFixed(maximumFractionDigits).replace(/\.00$/, '');
-      return `₹${lk}${lang === 'en' ? 'L' : ` ${units.lk}`}`;
+      return lang === 'en' ? `₹${lk}L` : `₹${lk}\u00A0${units.lk}`;
     }
   }
 

@@ -92,8 +92,8 @@ export default function OverviewPage() {
       {/* Global Filter Bar */}
       <FilterBar />
 
-      {/* Asymmetric Hero KPI Cards (§4.3 sign convention & scope visibility, §5.4, §6.1) */}
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4">
+      {/* Asymmetric Hero KPI Cards (§4.3 sign convention & scope visibility, §5.4, §6.1, §D) */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-6 gap-3.5 sm:gap-4">
         <KpiCard
           label={t.metrics.demand}
           value={metrics.demandFormatted}
@@ -110,9 +110,9 @@ export default function OverviewPage() {
           trend={[6.8, 7.1, 7.4, 7.8, 8.1, 8.3]}
         />
 
-        {/* Structural Shortfall: positive number, never negative (§4.3) */}
+        {/* Structural Deficit: positive number, never negative (§4.3) */}
         <KpiCard
-          label={l('Structural Shortfall', 'ढांचागत कमी')}
+          label={l('Structural Deficit', 'ढांचागत घाटा')}
           value={metrics.shortfallFormatted}
           delta={{ value: l('National Deficit', 'राष्ट्रीय घाटा'), isPositive: false, label: l('Unmet Need', 'अधूरी आवश्यकता') }}
           scope={l('Purvanchal & Corridors', 'पूर्वांचल और गलियारे')}
@@ -129,10 +129,10 @@ export default function OverviewPage() {
           trend={[2, 3, 3, 4, 4, 4]}
         />
 
-        {/* Early Warnings: synced to 35 alert engine anomalies (§4.1) */}
+        {/* Intelligence Alerts: synced to 35 alert engine anomalies (§4.1, §D3) */}
         <Link href="/alerts" className="block focus-visible:outline-hidden">
           <KpiCard
-            label={l('Intelligence Signals', 'खुफिया संकेत')}
+            label={l('Intelligence Alerts', 'खुफिया अलर्ट')}
             value={metrics.activeAlertsCount}
             delta={{ value: l('Alert Engine', 'अलर्ट इंजन'), isPositive: false, label: l('35 Anomalies', '35 विसंगतियां') }}
             scope={l('Critical Shortage #1', 'गंभीर कमी #1')}

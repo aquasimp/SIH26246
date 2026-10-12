@@ -333,66 +333,66 @@ export default function RecommendationsPage() {
               </div>
             )}
 
-            {/* Expected Impact Stats Grid in aligned 6-column responsive grid (§6.3) */}
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2 sm:gap-2.5 p-3 sm:p-3.5 rounded-2xl glass border border-[var(--border)] shadow-2xs mb-4 text-center">
+            {/* Expected Impact Stats Grid in aligned responsive grid (§6.3, §D) */}
+            <div className="grid grid-cols-2 sm:grid-cols-3 2xl:grid-cols-6 gap-2.5 sm:gap-3 p-3.5 sm:p-4 rounded-2xl glass-strong border border-[var(--border)] shadow-2xs mb-4 text-center">
               <div>
                 <span className="text-[10px] font-bold text-[var(--text-faint)] uppercase tracking-wider block">
                   {l('Shortfall Closed', 'कमी भरपाई')}
                 </span>
-                <span className="text-base sm:text-xl font-extrabold text-[var(--success)] font-mono tabular-nums">
+                <span className="text-base sm:text-xl font-extrabold text-[var(--success)] font-mono tabular-nums whitespace-nowrap block">
                   -{rec.expectedImpact.gapReductionPercent}%
                 </span>
-                <span className="text-[9px] text-[var(--success)] font-semibold block">{l('Deficit Mitigated', 'अनुमानित भरपाई')}</span>
+                <span className="text-[9px] text-[var(--success)] font-semibold block whitespace-nowrap">{l('Deficit Mitigated', 'अनुमानित भरपाई')}</span>
               </div>
 
               <div>
                 <span className="text-[10px] font-bold text-[var(--text-faint)] uppercase tracking-wider block">
                   {l('Supply Coverage', 'आपूर्ति कवरेज')}
                 </span>
-                <span className="text-base sm:text-xl font-extrabold text-[var(--brand)] font-mono tabular-nums">
+                <span className="text-base sm:text-xl font-extrabold text-[var(--brand)] font-mono tabular-nums whitespace-nowrap block">
                   +{rec.expectedImpact.supplyCoveragePercent}%
                 </span>
-                <span className="text-[9px] text-[var(--brand)] font-semibold block">{l('Employable Pool', 'रोजगार योग्य पूल')}</span>
+                <span className="text-[9px] text-[var(--brand)] font-semibold block whitespace-nowrap">{l('Employable Pool', 'रोजगार योग्य पूल')}</span>
               </div>
 
               <div>
                 <span className="text-[10px] font-bold text-[var(--text-faint)] uppercase tracking-wider block">
                   {l('Youth Placed', 'प्रमाणित युवा रोजगार')}
                 </span>
-                <span className="text-base sm:text-xl font-extrabold text-[var(--brand)] font-mono tabular-nums">
+                <span className="text-base sm:text-xl font-extrabold text-[var(--brand)] font-mono tabular-nums whitespace-nowrap block">
                   +{rec.expectedImpact.youthEmployed || Math.round(rec.recommendedSeats * 0.5)}
                 </span>
-                <span className="text-[9px] text-[var(--text-muted)] font-semibold block">{l('Direct Jobs', 'सीधे रोजगार')}</span>
+                <span className="text-[9px] text-[var(--text-muted)] font-semibold block whitespace-nowrap">{l('Direct Jobs', 'सीधे रोजगार')}</span>
               </div>
 
               <div>
                 <span className="text-[10px] font-bold text-[var(--text-faint)] uppercase tracking-wider block">
                   {l('Annual Wages', 'वार्षिक युवा आय')}
                 </span>
-                <span className="text-base sm:text-xl font-extrabold text-[var(--success)] font-mono tabular-nums">
+                <span className="text-base sm:text-xl font-extrabold text-[var(--success)] font-mono tabular-nums whitespace-nowrap block">
                   {rec.expectedImpact.annualWageIncomeINR ? formatINR(rec.expectedImpact.annualWageIncomeINR) : 'N/A'}
                 </span>
-                <span className="text-[9px] text-[var(--success)] font-semibold block">{l('District Wages', 'वार्षिक वेतन')}</span>
+                <span className="text-[9px] text-[var(--success)] font-semibold block whitespace-nowrap">{l('District Wages', 'वार्षिक वेतन')}</span>
               </div>
 
               <div>
                 <span className="text-[10px] font-bold text-[var(--text-faint)] uppercase tracking-wider block">
                   {l('Capex Saved', 'पूंजी व्यय बचत')}
                 </span>
-                <span className="text-base sm:text-xl font-extrabold text-[var(--text)] font-mono tabular-nums">
+                <span className="text-base sm:text-xl font-extrabold text-[var(--text)] font-mono tabular-nums whitespace-nowrap block">
                   {rec.expectedImpact.publicFundsSavedINR ? formatINR(rec.expectedImpact.publicFundsSavedINR) : 'N/A'}
                 </span>
-                <span className="text-[9px] text-[var(--text-muted)] font-semibold block font-mono">{l('vs Greenfield', 'पुनरुपयोग बचत')}</span>
+                <span className="text-[9px] text-[var(--text-muted)] font-semibold block font-mono whitespace-nowrap">{l('vs Greenfield', 'पुनरुपयोग बचत')}</span>
               </div>
 
               <div>
                 <span className="text-[10px] font-bold text-[var(--text-faint)] uppercase tracking-wider block">
                   {l('Package Cost', 'पैकेज लागत')}
                 </span>
-                <span className="text-base sm:text-xl font-extrabold text-[var(--text)] font-mono tabular-nums">
+                <span className="text-base sm:text-xl font-extrabold text-[var(--text)] font-mono tabular-nums whitespace-nowrap block">
                   {formatINR(rec.expectedImpact.estimatedCostINR)}
                 </span>
-                <span className="text-[9px] text-[var(--brand)] font-semibold block font-mono">
+                <span className="text-[9px] text-[var(--brand)] font-semibold block font-mono whitespace-nowrap">
                   {rec.expectedImpact.roiMultiple ? `${rec.expectedImpact.roiMultiple}x ${l('ROI', 'प्रतिफल')}` : (l('₹6,500/seat', '₹6,500/सीट'))}
                 </span>
               </div>

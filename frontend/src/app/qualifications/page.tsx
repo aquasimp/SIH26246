@@ -50,7 +50,7 @@ export default function QualificationsPage() {
           {l('End-to-End Competency Standardisation Architecture', 'एंड-टू-एंड योग्यता मानकीकरण वास्तुकला')}
         </span>
 
-        <div className="grid grid-cols-2 sm:grid-cols-6 gap-2 text-center text-xs">
+        <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-2.5 sm:gap-3 text-center text-xs">
           <div className="p-3 rounded-xl glass-strong border border-[var(--border)]">
             <span className="text-[10px] text-[var(--text-faint)] uppercase font-bold block">
               {l('1. Trade', '1. व्यापार')}

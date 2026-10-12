@@ -9,7 +9,7 @@
   # KaushalYuva (कौशलयुवा)
   ### AI-Enabled Labour Market Intelligence & Skill Demand-Supply Forecasting Engine
   **Ministry of Skill Development and Entrepreneurship (MSDE), Government of India**  
-  *Smart India Hackathon 2026 | Problem Statement: PS 26246 (PS 26242)*
+  *Smart India Hackathon 2026 | Problem Statement: PS 26246*
 
   <br />
 
@@ -41,14 +41,14 @@
 
 **KaushalYuva** (**कौशलयुवा**, Short Mark: **KY**) is a next-generation national decision-support engine engineered for the **Ministry of Skill Development and Entrepreneurship (MSDE)**, State Skill Development Missions (SSDMs), and District Skill Committees (DSCs).
 
-Across India's 780+ districts, public skill investments frequently suffer from a structural mismatch: training institutes continue admitting thousands into saturated entry-level trades, while emerging local industrial corridors experience severe technician deficits. 
+Engineered with standardized Local Government Directory (LGD) and NCO-2015 hierarchies to scale across India's 780+ districts (currently piloted across 16 priority districts in 5 states with verified labor market intelligence), public skill investments often suffer from a structural mismatch: training institutes continue admitting candidates into saturated entry-level trades, while local industrial corridors experience technician deficits. 
 
 KaushalYuva closes this gap through **five institutional pillars**:
 
 1. **Audited, Zero-Leakage Econometric Forecaster:** Predicts district-level occupational hiring demand across 3, 6, and 12-month rolling origins using strictly lagged features ($t-1$), achieving an out-of-sample **3.41% – 3.71% WAPE** (outperforming Seasonal Naive baselines by over 40%).
 2. **4-Stage Staged Supply Funnel:** Discards misleading raw seat counts and models real attrition ($\text{Authorized Seats} \to \text{Enrolled} \to \text{Certified} \to \text{Active Workforce} \to \text{Employable Pool}$).
 3. **PuLP Linear Programming Capacity Solver:** Mathematically shifts underutilized training capacity to acute shortage trades while enforcing **Donor Non-Depletion Constraints** ($\delta \le 0.05$) to ensure donor trades never slip into secondary deficits.
-4. **Youth Employment & Public Capex Impact Layer:** Translates algorithmic adjustments into concrete governance metrics: **638+ youth placed**, **₹21.20 Cr annual youth wage earnings unlocked**, and **₹1.12 Cr public funds saved** across priority districts.
+4. **Projected Economic Impact & Public Capex Optimization:** Translates algorithmic reallocations into modeled policy projections: **638+ projected youth placed**, **₹21.20 Cr projected annual youth wages unlocked**, and **₹1.12 Cr in public funds saved** across priority intervention dossiers under planning cost assumptions.
 5. **Government-Grade Liquid-Glass Command Center:** Built with Next.js 16 and Tailwind CSS, featuring 100% automated bilingual English/Hindi localization, interactive choropleth maps, and an explainable AI Copilot grounded in audited API facts.
 
 ---
@@ -269,16 +269,16 @@ The demonstration scenario between **Solar PV Installer (NCO 7126.0101)** and **
 
 ---
 
-## 💼 Youth Employment & Public Capex Impact Layer
+## 💼 Projected Economic Impact & Public Capex Optimization
 
-To provide civil servants and state planners with real actionable outcome metrics, KaushalYuva aggregates portfolio-level economic returns:
+To provide civil servants and state planners with actionable outcome metrics, KaushalYuva aggregates portfolio-level economic projections across the four priority policy dossiers (modeled under standardized planning assumptions):
 
-- **638+ Certified Youth Placed:** Directly recruited into high-demand formal sector positions across green energy, EV diagnostics, AI annotation, and precision CNC tooling.
-- **₹21.20 Crore Annual Youth Wages Unlocked:** Channeled directly into local district household economies per year.
-- **₹1.12 Crore Public Capex Saved:** Achieved by retrofitting excess classroom infrastructure rather than building redundant greenfield centers.
-- **17.6× 1-Year Wage Return on Investment (ROI):** Every single rupee invested in targeted lab retrofits unlocks ₹17.6 in first-year formal wages.
+- **638+ Projected Certified Youth Placements:** Estimated across priority dossiers in green energy, EV diagnostics, AI annotation, and precision CNC tooling.
+- **₹21.20 Crore Projected Annual Youth Wages Unlocked:** Modeled direct earnings flowing into local district household economies per year across the four modeled interventions.
+- **₹1.12 Crore Public Capex Saved:** Modeled by retrofitting existing classroom infrastructure (₹6,500/seat planning assumption) rather than building redundant greenfield centers.
+- **17.6× 1-Year Projected Wage ROI:** Comparing modeled first-year formal wages to targeted retrofit expenditure.
 
-Inspect the complete interactive mathematical formulation at **[Model Assumptions & Methodology (/methodology)](https://kaushalyuva.vercel.app/methodology)**.
+*(Note: These figures represent illustrative planning model projections derived from the four recommended intervention dossiers, not historical post-placement audits).*
 
 ---
 
@@ -347,15 +347,15 @@ FastAPI serves 13 enterprise endpoints adhering to OpenAPI 3.1 standards:
 | :--- | :--- | :--- |
 | `GET` | `/health` | Liveness check, database connection status, and active model version |
 | `GET` | `/overview` | National summary KPIs (youth placed, capex saved, top shortage trades) |
-| `GET` | `/districts` | Complete catalog of 780+ districts with geo-coordinates and LGD codes |
+| `GET` | `/districts` | Catalog of districts with geo-coordinates, LGD codes, and labor-market intelligence (16 pilot districts active in prototype) |
 | `GET` | `/districts/{id}` | Detailed district dossier with local industry profiles and historical trends |
-| `GET` | `/occupations` | 32 NCO-2015 occupations with NSQF levels and Qualification Packs |
+| `GET` | `/occupations` | NCO-2015 occupations with NSQF levels, Qualification Packs, and demand-supply metrics (16 in official SIH dataset, 32 in benchmark) |
 | `GET` | `/forecasts` | Rolling-origin forecasts (3M, 6M, 12M) with 80% and 95% confidence intervals |
 | `GET` | `/gaps` | Algorithmic gap ratios, severity classifications, and persistence flags |
-| `GET` | `/alerts` | 6-category early warning alert feeds with severity scoring |
+| `GET` | `/alerts` | Strategic early warning alert feed (35 verified anomalies firing across SIH dataset) |
 | `GET` | `/recommendations` | Automated seat reallocation plans with capex estimates |
 | `POST`| `/scenarios/simulate` | Simulates custom policy interventions (seat shifts, new centres, mobility) |
-| `POST`| `/scenarios/solve` | Executes the PuLP Simplex LP optimization solver with non-depletion guardrails |
+| `POST`| `/scenarios/solve` | Executes the PuLP LP optimization solver with donor non-depletion guardrails |
 | `GET` | `/model-health` | Backtest metrics (WAPE, MASE, coverage) and feature importance rankings |
 | `GET` | `/export` | Exports audit reports and policy briefs in CSV / JSON format |
 

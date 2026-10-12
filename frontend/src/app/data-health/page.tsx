@@ -101,74 +101,74 @@ export default function DataHealthPage() {
       </div>
 
       {/* 6 Top Governance KPI Cards (Section 31) */}
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-6 gap-3.5 sm:gap-4">
         {/* Metric 1: Sources */}
-        <div className="p-4 rounded-2xl glass border border-[var(--border)] shadow-xs">
+        <div className="p-4 sm:p-5 rounded-2xl glass-strong border border-[var(--border)] shadow-xs">
           <span className="text-[10px] font-bold text-[var(--text-faint)] uppercase tracking-wider block">
             {l('Sources Connected', 'जुड़े हुए स्रोत')}
           </span>
-          <div className="text-2xl sm:text-3xl font-extrabold text-[var(--text)] font-mono my-1">
+          <div className="text-2xl sm:text-3xl font-extrabold text-[var(--text)] font-mono my-1.5 whitespace-nowrap tabular-nums">
             {m.sourcesConnected} / {m.sourcesTotal}
           </div>
-          <span className="text-[10px] text-[var(--brand)] font-semibold font-mono">
+          <span className="text-[10px] text-[var(--brand)] font-semibold font-mono block whitespace-nowrap">
             {l('Active Ingestion', 'सक्रिय अंतर्ग्रहण')}
           </span>
         </div>
 
         {/* Metric 2: Freshness */}
-        <div className="p-4 rounded-2xl glass border border-[var(--border)] shadow-xs">
+        <div className="p-4 sm:p-5 rounded-2xl glass-strong border border-[var(--border)] shadow-xs">
           <span className="text-[10px] font-bold text-[var(--text-faint)] uppercase tracking-wider block">
             {l('Data Freshness', 'डेटा ताजगी')}
           </span>
-          <div className="text-2xl sm:text-3xl font-extrabold text-[var(--balanced)] font-mono my-1">
+          <div className="text-2xl sm:text-3xl font-extrabold text-[var(--balanced)] font-mono my-1.5 whitespace-nowrap tabular-nums">
             {m.freshnessPercent}%
           </div>
-          <span className="text-[10px] text-[var(--balanced)] font-semibold font-mono">
+          <span className="text-[10px] text-[var(--balanced)] font-semibold font-mono block whitespace-nowrap">
             {l('Synced Under SLA', 'SLA के तहत सिंक')}
           </span>
         </div>
 
         {/* Metric 3: Mapping Confidence */}
-        <div className="p-4 rounded-2xl glass border border-[var(--border)] shadow-xs">
+        <div className="p-4 sm:p-5 rounded-2xl glass-strong border border-[var(--border)] shadow-xs">
           <span className="text-[10px] font-bold text-[var(--text-faint)] uppercase tracking-wider block">
             {l('Mapping Confidence', 'मैपिंग विश्वसनीयता')}
           </span>
-          <div className="text-2xl sm:text-3xl font-extrabold text-[var(--brand-secondary)] font-mono my-1">
+          <div className="text-2xl sm:text-3xl font-extrabold text-[var(--brand-secondary)] font-mono my-1.5 whitespace-nowrap tabular-nums">
             {m.mappingConfidencePercent}%
           </div>
-          <span className="text-[10px] text-[var(--brand-secondary)] font-semibold font-mono">
+          <span className="text-[10px] text-[var(--brand-secondary)] font-semibold font-mono block whitespace-nowrap">
             {l('NCO / LGD Alignment', 'NCO / LGD संरेखण')}
           </span>
         </div>
 
         {/* Metric 4: Forecast Confidence */}
-        <div className="p-4 rounded-2xl glass border border-[var(--border)] shadow-xs">
+        <div className="p-4 sm:p-5 rounded-2xl glass-strong border border-[var(--border)] shadow-xs">
           <span className="text-[10px] font-bold text-[var(--text-faint)] uppercase tracking-wider block">
             {l('Forecast Confidence', 'पूर्वानुमान विश्वसनीयता')}
           </span>
-          <div className="text-2xl sm:text-3xl font-extrabold text-[var(--brand)] font-mono my-1">
+          <div className="text-2xl sm:text-3xl font-extrabold text-[var(--brand)] font-mono my-1.5 whitespace-nowrap tabular-nums">
             {m.forecastConfidencePercent}%
           </div>
-          <span className="text-[10px] text-[var(--brand)] font-semibold font-mono">
+          <span className="text-[10px] text-[var(--brand)] font-semibold font-mono block whitespace-nowrap">
             {l('Production Tri-Blend', 'उत्पादन त्रि-मिश्रण')}
           </span>
         </div>
 
         {/* Metric 5: Data Quality */}
-        <div className="p-4 rounded-2xl glass border border-[var(--border)] shadow-xs">
+        <div className="p-4 sm:p-5 rounded-2xl glass-strong border border-[var(--border)] shadow-xs">
           <span className="text-[10px] font-bold text-[var(--text-faint)] uppercase tracking-wider block">
             {l('Data Quality', 'डेटा गुणवत्ता')}
           </span>
-          <div className="text-2xl sm:text-3xl font-extrabold text-purple-400 font-mono my-1">
+          <div className="text-2xl sm:text-3xl font-extrabold text-purple-400 font-mono my-1.5 whitespace-nowrap tabular-nums">
             {m.dataQualityPercent}%
           </div>
-          <span className="text-[10px] text-purple-400 font-semibold font-mono">
+          <span className="text-[10px] text-purple-400 font-semibold font-mono block whitespace-nowrap">
             {l('Passes Validation', 'सत्यापन उत्तीर्ण')}
           </span>
         </div>
 
         {/* Metric 6: Last Run */}
-        <div className="p-4 rounded-2xl glass border border-[var(--border)] shadow-xs">
+        <div className="p-4 sm:p-5 rounded-2xl glass-strong border border-[var(--border)] shadow-xs">
           <span className="text-[10px] font-bold text-[var(--text-faint)] uppercase tracking-wider block">
             {l('Last Successful Run', 'अंतिम सफल रन')}
           </span>

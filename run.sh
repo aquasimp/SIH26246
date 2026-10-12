@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # KaushalPulse One-Command Launch Script (Linux / macOS)
-# Ministry of Skill Development & Entrepreneurship (MSDE) — PS 26242
+# Ministry of Skill Development & Entrepreneurship (MSDE) — PS 26246
 
 set -e
 

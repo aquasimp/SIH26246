@@ -46,9 +46,9 @@ function ScenarioStudioContent() {
   const [seatShiftAmount, setSeatShiftAmount] = useState<number>(500); // Requested 500, safely capped at 97
   const [seatPercentAdjustment, setSeatPercentAdjustment] = useState<number>(0); // 0%
   const [demandShockPercent, setDemandShockPercent] = useState<number>(0); // 0%
-  const [newCentreActive, setNewCentreActive] = useState<boolean>(true); // ON (+150 seats, ₹12L)
+  const [newCentreActive, setNewCentreActive] = useState<boolean>(false); // Default: Lab disabled per canonical preset specification
   const [mobilityFactorPercent, setMobilityFactorPercent] = useState<number>(0); // 0%
-  const [donorSafetyRule, setDonorSafetyRule] = useState<number>(0.05); // 0.05 (Strict, default), 0.10, 0.1895
+  const [donorSafetyRule, setDonorSafetyRule] = useState<number>(0.05); // 0.05 (Strict, default)
   const [whyModalOpen, setWhyModalOpen] = useState<boolean>(false);
 
   // Check URL preset
