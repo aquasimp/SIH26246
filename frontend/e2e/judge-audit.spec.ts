@@ -17,6 +17,7 @@ const ALL_ROUTES = [
   '/qualifications',
   '/intelligence',
   '/data-health',
+  '/methodology',
   '/api',
   '/settings'
 ];

@@ -171,54 +171,54 @@ export default function MethodologyPage() {
             </p>
 
             {/* Formula Block */}
-            <div className="p-4 sm:p-5 rounded-2xl glass border border-[var(--border)] font-mono text-xs sm:text-sm overflow-x-auto space-y-2 bg-[var(--bg)]/40">
-              <div className="text-[var(--text-faint)] font-bold text-[10px] uppercase">
-                {l('MATHEMATICAL FORMULATION:', 'गणितीय समीकरण:')}
+              <div className="p-4 sm:p-5 rounded-2xl glass border border-[var(--border)] font-mono text-xs sm:text-sm overflow-x-auto space-y-2 bg-[var(--bg)]/40">
+                <div className="text-[var(--text-faint)] font-bold text-[10px] uppercase">
+                  {l('MATHEMATICAL FORMULATION:', 'गणितीय समीकरण:')}
+                </div>
+                <code className="text-[var(--brand)] font-extrabold text-sm sm:text-base block">
+                  S_effective = AuthorizedSeats × η_util × η_cert × η_part × η_employ
+                </code>
+                <div className="text-[11px] text-[var(--text-muted)] space-y-1 pt-1">
+                  <div>• <code>η_util</code> ({l('Seat Utilization Rate', 'सीट उपयोगिता दर')}): {l('Enrolled / Authorized Capacity (Solar PV: 94.0%)', 'प्रवेश / स्वीकृत सीटें (गोरखपुर सोलर: 94.0%)')}</div>
+                  <div>• <code>η_cert</code> ({l('Certification Pass Rate', 'प्रमाणन उत्तीर्ण दर')}): {l('Certified / Enrolled Candidates (Solar PV: 83.3%)', 'प्रमाणित / नामांकित छात्र (गोरखपुर सोलर: 83.3%)')}</div>
+                  <div>• <code>η_part</code> ({l('Labor Participation Rate', 'श्रम भागीदारी दर')}): {l('Active Job Seekers / Certified Youth (Solar PV: 81.8%)', 'सक्रिय रोजगार साधक / प्रमाणित छात्र (गोरखपुर सोलर: 81.8%)')}</div>
+                  <div>• <code>η_employ</code> ({l('Employability / Placement Readiness', 'रोजगार योग्यता / प्लेसमेंट तत्परता')}): {l('Industry Placement Readiness Factor (Solar PV: 70.0% vs Retail: 44.9%)', 'उद्योग प्लेसमेंट दर (गोरखपुर सोलर: 70.0% vs रिटेल: 44.9%)')}</div>
+                </div>
               </div>
-              <div className="text-[var(--brand)] font-extrabold text-sm sm:text-base">
-                S_effective = AuthorizedSeats × η_util × η_cert × η_part × η_employ
-              </div>
-              <div className="text-[11px] text-[var(--text-muted)] space-y-1 pt-1">
-                <div>• <strong className="text-[var(--text)]">η_util (Seat Utilization Rate):</strong> {l('Enrolled / Authorized Capacity (Solar PV: 94.0%)', 'प्रवेश / स्वीकृत सीटें (गोरखपुर सोलर: 94.0%)')}</div>
-                <div>• <strong className="text-[var(--text)]">η_cert (Certification Pass Rate):</strong> {l('Certified / Enrolled Candidates (Solar PV: 83.3%)', 'प्रमाणित / नामांकित छात्र (गोरखपुर सोलर: 83.3%)')}</div>
-                <div>• <strong className="text-[var(--text)]">η_part (Labor Participation Rate):</strong> {l('Active Job Seekers / Certified Youth (Solar PV: 81.8%)', 'सक्रिय रोजगार साधक / प्रमाणित छात्र (गोरखपुर सोलर: 81.8%)')}</div>
-                <div>• <strong className="text-[var(--text)]">η_employ (Employability / Placement Readiness):</strong> {l('Industry Placement Readiness Factor (Solar PV: 70.0% vs Retail: 44.9%)', 'उद्योग प्लेसमेंट दर (गोरखपुर सोलर: 70.0% vs रिटेल: 44.9%)')}</div>
-              </div>
-            </div>
 
-            {/* Canonical Gorakhpur Case Study */}
-            <div className="pt-2">
-              <h3 className="text-sm font-bold text-[var(--text)] mb-3">
-                {l('Canonical Gorakhpur Case Study: Solar PV (7126.0101) Funnel', 'गोरखपुर केस स्टडी: सोलर पीवी (7126.0101) फनल गणना')}
-              </h3>
-              <div className="grid grid-cols-2 sm:grid-cols-5 gap-3 text-center">
-                <div className="p-3 rounded-2xl glass border border-[var(--border)]">
-                  <span className="text-[9px] font-mono text-[var(--text-faint)] uppercase block">1. SEATS</span>
-                  <div className="text-xl font-extrabold text-[var(--text)] font-mono">217</div>
-                  <span className="text-[9px] text-[var(--text-muted)]">Authorized</span>
-                </div>
-                <div className="p-3 rounded-2xl glass border border-[var(--border)]">
-                  <span className="text-[9px] font-mono text-[var(--text-faint)] uppercase block">2. ENROLLED</span>
-                  <div className="text-xl font-extrabold text-[var(--text)] font-mono">204</div>
-                  <span className="text-[9px] text-[var(--brand)]">94.0% Util</span>
-                </div>
-                <div className="p-3 rounded-2xl glass border border-[var(--border)]">
-                  <span className="text-[9px] font-mono text-[var(--text-faint)] uppercase block">3. CERTIFIED</span>
-                  <div className="text-xl font-extrabold text-[var(--text)] font-mono">170</div>
-                  <span className="text-[9px] text-[var(--brand)]">83.3% Pass</span>
-                </div>
-                <div className="p-3 rounded-2xl glass border border-[var(--border)]">
-                  <span className="text-[9px] font-mono text-[var(--text-faint)] uppercase block">4. LABOR FORCE</span>
-                  <div className="text-xl font-extrabold text-[var(--text)] font-mono">139</div>
-                  <span className="text-[9px] text-[var(--brand)]">81.8% Part</span>
-                </div>
-                <div className="p-3 rounded-2xl glass border border-[var(--brand)]/30 bg-[var(--brand)]/10">
-                  <span className="text-[9px] font-mono text-[var(--brand)] uppercase block font-bold">5. EMPLOYABLE</span>
-                  <div className="text-xl font-extrabold text-[var(--brand)] font-mono">97</div>
-                  <span className="text-[9px] text-[var(--brand)] font-bold">44.7% Cumulative</span>
+              {/* Canonical Gorakhpur Case Study */}
+              <div className="pt-2">
+                <h3 className="text-sm font-bold text-[var(--text)] mb-3">
+                  {l('Canonical Gorakhpur Case Study: Solar PV (7126.0101) Funnel', 'गोरखपुर केस स्टडी: सोलर पीवी (7126.0101) फनल गणना')}
+                </h3>
+                <div className="grid grid-cols-2 sm:grid-cols-5 gap-3 text-center">
+                  <div className="p-3 rounded-2xl glass border border-[var(--border)]">
+                    <span className="text-[9px] font-mono text-[var(--text-faint)] uppercase block">{l('1. SEATS', '1. स्वीकृत')}</span>
+                    <div className="text-xl font-extrabold text-[var(--text)] font-mono">217</div>
+                    <span className="text-[9px] text-[var(--text-muted)]">{l('Authorized', 'स्वीकृत सीटें')}</span>
+                  </div>
+                  <div className="p-3 rounded-2xl glass border border-[var(--border)]">
+                    <span className="text-[9px] font-mono text-[var(--text-faint)] uppercase block">{l('2. ENROLLED', '2. नामांकित')}</span>
+                    <div className="text-xl font-extrabold text-[var(--text)] font-mono">204</div>
+                    <span className="text-[9px] text-[var(--brand)]">{l('94.0% Util', '94.0% प्रवेश')}</span>
+                  </div>
+                  <div className="p-3 rounded-2xl glass border border-[var(--border)]">
+                    <span className="text-[9px] font-mono text-[var(--text-faint)] uppercase block">{l('3. CERTIFIED', '3. प्रमाणित')}</span>
+                    <div className="text-xl font-extrabold text-[var(--text)] font-mono">170</div>
+                    <span className="text-[9px] text-[var(--brand)]">{l('83.3% Pass', '83.3% उत्तीर्ण')}</span>
+                  </div>
+                  <div className="p-3 rounded-2xl glass border border-[var(--border)]">
+                    <span className="text-[9px] font-mono text-[var(--text-faint)] uppercase block">{l('4. LABOR FORCE', '4. श्रम बल')}</span>
+                    <div className="text-xl font-extrabold text-[var(--text)] font-mono">139</div>
+                    <span className="text-[9px] text-[var(--brand)]">{l('81.8% Part', '81.8% सक्रिय')}</span>
+                  </div>
+                  <div className="p-3 rounded-2xl glass border border-[var(--brand)]/30 bg-[var(--brand)]/10">
+                    <span className="text-[9px] font-mono text-[var(--brand)] uppercase block font-bold">{l('5. EMPLOYABLE', '5. रोजगार योग्य')}</span>
+                    <div className="text-xl font-extrabold text-[var(--brand)] font-mono">97</div>
+                    <span className="text-[9px] text-[var(--brand)] font-bold">{l('44.7% Cumulative', '44.7% संचयी')}</span>
+                  </div>
                 </div>
               </div>
-            </div>
           </div>
         </div>
       )}
