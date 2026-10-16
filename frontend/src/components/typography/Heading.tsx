@@ -10,6 +10,7 @@ interface HeadingProps extends React.HTMLAttributes<HTMLHeadingElement> {
   className?: string;
   highlight?: string;
   dataGlyph?: boolean;
+  serif?: boolean;
 }
 
 /**
@@ -64,13 +65,28 @@ export function InlineChartGlyph({ className }: { className?: string }) {
 }
 
 /**
- * Display H1 for Hero (§4.4)
+ * Display H1 for Hero (§4.4) — supports DepthWizard editorial serif
  */
-export function Display({ children, eyebrow, index, className, dataGlyph, ...props }: HeadingProps) {
+export function Display({ children, eyebrow, index, className, dataGlyph, serif, ...props }: HeadingProps) {
   return (
     <div className="group">
       <SignalEyebrow index={index} text={eyebrow} />
-      <h1 className={clsx('display', className)} {...props}>
+      <h1 className={clsx('display', serif && 'font-serif font-normal', className)} {...props}>
+        {children}
+        {dataGlyph && <InlineChartGlyph />}
+      </h1>
+    </div>
+  );
+}
+
+/**
+ * DepthWizard-Style Editorial Serif Hero Display Heading
+ */
+export function SerifDisplay({ children, eyebrow, index, className, dataGlyph, ...props }: HeadingProps) {
+  return (
+    <div className="group">
+      <SignalEyebrow index={index} text={eyebrow} />
+      <h1 className={clsx('hero-editorial-title', className)} {...props}>
         {children}
         {dataGlyph && <InlineChartGlyph />}
       </h1>
@@ -81,11 +97,11 @@ export function Display({ children, eyebrow, index, className, dataGlyph, ...pro
 /**
  * Page-level primary H1 (§4.4)
  */
-export function H1({ children, eyebrow, index, className, dataGlyph, ...props }: HeadingProps) {
+export function H1({ children, eyebrow, index, className, dataGlyph, serif, ...props }: HeadingProps) {
   return (
     <div className="group">
       <SignalEyebrow index={index} text={eyebrow} />
-      <h1 className={clsx('h1', className)} {...props}>
+      <h1 className={clsx('h1', serif && 'font-serif font-normal tracking-tight', className)} {...props}>
         {children}
         {dataGlyph && <InlineChartGlyph />}
       </h1>
@@ -96,11 +112,11 @@ export function H1({ children, eyebrow, index, className, dataGlyph, ...props }:
 /**
  * Section-level H2 with Signal Rule (§4.4, §4.5)
  */
-export function H2({ children, eyebrow, index, className, ...props }: HeadingProps) {
+export function H2({ children, eyebrow, index, className, serif, ...props }: HeadingProps) {
   return (
     <div className="group">
       <SignalEyebrow index={index} text={eyebrow} />
-      <h2 className={clsx('h2', className)} {...props}>
+      <h2 className={clsx('h2', serif && 'font-serif font-normal', className)} {...props}>
         {children}
       </h2>
     </div>

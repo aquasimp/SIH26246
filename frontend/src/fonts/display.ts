@@ -3,13 +3,22 @@
 // Tactical Display: Space Grotesk
 // Monospace/Telemetry: JetBrains Mono
 // Devanagari Headings & Body: Khand & Noto Sans Devanagari
-import { Plus_Jakarta_Sans, Space_Grotesk, JetBrains_Mono, Noto_Sans_Devanagari, Khand } from 'next/font/google';
+import { Plus_Jakarta_Sans, Instrument_Serif, Space_Grotesk, JetBrains_Mono, Noto_Sans_Devanagari, Khand } from 'next/font/google';
 
 export const plusJakartaSans = Plus_Jakarta_Sans({
   subsets: ['latin'],
   weight: ['400', '500', '600', '700', '800'],
   display: 'swap',
   variable: '--font-sans',
+  preload: true,
+});
+
+export const instrumentSerif = Instrument_Serif({
+  subsets: ['latin'],
+  weight: ['400'],
+  style: ['normal', 'italic'],
+  display: 'swap',
+  variable: '--font-serif',
   preload: true,
 });
 

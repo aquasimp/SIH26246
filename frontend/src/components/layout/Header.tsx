@@ -111,7 +111,7 @@ export const Header: React.FC = () => {
           {/* Compact Dataset Badge */}
           <button
             type="button"
-            className="hidden 2xl:flex items-center gap-1.5 border border-slate-200/80 dark:border-slate-700/80 bg-white/75 dark:bg-slate-800/75 backdrop-blur-md rounded-lg px-2.5 py-1.5 text-xs font-medium text-slate-700 dark:text-slate-300 cursor-pointer hover:bg-white dark:hover:bg-slate-700 transition-all shrink-0 h-[36px] shadow-xs"
+            className="hidden 2xl:flex items-center gap-1.5 border border-slate-200/80 dark:border-slate-700/80 bg-white/80 dark:bg-slate-800/80 backdrop-blur-md rounded-full px-3 py-1.5 text-xs font-medium text-slate-700 dark:text-slate-300 cursor-pointer hover:bg-white dark:hover:bg-slate-700 transition-all shrink-0 h-[36px] shadow-[inset_0_1px_0_0_rgba(255,255,255,0.95)] dark:shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)]"
             title={l('Snapshot: RUN-2026-10-04-EVAL • Tri-Model Ensemble Blend', 'स्नैपशॉट: RUN-2026-10-04-EVAL • त्रि-मॉडल मिश्रण')}
           >
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 shrink-0" />
@@ -124,7 +124,7 @@ export const Header: React.FC = () => {
             type="button"
             onClick={() => setCommandPaletteOpen(true)}
             aria-label={l('Open command palette', 'कमांड पैलेट खोलें')}
-            className="flex items-center gap-2 px-2.5 sm:px-3 py-1.5 rounded-lg border border-slate-200/80 dark:border-slate-700/80 bg-white/75 dark:bg-slate-800/75 backdrop-blur-md text-xs text-slate-500 hover:text-slate-900 dark:hover:text-slate-100 hover:border-slate-300 dark:hover:border-slate-600 cursor-pointer transition-all shrink-0 h-[36px] shadow-xs hover:-translate-y-0.5 active:translate-y-0"
+            className="flex items-center gap-2 px-3 sm:px-3.5 py-1.5 rounded-full border border-slate-200/80 dark:border-slate-700/80 bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-xs text-slate-500 hover:text-slate-900 dark:hover:text-slate-100 hover:border-slate-300 dark:hover:border-slate-600 cursor-pointer transition-all shrink-0 h-[36px] shadow-[inset_0_1px_0_0_rgba(255,255,255,0.95)] dark:shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)] hover:-translate-y-0.5 active:translate-y-0"
             title={l('Open Command Palette (Ctrl+K or ⌘+K)', 'कमांड पैलेट खोलें (Ctrl+K)')}
           >
             <Search className="w-3.5 h-3.5 text-slate-400 shrink-0" />
@@ -138,10 +138,10 @@ export const Header: React.FC = () => {
           <button
             type="button"
             onClick={toggleFocusMode}
-            className={`hidden lg:inline-flex p-1.5 rounded-lg border cursor-pointer transition-all shrink-0 h-[36px] w-[36px] items-center justify-center shadow-xs hover:-translate-y-0.5 active:translate-y-0 ${
+            className={`hidden lg:inline-flex p-1.5 rounded-full border cursor-pointer transition-all shrink-0 h-[36px] w-[36px] items-center justify-center shadow-xs hover:-translate-y-0.5 active:translate-y-0 ${
               focusMode 
                 ? 'bg-slate-900 text-white border-slate-900 dark:bg-slate-100 dark:text-slate-900 dark:border-slate-100' 
-                : 'border-slate-200/80 dark:border-slate-700/80 bg-white/75 dark:bg-slate-800/75 text-slate-500 hover:text-slate-900 dark:hover:text-slate-100'
+                : 'border-slate-200/80 dark:border-slate-700/80 bg-white/80 dark:bg-slate-800/80 text-slate-500 hover:text-slate-900 dark:hover:text-slate-100 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.95)]'
             }`}
             title={focusMode ? l('Exit Focus Mode (Esc)', 'फोकस मोड से बाहर निकलें (Esc)') : l('Enter Focus Mode (Maximize Workspace)', 'फोकस मोड सक्षम करें')}
             aria-label={l('Toggle Focus Mode', 'फोकस मोड टॉगल करें')}
@@ -163,7 +163,7 @@ export const Header: React.FC = () => {
           <button
             type="button"
             onClick={() => setNotificationOpen(!notificationOpen)}
-            className="p-1.5 rounded-lg border border-slate-200/80 dark:border-slate-700/80 bg-white/75 dark:bg-slate-800/75 backdrop-blur-md relative text-slate-500 hover:text-slate-900 dark:hover:text-slate-100 cursor-pointer shrink-0 h-[36px] w-[36px] flex items-center justify-center shadow-xs hover:-translate-y-0.5 active:translate-y-0 transition-all"
+            className="p-1.5 rounded-full border border-slate-200/80 dark:border-slate-700/80 bg-white/80 dark:bg-slate-800/80 backdrop-blur-md relative text-slate-500 hover:text-slate-900 dark:hover:text-slate-100 cursor-pointer shrink-0 h-[36px] w-[36px] flex items-center justify-center shadow-[inset_0_1px_0_0_rgba(255,255,255,0.95)] hover:-translate-y-0.5 active:translate-y-0 transition-all"
             title={l('Early Warnings & Intelligence Signals', 'प्रारंभिक चेतावनियां और संकेत')}
             aria-label={l('Intelligence Notifications', 'सूचनाएं')}
           >
@@ -175,16 +175,16 @@ export const Header: React.FC = () => {
             )}
           </button>
 
-          {/* Ask Assistant Button — Obsidian Liquid Glass */}
+          {/* Ask Assistant Button — Obsidian Liquid Glass Pill */}
           <button
             type="button"
             onClick={() => setCopilotOpen(true)}
-            className="hidden lg:flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-900/95 hover:bg-slate-800 text-white dark:bg-slate-100 dark:text-slate-900 dark:hover:bg-white border border-slate-700/60 dark:border-white/50 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.2),0_2px_8px_rgba(15,23,42,0.15)] transition-all font-medium text-xs cursor-pointer shrink-0 h-[36px] hover:-translate-y-0.5 active:scale-[0.98]"
+            className="hidden lg:flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-slate-900 hover:bg-black text-white dark:bg-slate-100 dark:text-slate-900 dark:hover:bg-white border border-slate-700/60 dark:border-white/50 shadow-[0_4px_14px_rgba(10,16,28,0.25),inset_0_1px_0_rgba(255,255,255,0.2)] transition-all font-semibold text-xs cursor-pointer shrink-0 h-[36px] hover:-translate-y-0.5 active:scale-[0.98]"
             title={l('Open AI Assistant', 'AI सहायक खोलें')}
           >
             <MessageSquare className="w-3.5 h-3.5 text-sky-400 dark:text-sky-600" />
             <span>{l('Ask Assistant', 'AI सहायक')}</span>
-            <kbd className="hidden sm:inline-flex px-1.5 py-0.5 rounded bg-slate-800 dark:bg-slate-200 text-slate-300 dark:text-slate-800 text-[10px] font-mono">⌘K</kbd>
+            <kbd className="hidden sm:inline-flex px-1.5 py-0.5 rounded-full bg-slate-800 dark:bg-slate-200 text-slate-300 dark:text-slate-800 text-[9px] font-mono">⌘K</kbd>
           </button>
         </div>
       </div>

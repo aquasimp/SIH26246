@@ -11,6 +11,7 @@
     --radius-xl: 8px;
 
     /* Typography System */
+    --font-serif-stack: var(--font-serif), "Instrument Serif", "Playfair Display", Georgia, serif;
     --font-sans-stack: var(--font-sans), "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     --font-display-stack: var(--font-display), "Space Grotesk", var(--font-sans-stack);
     --font-mono-stack: var(--font-mono), "JetBrains Mono", ui-monospace, monospace;
@@ -346,6 +347,26 @@ body {
 }
 
 /* Headings Typography */
+.font-serif {
+  font-family: var(--font-serif-stack);
+}
+
+.hero-editorial-title {
+  font-family: var(--font-serif-stack);
+  font-size: clamp(2.3rem, 4.8vw, 3.85rem);
+  font-weight: 400;
+  line-height: 1.12;
+  letter-spacing: -0.015em;
+  color: var(--text);
+  margin-bottom: 0.75rem;
+}
+
+.title-serif-italic {
+  font-style: italic;
+  font-family: var(--font-serif-stack);
+  font-weight: 400;
+}
+
 .hero-heading {
   font-family: var(--font-display-stack);
   font-weight: 800;
@@ -368,6 +389,277 @@ body {
   font-size: var(--fs-h2);
   line-height: 1.15;
   letter-spacing: -0.01em;
+}
+
+/* ==========================================================================
+   DepthWizard Luminous Liquid Glass System
+   ========================================================================== */
+
+.luminous-hero-container {
+  position: relative;
+  width: 100%;
+  background: radial-gradient(ellipse 95% 75% at 50% 15%, rgba(224, 242, 254, 0.75) 0%, rgba(240, 249, 255, 0.45) 45%, var(--bg) 100%);
+  overflow: hidden;
+}
+
+.dark .luminous-hero-container {
+  background: radial-gradient(ellipse 95% 75% at 50% 15%, rgba(14, 165, 233, 0.12) 0%, rgba(15, 23, 42, 0.55) 50%, var(--bg) 100%);
+}
+
+.hero-circuit-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.circuit-lines-svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* Floating Badge Pill */
+.hero-pill-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.95);
+  border-radius: 9999px;
+  padding: 6px 18px;
+  box-shadow: 0 4px 18px rgba(15, 23, 42, 0.04), inset 0 1px 0 rgba(255, 255, 255, 0.95);
+}
+
+.dark .hero-pill-badge {
+  background: rgba(15, 23, 42, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.badge-sparkle {
+  color: #0284c7;
+  font-size: 11px;
+}
+
+.dark .badge-sparkle {
+  color: #38bdf8;
+}
+
+.badge-text {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+/* Dual DepthWizard CTA Buttons */
+.hero-btn-dark-glow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: #090d16;
+  color: #ffffff;
+  font-family: var(--font-sans-stack);
+  font-size: 13.5px;
+  font-weight: 600;
+  padding: 10px 24px;
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0 14px 32px rgba(10, 16, 28, 0.35), 0 4px 10px rgba(10, 16, 28, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  text-decoration: none;
+}
+
+.hero-btn-dark-glow:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 18px 36px rgba(10, 16, 28, 0.45), 0 6px 14px rgba(10, 16, 28, 0.25);
+  background: #000000;
+  color: #ffffff;
+}
+
+.dark .hero-btn-dark-glow {
+  background: #f8fafc;
+  color: #090d16;
+  border-color: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 14px 32px rgba(56, 189, 248, 0.25), 0 4px 10px rgba(0, 0, 0, 0.4);
+}
+
+.dark .hero-btn-dark-glow:hover {
+  background: #ffffff;
+  color: #000000;
+  box-shadow: 0 18px 38px rgba(56, 189, 248, 0.35);
+}
+
+.hero-btn-white-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  color: #0f172a;
+  font-family: var(--font-sans-stack);
+  font-size: 13.5px;
+  font-weight: 600;
+  padding: 10px 24px;
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.95);
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.95);
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  text-decoration: none;
+}
+
+.hero-btn-white-pill:hover {
+  transform: translateY(-2px);
+  background: #ffffff;
+  box-shadow: 0 12px 28px rgba(15, 23, 42, 0.12);
+  border-color: rgba(14, 165, 233, 0.3);
+}
+
+.dark .hero-btn-white-pill {
+  background: rgba(30, 41, 59, 0.85);
+  color: #f8fafc;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.dark .hero-btn-white-pill:hover {
+  background: rgba(30, 41, 59, 0.98);
+  border-color: rgba(255, 255, 255, 0.22);
+}
+
+/* Floating Bottom Pill Dock */
+.hero-bottom-dock-wrapper {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 1.25rem;
+}
+
+.dock-connector-line {
+  width: 80%;
+  max-width: 840px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(14, 165, 233, 0.35), transparent);
+  margin-bottom: -1px;
+  z-index: 1;
+}
+
+.hero-bottom-dock {
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid rgba(255, 255, 255, 0.95);
+  border-radius: 9999px;
+  padding: 5px 8px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.06), 0 2px 6px rgba(15, 23, 42, 0.04), inset 0 1px 0 rgba(255, 255, 255, 0.95);
+  z-index: 2;
+  overflow-x: auto;
+  max-width: 95vw;
+}
+
+.dark .hero-bottom-dock {
+  background: rgba(15, 23, 42, 0.88);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.dock-pill-chip {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  background: transparent;
+  border: 1px solid transparent;
+  color: #475569;
+  font-family: var(--font-sans-stack);
+  font-size: 12.5px;
+  font-weight: 500;
+  padding: 6px 14px;
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  text-decoration: none;
+}
+
+.dark .dock-pill-chip {
+  color: #94a3b8;
+}
+
+.dock-pill-chip:hover {
+  color: #0f172a;
+  background: rgba(15, 23, 42, 0.04);
+}
+
+.dark .dock-pill-chip:hover {
+  color: #f8fafc;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.dock-pill-chip.active {
+  background: #ffffff;
+  color: #0f172a;
+  font-weight: 600;
+  border-color: rgba(226, 232, 240, 0.9);
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.05);
+}
+
+.dark .dock-pill-chip.active {
+  background: rgba(30, 41, 59, 0.9);
+  color: #38bdf8;
+  border-color: rgba(56, 189, 248, 0.3);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+}
+
+.dock-chip-icon {
+  color: #0284c7;
+}
+
+.dark .dock-chip-icon {
+  color: #38bdf8;
+}
+
+/* Liquid Glass Card Depth Specular Standard */
+.liquid-glass-card {
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(18px) saturate(180%);
+  -webkit-backdrop-filter: blur(18px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.95);
+  border-radius: 18px;
+  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.95), 0 12px 32px rgba(15, 23, 42, 0.06);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.dark .liquid-glass-card {
+  background: rgba(15, 23, 42, 0.82);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.10), 0 12px 32px rgba(0, 0, 0, 0.35);
+}
+
+.liquid-glass-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(14, 165, 233, 0.35);
+  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 1), 0 18px 40px rgba(14, 165, 233, 0.12);
+}
+
+.dark .liquid-glass-card:hover {
+  border-color: rgba(56, 189, 248, 0.35);
+  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.18), 0 18px 40px rgba(56, 189, 248, 0.15);
 }
 
 .eyebrow {

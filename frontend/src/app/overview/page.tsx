@@ -59,14 +59,20 @@ export default function OverviewPage() {
     <div className="space-y-6 min-w-0 max-w-full overflow-hidden">
       {/* Compact Executive Header */}
       <div className="flex items-center justify-between gap-4">
-        <h1 className="text-2xl font-semibold tracking-tight text-slate-900 dark:text-slate-100">
-          {l('District Skill & Capacity Overview', 'ज़िला कौशल एवं क्षमता सारांश')}
+        <h1 className="text-2xl sm:text-3xl font-normal tracking-tight text-slate-900 dark:text-slate-100 font-serif">
+          {language === 'hi' ? (
+            'ज़िला कौशल एवं क्षमता सारांश'
+          ) : (
+            <>
+              District Skill &amp; Capacity <span className="title-serif-italic">Overview</span>
+            </>
+          )}
         </h1>
         <Link
           href="/scenarios?preset=rec01"
-          className="bg-sky-700 hover:bg-sky-800 text-white dark:bg-sky-500 dark:hover:bg-sky-400 dark:text-slate-950 rounded-md px-3.5 py-2 text-sm font-medium flex items-center gap-2 shrink-0 transition-colors shadow-xs"
+          className="hero-btn-dark-glow py-2 px-4 text-xs font-semibold flex items-center gap-2 shrink-0"
         >
-          <Sliders className="w-4 h-4" />
+          <Sliders className="w-3.5 h-3.5 text-sky-400" />
           <span>{l('Open Scenario Studio', 'परिदृश्य स्टूडियो खोलें')}</span>
         </Link>
       </div>
@@ -75,7 +81,7 @@ export default function OverviewPage() {
       <FilterBar />
 
       {/* Unified 6-Column Metric Grid with Liquid Glass & Locked Baseline */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 divide-y sm:divide-y-0 sm:divide-x divide-slate-200/80 dark:divide-slate-800 glass-strong border border-slate-200/80 dark:border-slate-800 rounded-2xl overflow-hidden shadow-[inset_0_1px_0_0_rgba(255,255,255,0.95),0_4px_24px_-4px_rgba(15,23,42,0.05)]">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 divide-y sm:divide-y-0 sm:divide-x divide-slate-200/80 dark:divide-slate-800 liquid-glass-card rounded-2xl overflow-hidden shadow-[inset_0_1px_0_0_rgba(255,255,255,0.95),0_4px_24px_-4px_rgba(15,23,42,0.05)]">
         <KpiCard
           label={l('Demand', 'मांग')}
           value={metrics.demandFormatted}

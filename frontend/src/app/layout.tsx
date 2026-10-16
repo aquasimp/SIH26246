@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { plusJakartaSans, spaceGrotesk, khandFont, notoDevanagariFont, monoFont } from "@/fonts/display";
+import { plusJakartaSans, instrumentSerif, spaceGrotesk, khandFont, notoDevanagariFont, monoFont } from "@/fonts/display";
 import "./globals.css";
 import { Providers } from "./providers";
 import { AppProvider } from "@/lib/store";
@@ -64,7 +64,7 @@ export default async function RootLayout({
       lang={lang} 
       translate="no"
       suppressHydrationWarning 
-      className={`notranslate ${plusJakartaSans.variable} ${spaceGrotesk.variable} ${khandFont.variable} ${notoDevanagariFont.variable} ${monoFont.variable} scroll-smooth`}
+      className={`notranslate ${plusJakartaSans.variable} ${instrumentSerif.variable} ${spaceGrotesk.variable} ${khandFont.variable} ${notoDevanagariFont.variable} ${monoFont.variable} scroll-smooth`}
     >
       <head>
         <meta name="google" content="notranslate" />
