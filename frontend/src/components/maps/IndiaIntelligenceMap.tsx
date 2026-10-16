@@ -1094,10 +1094,10 @@ export const IndiaIntelligenceMap: React.FC = () => {
             <div className="shrink-0 space-y-2 pt-3 mt-3 border-t border-slate-200/80 dark:border-slate-800/80">
               <Link
                 href={`/scenarios?district=${selectedDistrictData.districtId}`}
-                className="w-full py-2.5 px-3.5 rounded-lg bg-slate-900/95 hover:bg-slate-800 text-white font-semibold text-xs flex items-center justify-between transition-all shadow-[inset_0_1px_0_0_rgba(255,255,255,0.2),0_2px_8px_rgba(15,23,42,0.15)] active:scale-[0.98]"
+                className="btn-liquid-primary w-full py-2.5 px-3.5 rounded-xl font-semibold text-xs flex items-center justify-between transition-all shadow-xs active:scale-[0.98]"
               >
                 <span>{l('Simulate District Scenarios', 'जिला परिदृश्य अनुकरण करें')}</span>
-                <Sliders className="w-3.5 h-3.5 text-amber-300" />
+                <Sliders className="w-3.5 h-3.5 text-sky-600 dark:text-sky-400" />
               </Link>
 
               <Link
@@ -1251,7 +1251,7 @@ export const IndiaIntelligenceMap: React.FC = () => {
             <div className="flex items-center gap-2 pt-2">
               <Link
                 href={`/districts/${selectedDistrictData.districtId}`}
-                className="flex-1 py-2 rounded-md bg-slate-900 hover:bg-slate-800 text-white text-center font-medium text-xs transition-colors"
+                className="btn-liquid-primary flex-1 py-2 rounded-xl text-center font-semibold text-xs transition-colors shadow-xs"
               >
                 {l('Open District Profile', 'जिला प्रोफ़ाइल खोलें')}
               </Link>

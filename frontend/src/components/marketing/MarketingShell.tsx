@@ -7,69 +7,95 @@ import { ThemeToggle } from '@/components/layout/ThemeToggle';
 import { LanguageSelector } from '@/components/layout/LanguageSelector';
 import { siteConfig } from '@/lib/site.config';
 import { EXPORT_METADATA } from '@/lib/demoData';
-import { ArrowRight, Compass, Sliders, Database, FileText, Menu } from 'lucide-react';
+import { ArrowRight, Compass, Sliders, Database, FileText, Menu, Sparkles } from 'lucide-react';
 import { BrandLogo } from '@/components/ui/BrandLogo';
 
 export function MarketingTopbar() {
   const { t, l, setMobileMenuOpen } = useApp();
+  const [scrolled, setScrolled] = React.useState(false);
+
+  React.useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   return (
-    <header className="sticky top-0 z-40 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 w-full select-none shadow-xs">
-      <div className="max-w-[1536px] mx-auto px-4 sm:px-8 lg:px-10 h-14 flex items-center justify-between gap-4">
-        {/* Brand Lockup */}
+    <div className={`floating-nav-wrapper ${scrolled ? 'nav-scrolled' : ''}`}>
+      <header className="floating-nav-pill select-none">
+        {/* Brand Lockup with DepthWizard-style geometry */}
         <Link href="/" className="flex items-center gap-2.5 sm:gap-3 group focus:outline-none min-w-0 shrink">
-          <BrandLogo size="lg" alt="KaushalYuva Logo" />
+          <BrandLogo size="md" alt="KaushalYuva Logo" />
           <div className="flex flex-col min-w-0">
-            <span className="text-sm font-bold tracking-tight text-slate-900 dark:text-slate-100 leading-tight truncate">
-              {t.appTitle || siteConfig.name}
-            </span>
-            <span className="hidden sm:block text-[10px] font-medium text-slate-500 uppercase tracking-wider truncate">
+            <div className="flex items-center gap-1.5">
+              <span className="text-sm font-bold tracking-tight text-slate-900 dark:text-slate-100 leading-tight">
+                {t.appTitle || siteConfig.name}
+              </span>
+              <span className="hidden sm:inline-flex text-[9.5px] font-bold text-sky-700 dark:text-sky-400 bg-sky-500/10 border border-sky-500/20 px-1.5 py-0.5 rounded-full">
+                MSDE
+              </span>
+            </div>
+            <span className="hidden md:block text-[9.5px] font-medium text-slate-500 uppercase tracking-wider truncate">
               {t.appSubtitle || l('AI LABOUR MARKET INTELLIGENCE', 'श्रम बाजार बुद्धिमत्ता इंजन')}
             </span>
           </div>
         </Link>
 
-        {/* Navigation Links */}
-        <nav aria-label="Marketing Navigation" className="hidden lg:flex items-center gap-5 text-xs font-medium text-slate-600 dark:text-slate-400">
-          <Link 
-            href="/overview" 
-            className="flex items-center gap-1.5 hover:text-slate-900 dark:hover:text-slate-100 transition-colors py-1"
-          >
-            <Compass className="w-3.5 h-3.5 text-slate-500" />
-            <span>{t.nav.overview}</span>
-          </Link>
-          <Link 
-            href="/scenarios" 
-            className="flex items-center gap-1.5 hover:text-slate-900 dark:hover:text-slate-100 transition-colors py-1"
-          >
-            <Sliders className="w-3.5 h-3.5 text-slate-500" />
-            <span>{t.nav.scenarios}</span>
-          </Link>
-          <Link 
-            href="/methodology" 
-            className="flex items-center gap-1.5 hover:text-slate-900 dark:hover:text-slate-100 transition-colors py-1"
-          >
-            <FileText className="w-3.5 h-3.5 text-slate-500" />
-            <span>{t.nav.methodology || l('Methodology', 'मॉडल कार्यप्रणाली')}</span>
-          </Link>
-          <Link 
-            href="/api" 
-            className="flex items-center gap-1.5 hover:text-slate-900 dark:hover:text-slate-100 transition-colors py-1"
-          >
-            <Database className="w-3.5 h-3.5 text-slate-500" />
-            <span>{t.nav.apiExports}</span>
-          </Link>
-        </nav>
+        {/* Center: DepthWizard-style Navigation Links & Centered Demo Action Button */}
+        <div className="hidden lg:flex items-center gap-1.5 flex-1 justify-center max-w-2xl px-2">
+          <nav aria-label="Marketing Navigation" className="flex items-center gap-1">
+            <Link 
+              href="/overview" 
+              className="nav-link-btn"
+            >
+              <Compass className="w-3.5 h-3.5 text-sky-600 dark:text-sky-400" />
+              <span>{t.nav.overview}</span>
+            </Link>
+            <Link 
+              href="/scenarios" 
+              className="nav-link-btn"
+            >
+              <Sliders className="w-3.5 h-3.5 text-indigo-500" />
+              <span>{t.nav.scenarios}</span>
+            </Link>
+            <Link 
+              href="/methodology" 
+              className="nav-link-btn"
+            >
+              <FileText className="w-3.5 h-3.5 text-emerald-500" />
+              <span>{t.nav.methodology || l('Methodology', 'मॉडल कार्यप्रणाली')}</span>
+            </Link>
+            <Link 
+              href="/api" 
+              className="nav-link-btn"
+            >
+              <Database className="w-3.5 h-3.5 text-slate-500" />
+              <span>{t.nav.apiExports}</span>
+            </Link>
+          </nav>
 
-        {/* Right Controls */}
-        <div className="flex items-center gap-2 sm:gap-2.5 shrink-0">
+          {/* Centered Quick Action Demo Pill */}
+          <Link
+            href="/scenarios?preset=rec01"
+            className="nav-demo-pill-btn ml-2"
+            title={l('Run Live Reallocation Simulation', 'लाइव सिमुलेशन चलाएं')}
+          >
+            <Sparkles className="w-3 h-3 text-sky-500" />
+            <span>{l('Live Studio', 'लाइव स्टूडियो')}</span>
+          </Link>
+        </div>
+
+        {/* Right Controls: Frosted Chips & Luminous Liquid Glass Button */}
+        <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
           {/* Dataset Chip */}
           <span 
-            className="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-1 rounded text-[11px] font-medium bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 shrink-0"
+            className="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-medium bg-white/70 dark:bg-slate-800/70 text-slate-700 dark:text-slate-300 border border-slate-200/80 dark:border-slate-700 shrink-0 shadow-2xs"
             title={`${EXPORT_METADATA.runId} · ${EXPORT_METADATA.dataThrough}`}
           >
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 shrink-0" />
-            <span>{EXPORT_METADATA.runId}</span>
+            <span className="font-mono text-[10px]">{EXPORT_METADATA.runId}</span>
           </span>
 
           {/* Multilingual Selector */}
@@ -82,11 +108,12 @@ export function MarketingTopbar() {
             <ThemeToggle />
           </div>
 
-          {/* Primary Open Dashboard CTA */}
+          {/* Primary Open Dashboard CTA — Luminous Liquid Glass (NO harsh black!) */}
           <Link
             href="/overview"
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-md bg-slate-900 hover:bg-slate-800 text-white font-medium text-xs transition-colors cursor-pointer shadow-xs min-h-[34px] shrink-0"
+            className="btn-liquid-primary text-xs py-1.5 px-3.5 font-semibold"
           >
+            <Compass className="w-3.5 h-3.5 text-sky-600 dark:text-sky-400" />
             <span className="hidden xs:inline">{t.nav.openDashboard || l('Open Dashboard', 'डैशबोर्ड खोलें')}</span>
             <span className="xs:hidden">{t.nav.overview || l('Dashboard', 'डैशबोर्ड')}</span>
             <ArrowRight className="w-3.5 h-3.5" />
@@ -96,14 +123,14 @@ export function MarketingTopbar() {
           <button
             type="button"
             onClick={() => setMobileMenuOpen(true)}
-            className="lg:hidden p-2 rounded-md border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 cursor-pointer flex items-center justify-center min-h-[34px] min-w-[34px] shrink-0"
+            className="lg:hidden p-1.5 rounded-full border border-slate-200/80 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 cursor-pointer flex items-center justify-center min-h-[32px] min-w-[32px] shrink-0"
             aria-label={l('Open menu', 'मेनू खोलें')}
           >
             <Menu className="w-4 h-4" />
           </button>
         </div>
-      </div>
-    </header>
+      </header>
+    </div>
   );
 }
 

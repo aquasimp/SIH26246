@@ -76,8 +76,14 @@ export default function SkillGapsPage() {
             {l('Equilibrium Diagnostics', 'संतुलन निदान')}
           </span>
         </div>
-        <h1 className="text-2xl sm:text-3xl font-extrabold text-[var(--text)] tracking-tight">
-          {l('Skill Gap & Shortage Intelligence', 'कौशल अंतर एवं कमी इंटेलिजेंस')}
+        <h1 className="text-2xl sm:text-3xl font-normal text-[var(--text)] tracking-tight font-serif">
+          {language === 'hi' ? (
+            'कौशल अंतर एवं कमी इंटेलिजेंस'
+          ) : (
+            <>
+              Skill Gap &amp; Shortage <span className="title-serif-italic">Intelligence</span>
+            </>
+          )}
         </h1>
         <p className="text-xs sm:text-sm text-[var(--text-muted)] mt-1 max-w-2xl leading-relaxed">
           {l('Algorithmic detection of structural skill shortages, training oversupply, and employable workforce absorption gaps.', 'संरचनात्मक कौशल की कमी, प्रशिक्षण अधिशेष आपूर्ति और रोजगार योग्य कार्यबल अवशोषण अंतराल का एल्गोरिथम पता लगाना।')}

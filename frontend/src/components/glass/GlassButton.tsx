@@ -26,11 +26,11 @@ export const GlassButton: React.FC<GlassButtonProps> = ({
 
   const variantClasses = {
     primary: clsx(
-      'bg-slate-900/95 hover:bg-slate-800 text-white',
-      'dark:bg-slate-100 dark:text-slate-950 dark:hover:bg-white',
-      'border border-slate-700/60 dark:border-white/50',
-      'shadow-[inset_0_1px_0_0_rgba(255,255,255,0.20),0_2px_8px_rgba(15,23,42,0.15)]',
-      'hover:shadow-[inset_0_1px_0_0_rgba(255,255,255,0.30),0_6px_20px_rgba(15,23,42,0.22)]',
+      'bg-white/95 hover:bg-white text-slate-900',
+      'dark:bg-slate-800/90 dark:text-slate-100 dark:hover:bg-slate-700/90',
+      'border border-slate-200/90 dark:border-slate-700/80',
+      'shadow-[inset_0_1px_0_0_#ffffff,0_2px_8px_rgba(15,23,42,0.06)] dark:shadow-[inset_0_1px_0_0_rgba(255,255,255,0.12),0_4px_16px_rgba(0,0,0,0.3)]',
+      'hover:shadow-[inset_0_1px_0_0_#ffffff,0_6px_20px_rgba(14,165,233,0.12)] hover:border-sky-500/30 dark:hover:border-sky-400/30',
       'hover:-translate-y-0.5 active:translate-y-0'
     ),
     secondary: clsx(
@@ -41,10 +41,10 @@ export const GlassButton: React.FC<GlassButtonProps> = ({
       'hover:-translate-y-0.5 active:translate-y-0'
     ),
     accent: clsx(
-      'bg-sky-600 hover:bg-sky-700 text-white',
-      'border border-sky-500/60',
-      'shadow-[inset_0_1px_0_0_rgba(255,255,255,0.25),0_2px_8px_rgba(2,132,199,0.25)]',
-      'hover:shadow-[inset_0_1px_0_0_rgba(255,255,255,0.35),0_6px_20px_rgba(2,132,199,0.35)]',
+      'bg-sky-500/10 hover:bg-sky-500/15 text-sky-700 dark:text-sky-300',
+      'border border-sky-500/30 dark:border-sky-400/30',
+      'shadow-[inset_0_1px_0_0_rgba(255,255,255,0.8),0_2px_8px_rgba(2,132,199,0.08)]',
+      'hover:shadow-[inset_0_1px_0_0_rgba(255,255,255,0.9),0_6px_16px_rgba(2,132,199,0.16)]',
       'hover:-translate-y-0.5 active:translate-y-0'
     ),
     danger: clsx(

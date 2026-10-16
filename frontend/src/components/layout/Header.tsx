@@ -64,8 +64,9 @@ export const Header: React.FC = () => {
   const localizedDistrict = getLocalizedEntityName('districts', rawDistrict, language, rawDistrict);
 
   return (
-    <header className="sticky top-0 z-40 bg-white/75 dark:bg-slate-900/80 backdrop-blur-xl backdrop-saturate-150 border-b border-slate-200/80 dark:border-slate-800/80 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.95),0_4px_20px_-4px_rgba(15,23,42,0.03)] dark:shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08),0_4px_20px_-4px_rgba(0,0,0,0.3)] px-3 sm:px-5 py-2.5 select-none transition-all">
-      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-2 lg:gap-3 min-w-0">
+    <div className="sticky top-2.5 z-40 px-3 sm:px-5 lg:px-6 w-full select-none transition-all">
+      <header className="floating-nav-pill w-full">
+        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-2 lg:gap-3 min-w-0 w-full">
         {/* Left Side: Mobile Hamburger Menu & Breadcrumb Trail */}
         <div className="flex items-center justify-between gap-2 w-full lg:w-auto min-w-0 flex-1">
           {/* Mobile Hamburger Menu Button */}
@@ -175,19 +176,20 @@ export const Header: React.FC = () => {
             )}
           </button>
 
-          {/* Ask Assistant Button — Obsidian Liquid Glass Pill */}
+          {/* Ask Assistant Button — Luminous Liquid Glass Pill (NO harsh black!) */}
           <button
             type="button"
             onClick={() => setCopilotOpen(true)}
-            className="hidden lg:flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-slate-900 hover:bg-black text-white dark:bg-slate-100 dark:text-slate-900 dark:hover:bg-white border border-slate-700/60 dark:border-white/50 shadow-[0_4px_14px_rgba(10,16,28,0.25),inset_0_1px_0_rgba(255,255,255,0.2)] transition-all font-semibold text-xs cursor-pointer shrink-0 h-[36px] hover:-translate-y-0.5 active:scale-[0.98]"
+            className="hidden lg:flex items-center gap-1.5 px-3.5 py-1.5 rounded-full btn-liquid-primary transition-all font-semibold text-xs cursor-pointer shrink-0 h-[36px]"
             title={l('Open AI Assistant', 'AI सहायक खोलें')}
           >
-            <MessageSquare className="w-3.5 h-3.5 text-sky-400 dark:text-sky-600" />
+            <MessageSquare className="w-3.5 h-3.5 text-sky-600 dark:text-sky-400" />
             <span>{l('Ask Assistant', 'AI सहायक')}</span>
-            <kbd className="hidden sm:inline-flex px-1.5 py-0.5 rounded-full bg-slate-800 dark:bg-slate-200 text-slate-300 dark:text-slate-800 text-[9px] font-mono">⌘K</kbd>
+            <kbd className="hidden sm:inline-flex px-1.5 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 text-[9px] font-mono border border-slate-200 dark:border-slate-700">⌘K</kbd>
           </button>
         </div>
       </div>
     </header>
+  </div>
   );
 };

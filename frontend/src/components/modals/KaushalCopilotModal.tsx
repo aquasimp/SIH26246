@@ -277,9 +277,9 @@ export const KaushalCopilotModal: React.FC = () => {
           />
           <button
             onClick={() => handleSend()}
-            className="btn-obsidian px-4 py-2 rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 cursor-pointer active:scale-[0.98]"
+            className="btn-liquid-primary px-4 py-2 rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 cursor-pointer active:scale-[0.98] shadow-xs"
           >
-            <Send className="w-3.5 h-3.5" />
+            <Send className="w-3.5 h-3.5 text-sky-600 dark:text-sky-400" />
             <span className="hidden sm:inline">Ask</span>
           </button>
         </div>

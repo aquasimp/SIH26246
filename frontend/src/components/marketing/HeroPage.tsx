@@ -80,22 +80,22 @@ export function HeroPage() {
                 </p>
               </div>
 
-              {/* Dual Action CTA Buttons — Obsidian Dark Glow + White Pill */}
+              {/* Dual Action CTA Buttons — Luminous Liquid Glass + White Pill */}
               <div className="flex flex-wrap items-center gap-3.5 pt-6">
                 <Link
                   href="/overview"
-                  className="hero-btn-dark-glow"
+                  className="btn-liquid-primary py-2.5 px-6 text-sm"
                 >
-                  <Compass className="w-4 h-4 text-sky-400" />
+                  <Compass className="w-4 h-4 text-sky-600 dark:text-sky-400" />
                   <span>{l('Open Intelligence Dashboard', 'पूर्ण डैशबोर्ड खोलें')}</span>
-                  <ArrowRight className="w-4 h-4" />
+                  <ArrowRight className="w-4 h-4 text-sky-600 dark:text-sky-400" />
                 </Link>
 
                 <Link
                   href="/scenarios?preset=rec01"
-                  className="hero-btn-white-pill"
+                  className="hero-btn-white-pill py-2.5 px-5 text-sm"
                 >
-                  <Sliders className="w-4 h-4 text-slate-600 dark:text-slate-300" />
+                  <Sliders className="w-4 h-4 text-slate-500 dark:text-slate-400" />
                   <span>{l('Simulate Seat Transfer (97 Seats)', 'सीट स्थानांतरण अनुकरण')}</span>
                 </Link>
               </div>
@@ -169,10 +169,10 @@ export function HeroPage() {
 
                 <Link
                   href="/scenarios?preset=rec01"
-                  className="btn-obsidian inline-flex items-center justify-between w-full py-2.5 px-4 rounded-xl text-white font-semibold text-xs transition-all cursor-pointer group"
+                  className="btn-liquid-primary inline-flex items-center justify-between w-full py-2.5 px-4 rounded-full font-semibold text-xs transition-all cursor-pointer group shadow-xs"
                 >
                   <span>{l('Simulate Gorakhpur Seat Transfer (97 Seats)', 'गोरखपुर सीट स्थानांतरण अनुकरण (97 सीटें)')}</span>
-                  <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5" />
+                  <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5 text-sky-600 dark:text-sky-400" />
                 </Link>
               </div>
             </div>
@@ -383,10 +383,10 @@ export function HeroPage() {
             {/* ONE Primary Action */}
             <Link
               href="/scenarios?preset=rec01"
-              className="btn-obsidian inline-flex items-center justify-between w-full py-2.5 px-3.5 rounded-xl text-white text-xs font-semibold transition-all cursor-pointer group mt-2"
+              className="btn-liquid-primary inline-flex items-center justify-between w-full py-2.5 px-3.5 rounded-xl text-xs font-semibold transition-all cursor-pointer group mt-2 shadow-xs"
             >
               <span>{l('Simulate in Scenario Studio', 'LP सिमुलेशन खोलें')}</span>
-              <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5" />
+              <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5 text-sky-600 dark:text-sky-400" />
             </Link>
           </div>
 

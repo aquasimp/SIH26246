@@ -70,9 +70,9 @@ export default function OverviewPage() {
         </h1>
         <Link
           href="/scenarios?preset=rec01"
-          className="hero-btn-dark-glow py-2 px-4 text-xs font-semibold flex items-center gap-2 shrink-0"
+          className="btn-liquid-primary py-2 px-4 text-xs font-semibold flex items-center gap-2 shrink-0"
         >
-          <Sliders className="w-3.5 h-3.5 text-sky-400" />
+          <Sliders className="w-3.5 h-3.5 text-sky-600 dark:text-sky-400" />
           <span>{l('Open Scenario Studio', 'परिदृश्य स्टूडियो खोलें')}</span>
         </Link>
       </div>
@@ -153,9 +153,9 @@ export default function OverviewPage() {
           </Link>
           <Link
             href="/scenarios?preset=rec01"
-            className="btn-obsidian rounded-lg px-3.5 py-1.5 text-xs font-semibold flex items-center gap-1.5 cursor-pointer active:scale-[0.98]"
+            className="btn-liquid-primary rounded-full px-3.5 py-1.5 text-xs font-semibold flex items-center gap-1.5 cursor-pointer active:scale-[0.98] shadow-xs"
           >
-            <Sliders className="w-3.5 h-3.5 text-sky-400" />
+            <Sliders className="w-3.5 h-3.5 text-sky-600 dark:text-sky-400" />
             <span>{l('Simulate Reallocation', 'पुनर्आवंटन अनुकरण')}</span>
           </Link>
         </div>
