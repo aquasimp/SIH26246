@@ -126,7 +126,7 @@ const PRIMARY_LABEL_DISTRICTS = new Set([
 ]);
 
 export const IndiaIntelligenceMap: React.FC = () => {
-  const { selectedDistrict, setSelectedDistrict, setSelectedState, language, l } = useApp();
+  const { selectedDistrict, setSelectedDistrict, setSelectedState, language, l, forecastHorizon } = useApp();
   const [activeLayer, setActiveLayer] = useState<MapLayer>('severity');
   const [selectedTrade, setSelectedTrade] = useState<string>('Solar PV Installer');
   const [selectedStateFilter, setSelectedStateFilter] = useState<string>('all');
@@ -200,13 +200,16 @@ export const IndiaIntelligenceMap: React.FC = () => {
 
   const getDistrictMetric = useCallback((districtId: string) => {
     const dMetrics = tradeMetrics[districtId];
+    const horizonMultiplier = forecastHorizon === '3M' ? 0.94 : forecastHorizon === '12M' ? 1.20 : 1.0;
+    const supplyMultiplier = forecastHorizon === '3M' ? 1.08 : forecastHorizon === '12M' ? 0.92 : 1.0;
+
     if (!dMetrics) {
       return {
         value: 50,
         gapScore: 50,
-        demand: 500,
-        supply: 400,
-        surplus: 0,
+        demand: Math.round(500 * horizonMultiplier),
+        supply: Math.round(400 * supplyMultiplier),
+        surplus: Math.round(400 * supplyMultiplier) - Math.round(500 * horizonMultiplier),
         confidence: 80,
         tradeTitle: selectedTrade === ALL_TRADES_OPTION ? l('All trades: max', 'सभी व्यवसाय: अधिकतम') : selectedTrade,
         band: SEVERITY_BANDS[2]
@@ -214,19 +217,24 @@ export const IndiaIntelligenceMap: React.FC = () => {
     }
 
     if (selectedTrade === ALL_TRADES_OPTION) {
-      const gapScore = dMetrics.maxGapScore;
+      const gapScore = Math.max(10, Math.min(99, Math.round(
+        forecastHorizon === '3M' ? dMetrics.maxGapScore - 4 : forecastHorizon === '12M' ? dMetrics.maxGapScore + 5 : dMetrics.maxGapScore
+      )));
+      const demand = Math.round(dMetrics.overallDemand * horizonMultiplier);
+      const supply = Math.round(dMetrics.overallSupply * supplyMultiplier);
+      const surplus = supply - demand;
       let val = gapScore;
-      if (activeLayer === 'demand') val = dMetrics.overallDemand;
-      if (activeLayer === 'supply') val = dMetrics.overallSupply;
-      if (activeLayer === 'surplus') val = dMetrics.overallSurplus;
+      if (activeLayer === 'demand') val = demand;
+      if (activeLayer === 'supply') val = supply;
+      if (activeLayer === 'surplus') val = surplus;
 
       const band = SEVERITY_BANDS.find(b => gapScore >= b.min && gapScore <= b.max) || SEVERITY_BANDS[2];
       return {
         value: val,
         gapScore,
-        demand: dMetrics.overallDemand,
-        supply: dMetrics.overallSupply,
-        surplus: dMetrics.overallSurplus,
+        demand,
+        supply,
+        surplus,
         confidence: 86,
         tradeTitle: language === 'en' ? 'All trades (Max Severity)' : l('All trades: max severity', 'सभी व्यवसाय (अधिकतम गंभीरता)'),
         band
@@ -242,23 +250,30 @@ export const IndiaIntelligenceMap: React.FC = () => {
       titleHi: selectedTrade
     };
 
-    let val = tData.gapScore;
-    if (activeLayer === 'demand') val = tData.demand;
-    if (activeLayer === 'supply') val = tData.effectiveSupply;
-    if (activeLayer === 'surplus') val = tData.capacitySurplusSeats;
+    const demand = Math.round(tData.demand * horizonMultiplier);
+    const supply = Math.round(tData.effectiveSupply * supplyMultiplier);
+    const surplus = supply - demand;
+    const gapScore = Math.max(10, Math.min(99, Math.round(
+      forecastHorizon === '3M' ? tData.gapScore - 4 : forecastHorizon === '12M' ? tData.gapScore + 5 : tData.gapScore
+    )));
 
-    const band = SEVERITY_BANDS.find(b => tData.gapScore >= b.min && tData.gapScore <= b.max) || SEVERITY_BANDS[2];
+    let val = gapScore;
+    if (activeLayer === 'demand') val = demand;
+    if (activeLayer === 'supply') val = supply;
+    if (activeLayer === 'surplus') val = surplus;
+
+    const band = SEVERITY_BANDS.find(b => gapScore >= b.min && gapScore <= b.max) || SEVERITY_BANDS[2];
     return {
       value: val,
-      gapScore: tData.gapScore,
-      demand: tData.demand,
-      supply: tData.effectiveSupply,
-      surplus: tData.capacitySurplusSeats,
+      gapScore,
+      demand,
+      supply,
+      surplus,
       confidence: tData.confidence,
       tradeTitle: language === 'en' ? selectedTrade : getLocalizedEntityName('occupations', selectedTrade, language, tData.titleHi || selectedTrade),
       band
     };
-  }, [activeLayer, selectedTrade, language, l]);
+  }, [activeLayer, selectedTrade, language, l, forecastHorizon]);
 
   const getDistrictFill = useCallback((districtId: string, isHovered: boolean, isSelected: boolean) => {
     const metric = getDistrictMetric(districtId);
@@ -982,20 +997,25 @@ export const IndiaIntelligenceMap: React.FC = () => {
             </div>
           </div>
 
-          {/* Right Selected District Side Panel (4 Columns) with guaranteed visible unclipped buttons */}
-          <div className="lg:col-span-4 border-t lg:border-t-0 lg:border-l border-slate-200/80 dark:border-slate-800/80 p-5 flex flex-col justify-between h-full min-h-[460px] sm:min-h-[560px] bg-white/70 dark:bg-slate-900/70 backdrop-blur-md">
-            <div className="overflow-y-auto pr-1 scrollbar-thin space-y-3.5 flex-1 min-h-0">
+          {/* Right Selected District Side Panel (4 Columns) with guaranteed visible unclipped metrics and buttons */}
+          <div className="lg:col-span-4 border-t lg:border-t-0 lg:border-l border-slate-200/80 dark:border-slate-800/80 p-4 sm:p-5 flex flex-col justify-between h-full min-h-[460px] sm:min-h-[560px] bg-white/70 dark:bg-slate-900/70 backdrop-blur-md overflow-hidden">
+            <div className="overflow-y-auto overflow-x-hidden pr-0.5 scrollbar-thin space-y-3 flex-1 min-h-0">
               {/* Header Badge */}
               <div className="flex items-center justify-between gap-2 border-b border-slate-200/80 dark:border-slate-800/80 pb-2.5">
-                <span className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider">
+                <span className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider truncate">
                   {getLocalizedEntityName('states', selectedDistrictData.state, language, selectedDistrictData.state)} · LGD {selectedDistrictData.lgdCode}
                 </span>
-                <span 
-                  className="px-2 py-0.5 rounded text-[11px] font-semibold text-white shadow-xs"
-                  style={{ backgroundColor: selectedDistrictMetric.band.color }}
-                >
-                  {getLocalizedEntityName('severityBands', selectedDistrictMetric.band.labelEn, language, selectedDistrictMetric.band.labelEn)}
-                </span>
+                <div className="flex items-center gap-1.5 shrink-0">
+                  <span 
+                    className="px-2 py-0.5 rounded text-[11px] font-semibold text-white shadow-xs"
+                    style={{ backgroundColor: selectedDistrictMetric.band.color }}
+                  >
+                    {getLocalizedEntityName('severityBands', selectedDistrictMetric.band.labelEn, language, selectedDistrictMetric.band.labelEn)}
+                  </span>
+                  <span className="px-1.5 py-0.5 rounded-full text-[10px] font-bold bg-sky-500/10 text-sky-700 dark:text-sky-300 border border-sky-500/20">
+                    {forecastHorizon}
+                  </span>
+                </div>
               </div>
 
               {/* District Title */}
@@ -1006,64 +1026,64 @@ export const IndiaIntelligenceMap: React.FC = () => {
                 <button
                   type="button"
                   onClick={handleCenterSelectedDistrict}
-                  className="p-1 rounded-md hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-500 hover:text-slate-900 dark:hover:text-slate-100 transition-colors cursor-pointer"
+                  className="p-1.5 rounded-md hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-500 hover:text-slate-900 dark:hover:text-slate-100 transition-colors cursor-pointer"
                   title={l('Center on map', 'मानचित्र पर केंद्रित करें')}
                 >
                   <LocateFixed className="w-4 h-4 text-sky-600 dark:text-sky-400" />
                 </button>
               </div>
 
-              <span className="text-xs text-slate-500 font-medium block">
+              <span className="text-xs text-slate-500 font-medium block truncate">
                 {l('Selected Trade: ', 'चयनित व्यवसाय: ')}
                 <strong className="text-slate-800 dark:text-slate-200">{selectedDistrictMetric.tradeTitle}</strong>
               </span>
 
-              {/* 4 Metric Divided Grid */}
-              <div className="grid grid-cols-2 divide-x divide-y divide-slate-200/80 dark:divide-slate-800/80 border-y border-slate-200/80 dark:border-slate-800/80 -mx-5 bg-slate-50/60 dark:bg-slate-900/60">
+              {/* 4 Metric Divided Grid - Boxed card with ZERO negative margins (no clipping, no scrollbar!) */}
+              <div className="grid grid-cols-2 rounded-xl border border-slate-200/80 dark:border-slate-800/80 overflow-hidden divide-x divide-y divide-slate-200/80 dark:divide-slate-800/80 bg-slate-50/70 dark:bg-slate-900/70 shadow-2xs">
                 <div className="p-3">
-                  <span className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider block">
+                  <span className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider block truncate">
                     {l('Gap Score', 'अंतर स्कोर')}
                   </span>
                   <div className="text-2xl font-bold text-slate-900 dark:text-slate-100 tabular-nums mt-0.5">
                     {selectedDistrictMetric.gapScore}
                   </div>
-                  <span className="text-[10px] text-amber-600 dark:text-amber-400 font-medium">
+                  <span className="text-[10px] text-amber-600 dark:text-amber-400 font-medium truncate block">
                     {getLocalizedEntityName('severityBands', selectedDistrictMetric.band.labelEn, language, selectedDistrictMetric.band.labelEn)}
                   </span>
                 </div>
 
                 <div className="p-3">
-                  <span className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider block">
+                  <span className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider block truncate">
                     {l('Demand', 'मांग')}
                   </span>
                   <div className="text-2xl font-bold text-slate-900 dark:text-slate-100 tabular-nums mt-0.5">
                     {selectedDistrictMetric.demand}
                   </div>
-                  <span className="text-[10px] text-slate-500">
+                  <span className="text-[10px] text-slate-500 truncate block">
                     {l('Candidates', 'उम्मीदवार')}
                   </span>
                 </div>
 
                 <div className="p-3">
-                  <span className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider block">
+                  <span className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider block truncate">
                     {l('Effective Supply', 'प्रभावी आपूर्ति')}
                   </span>
                   <div className="text-2xl font-bold text-slate-900 dark:text-slate-100 tabular-nums mt-0.5">
                     {selectedDistrictMetric.supply}
                   </div>
-                  <span className="text-[10px] text-slate-500">
+                  <span className="text-[10px] text-slate-500 truncate block">
                     {l('Employable', 'रोजगार योग्य')}
                   </span>
                 </div>
 
                 <div className="p-3">
-                  <span className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider block">
+                  <span className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider block truncate">
                     {l('Net Balance', 'शुद्ध संतुलन')}
                   </span>
                   <div className={`text-2xl font-bold tabular-nums mt-0.5 ${selectedDistrictMetric.surplus < 0 ? 'text-rose-600 dark:text-rose-400' : 'text-emerald-600 dark:text-emerald-400'}`}>
                     {selectedDistrictMetric.surplus > 0 ? `+${selectedDistrictMetric.surplus}` : selectedDistrictMetric.surplus}
                   </div>
-                  <span className="text-[10px] text-slate-500">
+                  <span className="text-[10px] text-slate-500 truncate block">
                     {selectedDistrictMetric.surplus < 0 ? l('Deficit Seats', 'कमी सीटें') : l('Surplus Seats', 'अधिशेष सीटें')}
                   </span>
                 </div>
@@ -1090,19 +1110,29 @@ export const IndiaIntelligenceMap: React.FC = () => {
               </div>
             </div>
 
-            {/* Direct Action Links - Pinned and 100% Unclipped */}
-            <div className="shrink-0 space-y-2 pt-3 mt-3 border-t border-slate-200/80 dark:border-slate-800/80">
+            {/* Direct Action Links - Always visible, unclipped, synchronized */}
+            <div className="shrink-0 space-y-2 pt-3 mt-2 border-t border-slate-200/80 dark:border-slate-800/80">
               <Link
+                id="btn-simulate-district-scenarios"
                 href={`/scenarios?district=${selectedDistrictData.districtId}`}
-                className="btn-liquid-primary w-full py-2.5 px-3.5 rounded-xl font-semibold text-xs flex items-center justify-between transition-all shadow-xs active:scale-[0.98]"
+                onClick={() => {
+                  setSelectedDistrict(selectedDistrictData.districtId);
+                  setSelectedState(selectedDistrictData.state);
+                }}
+                className="btn-liquid-primary w-full py-2.5 px-3.5 rounded-xl font-semibold text-xs flex items-center justify-between transition-all shadow-xs active:scale-[0.98] cursor-pointer"
               >
                 <span>{l('Simulate District Scenarios', 'जिला परिदृश्य अनुकरण करें')}</span>
                 <Sliders className="w-3.5 h-3.5 text-sky-600 dark:text-sky-400" />
               </Link>
 
               <Link
+                id="btn-view-district-profile"
                 href={`/districts/${selectedDistrictData.districtId}`}
-                className="w-full py-2.5 px-3.5 rounded-lg border border-slate-200/80 dark:border-slate-700/80 bg-white/80 dark:bg-slate-800/80 hover:bg-slate-100 text-slate-800 dark:text-slate-200 font-semibold text-xs flex items-center justify-between transition-all shadow-xs active:scale-[0.98]"
+                onClick={() => {
+                  setSelectedDistrict(selectedDistrictData.districtId);
+                  setSelectedState(selectedDistrictData.state);
+                }}
+                className="w-full py-2.5 px-3.5 rounded-xl border border-slate-200/90 dark:border-slate-700/80 bg-white/90 dark:bg-slate-800/90 hover:bg-white text-slate-800 dark:text-slate-200 font-semibold text-xs flex items-center justify-between transition-all shadow-xs active:scale-[0.98] cursor-pointer"
               >
                 <span>{l('View District Full Profile', 'पूर्ण जिला प्रोफ़ाइल देखें')}</span>
                 <ChevronRight className="w-3.5 h-3.5 text-slate-400" />

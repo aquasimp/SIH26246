@@ -34,7 +34,7 @@ import { getLocalizedEntityName, resolveDisplayName } from '@/lib/i18n';
 
 function ScenarioStudioContent() {
   const searchParams = useSearchParams();
-  const { selectedOccupationNco, selectedDistrict, setSelectedOccupationNco, setSelectedDistrict, language, t, l} = useApp();
+  const { selectedOccupationNco, selectedDistrict, setSelectedOccupationNco, setSelectedDistrict, setSelectedState, language, t, l} = useApp();
 
   const localizeSeverity = (band?: string) => {
     if (!band) return '';
@@ -51,13 +51,21 @@ function ScenarioStudioContent() {
   const [donorSafetyRule, setDonorSafetyRule] = useState<number>(0.05); // 0.05 (Strict, default)
   const [whyModalOpen, setWhyModalOpen] = useState<boolean>(false);
 
-  // Check URL preset
+  // Check URL preset and district query param
   useEffect(() => {
     const preset = searchParams.get('preset');
     if (preset === 'rec01') {
       handleApplyPreset();
     }
-  }, [searchParams]);
+    const districtParam = searchParams.get('district');
+    if (districtParam) {
+      setSelectedDistrict(districtParam.toLowerCase());
+      const distMatch = DISTRICTS.find(d => d.id.toLowerCase() === districtParam.toLowerCase());
+      if (distMatch) {
+        setSelectedState(distMatch.state);
+      }
+    }
+  }, [searchParams, setSelectedDistrict, setSelectedState]);
 
   // Simulation execution via engine (memoized)
   const simulation = useMemo(() => {

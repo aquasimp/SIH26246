@@ -13,6 +13,7 @@ import { STATES, DISTRICTS, SECTORS, OCCUPATIONS } from '@/lib/demoData';
 import { ForecastHorizon } from '@/lib/types';
 import { getLocalizedEntityName, resolveDisplayName } from '@/lib/i18n';
 import { clsx } from 'clsx';
+import { toast } from 'sonner';
 
 export const FilterBar: React.FC = () => {
   const {
@@ -179,17 +180,21 @@ export const FilterBar: React.FC = () => {
             <span className="text-[10px] font-semibold uppercase text-slate-400 dark:text-slate-500 tracking-wider block">
               {l('Horizon', 'अवधि')}
             </span>
-            <div className="flex rounded p-0.5 bg-slate-200/70 dark:bg-slate-700/70 items-center" role="group" aria-label="Forecast Horizon Options">
+            <div className="flex rounded-md p-0.5 bg-slate-200/70 dark:bg-slate-700/70 items-center" role="group" aria-label="Forecast Horizon Options">
               {(['3M', '6M', '12M'] as ForecastHorizon[]).map((hz) => (
                 <button
                   key={hz}
+                  id={`horizon-btn-${hz.toLowerCase()}`}
                   type="button"
                   aria-pressed={forecastHorizon === hz}
-                  onClick={() => setForecastHorizon(hz)}
+                  onClick={() => {
+                    setForecastHorizon(hz);
+                    toast.success(l(`Forecast Horizon: ${hz}`, `पूर्वानुमान अवधि: ${hz}`));
+                  }}
                   className={clsx(
-                    'flex-1 py-0.5 text-[11px] font-semibold rounded transition-all cursor-pointer text-center',
+                    'flex-1 py-1 text-[11px] font-semibold rounded-sm transition-all cursor-pointer text-center select-none active:scale-95',
                     forecastHorizon === hz
-                      ? 'bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 shadow-xs'
+                      ? 'bg-white dark:bg-slate-800 text-sky-700 dark:text-sky-300 shadow-xs font-bold'
                       : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
                   )}
                 >

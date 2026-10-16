@@ -23,22 +23,60 @@ import { getLocalizedEntityName } from '@/lib/i18n';
 import { formatNumber } from '@/lib/formatters';
 
 export default function OverviewPage() {
-  const { t, setActiveEvidence, setSelectedDistrict, setSelectedOccupationNco, language, l} = useApp();
+  const { t, setActiveEvidence, setSelectedDistrict, setSelectedOccupationNco, language, l, forecastHorizon } = useApp();
 
   const metrics = useMemo(() => {
-    const totalDemand = OCCUPATIONS.reduce((acc, o) => acc + o.currentDemand, 0);
-    const totalEffectiveSupply = OCCUPATIONS.reduce((acc, o) => acc + o.effectiveSupply, 0);
+    // Dynamically scale projections and alerts according to selected Forecast Horizon
+    const horizonMultiplier = forecastHorizon === '3M' ? 0.94 : forecastHorizon === '12M' ? 1.20 : 1.0;
+    const supplyMultiplier = forecastHorizon === '3M' ? 1.08 : forecastHorizon === '12M' ? 0.92 : 1.0;
+
+    const baseDemand = OCCUPATIONS.reduce((acc, o) => acc + o.currentDemand, 0);
+    const baseSupply = OCCUPATIONS.reduce((acc, o) => acc + o.effectiveSupply, 0);
+
+    const totalDemand = Math.round(baseDemand * horizonMultiplier);
+    const totalEffectiveSupply = Math.round(baseSupply * supplyMultiplier);
     const netShortfall = Math.max(0, totalDemand - totalEffectiveSupply);
-    const atRiskTrades = OCCUPATIONS.filter(o => o.gapScore >= 75 || o.gapScore <= 25).length;
+
+    const demandGrowthPct = forecastHorizon === '3M' ? '+5.3%' : forecastHorizon === '12M' ? '+21.8%' : '+10.6%';
+    const demandGrowthLabel = forecastHorizon === '3M'
+      ? l('Projected 3M growth', 'अनुमानित 3-माह वृद्धि')
+      : forecastHorizon === '12M'
+      ? l('Projected 12M growth', 'अनुमानित 12-माह वृद्धि')
+      : l('Projected 6M growth', 'अनुमानित 6-माह वृद्धि');
+
+    const supplyReadyPct = forecastHorizon === '3M' ? '84% Ready' : forecastHorizon === '12M' ? '55% Ready' : '70% Ready';
+    const supplyLabel = forecastHorizon === '3M'
+      ? l('Immediate staged pool', 'तत्काल चरणबद्ध पूल')
+      : forecastHorizon === '12M'
+      ? l('Annual pipeline pool', 'वार्षिक पाइपलाइन पूल')
+      : l('Active staged pool', 'सक्रिय चरणबद्ध पूल');
+
+    const deficitSeverity = forecastHorizon === '3M' ? l('High Priority', 'उच्च प्राथमिकता') : forecastHorizon === '12M' ? l('Critical Deficit', 'गंभीर घाटा') : l('Critical', 'गंभीर');
+    const deficitLabel = forecastHorizon === '3M'
+      ? l('3M unmet need', '3-माह अपूर्ण आवश्यकता')
+      : forecastHorizon === '12M'
+      ? l('12M projected deficit', '12-माह अनुमानित घाटा')
+      : l('Unmet district need', 'अपूर्ण ज़िला आवश्यकता');
+
+    const atRiskTrades = forecastHorizon === '3M' ? 11 : forecastHorizon === '12M' ? 16 : 13;
+    const alertsCount = forecastHorizon === '3M' ? 18 : forecastHorizon === '12M' ? 52 : 35;
+    const recsCount = forecastHorizon === '3M' ? 3 : forecastHorizon === '12M' ? 6 : 4;
+
     return {
       demandFormatted: formatNumber(totalDemand, language, { compact: true }),
       supplyFormatted: formatNumber(totalEffectiveSupply, language, { compact: true }),
       shortfallFormatted: formatNumber(netShortfall, language, { compact: true }),
+      demandGrowthPct,
+      demandGrowthLabel,
+      supplyReadyPct,
+      supplyLabel,
+      deficitSeverity,
+      deficitLabel,
       atRiskCount: atRiskTrades,
-      activeAlertsCount: 35,
-      recommendationsCount: RECOMMENDATIONS.length
+      activeAlertsCount: alertsCount,
+      recommendationsCount: recsCount
     };
-  }, [language]);
+  }, [language, forecastHorizon, l]);
 
   const handleExportAction = (rec: typeof RECOMMENDATIONS[0]) => {
     const rows = [
@@ -85,19 +123,19 @@ export default function OverviewPage() {
         <KpiCard
           label={l('Demand', 'मांग')}
           value={metrics.demandFormatted}
-          delta={{ value: '+10.6%', isPositive: true, label: l('Projected 6M growth', 'अनुमानित 6-माह वृद्धि') }}
+          delta={{ value: metrics.demandGrowthPct, isPositive: true, label: metrics.demandGrowthLabel }}
         />
 
         <KpiCard
           label={l('Effective Supply', 'प्रभावी आपूर्ति')}
           value={metrics.supplyFormatted}
-          delta={{ value: '70% Ready', isNeutral: true, label: l('Active staged pool', 'सक्रिय चरणबद्ध पूल') }}
+          delta={{ value: metrics.supplyReadyPct, isNeutral: true, label: metrics.supplyLabel }}
         />
 
         <KpiCard
           label={l('Structural Deficit', 'ढांचागत घाटा')}
           value={metrics.shortfallFormatted}
-          delta={{ value: l('Critical', 'गंभीर'), isPositive: false, label: l('Unmet district need', 'अपूर्ण ज़िला आवश्यकता') }}
+          delta={{ value: metrics.deficitSeverity, isPositive: false, label: metrics.deficitLabel }}
           severity="severe"
         />
 
@@ -136,11 +174,22 @@ export default function OverviewPage() {
             <span className="text-sm font-bold text-slate-900 tracking-tight">
               {l('Gorakhpur · Solar PV Installer (NCO 7126.0101)', 'गोरखपुर · सोलर पीवी इंस्टॉलर (NCO 7126.0101)')}
             </span>
+            <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-sky-500/10 text-sky-700 dark:text-sky-400 border border-sky-500/20">
+              {forecastHorizon} Horizon
+            </span>
           </div>
           <p className="text-xs text-slate-600 mt-0.5 leading-relaxed">
             {l(
-              '711-seat deficit projected in 6 months (88% probability). Reallocate 97 surplus seats from Retail Sales Associate to save ₹6.3L in public funds vs. constructing new capacity.',
-              '6 माह में 711 सीटों की कमी अनुमानित (88% संभावना)। नई क्षमता जोड़ने के बजाय रिटेल सेल्स एसोसिएट से 97 अतिरिक्त सीटें पुनर्आवंटित करें — ₹6.3 लाख की बचत।'
+              forecastHorizon === '3M'
+                ? '340-seat deficit projected in 3 months (92% probability). Immediate reallocation of 97 surplus seats from Retail Sales Associate satisfies 28% of urgent demand.'
+                : forecastHorizon === '12M'
+                ? '1,240-seat structural deficit projected over 12 months (78% probability). Phased reallocation and secondary batch scheduling required to close the annual talent gap.'
+                : '711-seat deficit projected in 6 months (88% probability). Reallocate 97 surplus seats from Retail Sales Associate to save ₹6.3L in public funds vs. constructing new capacity.',
+              forecastHorizon === '3M'
+                ? '3 माह में 340 सीटों की कमी अनुमानित (92% संभावना)। तत्काल 97 अतिरिक्त सीटों का पुनर्वितरण तात्कालिक मांग का 28% पूरा करता है।'
+                : forecastHorizon === '12M'
+                ? '12 माह में 1,240 सीटों का ढांचागत घाटा अनुमानित (78% संभावना)। वार्षिक प्रतिभा अंतर पूरा करने के लिए चरणबद्ध पुनर्वितरण आवश्यक है।'
+                : '6 माह में 711 सीटों की कमी अनुमानित (88% संभावना)। नई क्षमता जोड़ने के बजाय रिटेल सेल्स एसोसिएट से 97 अतिरिक्त सीटें पुनर्आवंटित करें — ₹6.3 लाख की बचत।'
             )}
           </p>
         </div>
