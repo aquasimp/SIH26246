@@ -7,79 +7,77 @@ import { ThemeToggle } from '@/components/layout/ThemeToggle';
 import { LanguageSelector } from '@/components/layout/LanguageSelector';
 import { siteConfig } from '@/lib/site.config';
 import { EXPORT_METADATA } from '@/lib/demoData';
-import { ArrowRight, Compass, Sliders, Database, FileText, Sparkles, Activity, Menu } from 'lucide-react';
+import { ArrowRight, Compass, Sliders, Database, FileText, Menu } from 'lucide-react';
 import { BrandLogo } from '@/components/ui/BrandLogo';
 
 export function MarketingTopbar() {
-  const { language, setLanguage, t, l, setMobileMenuOpen } = useApp();
+  const { t, l, setMobileMenuOpen } = useApp();
 
   return (
-    <header className="liquid-glass-header relative w-full select-none">
-      <div className="liquid-sheen-line" aria-hidden="true" />
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
+    <header className="sticky top-0 z-40 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 w-full select-none shadow-xs">
+      <div className="max-w-[1536px] mx-auto px-4 sm:px-8 lg:px-10 h-14 flex items-center justify-between gap-4">
         {/* Brand Lockup */}
-        <Link href="/" className="flex items-center gap-2.5 sm:gap-3 group focus:outline-hidden min-w-0 shrink">
+        <Link href="/" className="flex items-center gap-2.5 sm:gap-3 group focus:outline-none min-w-0 shrink">
           <BrandLogo size="lg" alt="KaushalYuva Logo" />
           <div className="flex flex-col min-w-0">
-            <span className="text-base font-extrabold tracking-tight text-[var(--text)] leading-tight flex items-center gap-1.5 font-display truncate">
+            <span className="text-sm font-bold tracking-tight text-slate-900 dark:text-slate-100 leading-tight truncate">
               {t.appTitle || siteConfig.name}
-              <span className="w-1.5 h-1.5 rounded-full bg-[#00c2cb] animate-pulse shrink-0 shadow-[0_0_6px_#00c2cb]" />
             </span>
-            <span className="hidden sm:block text-[10px] font-mono font-semibold text-cyan-600 dark:text-cyan-400 tracking-wider uppercase truncate">
+            <span className="hidden sm:block text-[10px] font-medium text-slate-500 uppercase tracking-wider truncate">
               {t.appSubtitle || l('AI LABOUR MARKET INTELLIGENCE', 'श्रम बाजार बुद्धिमत्ता इंजन')}
             </span>
           </div>
         </Link>
 
         {/* Navigation Links */}
-        <nav aria-label="Marketing Navigation" className="hidden lg:flex items-center gap-6 text-xs font-semibold text-[var(--text-muted)] font-sans">
+        <nav aria-label="Marketing Navigation" className="hidden lg:flex items-center gap-5 text-xs font-medium text-slate-600 dark:text-slate-400">
           <Link 
             href="/overview" 
-            className="flex items-center gap-1.5 hover:text-[var(--text)] hover:text-[#00c2cb] transition-colors py-1"
+            className="flex items-center gap-1.5 hover:text-slate-900 dark:hover:text-slate-100 transition-colors py-1"
           >
-            <Compass className="w-3.5 h-3.5 text-[#00c2cb]" />
+            <Compass className="w-3.5 h-3.5 text-slate-500" />
             <span>{t.nav.overview}</span>
           </Link>
           <Link 
             href="/scenarios" 
-            className="flex items-center gap-1.5 hover:text-[var(--text)] hover:text-amber-500 transition-colors py-1"
+            className="flex items-center gap-1.5 hover:text-slate-900 dark:hover:text-slate-100 transition-colors py-1"
           >
-            <Sliders className="w-3.5 h-3.5 text-amber-500" />
+            <Sliders className="w-3.5 h-3.5 text-slate-500" />
             <span>{t.nav.scenarios}</span>
           </Link>
           <Link 
             href="/methodology" 
-            className="flex items-center gap-1.5 hover:text-[var(--text)] transition-colors py-1"
+            className="flex items-center gap-1.5 hover:text-slate-900 dark:hover:text-slate-100 transition-colors py-1"
           >
-            <FileText className="w-3.5 h-3.5 text-[#0055a5] dark:text-cyan-400" />
+            <FileText className="w-3.5 h-3.5 text-slate-500" />
             <span>{t.nav.methodology || l('Methodology', 'मॉडल कार्यप्रणाली')}</span>
           </Link>
           <Link 
             href="/api" 
-            className="flex items-center gap-1.5 hover:text-[var(--text)] transition-colors py-1"
+            className="flex items-center gap-1.5 hover:text-slate-900 dark:hover:text-slate-100 transition-colors py-1"
           >
-            <Database className="w-3.5 h-3.5 text-emerald-500" />
+            <Database className="w-3.5 h-3.5 text-slate-500" />
             <span>{t.nav.apiExports}</span>
           </Link>
         </nav>
 
-        {/* Right Controls: Dataset Chip, Language, Theme, Open Dashboard CTA */}
-        <div className="flex items-center gap-2 sm:gap-3 shrink-0">
-          {/* DepthWizard Tactical Chip — Theme-Reactive Styling */}
+        {/* Right Controls */}
+        <div className="flex items-center gap-2 sm:gap-2.5 shrink-0">
+          {/* Dataset Chip */}
           <span 
-            className="hidden sm:inline-flex items-center gap-2 px-3 py-1 rounded-full text-[10px] font-mono font-bold bg-[#0055a5]/10 dark:bg-cyan-950/40 text-[#0055a5] dark:text-[#00e5ff] border border-[#0055a5]/25 dark:border-cyan-500/40 shadow-xs dark:shadow-[0_0_15px_rgba(0,229,255,0.2)] tracking-tight backdrop-blur-md shrink-0"
+            className="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-1 rounded text-[11px] font-medium bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 shrink-0"
             title={`${EXPORT_METADATA.runId} · ${EXPORT_METADATA.dataThrough}`}
           >
-            <span className="w-1.5 h-1.5 rounded-full bg-[#0055a5] dark:bg-[#00e5ff] animate-ping" />
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 shrink-0" />
             <span>{EXPORT_METADATA.runId}</span>
           </span>
 
-          {/* Multilingual Selector (7 Languages) — Static 112px Slot */}
+          {/* Multilingual Selector */}
           <div className="hidden sm:inline-flex shrink-0">
             <LanguageSelector align="left" />
           </div>
 
-          {/* Theme Toggle (hidden on mobile, present in drawer) */}
+          {/* Theme Toggle */}
           <div className="hidden sm:block shrink-0">
             <ThemeToggle />
           </div>
@@ -87,7 +85,7 @@ export function MarketingTopbar() {
           {/* Primary Open Dashboard CTA */}
           <Link
             href="/overview"
-            className="inline-flex items-center gap-1.5 px-3 py-2 sm:px-3.5 sm:py-2 rounded-xl bg-gradient-to-r from-[#0055a5] to-[#00c2cb] hover:opacity-90 text-white font-bold text-xs shadow-md shadow-[#00c2cb]/20 hover:-translate-y-0.5 transition-all cursor-pointer font-sans min-h-[36px] shrink-0"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-md bg-slate-900 hover:bg-slate-800 text-white font-medium text-xs transition-colors cursor-pointer shadow-xs min-h-[34px] shrink-0"
           >
             <span className="hidden xs:inline">{t.nav.openDashboard || l('Open Dashboard', 'डैशबोर्ड खोलें')}</span>
             <span className="xs:hidden">{t.nav.overview || l('Dashboard', 'डैशबोर्ड')}</span>
@@ -98,7 +96,7 @@ export function MarketingTopbar() {
           <button
             type="button"
             onClick={() => setMobileMenuOpen(true)}
-            className="lg:hidden p-2 rounded-xl liquid-glass-pill text-[var(--text-muted)] hover:text-[var(--text)] cursor-pointer flex items-center justify-center min-h-[36px] min-w-[36px] shrink-0"
+            className="lg:hidden p-2 rounded-md border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 cursor-pointer flex items-center justify-center min-h-[34px] min-w-[34px] shrink-0"
             aria-label={l('Open menu', 'मेनू खोलें')}
           >
             <Menu className="w-4 h-4" />
@@ -110,41 +108,41 @@ export function MarketingTopbar() {
 }
 
 export function MarketingFooter() {
-  const { language, t, l } = useApp();
+  const { t, l } = useApp();
 
   return (
-    <footer className="w-full border-t border-[var(--border)] py-8 px-4 sm:px-6 lg:px-8 mt-12 glass bg-[var(--surface-muted)]/50 select-none">
-      <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-[var(--text-muted)]">
-        <div className="flex items-center gap-3">
+    <footer className="w-full border-t border-slate-200 dark:border-slate-800 py-6 px-4 sm:px-6 lg:px-8 mt-12 bg-white dark:bg-slate-900 select-none">
+      <div className="max-w-[1536px] mx-auto flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-slate-500">
+        <div className="flex items-center gap-2.5">
           <BrandLogo size="sm" alt="KaushalYuva Logo" />
           <div className="flex flex-col">
-            <span className="font-extrabold text-[var(--text)] font-display tracking-tight text-sm">
+            <span className="font-bold text-slate-900 dark:text-slate-100 text-xs">
               {t.appTitle || siteConfig.name}
             </span>
-            <span className="text-xs text-[var(--text-faint)] font-mono">
+            <span className="text-[11px] text-slate-400">
               {l('SIH 2026 · Problem Statement 26246 · MSDE', 'स्मार्ट इंडिया हैकथॉन 2026 · समस्या विवरण 26246 · MSDE')}
             </span>
           </div>
         </div>
 
-        <div className="flex items-center flex-wrap gap-4 text-xs font-medium font-sans">
-          <Link href="/overview" className="hover:text-[var(--brand)] transition-colors">
+        <div className="flex items-center flex-wrap gap-4 text-xs font-medium">
+          <Link href="/overview" className="hover:text-slate-900 dark:hover:text-slate-100 transition-colors">
             {t.nav.overview}
           </Link>
-          <Link href="/scenarios" className="hover:text-[var(--brand)] transition-colors">
+          <Link href="/scenarios" className="hover:text-slate-900 dark:hover:text-slate-100 transition-colors">
             {t.nav.scenarios}
           </Link>
-          <Link href="/methodology" className="hover:text-[var(--brand)] transition-colors">
+          <Link href="/methodology" className="hover:text-slate-900 dark:hover:text-slate-100 transition-colors">
             {t.nav.methodology || l('Methodology', 'मॉडल कार्यप्रणाली')}
           </Link>
-          <Link href="/api" className="hover:text-[var(--brand)] transition-colors">
+          <Link href="/api" className="hover:text-slate-900 dark:hover:text-slate-100 transition-colors">
             {t.nav.apiExports}
           </Link>
         </div>
 
-        <div className="flex items-center gap-2 text-xs font-mono text-[var(--text-faint)]">
-          <span className="w-1.5 h-1.5 rounded-full bg-[#00c2cb] animate-pulse" />
-          <span>{EXPORT_METADATA.runId} · {l('7 Official Indian Languages (100% Localized)', '7 आधिकारिक भारतीय भाषाएं (100% स्थानीयकृत)')}</span>
+        <div className="flex items-center gap-2 text-[11px] text-slate-400 font-mono">
+          <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+          <span>{EXPORT_METADATA.runId} · {l('7 Official Indian Languages', '7 आधिकारिक भारतीय भाषाएं')}</span>
         </div>
       </div>
     </footer>

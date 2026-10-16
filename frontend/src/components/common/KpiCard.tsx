@@ -2,7 +2,6 @@
 
 import React from 'react';
 import { ArrowUpRight, ArrowDownRight, Minus } from 'lucide-react';
-import { Provenance, ProvenanceSource } from './Provenance';
 
 export interface KpiCardProps {
   label: string;
@@ -14,8 +13,6 @@ export interface KpiCardProps {
     label: string;
   };
   scope?: string;
-  provenance?: ProvenanceSource;
-  trend?: number[]; // e.g. [45, 52, 60, 58, 68, 75]
   severity?: 'severe' | 'moderate' | 'balanced' | 'oversupply' | 'neutral';
   className?: string;
 }
@@ -25,97 +22,46 @@ export function KpiCard({
   value,
   delta,
   scope,
-  provenance,
-  trend = [40, 50, 48, 65, 70, 85],
   severity = 'neutral',
   className = ''
 }: KpiCardProps) {
-  // Sparkline coordinates
-  const minVal = Math.min(...trend, 0);
-  const maxVal = Math.max(...trend, 100);
-  const range = Math.max(1, maxVal - minVal);
-  const width = 64;
-  const height = 24;
-
-  const points = trend.map((v, i) => {
-    const x = (i / (trend.length - 1)) * width;
-    const y = height - ((v - minVal) / range) * (height - 4) - 2;
-    return `${x.toFixed(1)},${y.toFixed(1)}`;
-  }).join(' ');
-
-  const isSevere = severity === 'severe';
-  const borderEdge = isSevere 
-    ? 'border-l-4 border-l-[var(--severe)] border-[var(--border)]' 
-    : severity === 'moderate'
-    ? 'border-l-4 border-l-[var(--moderate)] border-[var(--border)]'
-    : 'border-[var(--border)]';
-
   return (
-    <div
-      className={`glass-strong p-4 sm:p-5 rounded-2xl flex flex-col justify-between transition-all hover:translate-y-[-2px] hover:border-[var(--border-strong)] ${borderEdge} ${className}`}
-    >
-      {/* Top row: Full Label + Optional per-card Provenance */}
-      <div className="flex items-start justify-between gap-2 mb-2 min-w-0">
-        <span className="text-[11px] sm:text-xs font-bold uppercase tracking-wider text-[var(--text-muted)] leading-snug block">
-          {label}
-        </span>
-        {provenance && <Provenance source={provenance} compact />}
+    <div className={`p-4 flex flex-col justify-between h-full min-h-[105px] transition-all duration-200 hover:-translate-y-0.5 ${className}`}>
+      {/* Row 1: Category Label */}
+      <div className="text-[10px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 truncate">
+        {label}
       </div>
 
-      {/* Main value + Sparkline */}
-      <div className="my-1.5 flex items-baseline justify-between gap-3 min-w-0">
-        <div className="text-2xl sm:text-3xl font-extrabold text-[var(--text)] tracking-tight tabular-nums font-mono whitespace-nowrap shrink-0">
+      {/* Row 2: Large Tabular Number + Compact Inline Pill Badge strictly on the same row baseline */}
+      <div className="flex items-baseline justify-between gap-1.5 my-1.5 min-w-0">
+        <span className="text-xl sm:text-2xl font-extrabold text-slate-900 dark:text-slate-100 tabular-nums tracking-tight truncate">
           {value}
-        </div>
-        {trend && trend.length >= 2 && (
-          <div className="shrink-0 opacity-80 hover:opacity-100 transition-opacity ml-auto" title="6-period velocity trend">
-            <svg width={width} height={height} className="overflow-visible">
-              <polyline
-                fill="none"
-                stroke={isSevere ? 'var(--severe)' : 'var(--brand)'}
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                points={points}
-              />
-            </svg>
-          </div>
-        )}
-      </div>
-
-      {/* Delta chip + Scope subtitle */}
-      <div className="flex items-center justify-between gap-2 pt-2 border-t border-[var(--border)] mt-1 min-w-0">
-        {delta ? (
-          <div
-            className={`inline-flex items-center gap-1 text-[11px] font-bold tabular-nums shrink-0 whitespace-nowrap ${
+        </span>
+        {delta && (
+          <span
+            className={`inline-flex items-center gap-0.5 text-[10px] font-bold tabular-nums shrink-0 whitespace-nowrap px-1.5 py-0.5 rounded-full border shadow-2xs ${
               delta.isNeutral
-                ? 'text-[var(--text-muted)]'
+                ? 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border-slate-200/80 dark:border-slate-700'
                 : delta.isPositive
-                ? 'text-[var(--success)]'
-                : 'text-[var(--severe)]'
+                ? 'bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-400 border-emerald-200/80 dark:border-emerald-800/60'
+                : 'bg-rose-50 dark:bg-rose-950/40 text-rose-700 dark:text-rose-400 border-rose-200/80 dark:border-rose-800/60'
             }`}
           >
             {delta.isNeutral ? (
-              <Minus className="w-3 h-3 shrink-0" />
+              <Minus className="w-2.5 h-2.5 shrink-0" />
             ) : delta.isPositive ? (
-              <ArrowUpRight className="w-3.5 h-3.5 shrink-0" />
+              <ArrowUpRight className="w-2.5 h-2.5 shrink-0" />
             ) : (
-              <ArrowDownRight className="w-3.5 h-3.5 shrink-0" />
+              <ArrowDownRight className="w-2.5 h-2.5 shrink-0" />
             )}
             <span>{delta.value}</span>
-            <span className="text-[10px] text-[var(--text-faint)] font-normal ml-0.5 whitespace-nowrap">
-              {delta.label}
-            </span>
-          </div>
-        ) : (
-          <span className="text-[10px] text-[var(--text-faint)] whitespace-nowrap">Baseline active</span>
-        )}
-
-        {scope && (
-          <span className="text-[10px] font-mono text-[var(--text-faint)] truncate max-w-[120px] text-right" title={scope}>
-            {scope}
           </span>
         )}
+      </div>
+
+      {/* Row 3: 1-line crisp subtitle at the exact same vertical baseline */}
+      <div className="text-[11px] text-slate-500 dark:text-slate-400 truncate">
+        {scope || delta?.label || ''}
       </div>
     </div>
   );

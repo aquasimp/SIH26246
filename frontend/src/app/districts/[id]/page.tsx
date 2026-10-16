@@ -51,7 +51,7 @@ export default function DistrictDetailPage({ params }: { params: Promise<{ id: s
       ['Top Shortage Trades', d.topShortageTrades.join('; ')],
       ['Top Oversupplied Trades', d.topOversuppliedTrades.join('; ')]
     ];
-    downloadCSV(`KaushalPulse_District_${d.name}.csv`, rows);
+    downloadCSV(`KaushalYuva_District_${d.name}.csv`, rows);
   };
 
   const localizedDistrictName = resolveDisplayName(d, language);

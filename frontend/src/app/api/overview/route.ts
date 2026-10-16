@@ -53,7 +53,7 @@ export async function GET(request: Request) {
     }
   }, {
     headers: {
-      'X-KaushalPulse-Source': 'offline-fixture'
+      'X-KaushalYuva-Source': 'offline-fixture'
     }
   });
 }

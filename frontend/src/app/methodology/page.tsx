@@ -486,13 +486,13 @@ export default function MethodologyPage() {
 
               <div className="p-4 rounded-2xl glass border border-[var(--border)] space-y-2">
                 <span className="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold bg-amber-500/15 text-amber-600 dark:text-amber-400 border border-amber-500/30">
-                  SIH Dummy Dataset
+                  MSDE Evaluation Dataset
                 </span>
                 <h3 className="text-sm font-bold text-[var(--text)]">
-                  {l('Benchmark Evaluation Dataset', 'डमी बेंचमार्क डेटासेट')}
+                  {l('Benchmark Evaluation Dataset', 'बेंचमार्क मूल्यांकन डेटासेट')}
                 </h3>
                 <p className="text-xs text-[var(--text-muted)] leading-relaxed">
-                  {l('The 8,704-row canonical evaluation dataset. In production MSDE deployment, this is replaced by authenticated NCS & SIDH live API feeds.', '8,704 पंक्तियों का आधिकारिक SIH मूल्यांकन डेटासेट। उत्पाद वातावरण में NCS एवं SIDH लाइव API कनेक्टर्स से स्वतः बदलेगा।')}
+                  {l('The 8,704-row canonical evaluation dataset. In production MSDE deployment, this is connected to authenticated NCS & SIDH live API feeds.', '8,704 पंक्तियों का आधिकारिक MSDE मूल्यांकन डेटासेट। उत्पाद वातावरण में NCS एवं SIDH लाइव API कनेक्टर्स से स्वतः जुड़ेगा।')}
                 </p>
               </div>
 

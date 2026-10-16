@@ -13,8 +13,8 @@ export const viewport: Viewport = {
   initialScale: 1,
   maximumScale: 5,
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#F4F8FD" },
-    { media: "(prefers-color-scheme: dark)", color: "#000000" },
+    { media: "(prefers-color-scheme: light)", color: "#F8FAFC" },
+    { media: "(prefers-color-scheme: dark)", color: "#0F172A" },
   ],
 };
 
@@ -69,7 +69,7 @@ export default async function RootLayout({
       <head>
         <meta name="google" content="notranslate" />
       </head>
-      <body className="notranslate min-h-screen text-[var(--text)] bg-[var(--bg)] antialiased selection:bg-[#ff6600]/30 selection:text-[#ff9944]">
+      <body className="notranslate min-h-screen text-[var(--text)] bg-[var(--bg)] antialiased selection:bg-sky-600/20 selection:text-sky-900 dark:selection:bg-sky-400/20 dark:selection:text-sky-100">
         {/* Skip to Content for WCAG AA compliance */}
         <a 
           href="#main-content" 

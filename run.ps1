@@ -1,8 +1,8 @@
-# KaushalPulse One-Command Launch Script (Windows PowerShell)
+# KaushalYuva One-Command Launch Script (Windows PowerShell)
 # Ministry of Skill Development & Entrepreneurship (MSDE) — PS 26246
 
 Write-Host "==========================================================" -ForegroundColor Cyan
-Write-Host "  KaushalPulse Analytical Platform — Starting Services    " -ForegroundColor Cyan
+Write-Host "  KaushalYuva Analytical Platform — Starting Services    " -ForegroundColor Cyan
 Write-Host "==========================================================" -ForegroundColor Cyan
 
 $ROOT_DIR = Split-Path -Parent $MyInvocation.MyCommand.Path
@@ -38,7 +38,7 @@ if (-Not (Test-Path "$ROOT_DIR\frontend\node_modules")) {
 
 Write-Host ""
 Write-Host "==========================================================" -ForegroundColor Cyan
-Write-Host "  KaushalPulse is running!" -ForegroundColor Cyan
+Write-Host "  KaushalYuva is running!" -ForegroundColor Cyan
 Write-Host "  - Frontend UI: http://localhost:3000" -ForegroundColor Green
 Write-Host "  - Analytical API: http://127.0.0.1:8000/docs" -ForegroundColor Green
 Write-Host "  Press Ctrl+C to stop the frontend." -ForegroundColor Yellow

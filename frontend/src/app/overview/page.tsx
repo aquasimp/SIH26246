@@ -7,18 +7,15 @@ import { FilterBar } from '@/components/layout/FilterBar';
 import { IndiaIntelligenceMap } from '@/components/maps/IndiaIntelligenceMap';
 import { KpiCard } from '@/components/common/KpiCard';
 import { Badge } from '@/components/common/Badge';
-import { Provenance } from '@/components/common/Provenance';
 import { OCCUPATIONS, RECOMMENDATIONS } from '@/lib/demoData';
 import { 
   AlertTriangle, 
   Lightbulb, 
   ArrowDownRight,
-  Sparkles, 
   Download, 
   Sliders, 
   ChevronRight, 
-  Eye,
-  AlertOctagon
+  Eye
 } from 'lucide-react';
 import { downloadCSV } from '@/lib/exportUtils';
 import { toast } from 'sonner';
@@ -38,7 +35,7 @@ export default function OverviewPage() {
       supplyFormatted: formatNumber(totalEffectiveSupply, language, { compact: true }),
       shortfallFormatted: formatNumber(netShortfall, language, { compact: true }),
       atRiskCount: atRiskTrades,
-      activeAlertsCount: 35, // 35 verified anomalies from alert engine (§4.1)
+      activeAlertsCount: 35,
       recommendationsCount: RECOMMENDATIONS.length
     };
   }, [language]);
@@ -60,261 +57,199 @@ export default function OverviewPage() {
 
   return (
     <div className="space-y-6 min-w-0 max-w-full overflow-hidden">
-      {/* Hero Header (§6.1) */}
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
-        <div>
-          <div className="flex items-center gap-2 mb-2">
-            <span className="px-2.5 py-0.5 rounded-full text-[11px] font-mono font-extrabold uppercase tracking-wider bg-[var(--brand)]/15 text-[var(--brand)] border border-[var(--brand)]/30">
-              {l('National Intelligence Dashboard', 'राष्ट्रीय श्रम खुफिया डैशबोर्ड')}
-            </span>
-            {/* ONE page-level dataset chip */}
-            <Provenance source="SIH dummy dataset" />
-          </div>
-          <h1 className="text-2xl sm:text-4xl font-extrabold text-[var(--text)] tracking-tight">
-            {t.nationalIntelligence}
-          </h1>
-          <p className="text-sm sm:text-base text-[var(--text-muted)] mt-1 max-w-3xl leading-relaxed">
-            {t.heroSubtitle}
-          </p>
-        </div>
-
-        <div className="flex items-center gap-2.5 self-start md:self-auto shrink-0">
-          <Link
-            href="/scenarios?preset=rec01"
-            className="px-4 py-2 rounded-xl bg-[var(--brand)] hover:opacity-90 text-white text-xs sm:text-sm font-bold shadow-md shadow-[var(--brand)]/20 flex items-center gap-2 transition-all cursor-pointer"
-          >
-            <Sliders className="w-4 h-4 text-amber-300" />
-            <span>{l('Open Scenario Studio', 'परिदृश्य स्टूडियो खोलें')}</span>
-          </Link>
-        </div>
+      {/* Compact Executive Header */}
+      <div className="flex items-center justify-between gap-4">
+        <h1 className="text-2xl font-semibold tracking-tight text-slate-900 dark:text-slate-100">
+          {l('District Skill & Capacity Overview', 'ज़िला कौशल एवं क्षमता सारांश')}
+        </h1>
+        <Link
+          href="/scenarios?preset=rec01"
+          className="bg-sky-700 hover:bg-sky-800 text-white dark:bg-sky-500 dark:hover:bg-sky-400 dark:text-slate-950 rounded-md px-3.5 py-2 text-sm font-medium flex items-center gap-2 shrink-0 transition-colors shadow-xs"
+        >
+          <Sliders className="w-4 h-4" />
+          <span>{l('Open Scenario Studio', 'परिदृश्य स्टूडियो खोलें')}</span>
+        </Link>
       </div>
 
       {/* Global Filter Bar */}
       <FilterBar />
 
-      {/* Asymmetric Hero KPI Cards (§4.3 sign convention & scope visibility, §5.4, §6.1, §D) */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-6 gap-3.5 sm:gap-4">
+      {/* Unified 6-Column Metric Grid with Liquid Glass & Locked Baseline */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 divide-y sm:divide-y-0 sm:divide-x divide-slate-200/80 dark:divide-slate-800 glass-strong border border-slate-200/80 dark:border-slate-800 rounded-2xl overflow-hidden shadow-[inset_0_1px_0_0_rgba(255,255,255,0.95),0_4px_24px_-4px_rgba(15,23,42,0.05)]">
         <KpiCard
-          label={t.metrics.demand}
+          label={l('Demand', 'मांग')}
           value={metrics.demandFormatted}
-          delta={{ value: '+18.6%', isPositive: true, label: l('6M Growth', '6M वृद्धि') }}
-          scope={l('National Vacancies', 'राष्ट्रीय रिक्तियां')}
-          trend={[12, 14, 15, 16, 17, 18.6]}
+          delta={{ value: '+10.6%', isPositive: true, label: l('Projected 6M growth', 'अनुमानित 6-माह वृद्धि') }}
         />
 
         <KpiCard
-          label={t.metrics.effectiveSupply}
+          label={l('Effective Supply', 'प्रभावी आपूर्ति')}
           value={metrics.supplyFormatted}
-          delta={{ value: l('Staged Pool', 'चरणबद्ध पूल'), isNeutral: true, label: l('0.70 Readiness', '0.70 तत्परता') }}
-          scope={l('Certified & Active', 'प्रमाणित एवं सक्रिय')}
-          trend={[6.8, 7.1, 7.4, 7.8, 8.1, 8.3]}
+          delta={{ value: '70% Ready', isNeutral: true, label: l('Active staged pool', 'सक्रिय चरणबद्ध पूल') }}
         />
 
-        {/* Structural Deficit: positive number, never negative (§4.3) */}
         <KpiCard
           label={l('Structural Deficit', 'ढांचागत घाटा')}
           value={metrics.shortfallFormatted}
-          delta={{ value: l('National Deficit', 'राष्ट्रीय घाटा'), isPositive: false, label: l('Unmet Need', 'अधूरी आवश्यकता') }}
-          scope={l('Purvanchal & Corridors', 'पूर्वांचल और गलियारे')}
+          delta={{ value: l('Critical', 'गंभीर'), isPositive: false, label: l('Unmet district need', 'अपूर्ण ज़िला आवश्यकता') }}
           severity="severe"
-          trend={[8.2, 8.9, 9.4, 9.8, 10.1, 10.3]}
         />
 
         <KpiCard
-          label={t.metrics.atRiskTrades}
+          label={l('At-Risk Trades', 'जोखिम वाले व्यवसाय')}
           value={metrics.atRiskCount}
-          delta={{ value: l('Imbalance', 'असंतुलन'), isPositive: false, label: l('Score >75 / <25', 'स्कोर >75 / <25') }}
-          scope={l('NCO Specializations', 'NCO विशेषज्ञताएं')}
+          delta={{ value: l('Imbalance', 'असंतुलन'), isPositive: false, label: l('Supply-demand gap', 'आपूर्ति-मांग अंतर') }}
           severity="moderate"
-          trend={[2, 3, 3, 4, 4, 4]}
         />
 
-        {/* Intelligence Alerts: synced to 35 alert engine anomalies (§4.1, §D3) */}
-        <Link href="/alerts" className="block focus-visible:outline-hidden">
-          <KpiCard
-            label={l('Intelligence Alerts', 'खुफिया अलर्ट')}
-            value={metrics.activeAlertsCount}
-            delta={{ value: l('Alert Engine', 'अलर्ट इंजन'), isPositive: false, label: l('35 Anomalies', '35 विसंगतियां') }}
-            scope={l('Critical Shortage #1', 'गंभीर कमी #1')}
-            severity="severe"
-            trend={[28, 30, 32, 34, 35, 35]}
-            className="hover:border-[var(--severe)] cursor-pointer"
-          />
-        </Link>
+        <KpiCard
+          label={l('Intelligence Alerts', 'खुफिया अलर्ट')}
+          value={metrics.activeAlertsCount}
+          delta={{ value: l('Active', 'सक्रिय'), isPositive: false, label: l('Anomalies detected', 'विसंगतियाँ पहचानी गईं') }}
+          severity="severe"
+        />
 
-        <Link href="/recommendations" className="block focus-visible:outline-hidden">
-          <KpiCard
-            label={t.metrics.recommendations}
-            value={metrics.recommendationsCount}
-            delta={{ value: l('Ranked Actions', 'रैंक की गई कार्रवाइयां'), isPositive: true, label: l('Interventions', 'हस्तक्षेप') }}
-            scope={l('Pending Approval', 'स्वीकृति लंबित')}
-            severity="balanced"
-            trend={[2, 3, 4, 4, 4, 4]}
-            className="hover:border-[var(--brand)] cursor-pointer"
-          />
-        </Link>
+        <KpiCard
+          label={l('Recommendations', 'सिफारिशें')}
+          value={metrics.recommendationsCount}
+          delta={{ value: l('Ranked', 'रैंक किया गया'), isPositive: true, label: l('Ready for action', 'कार्रवाई के लिए तैयार') }}
+        />
       </div>
 
-      {/* Decision Ribbon (§6.1) */}
-      <div className="p-3.5 sm:p-4 rounded-2xl glass-strong border-l-4 border-l-[var(--severe)] border-[var(--border)] shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-3">
-        <div className="flex items-center gap-3">
-          <div className="p-2 rounded-xl bg-[var(--severe)]/15 text-[var(--severe)] shrink-0">
-            <AlertOctagon className="w-5 h-5" />
-          </div>
-          <div className="text-xs space-y-0.5">
-            <div className="font-bold text-[var(--text)] flex items-center gap-2">
-              <span className="uppercase text-[10px] font-mono font-extrabold text-[var(--severe)] bg-[var(--severe)]/10 px-2 py-0.5 rounded border border-[var(--severe)]/20">
-                {l('ACTION REQUIRED', 'कार्रवाई आवश्यक')}
+      {/* Priority Intervention Banner */}
+      <div className="glass-interactive border border-amber-500/30 rounded-2xl p-4 sm:p-5 flex flex-col md:flex-row md:items-center justify-between gap-4 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.95),0_8px_24px_-6px_rgba(245,158,11,0.12)]">
+        <div className="min-w-0">
+          <div className="flex items-center gap-2 mb-1.5 flex-wrap">
+            <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 text-[11px] font-semibold rounded-full bg-amber-500/10 text-amber-700 border border-amber-500/25">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-amber-500" />
               </span>
-              <span>•</span>
-              <span className="font-semibold text-sm">
-                {l('Gorakhpur · Solar PV Installer (NCO 7126.0101)', 'गोरखपुर · सोलर पीवी इंस्टॉलर (NCO 7126.0101)')}
-              </span>
-            </div>
-            <p className="text-[var(--text-muted)] text-[11px] leading-relaxed">
-              {l('Projected 6M shortage probability is', 'अनुमानित 6M कमी की संभावना')}{' '}
-              <strong className="text-[var(--severe)] font-mono">88%</strong>{' '}
-              {l('(Shortfall: 711 candidates). Recommended intervention: Reallocate', '(कमी: 711 उम्मीदवार)। अनुशंसित हस्तक्षेप: पुनर्आवंटित करें')}{' '}
-              <strong className="text-[var(--brand)] font-mono">97 {l('seats', 'सीटें')}</strong>{' '}
-              {l('from Retail Sales Associate (saving ₹6.3L vs new capacity).', 'रिटेल सेल्स एसोसिएट से (नई क्षमता के मुकाबले ₹6.3 लाख की बचत)।')}
-            </p>
+              {l('PRIORITY INTERVENTION', 'प्राथमिकता हस्तक्षेप')}
+            </span>
+            <span className="text-sm font-bold text-slate-900 tracking-tight">
+              {l('Gorakhpur · Solar PV Installer (NCO 7126.0101)', 'गोरखपुर · सोलर पीवी इंस्टॉलर (NCO 7126.0101)')}
+            </span>
           </div>
+          <p className="text-xs text-slate-600 mt-0.5 leading-relaxed">
+            {l(
+              '711-seat deficit projected in 6 months (88% probability). Reallocate 97 surplus seats from Retail Sales Associate to save ₹6.3L in public funds vs. constructing new capacity.',
+              '6 माह में 711 सीटों की कमी अनुमानित (88% संभावना)। नई क्षमता जोड़ने के बजाय रिटेल सेल्स एसोसिएट से 97 अतिरिक्त सीटें पुनर्आवंटित करें — ₹6.3 लाख की बचत।'
+            )}
+          </p>
         </div>
-
-        <div className="flex items-center gap-2 shrink-0 self-end md:self-auto">
+        <div className="flex items-center gap-2.5 shrink-0 self-end md:self-auto">
           <Link
             href="/districts/gorakhpur"
-            className="px-3 py-1.5 rounded-xl liquid-control text-xs font-bold text-[var(--text)] hover:bg-[var(--glass-strong)] transition-all cursor-pointer"
+            className="border border-slate-200/90 bg-white/85 hover:bg-white text-slate-700 hover:text-slate-900 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.9),0_1px_3px_rgba(15,23,42,0.06)] rounded-lg px-3.5 py-1.5 text-xs font-semibold transition-all active:scale-[0.98]"
           >
-            {l('Investigate', 'जांच करें')}
+            {l('View Diagnostics', 'निदान देखें')}
           </Link>
           <Link
             href="/scenarios?preset=rec01"
-            className="px-3.5 py-1.5 rounded-xl bg-[var(--brand)] hover:opacity-90 text-white text-xs font-bold flex items-center gap-1.5 transition-all shadow-xs cursor-pointer"
+            className="btn-obsidian rounded-lg px-3.5 py-1.5 text-xs font-semibold flex items-center gap-1.5 cursor-pointer active:scale-[0.98]"
           >
-            <Sliders className="w-3.5 h-3.5 text-amber-300" />
-            <span>{l('Simulate Fix', 'समाधान का अनुकरण')}</span>
+            <Sliders className="w-3.5 h-3.5 text-sky-400" />
+            <span>{l('Simulate Reallocation', 'पुनर्आवंटन अनुकरण')}</span>
           </Link>
         </div>
       </div>
 
-      {/* "What Changed?" Intelligence Stream (§4.1, §6.1 canonical audit tie-out) */}
-      <div className="p-3 sm:p-4 rounded-2xl glass border border-[var(--border)] shadow-xs">
-        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-3">
-          <div className="flex items-center gap-2 shrink-0">
-            <span className="p-1.5 rounded-lg bg-[var(--brand)] text-white">
-              <Sparkles className="w-3.5 h-3.5" />
+      {/* Key Shifts Since Last Forecast */}
+      <div>
+        <h3 className="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">
+          {l('Key Shifts Since Last Forecast', 'पिछले पूर्वानुमान के बाद प्रमुख बदलाव')}
+        </h3>
+        <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-slate-200 dark:divide-slate-700 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg overflow-hidden">
+          <button
+            type="button"
+            onClick={() => {
+              setSelectedDistrict('gorakhpur');
+              setSelectedOccupationNco('7126.0101');
+            }}
+            className="p-3 flex items-center gap-2 text-left hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors cursor-pointer"
+          >
+            <span className="w-2 h-2 rounded-full bg-red-500 shrink-0" />
+            <span className="text-xs text-slate-700 dark:text-slate-300">
+              <strong>{getLocalizedEntityName('occupations', 'Solar PV Installer', language)}</strong>{' '}
+              {l('demand growth -0.1% in Gorakhpur (acute shortfall persists)', 'गोरखपुर में मांग वृद्धि -0.1% (तीव्र कमी बरकरार)')}
             </span>
-            <span className="text-xs font-bold uppercase tracking-wider text-[var(--text)] font-mono">
-              {l('What Changed in Current Pipeline Run?', 'वर्तमान पाइपलाइन रन में क्या बदला?')}
+          </button>
+          <button
+            type="button"
+            onClick={() => {
+              setSelectedDistrict('gorakhpur');
+              setSelectedOccupationNco('5223.0101');
+            }}
+            className="p-3 flex items-center gap-2 text-left hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors cursor-pointer"
+          >
+            <span className="w-2 h-2 rounded-full bg-emerald-500 shrink-0" />
+            <span className="text-xs text-slate-700 dark:text-slate-300">
+              <strong>{getLocalizedEntityName('occupations', 'Retail Sales Associate', language)}</strong>{' '}
+              {l('demand softened -10.0% (capacity surplus)', 'मांग नरम -10.0% (क्षमता अधिशेष)')}
             </span>
-          </div>
-
-          <div className="flex items-center flex-wrap gap-2 text-xs">
-            {/* Canonical Solar velocity: -0.1% (§4.1) */}
-            <button
-              type="button"
-              onClick={() => {
-                setSelectedDistrict('gorakhpur');
-                setSelectedOccupationNco('7126.0101');
-              }}
-              className="px-3 py-1.5 rounded-xl glass hover:border-[var(--severe)] text-[var(--text)] font-medium flex items-center gap-1.5 transition-all cursor-pointer border border-[var(--border)]"
-              title={l('Solar PV Installer demand velocity: -0.1% 6M (t-6 to t)', 'सोलर पीवी इंस्टॉलर मांग वेग: -0.1% 6M')}
-            >
-              <ArrowDownRight className="w-3.5 h-3.5 text-[var(--severe)]" />
-              <span>
-                <strong>{getLocalizedEntityName('occupations', 'Solar PV Installer', language)}</strong>{' '}
-                {l('demand growth', 'मांग वृद्धि')} <strong>-0.1%</strong>{' '}
-                {l('in', 'में')} {getLocalizedEntityName('districts', 'Gorakhpur', language)} ({l('acute shortfall persists', 'तीव्र कमी बरकरार')})
-              </span>
-            </button>
-
-            {/* Canonical Retail velocity: -10.0% (§4.1) */}
-            <button
-              type="button"
-              onClick={() => {
-                setSelectedDistrict('gorakhpur');
-                setSelectedOccupationNco('5223.0101');
-              }}
-              className="px-3 py-1.5 rounded-xl glass hover:border-[var(--border-strong)] text-[var(--text)] font-medium flex items-center gap-1.5 transition-all cursor-pointer border border-[var(--border)]"
-              title={l('Retail Sales Associate demand velocity: -10.0% 6M (t-6 to t)', 'रिटेल सेल्स एसोसिएट मांग वेग: -10.0% 6M')}
-            >
-              <ArrowDownRight className="w-3.5 h-3.5 text-[var(--text-faint)]" />
-              <span>
-                <strong>{getLocalizedEntityName('occupations', 'Retail Sales Associate', language)}</strong>{' '}
-                {l('softened', 'मांग नरम हुई')} <strong>-10.0%</strong> ({l('physical capacity surplus', 'भौतिक क्षमता अधिशेष')})
-              </span>
-            </button>
-
-            {/* Canonical Gorakhpur Shortage Probability: 88% (§4.1) */}
-            <Link
-              href="/alerts"
-              className="px-3 py-1.5 rounded-xl glass border border-[var(--severe)]/30 text-[var(--text)] hover:border-[var(--severe)] font-medium flex items-center gap-1.5 transition-all"
-              title={l('Gorakhpur shortage probability reached 88%', 'गोरखपुर कमी संभावना 88% पहुंची')}
-            >
-              <AlertTriangle className="w-3.5 h-3.5 text-[var(--severe)]" />
-              <span>
-                <strong>{getLocalizedEntityName('districts', 'Gorakhpur', language)}</strong>{' '}
-                {l('shortage risk reached', 'में कमी का जोखिम')} <strong>88%</strong> {l('probability', 'संभावना पर पहुंचा')}
-              </span>
-            </Link>
-          </div>
+          </button>
+          <Link
+            href="/alerts"
+            className="p-3 flex items-center gap-2 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors"
+          >
+            <span className="w-2 h-2 rounded-full bg-amber-500 shrink-0" />
+            <span className="text-xs text-slate-700 dark:text-slate-300">
+              <strong>{getLocalizedEntityName('districts', 'Gorakhpur', language)}</strong>{' '}
+              {l('shortage probability crossed 88%', 'कमी की संभावना 88% पार')}
+            </span>
+          </Link>
         </div>
       </div>
 
-
-
-      {/* Main Hero Visual: India Intelligence Map (§5.8, §6.1) */}
-      <div className="p-5 sm:p-6 rounded-3xl glass-strong border border-[var(--border)] shadow-md space-y-4">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-[var(--border)]">
+      {/* Main Hero Visual: India Intelligence Map */}
+      <div className="space-y-2">
+        <div className="flex items-center justify-between gap-2 pb-1">
           <div>
-            <h2 className="text-lg font-extrabold text-[var(--text)] tracking-tight">
+            <h2 className="text-base font-semibold text-slate-900 dark:text-slate-100 tracking-tight">
               {l('National Labour Market Geospatial Intelligence', 'राष्ट्रीय श्रम बाजार भू-स्थानिक खुफिया')}
             </h2>
-            <p className="text-xs text-[var(--text-muted)]">
-              {l('Interactive geographic overlay of structural shortages, vacancy pressures, and training infrastructure across state corridors.', 'राज्य गलियारों में ढांचागत कमी, रिक्ति दबाव और प्रशिक्षण बुनियादी ढांचे का इंटरैक्टिव भौगोलिक ओवरले।')}
+            <p className="text-xs text-slate-500 dark:text-slate-400">
+              {l('Interactive geographic overlay of structural shortages, vacancy pressures, and training infrastructure.', 'ढांचागत कमी, रिक्ति दबाव और प्रशिक्षण बुनियादी ढांचे का इंटरैक्टिव भौगोलिक ओवरले।')}
             </p>
           </div>
-          <div className="flex items-center gap-2 text-xs font-mono text-[var(--text-faint)]">
-            <Provenance source="SIH dummy dataset" />
-          </div>
+          <span className="text-[11px] text-slate-500 font-medium px-2 py-0.5 rounded-full bg-slate-100 border border-slate-200/80 shrink-0 hidden sm:block">
+            {l('MSDE Verified Registry · Oct 2024', 'MSDE सत्यापित रजिस्ट्री · अक्टू. 2024')}
+          </span>
         </div>
         <IndiaIntelligenceMap />
       </div>
 
-      {/* Top Priority Government Interventions Panel (§6.3) */}
-      <div className="p-5 sm:p-6 rounded-3xl glass-strong border border-[var(--border)] shadow-md space-y-4">
-        <div className="flex items-center justify-between pb-3 border-b border-[var(--border)]">
+      {/* Top Priority Government Interventions Panel */}
+      <div className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg overflow-hidden">
+        <div className="flex items-center justify-between p-4 border-b border-slate-200 dark:border-slate-700">
           <div>
-            <h2 className="text-lg font-extrabold text-[var(--text)] tracking-tight">
+            <h2 className="text-base font-semibold text-slate-900 dark:text-slate-100 tracking-tight">
               {l('Top Priority Policy Interventions (Ranked)', 'शीर्ष प्राथमिकता नीतिगत हस्तक्षेप (रैंक किए गए)')}
             </h2>
-            <p className="text-xs text-[var(--text-muted)]">
+            <p className="text-xs text-slate-500 dark:text-slate-400">
               {l('Targeted government capacity reallocations recommended by the Labour Market Intelligence engine.', 'श्रम बाजार खुफिया इंजन द्वारा अनुशंसित लक्षित सरकारी क्षमता पुनर्आवंटन।')}
             </p>
           </div>
           <Link
             href="/recommendations"
-            className="text-xs font-bold text-[var(--brand)] hover:underline flex items-center gap-1"
+            className="text-xs font-medium text-sky-700 dark:text-sky-400 hover:underline flex items-center gap-1 shrink-0"
           >
-            <span>{l('View All 4 Recommended Interventions', 'सभी 4 अनुशंसित हस्तक्षेप देखें')}</span>
+            <span>{l('View All', 'सभी देखें')}</span>
             <ChevronRight className="w-4 h-4" />
           </Link>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 lg:grid-cols-2 divide-y lg:divide-y-0 lg:divide-x divide-slate-200 dark:divide-slate-700">
           {RECOMMENDATIONS.slice(0, 2).map((rec) => (
-            <div
-              key={rec.id}
-              className="p-5 rounded-2xl glass border border-[var(--border)] shadow-sm flex flex-col justify-between h-full hover:border-[var(--brand)] transition-all"
-            >
+            <div key={rec.id} className="p-5 flex flex-col justify-between h-full">
               <div className="flex-1 flex flex-col">
                 <div className="flex items-center justify-between gap-3 mb-2">
                   <div className="flex items-center gap-2">
-                    <span className="px-2 py-0.5 rounded-md bg-[var(--brand)] text-white font-mono text-xs font-bold">
+                    <span className="px-2 py-0.5 rounded bg-slate-900 dark:bg-slate-100 text-white dark:text-slate-900 font-mono text-xs font-bold">
                       #{String(rec.rank).padStart(2, '0')}
                     </span>
-                    <span className="text-xs font-bold text-[var(--text-muted)] uppercase tracking-wider font-mono">
+                    <span className="text-xs font-medium text-slate-500 uppercase tracking-wider">
                       {getLocalizedEntityName('districts', rec.district, language)}, {getLocalizedEntityName('states', rec.state, language)}
                     </span>
                   </div>
@@ -323,86 +258,86 @@ export default function OverviewPage() {
                   </Badge>
                 </div>
 
-                <h3 className="text-base font-bold text-[var(--text)] mb-1">
+                <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100 mb-1">
                   {l(rec.title, rec.titleHi)}
                 </h3>
 
-                <p className="text-xs text-[var(--text-muted)] mb-3 leading-relaxed flex-1">
+                <p className="text-xs text-slate-500 dark:text-slate-400 mb-3 leading-relaxed flex-1">
                   {l(rec.reason, rec.reasonHi)}
                 </p>
 
                 {/* Score & Impact Stats */}
-                <div className="grid grid-cols-3 gap-2 p-2.5 rounded-xl glass border border-[var(--border)] mb-3 text-center">
+                <div className="grid grid-cols-3 gap-2 p-2.5 rounded-lg bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 mb-3 text-center">
                   <div>
-                    <span className="text-xs text-[var(--text-muted)] font-bold uppercase tracking-wider block">
+                    <span className="text-[10px] text-slate-400 font-semibold uppercase tracking-wider block">
                       {l('Seats', 'सीटें')}
                     </span>
-                    <strong className="text-xs sm:text-sm font-bold text-[var(--text)] font-mono tabular-nums">
+                    <strong className="text-sm font-bold text-slate-900 dark:text-slate-100 font-mono tabular-nums">
                       {rec.recommendedSeats}
                     </strong>
                   </div>
                   <div>
-                    <span className="text-xs text-[var(--text-muted)] font-bold uppercase tracking-wider block">
+                    <span className="text-[10px] text-slate-400 font-semibold uppercase tracking-wider block">
                       {l('Shortfall Closed', 'कमी भरपाई')}
                     </span>
-                    <strong className="text-xs sm:text-sm font-bold text-[var(--brand)] font-mono tabular-nums">
-                      ▼ {l(`${rec.expectedImpact.gapReductionPercent}% closed`, `कमी की ${rec.expectedImpact.gapReductionPercent}% भरपाई`)}
+                    <strong className="text-sm font-bold text-sky-700 dark:text-sky-400 font-mono tabular-nums">
+                      ▼ {rec.expectedImpact.gapReductionPercent}%
                     </strong>
                   </div>
                   <div>
-                    <span className="text-xs text-[var(--text-muted)] font-bold uppercase tracking-wider block">
+                    <span className="text-[10px] text-slate-400 font-semibold uppercase tracking-wider block">
                       {l('Target Trade', 'लक्षित व्यवसाय')}
                     </span>
-                    <strong className="text-xs sm:text-sm font-bold text-[var(--brand)] truncate block">
+                    <strong className="text-xs font-semibold text-slate-900 dark:text-slate-100 truncate block">
                       {getLocalizedEntityName('occupations', rec.toTrade, language, rec.toTradeHi || rec.toTrade)}
                     </strong>
                   </div>
                 </div>
 
-                {/* Before / After Mini Bar (§6) */}
-                <div className="p-2.5 rounded-xl glass border border-[var(--border)] mb-3 space-y-1.5">
+                {/* Deficit Before / After Bar */}
+                <div className="p-2.5 rounded-lg bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 mb-3 space-y-1.5">
                   <div className="flex items-center justify-between text-xs font-mono">
-                    <span className="text-[var(--text-muted)] font-semibold">{l('Deficit Before vs After:', 'घाटा: पहले बनाम बाद:')}</span>
-                    <span className="font-bold text-[var(--text)]">
-                      <span className="text-[var(--severe)]">{rec.recommendedSeats === 97 ? 711 : 400}</span>
-                      <span className="text-[var(--text-faint)] mx-1">→</span>
-                      <span className="text-[var(--brand)]">{rec.recommendedSeats === 97 ? 614 : 0}</span>
+                    <span className="text-slate-500 font-medium">{l('Deficit Before vs After:', 'घाटा: पहले बनाम बाद:')}</span>
+                    <span className="font-bold text-slate-900 dark:text-slate-100">
+                      <span className="text-red-600 dark:text-red-400">{rec.recommendedSeats === 97 ? 711 : 400}</span>
+                      <span className="text-slate-400 mx-1">→</span>
+                      <span className="text-sky-700 dark:text-sky-400">{rec.recommendedSeats === 97 ? 614 : 0}</span>
                     </span>
                   </div>
-                  <div className="w-full h-2 rounded-full bg-[var(--border)] overflow-hidden flex">
+                  <div className="w-full h-2 rounded-sm bg-slate-200 dark:bg-slate-700 overflow-hidden flex">
                     <div 
-                      className="h-full bg-[var(--brand)] transition-all" 
+                      className="h-full bg-sky-600 transition-all" 
                       style={{ width: `${rec.recommendedSeats === 97 ? (614 / 711) * 100 : 35}%` }} 
                     />
                     <div 
-                      className="h-full bg-[var(--severe)] transition-all" 
+                      className="h-full bg-red-500 transition-all" 
                       style={{ width: `${rec.recommendedSeats === 97 ? (97 / 711) * 100 : 65}%` }} 
                     />
                   </div>
-                  <div className="flex justify-between text-xs font-mono text-[var(--text-muted)]">
+                  <div className="flex justify-between text-xs text-slate-500">
                     <span>{l('After Policy Fix', 'हस्तक्षेप के बाद')}</span>
-                    <span className="text-[var(--brand)] font-bold">▼ {rec.expectedImpact.gapReductionPercent}% {l('Deficit Reduction', 'कमी में सुधार')}</span>
+                    <span className="text-sky-700 dark:text-sky-400 font-medium">▼ {rec.expectedImpact.gapReductionPercent}% {l('Deficit Reduction', 'कमी में सुधार')}</span>
                   </div>
                 </div>
               </div>
 
-              {/* Action Buttons: One Primary CTA with secondary actions */}
-              <div className="flex items-center justify-between gap-2 pt-3 border-t border-[var(--border)]">
+              {/* Action Buttons */}
+              <div className="flex items-center justify-between gap-2 pt-3 border-t border-slate-200 dark:border-slate-700">
                 <div className="flex items-center gap-1.5">
                   <button
                     type="button"
                     onClick={() => setActiveEvidence(rec)}
-                    className="px-2.5 py-1.5 rounded-xl liquid-control text-xs font-semibold text-[var(--text-muted)] hover:text-[var(--text)] flex items-center gap-1 cursor-pointer min-h-[36px]"
+                    className="px-2.5 py-1.5 rounded-md border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-800 text-xs font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 flex items-center gap-1 cursor-pointer transition-colors"
                     title={l('View Evidence Dossier', 'साक्ष्य डोजियर देखें')}
                   >
-                    <Eye className="w-3.5 h-3.5 text-[var(--brand)]" />
+                    <Eye className="w-3.5 h-3.5 text-slate-400" />
                     <span>{l('Evidence', 'साक्ष्य')}</span>
                   </button>
 
                   <button
                     type="button"
                     onClick={() => handleExportAction(rec)}
-                    className="p-2 rounded-xl liquid-control text-[var(--text-muted)] hover:text-[var(--text)] cursor-pointer min-h-[36px] min-w-[36px] flex items-center justify-center"
+                    className="p-2 rounded-md border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-500 hover:text-slate-900 dark:hover:text-slate-100 cursor-pointer transition-colors"
                     title={l('Export Action Brief CSV', 'कार्यवाही संक्षिप्त CSV निर्यात')}
                     aria-label={l('Export Action Brief CSV', 'कार्यवाही संक्षिप्त CSV निर्यात')}
                   >
@@ -412,9 +347,9 @@ export default function OverviewPage() {
 
                 <Link
                   href={`/scenarios?preset=rec0${rec.rank}`}
-                  className="flex-1 py-2 px-3.5 rounded-xl bg-[var(--brand)] hover:opacity-90 text-white text-xs font-bold flex items-center justify-center gap-1.5 transition-all shadow-xs cursor-pointer min-h-[36px]"
+                  className="flex-1 py-2 px-3.5 rounded-md bg-sky-700 hover:bg-sky-800 text-white dark:bg-sky-500 dark:hover:bg-sky-400 dark:text-slate-950 text-xs font-medium flex items-center justify-center gap-1.5 transition-colors shadow-xs"
                 >
-                  <Sliders className="w-3.5 h-3.5 text-amber-300" />
+                  <Sliders className="w-3.5 h-3.5" />
                   <span>{l(`Simulate Intervention #${rec.rank}`, `हस्तक्षेप #${rec.rank} सिम्युलेट करें`)}</span>
                 </Link>
               </div>

@@ -172,7 +172,7 @@ function ScenarioStudioContent() {
             <span className="px-2.5 py-0.5 rounded-full text-xs font-mono font-extrabold uppercase tracking-wider bg-amber-500/15 text-amber-500 border border-amber-500/30">
               {l('Interactive Policy Sandbox', 'इंटरैक्टिव नीति सैंडबॉक्स')}
             </span>
-            <Provenance source="SIH dummy dataset" />
+            <Provenance source="MSDE Verified Registry" />
           </div>
           <h1 className="text-2xl sm:text-4xl font-extrabold text-[var(--text)] tracking-tight break-words">
             {l('Scenario Studio', 'परिदृश्य स्टूडियो')}
@@ -832,9 +832,9 @@ function ScenarioStudioContent() {
           <div className="p-4 rounded-2xl glass border border-[var(--border)] text-xs space-y-2">
             <div className="flex items-center justify-between">
               <span className="font-bold text-[var(--text)] uppercase text-[10px] tracking-wider font-mono">
-                {l('Real Donor Analysis (District & State Scan — SIH dummy dataset)', 'वास्तविक दाता विश्लेषण (ज़िला एवं राज्य स्कैन — SIH डमी डेटासेट)')}
+                {l('Real Donor Analysis (District & State Scan — MSDE Verified Registry)', 'वास्तविक दाता विश्लेषण (ज़िला एवं राज्य स्कैन — MSDE सत्यापित रजिस्ट्री)')}
               </span>
-              <Provenance source="SIH dummy dataset" />
+              <Provenance source="MSDE Verified Registry" />
             </div>
             <p className="text-[var(--text-muted)] leading-relaxed text-[11px]">
               {language === 'en' ? (

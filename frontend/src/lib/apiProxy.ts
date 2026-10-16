@@ -1,5 +1,5 @@
 /**
- * KaushalPulse API Proxy Helper
+ * KaushalYuva API Proxy Helper
  * Ministry of Skill Development & Entrepreneurship (MSDE) — PS 26246
  * 
  * Provides single-source-of-truth proxying to the Python FastAPI analytical backend

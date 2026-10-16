@@ -42,50 +42,50 @@ export function Badge({
   if (v === 'success') v = 'balanced';
 
   let config = {
-    bg: 'bg-slate-500/10 text-[var(--text-muted)] border-slate-500/25',
+    bg: 'bg-slate-50 dark:bg-slate-800/60 text-slate-600 dark:text-slate-400 border-slate-200 dark:border-slate-700',
     DefaultIcon: HelpCircle
   };
 
   if (v === 'severe') {
     config = {
-      bg: 'bg-[#ff6600]/12 text-[#ff6600] dark:text-[#ff7700] border-[#ff6600]/30 shadow-[0_0_8px_rgba(255,102,0,0.15)]',
+      bg: 'bg-red-50 dark:bg-red-950/40 text-red-700 dark:text-red-400 border-red-200 dark:border-red-800',
       DefaultIcon: AlertOctagon
     };
   } else if (v === 'moderate') {
     config = {
-      bg: 'bg-amber-500/12 text-amber-600 dark:text-amber-400 border-amber-500/30',
+      bg: 'bg-amber-50 dark:bg-amber-950/40 text-amber-700 dark:text-amber-400 border-amber-200 dark:border-amber-800',
       DefaultIcon: AlertTriangle
     };
   } else if (v === 'balanced') {
     config = {
-      bg: 'bg-emerald-500/12 text-emerald-600 dark:text-emerald-400 border-emerald-500/30',
+      bg: 'bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-400 border-emerald-200 dark:border-emerald-800',
       DefaultIcon: CheckCircle2
     };
   } else if (v === 'oversupply') {
     config = {
-      bg: 'bg-sky-500/12 text-sky-600 dark:text-sky-400 border-sky-500/30',
+      bg: 'bg-sky-50 dark:bg-sky-950/40 text-sky-700 dark:text-sky-400 border-sky-200 dark:border-sky-800',
       DefaultIcon: TrendingDown
     };
   } else if (v === 'official') {
     config = {
-      bg: 'bg-[#00c2cb]/12 text-cyan-600 dark:text-[#00c2cb] border-[#00c2cb]/30 shadow-[0_0_8px_rgba(0,194,203,0.15)]',
+      bg: 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-700',
       DefaultIcon: Database
     };
   } else if (v === 'synthetic') {
     config = {
-      bg: 'bg-purple-500/12 text-purple-600 dark:text-purple-400 border-purple-500/30',
+      bg: 'bg-purple-50 dark:bg-purple-950/40 text-purple-700 dark:text-purple-400 border-purple-200 dark:border-purple-800',
       DefaultIcon: Sparkles
     };
   }
 
   const IconComp = config.DefaultIcon;
   const sizeClasses = size === 'sm' 
-    ? 'text-[10px] px-2 py-0.5 gap-1' 
-    : 'text-xs px-2.5 py-1 gap-1.5';
+    ? 'text-[10px] px-1.5 py-0.5 gap-1' 
+    : 'text-[11px] px-2 py-0.5 gap-1.5 font-medium';
 
   return (
     <span
-      className={`inline-flex items-center font-bold font-mono tracking-tight rounded-full border backdrop-blur-xs transition-colors ${sizeClasses} ${config.bg} ${className}`}
+      className={`inline-flex items-center font-medium rounded border transition-colors ${sizeClasses} ${config.bg} ${className}`}
     >
       {icon ? icon : <IconComp className={size === 'sm' ? 'w-3 h-3' : 'w-3.5 h-3.5'} />}
       <span>{children}</span>

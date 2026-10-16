@@ -17,7 +17,7 @@ export async function GET(request: Request) {
       status: 200,
       headers: {
         'Content-Type': 'text/csv; charset=utf-8',
-        'Content-Disposition': `attachment; filename="KaushalPulse_LabourMarket_${districtName}_${new Date().toISOString().split('T')[0]}.csv"`
+        'Content-Disposition': `attachment; filename="KaushalYuva_LabourMarket_${districtName}_${new Date().toISOString().split('T')[0]}.csv"`
       }
     });
   }
@@ -85,7 +85,7 @@ export async function GET(request: Request) {
     status: 200,
     headers: {
       'Content-Type': 'text/csv; charset=utf-8',
-      'Content-Disposition': `attachment; filename="KaushalPulse_LabourMarket_${districtName}_${new Date().toISOString().split('T')[0]}.csv"`
+      'Content-Disposition': `attachment; filename="KaushalYuva_LabourMarket_${districtName}_${new Date().toISOString().split('T')[0]}.csv"`
     }
   });
 }

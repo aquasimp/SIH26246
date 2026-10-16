@@ -19,8 +19,6 @@ import {
   Settings, 
   ChevronLeft, 
   ChevronRight,
-  Sparkles,
-  Bot,
   FileText
 } from 'lucide-react';
 import { BrandLogo } from '@/components/ui/BrandLogo';
@@ -38,7 +36,7 @@ interface NavItem {
 export const Sidebar: React.FC = () => {
   const pathname = usePathname();
   const [collapsed, setCollapsed] = useState(true);
-  const { t, alerts, recommendations, setCopilotOpen, focusMode, language, l } = useApp();
+  const { t, alerts, recommendations, focusMode, language, l } = useApp();
 
   // Above 1366px viewport width, expand sidebar; below 1366px collapse to icon rail
   useEffect(() => {
@@ -66,7 +64,7 @@ export const Sidebar: React.FC = () => {
 
   const navGroups: { title: string; items: NavItem[] }[] = [
     {
-      title: l('// INTELLIGENCE', '// इंटेलिजेंस'),
+      title: l('Intelligence', 'इंटेलिजेंस'),
       items: [
         { href: '/overview', label: t.nav.overview, icon: LayoutDashboard },
         { href: '/intelligence', label: t.nav.intelligence, icon: TrendingUp },
@@ -75,21 +73,21 @@ export const Sidebar: React.FC = () => {
       ]
     },
     {
-      title: l('// DECISION SUPPORT', '// कार्रवाई एवं सिमुलेशन'),
+      title: l('Planning & Action', 'कार्रवाई एवं सिमुलेशन'),
       items: [
         { 
           href: '/alerts', 
           label: t.nav.alerts, 
           icon: AlertTriangle, 
           badge: '35', 
-          badgeColor: 'bg-[var(--severe)]/15 text-[var(--severe)] border-[var(--severe)]/35' 
+          badgeColor: 'bg-red-50 text-red-600 border-red-200' 
         },
         { 
           href: '/recommendations', 
           label: t.nav.recommendations, 
           icon: Lightbulb, 
           badge: `${pendingRecommendations || 4}`, 
-          badgeColor: 'bg-cyan-500/15 text-cyan-600 dark:text-cyan-400 border-cyan-500/30' 
+          badgeColor: 'bg-sky-50 text-sky-700 border-sky-200' 
         },
         { 
           href: '/scenarios', 
@@ -100,7 +98,7 @@ export const Sidebar: React.FC = () => {
       ]
     },
     {
-      title: l('// EXPLORE & TAXONOMY', '// अन्वेषण एवं वर्गीकरण'),
+      title: l('Taxonomy & Directory', 'अन्वेषण एवं वर्गीकरण'),
       items: [
         { href: '/districts', label: t.nav.districts, icon: MapPin },
         { href: '/occupations', label: t.nav.occupations, icon: Briefcase },
@@ -108,7 +106,7 @@ export const Sidebar: React.FC = () => {
       ]
     },
     {
-      title: l('// SYSTEM & GOVERNANCE', '// प्रणाली एवं मॉडल'),
+      title: l('System & Governance', 'प्रणाली एवं मॉडल'),
       items: [
         { href: '/data-health', label: t.nav.dataHealth, icon: ShieldCheck },
         { href: '/methodology', label: t.nav.methodology || l('Methodology', 'मॉडल कार्यप्रणाली'), icon: FileText },
@@ -121,23 +119,22 @@ export const Sidebar: React.FC = () => {
   return (
     <aside 
       aria-label="Primary Platform Navigation"
-      className={`hidden md:flex flex-col shrink-0 transition-all duration-300 z-30 sticky top-0 h-screen py-3 pl-3 select-none ${
+      className={`hidden md:flex flex-col shrink-0 transition-all duration-300 z-30 sticky top-0 h-screen select-none ${
         collapsed ? 'w-20' : 'w-20 xl:w-[280px]'
       }`}
     >
-      <div className="glass-strong rounded-3xl h-full flex flex-col justify-between p-3 relative overflow-hidden border border-[var(--border)] shadow-xl">
+      <div className="bg-white dark:bg-slate-900 h-full flex flex-col justify-between p-3 relative overflow-hidden border-r border-slate-200 dark:border-slate-700">
         {/* Top Brand & Header */}
         <div className="flex flex-col min-h-0">
-          <div className="flex items-center justify-between px-2 pt-1 pb-3 border-b border-[var(--border)]">
+          <div className="flex items-center justify-between px-2 pt-1 pb-3 border-b border-slate-200 dark:border-slate-700">
             <Link href="/" className="flex items-center gap-2.5 group" title={l('KaushalYuva Home', 'कौशलयुवा होम')}>
               <BrandLogo size="lg" alt="KaushalYuva Logo" />
               {!collapsed && (
                 <div className="flex flex-col min-w-0">
-                  <span className="text-sm font-extrabold tracking-tight text-[var(--text)] leading-tight flex items-center gap-1.5 font-display">
+                  <span className="text-sm font-bold tracking-tight text-slate-900 dark:text-slate-100 leading-tight flex items-center gap-1.5 font-display">
                     {t.appTitle}
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#00c2cb] animate-pulse shrink-0 shadow-[0_0_6px_#00c2cb]" />
                   </span>
-                  <span className="text-[9px] font-mono font-semibold text-[var(--text-faint)] uppercase tracking-wider truncate">
+                  <span className="text-[9px] font-mono font-semibold text-slate-400 uppercase tracking-wider truncate">
                     {t.appSubtitle}
                   </span>
                 </div>
@@ -147,7 +144,7 @@ export const Sidebar: React.FC = () => {
             <button
               type="button"
               onClick={() => setCollapsed(!collapsed)}
-              className="w-7 h-7 rounded-xl liquid-control flex items-center justify-center text-[var(--text-muted)] hover:text-[var(--text)] hover:border-[#00c2cb]/50 cursor-pointer transition-colors"
+              className="w-7 h-7 rounded-md border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-800 flex items-center justify-center text-slate-500 hover:text-slate-900 dark:hover:text-slate-100 cursor-pointer transition-colors"
               title={collapsed ? 'Expand sidebar (Ctrl+B)' : 'Collapse sidebar'}
               aria-label={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
             >
@@ -156,11 +153,11 @@ export const Sidebar: React.FC = () => {
           </div>
 
           {/* Grouped Navigation Links */}
-          <nav className="mt-3 overflow-y-auto space-y-3.5 pr-1 flex-1">
+          <nav className="mt-3 overflow-y-auto space-y-3.5 pr-1 flex-1 pb-16 scrollbar-thin">
             {navGroups.map((group) => (
-              <div key={group.title} className="space-y-1">
+              <div key={group.title} className="space-y-0.5">
                 {!collapsed && (
-                  <span className="px-2.5 text-[9px] font-mono font-bold tracking-widest uppercase text-cyan-600/80 dark:text-cyan-400/80 block">
+                  <span className="px-3 pt-4 pb-1 text-[11px] font-semibold tracking-wider uppercase text-slate-400 block">
                     {group.title}
                   </span>
                 )}
@@ -173,31 +170,31 @@ export const Sidebar: React.FC = () => {
                       <Link
                         key={item.href}
                         href={item.href}
-                        className={`flex items-center gap-2.5 px-2.5 py-2 rounded-xl text-xs font-semibold transition-all relative group cursor-pointer ${
+                        className={`flex items-center gap-2.5 px-2.5 py-2 rounded-md text-xs font-medium transition-all relative group cursor-pointer ${
                           isActive
-                            ? 'bg-cyan-500/10 text-[var(--brand)] shadow-xs border-l-2 border-l-[#00c2cb] font-bold dark:bg-cyan-500/15 dark:text-[#00c2cb]'
-                            : 'text-[var(--text-muted)] hover:text-[var(--text)] hover:bg-[var(--glass)] hover:border-l hover:border-l-[var(--border-strong)]'
+                            ? 'bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-slate-100 font-semibold border-l-[3px] border-l-slate-900 dark:border-l-slate-100'
+                            : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-50 dark:hover:bg-slate-800'
                         }`}
                         title={collapsed ? item.label : undefined}
                       >
-                        <Icon className={`w-4 h-4 shrink-0 transition-transform group-hover:scale-110 ${
-                          isActive ? 'text-[#00c2cb]' : 'text-[var(--text-faint)]'
+                        <Icon className={`w-4 h-4 shrink-0 ${
+                          isActive ? 'text-slate-900 dark:text-slate-100' : 'text-slate-400'
                         }`} />
                         
                         {!collapsed && (
-                          <span className="truncate flex-1 tracking-tight font-medium">
+                          <span className="truncate flex-1 tracking-tight">
                             {item.label}
                           </span>
                         )}
 
                         {!collapsed && item.badge !== undefined && (
-                          <span className={`px-1.5 py-0.2 text-[9px] font-mono font-bold rounded-full border ${item.badgeColor}`}>
+                          <span className={`px-1.5 py-0.5 text-[11px] font-medium rounded border ${item.badgeColor}`}>
                             {item.badge}
                           </span>
                         )}
 
                         {!collapsed && item.special && (
-                          <span className="px-1.5 py-0.2 text-[9px] font-mono font-extrabold uppercase rounded-md bg-gradient-to-r from-cyan-500 to-[#0055a5] text-white shadow-xs">
+                          <span className="px-1.5 py-0.5 text-[9px] font-semibold uppercase rounded bg-slate-900 dark:bg-slate-100 text-white dark:text-slate-900">
                             STUDIO
                           </span>
                         )}
@@ -208,48 +205,6 @@ export const Sidebar: React.FC = () => {
               </div>
             ))}
           </nav>
-        </div>
-
-        {/* Bottom Copilot Cockpit Mini Card */}
-        <div className="pt-2 border-t border-[var(--border)]">
-          {!collapsed ? (
-            <div className="p-2.5 rounded-2xl glass border border-[var(--border)] relative overflow-hidden group hover:border-[#00c2cb]/40 transition-colors">
-              <div className="flex items-center justify-between mb-1.5">
-                <div className="flex items-center gap-1.5">
-                  <div className="w-5 h-5 rounded-lg bg-gradient-to-tr from-[#0055a5] to-[#00c2cb] text-white flex items-center justify-center">
-                    <Bot className="w-3 h-3" />
-                  </div>
-                  <span className="text-[11px] font-bold text-[var(--text)] font-display">
-                    {t.copilot.title}
-                  </span>
-                </div>
-                <span className="text-[9px] font-mono px-1 py-0.2 bg-cyan-500/15 text-cyan-600 dark:text-cyan-400 font-bold rounded border border-cyan-500/25">
-                  {l('Grounded AI', 'सत्यापित AI')}
-                </span>
-              </div>
-              <p className="text-[10px] text-[var(--text-muted)] leading-tight mb-2">
-                {l('Multilingual policy & forecast assistant over current API.', 'वर्तमान विश्लेषणात्मक एपीआई पर आधारित नीति व पूर्वानुमान सहायक।')}
-              </p>
-              <button
-                type="button"
-                onClick={() => setCopilotOpen(true)}
-                className="w-full py-1.5 px-2 rounded-xl bg-gradient-to-r from-[#0055a5] to-[#00c2cb] hover:opacity-90 text-white text-[11px] font-bold flex items-center justify-center gap-1.5 transition-all shadow-xs cursor-pointer font-sans"
-              >
-                <Sparkles className="w-3 h-3 text-amber-300" />
-                <span>{t.actions.askCopilot}</span>
-              </button>
-            </div>
-          ) : (
-            <button
-              type="button"
-              onClick={() => setCopilotOpen(true)}
-              className="w-full py-2.5 rounded-xl liquid-control flex items-center justify-center text-[var(--brand)] hover:text-white hover:bg-[var(--brand)] transition-all cursor-pointer"
-              title="Open Kaushal Copilot"
-              aria-label="Open Kaushal Copilot"
-            >
-              <Bot className="w-4 h-4" />
-            </button>
-          )}
         </div>
       </div>
     </aside>

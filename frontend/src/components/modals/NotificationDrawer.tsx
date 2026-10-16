@@ -36,7 +36,7 @@ export const NotificationDrawer: React.FC = () => {
         a.recommendedAction
       ])
     ];
-    downloadCSV('KaushalPulse_Active_Alerts.csv', rows);
+    downloadCSV('KaushalYuva_Active_Alerts.csv', rows);
   };
 
   return (

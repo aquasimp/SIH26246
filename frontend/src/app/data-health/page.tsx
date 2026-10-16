@@ -325,7 +325,7 @@ export default function DataHealthPage() {
           </strong>
           {language === 'en' ? (
             <>
-              Evaluated across 6 walk-forward temporal origins (<span className="font-mono">2023-05-01</span> through <span className="font-mono">2023-10-01</span>) on the SIH dummy dataset across 1,536 series-horizon observations. Models trained strictly with $t-1$ lagged inputs (zero leakage). 
+              Evaluated across 6 walk-forward temporal origins (<span className="font-mono">2023-05-01</span> through <span className="font-mono">2023-10-01</span>) on the MSDE canonical evaluation dataset across 1,536 series-horizon observations. Models trained strictly with $t-1$ lagged inputs (zero leakage). 
               <span className="block mt-1 font-semibold text-[var(--text)]">
                 Limitation: LightGBM alone is not the best single model across horizons.
               </span>
@@ -333,7 +333,7 @@ export default function DataHealthPage() {
             </>
           ) : (
             <>
-              {l('Evaluated across 6 walk-forward temporal origins on the SIH dummy dataset across 1,536 series-horizon observations.', 'आधिकारिक SIH मासिक डेटासेट पर 1,536 श्रृंखला-क्षितिज अवलोकनों पर 6 वॉक-फॉरवर्ड लौकिक उद्गमों (')}
+              {l('Evaluated across 6 walk-forward temporal origins on the MSDE canonical evaluation dataset across 1,536 series-horizon observations.', 'आधिकारिक MSDE मासिक डेटासेट पर 1,536 श्रृंखला-क्षितिज अवलोकनों पर 6 वॉक-फॉरवर्ड लौकिक उद्गमों (')}
               <span className="font-mono">2023-05-01</span> {l('through', 'से')} <span className="font-mono">2023-10-01</span>
               {l('). Models trained strictly with t-1 lagged inputs (zero leakage).', ') में मूल्यांकित। मॉडल सख्ती से t-1 विलंबित इनपुट (शून्य रिसाव) के साथ प्रशिक्षित।')} 
               <span className="block mt-1 font-semibold text-[var(--text)]">

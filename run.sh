@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# KaushalPulse One-Command Launch Script (Linux / macOS)
+# KaushalYuva One-Command Launch Script (Linux / macOS)
 # Ministry of Skill Development & Entrepreneurship (MSDE) — PS 26246
 
 set -e
@@ -7,7 +7,7 @@ set -e
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 echo "=========================================================="
-echo "  KaushalPulse Analytical Platform — Starting Services    "
+echo "  KaushalYuva Analytical Platform — Starting Services    "
 echo "=========================================================="
 
 # 1. Setup / Verify Python Environment
@@ -45,7 +45,7 @@ fi
 
 echo ""
 echo "=========================================================="
-echo "  KaushalPulse is running!"
+echo "  KaushalYuva is running!"
 echo "  - Frontend UI: http://localhost:3000"
 echo "  - Analytical API: http://127.0.0.1:8000/docs"
 echo "  Press Ctrl+C to stop both services."

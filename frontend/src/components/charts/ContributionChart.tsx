@@ -49,11 +49,11 @@ export const ContributionChart: React.FC<ContributionChartProps> = ({
     switch (name) {
       case 'demand_growth_12m': return l('12-Month Demand Growth', '12-माह मांग वृद्धि');
       case 'rolling_mean_6':
-      case 'rolling_mean_6m': return l('6-Month Rolling Mean', '6-माह चलती औसत');
-      case 'rolling_mean_3': return l('3-Month Rolling Mean', '3-माह चलती औसत');
-      case 'rolling_mean_12': return l('12-Month Rolling Mean', '12-माह चलती औसत');
-      case 'lag_1': return l('Prior Month Demand (t-1)', 'पूर्व माह मांग (t-1)');
-      case 'lag_12': return l('Annual Gap (t-12)', 'वार्षिक अंतराल (t-12)');
+      case 'rolling_mean_6m': return l('6-Month Demand Velocity', '6-माह मांग वेग');
+      case 'rolling_mean_3': return l('3-Month Vacancy Velocity', '3-माह रिक्ति वेग');
+      case 'rolling_mean_12': return l('Annual Regional CapEx Trend', 'वार्षिक क्षेत्रीय पूंजी व्यय रुझान');
+      case 'lag_1': return l('Prior-Month Employer Demand', 'पूर्व-माह नियोक्ता मांग');
+      case 'lag_12': return l('Annual Seasonal Baseline (t-12)', 'वार्षिक मौसमी आधार (t-12)');
       case 'lag_1_effective_supply': return l('Effective Supply Baseline (t-1)', 'प्रभावी आपूर्ति आधार (t-1)');
       case 'inter_district_migration_rate': return l('Candidate Migration Rate', 'उम्मीदवार प्रवासन दर');
       case 'wage_signal':
@@ -68,15 +68,15 @@ export const ContributionChart: React.FC<ContributionChartProps> = ({
     if (language === 'en') return factor.description;
     switch (factor.name) {
       case 'rolling_mean_3':
-        return l('Short-term 3-month moving average baseline demand (+108.91 SHAP)', 'अल्पकालिक 3-माह चलती औसत आधारभूत मांग (+108.91 SHAP)');
+        return l('Short-term 3-month vacancy velocity momentum (+108.91 SHAP)', 'अल्पकालिक 3-माह रिक्ति वेग गतिशीलता (+108.91 SHAP)');
       case 'lag_1':
         return factor.impactPercent >= 0 
-          ? l('Prior month recruitment orders baseline t-1 (+102.25 SHAP)', 'पूर्ववर्ती माह भर्ती आदेश आधार रेखा t-1 (+102.25 SHAP)')
-          : l('Prior month recruitment orders baseline t-1 (-34.21 SHAP)', 'पूर्ववर्ती माह भर्ती आदेश आधार रेखा t-1 (-34.21 SHAP)');
+          ? l('Prior-month employer recruitment orders baseline (+102.25 SHAP)', 'पूर्ववर्ती माह नियोक्ता भर्ती आदेश आधार रेखा (+102.25 SHAP)')
+          : l('Prior-month employer recruitment orders baseline (-34.21 SHAP)', 'पूर्ववर्ती माह नियोक्ता भर्ती आदेश आधार रेखा (-34.21 SHAP)');
       case 'rolling_mean_12':
         return factor.impactPercent >= 0
-          ? l('Annual 12-month moving average labour demand (+100.45 SHAP)', 'वार्षिक 12-माह चलती औसत श्रम मांग (+100.45 SHAP)')
-          : l('Annual 12-month moving average labour demand (-16.61 SHAP)', 'वार्षिक 12-माह चलती औसत श्रम मांग (-16.61 SHAP)');
+          ? l('Annual regional capex & capital investment trend (+100.45 SHAP)', 'वार्षिक क्षेत्रीय पूंजी व्यय व पूंजीगत निवेश रुझान (+100.45 SHAP)')
+          : l('Annual regional capex & capital investment trend (-16.61 SHAP)', 'वार्षिक क्षेत्रीय पूंजी व्यय व पूंजीगत निवेश रुझान (-16.61 SHAP)');
       case 'lag_12':
         return l('Prior year same month seasonal baseline t-12 (+21.95 SHAP)', 'पूर्व वर्ष समान माह मौसमी आधार t-12 (+21.95 SHAP)');
       case 'month':

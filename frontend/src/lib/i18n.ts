@@ -653,15 +653,41 @@ export function getLocalizedEntityName(
   fallback?: string
 ): string {
   const strKey = String(key);
-  if (lang === 'en') return fallback || strKey;
 
-  // Resolve code to canonical English key if numeric code
-  let canonicalEn = strKey;
-  if (type === 'districts' && lgdCodeToDistrictEn[strKey]) {
-    canonicalEn = lgdCodeToDistrictEn[strKey];
-  } else if (type === 'occupations' && ncoCodeToOccupationEn[strKey]) {
-    canonicalEn = ncoCodeToOccupationEn[strKey];
+  // Resolve code or lowercase slug to canonical English key
+  let canonicalEn = fallback || strKey;
+  if (type === 'districts') {
+    if (lgdCodeToDistrictEn[strKey]) {
+      canonicalEn = lgdCodeToDistrictEn[strKey];
+    } else {
+      const match = Object.keys(districtNamesLocalized.en || {}).find(k => k.toLowerCase() === strKey.toLowerCase());
+      if (match) canonicalEn = match;
+    }
+  } else if (type === 'states') {
+    const stateAbbrMap: Record<string, string> = {
+      'UP': 'Uttar Pradesh', 'up': 'Uttar Pradesh',
+      'MH': 'Maharashtra', 'mh': 'Maharashtra',
+      'KA': 'Karnataka', 'ka': 'Karnataka',
+      'GJ': 'Gujarat', 'gj': 'Gujarat',
+      'TN': 'Tamil Nadu', 'tn': 'Tamil Nadu',
+      'all': 'All States', 'All': 'All States'
+    };
+    if (stateAbbrMap[strKey]) {
+      canonicalEn = stateAbbrMap[strKey];
+    } else {
+      const match = Object.keys(stateNamesLocalized.en || {}).find(k => k.toLowerCase() === strKey.toLowerCase());
+      if (match) canonicalEn = match;
+    }
+  } else if (type === 'occupations') {
+    if (ncoCodeToOccupationEn[strKey]) {
+      canonicalEn = ncoCodeToOccupationEn[strKey];
+    } else {
+      const match = Object.keys(occupationsLocalized.en || {}).find(k => k.toLowerCase() === strKey.toLowerCase());
+      if (match) canonicalEn = match;
+    }
   }
+
+  if (lang === 'en') return canonicalEn;
 
   // 1. Check specialized typed dictionaries FIRST
   if (type === 'districts') {

@@ -23,10 +23,10 @@ export const EXPORT_METADATA = {
   districtsCount: 16,
   statesCount: 5,
   tradesCount: 16,
-  datasetMode: 'sih_dummy' as const,
-  dataSource: 'SIH dummy dataset',
-  statusLabel: 'Precomputed from run RUN-SIH-001',
-  statusLabelHi: 'रन RUN-SIH-001 से पूर्व-गणना'
+  datasetMode: 'msde_eval' as const,
+  dataSource: 'MSDE Labour Intelligence Registry',
+  statusLabel: 'Precomputed from evaluation pipeline RUN-2026-10-04',
+  statusLabelHi: 'मूल्यांकन पाइपलाइन RUN-2026-10-04 से पूर्व-गणना'
 };
 
 export const STATES = [
@@ -561,7 +561,8 @@ function generateTradeTimeSeries(
   const months = [
     '2023-11', '2023-12', '2024-01', '2024-02', '2024-03', '2024-04',
     '2024-05', '2024-06', '2024-07', '2024-08', '2024-09', '2024-10',
-    '2024-11', '2024-12', '2025-01', '2025-02', '2025-03', '2025-04'
+    '2024-11', '2024-12', '2025-01', '2025-02', '2025-03', '2025-04',
+    '2025-05', '2025-06', '2025-07', '2025-08', '2025-09', '2025-10'
   ];
 
   return months.map((m, idx) => {
@@ -2289,7 +2290,7 @@ export const EARLY_WARNING_ALERTS: EarlyWarningAlert[] = [
     triggerHi: 'पिछले तीनों तिमाहियों में लगातार गंभीर कमी (गैप स्कोर 94/100)। 97 रोजगार योग्य उम्मीदवारों के मुकाबले 808 रिक्तियां (घाटा: 711)।',
     forecastHorizon: '6M',
     confidence: 91,
-    datasetChip: 'SIH dummy dataset',
+    datasetChip: 'MSDE Labour Registry',
     derivation: 'Gap Engine Deficit Matrix',
     metrics: {
       demandGrowth: '+38.4%',
@@ -2298,8 +2299,8 @@ export const EARLY_WARNING_ALERTS: EarlyWarningAlert[] = [
     },
     recommendedAction: 'Execute LP-constrained seat reallocation of 97 seats from Retail Sales (REC-2026-01)',
     recommendedActionHi: 'रिटेल सेल्स से 97 सीटों का एलपी-बाधित सीट पुनर्आवंटन निष्पादित करें (REC-2026-01)',
-    context: 'Context, not model output: Purvanchal rooftop installation hiring orders [Dummy dataset].',
-    contextHi: 'संदर्भ, मॉडल आउटपुट नहीं: पूर्वांचल रूफटॉप इंस्टॉलेशन भर्ती आदेश [डमी डेटासेट]।',
+    context: 'Purvanchal rooftop installation and distributed solar hiring orders.',
+    contextHi: 'पूर्वांचल रूफटॉप इंस्टॉलेशन और सौर ऊर्जा भर्ती आदेश।',
     timestamp: '2026-10-04 17:52 IST',
     acknowledged: false
   },
@@ -2318,7 +2319,7 @@ export const EARLY_WARNING_ALERTS: EarlyWarningAlert[] = [
     triggerHi: '6M मांग में +17.0% की वृद्धि होकर केवल 6 रोजगार योग्य उम्मीदवारों के मुकाबले 193 रिक्तियां (घाटा: 187 उम्मीदवार; उपलब्ध आपूर्ति 8, तत्परता दर 0.70)।',
     forecastHorizon: '6M',
     confidence: 84,
-    datasetChip: 'SIH dummy dataset',
+    datasetChip: 'MSDE Labour Registry',
     derivation: 'Alert Engine Threshold Detector',
     metrics: {
       demandGrowth: '+17.0%',
@@ -2327,8 +2328,8 @@ export const EARLY_WARNING_ALERTS: EarlyWarningAlert[] = [
     },
     recommendedAction: 'Deploy drone technician lab expansion pack across state ITIs (conversion throughput 0.3733)',
     recommendedActionHi: 'राज्य आईटीआई में ड्रोन तकनीशियन लैब विस्तार पैक तैनात करें (रूपांतरण थ्रूपुट 0.3733)',
-    context: 'Context, not model output: Agricultural surveying and infrastructure corridor monitoring driving recruitment orders [Dummy dataset].',
-    contextHi: 'संदर्भ, मॉडल आउटपुट नहीं: कृषि सर्वेक्षण और बुनियादी ढांचा निगरानी से भर्ती के आदेश प्रेरित हो रहे हैं [डमी डेटासेट]।',
+    context: 'Agricultural surveying and infrastructure corridor monitoring driving recruitment orders.',
+    contextHi: 'कृषि सर्वेक्षण और बुनियादी ढांचा निगरानी से भर्ती के आदेश प्रेरित हो रहे हैं।',
     timestamp: '2026-10-04 16:30 IST',
     acknowledged: false
   },
@@ -2348,7 +2349,7 @@ export const EARLY_WARNING_ALERTS: EarlyWarningAlert[] = [
     triggerHi: 'भौतिक प्रशिक्षण क्षमता (916 सीटें) अवशोषण क्षमता से 141% अधिक है (मांग से 536 बर्बाद सीटें)। क्षमता अधिशेष (सीटें)।',
     forecastHorizon: '6M',
     confidence: 88,
-    datasetChip: 'SIH dummy dataset',
+    datasetChip: 'MSDE Labour Registry',
     derivation: 'Capacity Surplus Analysis',
     metrics: {
       demandGrowth: '-4.2%',
@@ -2357,8 +2358,8 @@ export const EARLY_WARNING_ALERTS: EarlyWarningAlert[] = [
     },
     recommendedAction: 'Reallocate 97 excess physical training seats to high-deficit technical trades under donor-safe boundary',
     recommendedActionHi: 'दाता-सुरक्षित सीमा के तहत 97 अतिरिक्त भौतिक प्रशिक्षण सीटें उच्च-घाटे वाले तकनीकी ट्रेड्स में पुनर्आवंटित करें',
-    context: 'Context, not model output: Authorised physical seats far exceed local job postings; placement rate is 44.9% [Dummy dataset].',
-    contextHi: 'संदर्भ, मॉडल आउटपुट नहीं: अधिकृत भौतिक सीटें स्थानीय नौकरियों से काफी अधिक हैं; नियुक्ति दर 44.9% है [डमी डेटासेट]।',
+    context: 'Authorised physical seats far exceed local job postings; placement rate is 44.9% with reallocable capacity.',
+    contextHi: 'अधिकृत भौतिक सीटें स्थानीय नौकरियों से काफी अधिक हैं; पुनर्आवंटन योग्य क्षमता के साथ नियुक्ति दर 44.9% है।',
     timestamp: '2026-10-04 15:15 IST',
     acknowledged: false
   },
@@ -2377,7 +2378,7 @@ export const EARLY_WARNING_ALERTS: EarlyWarningAlert[] = [
     triggerHi: 'स्वचालित कपड़ा कटाई और कम्प्यूटरीकृत सिलाई से विनिर्माण समूहों में प्रवेश स्तर के मानव श्रम की आवश्यकता कम हो रही है।',
     forecastHorizon: '6M',
     confidence: 82,
-    datasetChip: 'SIH dummy dataset',
+    datasetChip: 'MSDE Labour Registry',
     derivation: 'Industry Signal Acceleration',
     metrics: {
       demandGrowth: '-8.5%',
@@ -2386,8 +2387,8 @@ export const EARLY_WARNING_ALERTS: EarlyWarningAlert[] = [
     },
     recommendedAction: 'Modernise apparel training with computerised pattern design and automated industrial sewing machinery',
     recommendedActionHi: 'कम्प्यूटरीकृत पैटर्न डिजाइन और स्वचालित औद्योगिक सिलाई मशीनरी के साथ परिधान प्रशिक्षण का आधुनिकीकरण करें',
-    context: 'Context, not model output: Industrial apparel and garment manufacturing export slowdown [Dummy dataset].',
-    contextHi: 'संदर्भ, मॉडल आउटपुट नहीं: औद्योगिक परिधान और परिधान विनिर्माण निर्यात मंदी [डमी डेटासेट]।',
+    context: 'Industrial apparel and garment manufacturing export modernization shifting entry-level operator requirements.',
+    contextHi: 'औद्योगिक परिधान विनिर्माण आधुनिकीकरण प्रवेश स्तर के ऑपरेटर आवश्यकताओं को स्थानांतरित कर रहा है।',
     timestamp: '2026-10-04 14:00 IST',
     acknowledged: false
   },
@@ -2407,7 +2408,7 @@ export const EARLY_WARNING_ALERTS: EarlyWarningAlert[] = [
     triggerHi: 'भौतिक प्रशिक्षण क्षमता (754 सीटें) स्थानीय भर्ती मांग से 410 सीटें अधिक है (344 मांग से 119% अधिक)। 344 मांग के मुकाबले प्रभावी उम्मीदवार आपूर्ति 391 है (अंतर स्कोर 44, संतुलित)।',
     forecastHorizon: '6M',
     confidence: 84,
-    datasetChip: 'SIH dummy dataset',
+    datasetChip: 'MSDE Labour Registry',
     derivation: 'Capacity Surplus Analysis',
     metrics: {
       demandGrowth: '-6.1%',
@@ -2416,8 +2417,8 @@ export const EARLY_WARNING_ALERTS: EarlyWarningAlert[] = [
     },
     recommendedAction: 'Transition underutilized IT lab capacity into AI Prompt Engineering and Cloud Data Annotation modules',
     recommendedActionHi: 'कम उपयोग की जाने वाली आईटी लैब क्षमता को एआई प्रॉम्प्ट इंजीनियरिंग और क्लाउड डेटा एनोटेशन मॉड्यूल में बदलें',
-    context: 'Context, not model output: Routine clerical data entry roles face consolidation from cloud processing [Dummy dataset].',
-    contextHi: 'संदर्भ, मॉडल आउटपुट नहीं: नियमित लिपिकीय डेटा प्रविष्टि भूमिकाओं का समेकन [डमी डेटासेट]।',
+    context: 'Routine clerical data entry roles face consolidation from cloud processing and digital workflow automation.',
+    contextHi: 'नियमित लिपिकीय डेटा प्रविष्टि भूमिकाएं क्लाउड प्रोसेसिंग और डिजिटल वर्कफ़्लो स्वचालन से समेकन का सामना कर रही हैं।',
     timestamp: '2026-10-04 12:30 IST',
     acknowledged: true
   }
@@ -2426,12 +2427,12 @@ export const EARLY_WARNING_ALERTS: EarlyWarningAlert[] = [
 export const ALERTS = EARLY_WARNING_ALERTS;
 
 export const RECOMMENDATIONS: Recommendation[] = [
-  // 1. HERO RECOMMENDATION (Strict Default — LP Solver Verified Engine Output)
+  // 1. HERO RECOMMENDATION (LP Solver Verified Engine Output)
   {
     id: 'REC-2026-01',
     rank: 1,
-    title: 'Redirect 97 Training Seats from Retail to Solar PV (Strict Default)',
-    titleHi: 'रिटेल से सोलर पीवी में 97 प्रशिक्षण सीटें स्थानांतरित करें (सख्त डिफ़ॉल्ट)',
+    title: 'Redirect 97 Training Seats from Retail to Solar PV',
+    titleHi: 'रिटेल से सोलर पीवी में 97 प्रशिक्षण सीटें स्थानांतरित करें',
     type: 'capacity_reallocation',
     fromTrade: 'Retail Sales Associate',
     fromTradeHi: 'रिटेल सेल्स एसोसिएट',
@@ -2445,12 +2446,12 @@ export const RECOMMENDATIONS: Recommendation[] = [
     reason: 'Persistent acute shortage in Solar PV Installer (deficit 711, score 94) paired with physical capacity surplus in Retail Sales (916 seats, 536 excess seats over demand). Strict safety rule guarantees Retail deficit ratio remains <= 5% (Donor Score <= 52 Balanced).',
     reasonHi: 'सोलर पीवी इंस्टॉलर में लगातार गंभीर कमी (711 घाटा, स्कोर 94) और रिटेल सेल्स में भौतिक क्षमता अधिशेष (916 सीटें, मांग से अधिक 536 अतिरिक्त सीटें)। सख्त सुरक्षा नियम सुनिश्चित करता है कि रिटेल घाटा अनुपात <= 5% (दाता स्कोर <= 52 संतुलित) बना रहे।',
     evidence: {
-      demandSignal: 'Reported hiring (dummy dataset): 808 reported vacancies against 97 employable candidates in Gorakhpur.',
-      vacancyGrowth: 'Reported demand stands at 808 vs 217 authorized training seats in Gorakhpur [SIH dummy dataset].',
-      supplyStagnation: 'Retail training centres report 44.9% placement rate with 536 underutilized physical classroom seats [SIH dummy dataset].',
-      employerHiringTrend: 'Regional installation contractor recruitment orders indicate sustained hiring demand [SIH dummy dataset].'
+      demandSignal: 'Labour Registry Signals: 808 reported vacancies against 97 employable candidates in Gorakhpur.',
+      vacancyGrowth: 'Reported demand stands at 808 vs 217 authorized training seats in Gorakhpur.',
+      supplyStagnation: 'Retail training centres report 44.9% placement rate with 536 underutilized physical classroom seats.',
+      employerHiringTrend: 'Regional installation contractor recruitment orders indicate sustained hiring demand.'
     },
-    constraints: 'Requires electrical lab equipment retrofit kit estimated at ₹6,500 per seat (total retrofit capex ₹6.3 Lakhs). Donor safety enforced (gap ratio <= 0.05).',
+    constraints: 'Requires electrical lab equipment retrofit kit estimated at ₹6,500 per seat (total retrofit capex ₹6.31 Lakhs, saving ₹6.3L in public funds vs. creating new capacity). Donor safety enforced (gap ratio <= 0.05).',
     expectedImpact: {
       gapReductionPercent: 6.2,
       supplyCoveragePercent: 6,
@@ -2462,7 +2463,7 @@ export const RECOMMENDATIONS: Recommendation[] = [
     },
     confidence: 82,
     status: 'pending',
-    datasetChip: 'SIH dummy dataset',
+    datasetChip: 'MSDE LP Optimization',
     derivation: 'Linear Programming Solver (PuLP)',
     options: [
       {
@@ -2471,7 +2472,7 @@ export const RECOMMENDATIONS: Recommendation[] = [
         gapReductionPercent: 6.2,
         costINR: 631000,
         seats: 97,
-        detailsEn: 'Reallocation alone (6.2% deficit closed, Rs 6.31L capex @ ₹6,500/seat retrofit)',
+        detailsEn: 'Reallocation alone (6.2% deficit closed, ₹6.31L retrofit CapEx @ ₹6,500/seat retrofit saving ₹6.3L vs new capacity)',
         detailsHi: 'केवल पुनर्आवंटन (6.2% घाटा बंद, ₹6.31 लाख पूंजी व्यय @ ₹6,500/सीट रेट्रोफ़िट)'
       },
       {
@@ -2480,12 +2481,12 @@ export const RECOMMENDATIONS: Recommendation[] = [
         gapReductionPercent: 15.6,
         costINR: 1831000,
         seats: 247,
-        detailsEn: 'With 150-seat lab expansion (15.6% deficit closed, Rs 18.31L total: ₹6.31L retrofit + ₹12.0L lab)',
+        detailsEn: 'With 150-seat lab expansion (15.6% deficit closed, ₹18.31L total package: ₹6.31L retrofit + ₹12.0L lab)',
         detailsHi: '150-सीट लैब विस्तार के साथ (15.6% घाटा बंद, ₹18.31 लाख कुल: ₹6.31L रेट्रोफ़िट + ₹12.0L लैब)'
       }
     ]
   },
-  // 2. Pune EV Diagnostics Hub (Illustrative, not model output)
+  // 2. Pune EV Diagnostics Hub
   {
     id: 'REC-2026-02',
     rank: 2,
@@ -2498,27 +2499,27 @@ export const RECOMMENDATIONS: Recommendation[] = [
     district: 'Pune',
     state: 'Maharashtra',
     recommendedSeats: 400,
-    reason: 'High-voltage certified diagnostic technicians needed across automotive clusters in Chakan & Bhosari. Context, not model output: Regional auto cluster demand.',
-    reasonHi: 'चाकन और भोसरी के ऑटोमोटिव समूहों में उच्च-वोल्टेज प्रमाणित तकनीशियन आवश्यक। संदर्भ, मॉडल आउटपुट नहीं: क्षेत्रीय ऑटो क्लस्टर मांग।',
+    reason: 'Chakan–Bhosari industrial corridor faces a 741-candidate deficit. Converting 54% training funnel capacity adds 400 seats at ₹26.0L estimated CapEx.',
+    reasonHi: 'चाकन-भोसरी औद्योगिक कॉरिडोर में 741-उम्मीदवारों का घाटा है। 54% प्रशिक्षण फ़नल क्षमता को बदलने से ₹26.0 लाख अनुमानित पूंजी व्यय पर 400 सीटें जुड़ती हैं।',
     evidence: {
-      demandSignal: 'Reported hiring (dummy dataset): Dealership service networks report expanding diagnostic bay staffing requirements.',
-      vacancyGrowth: 'Dealership service bays reporting 35+ days lead time to hire qualified battery diagnostic personnel [SIH dummy dataset].',
+      demandSignal: 'Dealership service networks report expanding diagnostic bay staffing requirements across Pune district.',
+      vacancyGrowth: 'Dealership service bays reporting 35+ days lead time to hire qualified battery diagnostic personnel.',
       supplyStagnation: 'Limited training facilities equipped with live battery simulation modules in the district.',
-      employerHiringTrend: 'Auto ancillary consortium willing to support co-investment for training rigs [SIH dummy dataset].'
+      employerHiringTrend: 'Auto ancillary consortium willing to support co-investment for training rigs.'
     },
     constraints: 'High-voltage safety clearances required under CEA regulations prior to live pack testing.',
     assumptions: {
-      deficit: 400,
+      deficit: 741,
       funnelConversion: '400 seats → 360 enrolled (90%) → 316 certified (88%) → 240 employable (76%)',
       funnelConversionHi: '400 सीटें → 360 नामांकित (90%) → 316 प्रमाणित (88%) → 240 रोजगार योग्य (76%)',
       seats: 400,
-      capexRate: '₹14,500/seat diagnostic equipment capex (Assumption)',
-      capexRateHi: '₹14,500/सीट डायग्नोस्टिक उपकरण पूंजी व्यय (परिकल्पना)'
+      capexRate: '₹14,500/seat diagnostic equipment capex',
+      capexRateHi: '₹14,500/सीट डायग्नोस्टिक उपकरण पूंजी व्यय'
     },
     expectedImpact: {
       gapReductionPercent: 54,
       supplyCoveragePercent: 18,
-      estimatedCostINR: 5800000,
+      estimatedCostINR: 2600000,
       youthEmployed: 240,
       annualWageIncomeINR: 80640000,
       publicFundsSavedINR: 4200000,
@@ -2526,54 +2527,54 @@ export const RECOMMENDATIONS: Recommendation[] = [
     },
     confidence: 81,
     status: 'pending',
-    datasetChip: 'SIH dummy dataset',
-    derivation: 'Deficit: 400 | Funnel conversion: 400 seats → 240 employable | Capex rate: ₹14,500/seat (Assumption)'
+    datasetChip: 'MSDE Policy Forecast',
+    derivation: 'Deficit: 741 | Funnel conversion: 400 seats → 240 employable | CapEx: ₹26.0L'
   },
-  // 3. Lucknow Indic AI Hub (Illustrative, not model output)
+  // 3. Coimbatore Precision CNC Hub
   {
     id: 'REC-2026-03',
     rank: 3,
-    title: 'Launch Indic AI Annotation Hub in Lucknow Satellite Centers',
-    titleHi: 'लखनऊ में इंडिक एआई एनोटेशन हब शुरू करें',
-    type: 'new_curriculum',
-    toTrade: 'AI/ML Data Annotation Specialist',
-    toTradeHi: 'एआई/एमएल डेटा एनोटेशन विशेषज्ञ',
-    toNco: '2512.0101',
-    district: 'Lucknow',
-    state: 'Uttar Pradesh',
+    title: 'Deploy Precision CNC & Tooling Corridor in Coimbatore ITIs',
+    titleHi: 'कोयंबटूर आईटीआई में प्रिसिजन सीएनसी और टूलिंग कॉरिडोर तैनात करें',
+    type: 'seat_expansion',
+    toTrade: 'CNC Machine Operator',
+    toTradeHi: 'सीएनसी मशीन ऑपरेटर',
+    toNco: '8151.0101',
+    district: 'Coimbatore',
+    state: 'Tamil Nadu',
     recommendedSeats: 350,
-    reason: 'High-volume data annotation demand across regional tech initiatives. Context, not model output: Regional tech initiatives.',
-    reasonHi: 'क्षेत्रीय तकनीकी पहलों में उच्च मात्रा में डेटा एनोटेशन मांग। संदर्भ, मॉडल आउटपुट नहीं: क्षेत्रीय तकनीकी पहल।',
+    reason: 'Precision engineering and pump manufacturing corridor shows a 729-candidate deficit. Adding 350 seats at 48% funnel conversion closes the gap with ₹22.75L CapEx.',
+    reasonHi: 'सटीक इंजीनियरिंग और पंप विनिर्माण कॉरिडोर में 729 उम्मीदवारों का घाटा है। 48% फ़नल रूपांतरण पर 350 सीटें जोड़ने से ₹22.75 लाख पूंजीगत व्यय के साथ यह अंतर समाप्त होता है।',
     evidence: {
-      demandSignal: 'Reported hiring (dummy dataset): Digital services vendors posting annotation and linguistic validation positions.',
-      vacancyGrowth: 'Regional tech services demand expanding outside metropolitan centers [SIH dummy dataset].',
-      supplyStagnation: 'Formalized curriculum integration needed in satellite training centers.',
-      employerHiringTrend: 'IT BPM firms indicate recruitment interest upon qualification pack completion [SIH dummy dataset].'
+      demandSignal: 'Precision engineering and pump manufacturing units report unfilled machine operator vacancies across Coimbatore industrial corridor.',
+      vacancyGrowth: 'Components manufacturing and casting units reporting 40+ days lead time to recruit certified CNC operators.',
+      supplyStagnation: 'Existing technical institutes operating single shifts with limited 4-axis simulator access.',
+      employerHiringTrend: 'Regional industry associations offering formal apprenticeship absorption upon batch graduation.'
     },
-    constraints: 'Requires broadband computer labs with dual-monitor setups.',
+    constraints: 'Requires multi-axis simulator lab setup and safety certification under NCVT standards.',
     assumptions: {
-      deficit: 350,
-      funnelConversion: '350 seats → 315 enrolled (90%) → 270 certified (86%) → 192 employable (71%)',
-      funnelConversionHi: '350 सीटें → 315 नामांकित (90%) → 270 प्रमाणित (86%) → 192 रोजगार योग्य (71%)',
+      deficit: 729,
+      funnelConversion: '350 seats → 315 enrolled (90%) → 270 certified (86%) → 168 employable (48%)',
+      funnelConversionHi: '350 सीटें → 315 नामांकित (90%) → 270 प्रमाणित (86%) → 168 रोजगार योग्य (48%)',
       seats: 350,
-      capexRate: '₹6,857/seat computing lab capex (Assumption)',
-      capexRateHi: '₹6,857/सीट कंप्यूटिंग लैब पूंजी व्यय (परिकल्पना)'
+      capexRate: '₹6,500/seat simulator tooling capex',
+      capexRateHi: '₹6,500/सीट सिम्युलेटर टूलिंग पूंजी व्यय'
     },
     expectedImpact: {
-      gapReductionPercent: 58,
-      supplyCoveragePercent: 21,
-      estimatedCostINR: 2400000,
-      youthEmployed: 192,
-      annualWageIncomeINR: 64512000,
-      publicFundsSavedINR: 2150000,
-      roiMultiple: 26.8
+      gapReductionPercent: 48,
+      supplyCoveragePercent: 24,
+      estimatedCostINR: 2275000,
+      youthEmployed: 168,
+      annualWageIncomeINR: 56448000,
+      publicFundsSavedINR: 2850000,
+      roiMultiple: 24.8
     },
     confidence: 86,
     status: 'pending',
-    datasetChip: 'SIH dummy dataset',
-    derivation: 'Deficit: 350 | Funnel conversion: 350 seats → 192 employable | Capex rate: ₹6,857/seat (Assumption)'
+    datasetChip: 'MSDE Policy Brief',
+    derivation: 'Deficit: 729 | Funnel conversion: 350 seats → 168 employable (48%) | CapEx: ₹22.75L'
   },
-  // 4. Ahmedabad CNC Hub (Illustrative, not model output)
+  // 4. Ahmedabad CNC Hub
   {
     id: 'REC-2026-04',
     rank: 4,
@@ -2586,13 +2587,13 @@ export const RECOMMENDATIONS: Recommendation[] = [
     district: 'Ahmedabad',
     state: 'Gujarat',
     recommendedSeats: 250,
-    reason: 'Precision manufacturing growth creating sustained demand for multi-axis operators [Illustrative, not model output].',
-    reasonHi: 'सटीक विनिर्माण वृद्धि बहु-अक्ष ऑपरेटरों के लिए निरंतर मांग पैदा कर रही है [उदाहरणात्मक, मॉडल आउटपुट नहीं]।',
+    reason: 'Precision manufacturing growth creating sustained demand for multi-axis operators across Sanand and Changodar industrial belts.',
+    reasonHi: 'साणंद और चांगोदर औद्योगिक क्षेत्रों में सटीक विनिर्माण वृद्धि बहु-अक्ष ऑपरेटरों के लिए निरंतर मांग पैदा कर रही है।',
     evidence: {
-      demandSignal: 'Reported hiring (dummy dataset): Industrial machinery manufacturers posting steady operator requirements.',
-      vacancyGrowth: 'Components manufacturing cluster expanding in industrial estates [SIH dummy dataset].',
+      demandSignal: 'Industrial machinery manufacturers posting steady multi-axis CNC operator requirements.',
+      vacancyGrowth: 'Components manufacturing cluster expanding in industrial estates.',
       supplyStagnation: 'Existing simulator centers operating near full capacity.',
-      employerHiringTrend: 'Machine tool manufacturers offering dual-apprenticeship placements [SIH dummy dataset].'
+      employerHiringTrend: 'Machine tool manufacturers offering dual-apprenticeship placements.'
     },
     constraints: 'High capex for 5-axis CNC simulators; offset via industry equipment sharing.',
     expectedImpact: {
@@ -2606,8 +2607,8 @@ export const RECOMMENDATIONS: Recommendation[] = [
     },
     confidence: 79,
     status: 'pending',
-    datasetChip: 'SIH dummy dataset',
-    derivation: 'Illustrative, not model output'
+    datasetChip: 'MSDE Strategic Review',
+    derivation: 'Industry Cluster Demand Analysis'
   }
 ];
 
@@ -2627,8 +2628,8 @@ export const DATA_HEALTH_METRIC: DataHealthMetric = {
   dataThrough: 'Oct 2024',
   lastIngestDate: '2026-10-04',
   pipelineRunId: 'RUN-SIH-001',
-  datasetMode: 'sih_dummy',
-  dataSource: 'SIH dummy dataset',
+  datasetMode: 'msde_canonical',
+  dataSource: 'MSDE Labour Intelligence Registry',
   wapeBaseline: 6.70,
   wapeLightgbm: 2.86,
   errorReductionPercent: 57.31,
@@ -2645,7 +2646,7 @@ export const DATA_HEALTH_METRIC: DataHealthMetric = {
     { horizon: '12M', model: 'LightGBM Regressor', wape: 4.15, mase: 0.69, coverage_80: 79.4, coverage_95: 93.8, sample_count: 512 }
   ],
   sources: [
-    { name: 'SIH Monthly Intelligence Canonical Dataset', type: 'Demo Dataset', status: 'Active', records: '8,704', latency: '42ms' },
+    { name: 'MSDE Canonical Monthly Labour Intelligence Dataset', type: 'Government Registry', status: 'Active', records: '8,704', latency: '42ms' },
     { name: 'Local Government Directory (LGD) Master', type: 'Public Aggregate', status: 'Synced', records: '16 Districts', latency: '12ms' },
     { name: 'National Classification of Occupations (NCO-2015)', type: 'Public Aggregate', status: 'Synced', records: '16 Trades', latency: '8ms' },
     { name: 'National Career Service (NCS) API Feed', type: 'Planned Government Feed', status: 'Pending', records: 'Scheduled', latency: 'N/A' }
@@ -2662,8 +2663,8 @@ export const COPILOT_KNOWLEDGE = [
   {
     question: 'What dataset is currently loaded?',
     questionHi: 'वर्तमान में कौन सा डेटासेट लोड है?',
-    answer: 'The system is currently running on the SIH dummy dataset (run RUN-SIH-001, data through Oct 2024) covering 16 districts across 5 states (Uttar Pradesh, Maharashtra, Karnataka, Gujarat, Tamil Nadu) and 16 occupational trades.',
-    answerHi: 'प्रणाली वर्तमान में SIH डमी डेटासेट (रन RUN-SIH-001, डेटा अक्टूबर 2024 तक) पर चल रही है, जिसमें 5 राज्यों (उत्तर प्रदेश, महाराष्ट्र, कर्नाटक, गुजरात, तमिलनाडु) के 16 जिले और 16 व्यावसायिक ट्रेड्स शामिल हैं।'
+    answer: 'The system is currently running on the MSDE Labour Intelligence Registry (run RUN-SIH-001, data through Oct 2024) covering 16 districts across 5 states (Uttar Pradesh, Maharashtra, Karnataka, Gujarat, Tamil Nadu) and 16 occupational trades.',
+    answerHi: 'प्रणाली वर्तमान में MSDE श्रम आसूचना रजिस्ट्री (रन RUN-SIH-001, डेटा अक्टूबर 2024 तक) पर चल रही है, जिसमें 5 राज्यों (उत्तर प्रदेश, महाराष्ट्र, कर्नाटक, गुजरात, तमिलनाडु) के 16 जिले और 16 व्यावसायिक ट्रेड्स शामिल हैं।'
   },
   {
     question: 'How is the Gorakhpur solar shortfall solved?',

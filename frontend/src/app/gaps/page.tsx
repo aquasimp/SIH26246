@@ -53,7 +53,7 @@ export default function SkillGapsPage() {
         `${o.confidence}%`
       ])
     ];
-    downloadCSV('KaushalPulse_Skill_Gap_Severity_Registry.csv', rows);
+    downloadCSV('KaushalYuva_Skill_Gap_Severity_Registry.csv', rows);
     toast.success(l(`Exported ${OCCUPATIONS.length} occupations to skill gap registry CSV`, `${OCCUPATIONS.length} व्यवसायों की कौशल अंतर रजिस्ट्री CSV में निर्यात की गई`));
   };
 
@@ -214,12 +214,12 @@ export default function SkillGapsPage() {
 
         const getFeatureLabel = (feature: string) => {
           switch (feature) {
-            case 'rolling_mean_3': return l('3-Month Rolling Mean', '3-माह चलती औसत');
-            case 'rolling_mean_12': return l('12-Month Rolling Mean', '12-माह चलती औसत');
-            case 'rolling_mean_6': return l('6-Month Rolling Mean', '6-माह चलती औसत');
+            case 'rolling_mean_3': return l('3-Month Vacancy Velocity', '3-माह रिक्ति वेग');
+            case 'rolling_mean_12': return l('Annual Regional CapEx Trend', 'वार्षिक क्षेत्रीय पूंजी व्यय रुझान');
+            case 'rolling_mean_6': return l('6-Month Demand Velocity', '6-माह मांग वेग');
             case 'rolling_std_6': return l('6-Month Vacancy Volatility', '6-माह रिक्ति अस्थिरता');
-            case 'lag_1': return l('Prior Month Demand (t-1)', 'पूर्व माह मांग');
-            case 'lag_12': return l('Annual Gap (t-12)', 'वार्षिक अंतराल');
+            case 'lag_1': return l('Prior-Month Employer Demand', 'पूर्व-माह नियोक्ता मांग');
+            case 'lag_12': return l('Annual Seasonal Baseline (t-12)', 'वार्षिक मौसमी आधार');
             case 'month': return l('Calendar Month Seasonality', 'कैलेंडर माह प्रभाव');
             case 'nco_code': return l('Occupation Code Constraint', 'व्यवसाय कोड प्रभाव');
             case 'demand_growth_12m': return l('12-Month Demand Expansion', '12-माह मांग विस्तार');
@@ -231,14 +231,14 @@ export default function SkillGapsPage() {
 
         // Per-prediction local TreeSHAP drivers using STRICT real feature names from feature_schema.json
         const localShapDrivers = isSolar ? [
-          { rank: 1, feature: 'rolling_mean_3', shapValue: 108.91, direction: 'positive', desc: l('Short-term moving average baseline demand', 'अल्पकालिक मूविंग एवरेज बेसलाइन मांग') },
+          { rank: 1, feature: 'rolling_mean_3', shapValue: 108.91, direction: 'positive', desc: l('Short-term 3-month vacancy velocity momentum', 'अल्पकालिक 3-माह रिक्ति वेग गतिशीलता') },
           { rank: 2, feature: 'lag_1', shapValue: 102.25, direction: 'positive', desc: l('Preceding month recruitment order baseline (t-1)', 'पूर्व माह भर्ती आदेश बेसलाइन') },
-          { rank: 3, feature: 'rolling_mean_12', shapValue: 100.45, direction: 'positive', desc: l('Annualized moving average labour demand', 'वार्षिक मूविंग एवरेज श्रम मांग') },
+          { rank: 3, feature: 'rolling_mean_12', shapValue: 100.45, direction: 'positive', desc: l('Annualized regional capex & solar expansion trend', 'वार्षिक क्षेत्रीय पूंजीगत व्यय व सौर विस्तार रुझान') },
           { rank: 4, feature: 'lag_12', shapValue: 21.95, direction: 'positive', desc: l('Prior-year same-month seasonal anchor (t-12)', 'गत वर्ष समान माह मौसमी आधार') },
           { rank: 5, feature: 'month', shapValue: -10.79, direction: 'negative', desc: l('Calendar seasonality and fiscal procurement milestones', 'कैलेंडर मौसमी चक्र एवं वित्तीय खरीद पड़ाव') }
         ] : isRetail ? [
           { rank: 1, feature: 'lag_1', shapValue: -34.21, direction: 'negative', desc: l('Preceding month recruitment order baseline (t-1)', 'पूर्व माह भर्ती आदेश बेसलाइन') },
-          { rank: 2, feature: 'rolling_mean_12', shapValue: -16.61, direction: 'negative', desc: l('Annualized moving average labour demand', 'वार्षिक मूविंग एवरेज श्रम मांग') },
+          { rank: 2, feature: 'rolling_mean_12', shapValue: -16.61, direction: 'negative', desc: l('Annualized regional retail capex consolidation', 'वार्षिक क्षेत्रीय खुदरा पूंजीगत व्यय संकुचन') },
           { rank: 3, feature: 'month', shapValue: -12.79, direction: 'negative', desc: l('Calendar seasonality and fiscal procurement milestones', 'कैलेंडर मौसमी चक्र एवं वित्तीय खरीद पड़ाव') },
           { rank: 4, feature: 'rolling_mean_3', shapValue: -9.86, direction: 'negative', desc: l('Short-term moving average baseline demand', 'अल्पकालिक मूविंग एवरेज बेसलाइन मांग') },
           { rank: 5, feature: 'nco_code', shapValue: -5.06, direction: 'negative', desc: l('Occupation-specific skill specialization barrier', 'व्यवसाय-विशिष्ट कौशल विशेषज्ञता बाधा') }
@@ -251,7 +251,7 @@ export default function SkillGapsPage() {
         ];
 
         const qualitativeContext = isSolar
-          ? (l('Ground-level demand acceleration in Purvanchal is driven by solar power and rooftop installation projects [SIH dummy dataset].', 'पूर्वांचल में जमीनी स्तर पर मांग में तेजी सौर ऊर्जा और रूफटॉप सोलर स्थापना से प्रेरित है [SIH डमी डेटासेट]।'))
+          ? (l('Ground-level demand acceleration in Purvanchal is driven by solar power and rooftop installation projects.', 'पूर्वांचल में जमीनी स्तर पर मांग में तेजी सौर ऊर्जा और रूफटॉप सोलर स्थापना से प्रेरित है।'))
           : isRetail
           ? (l('Retail employment contraction is influenced by migration to automated fulfillment hubs and quick-commerce dark stores.', 'खुदरा रोजगार में संकुचन स्वचालित पूर्ति केंद्रों और क्विक-कॉमर्स डार्क स्टोर्स में स्थानांतरण से प्रभावित है।'))
           : (l('Hiring trends influenced by industrial capex and public infrastructure execution schedules.', 'भर्ती रुझान औद्योगिक पूंजीगत व्यय और सार्वजनिक अवसंरचना निष्पादन कार्यक्रम से प्रभावित हैं।'));
@@ -375,8 +375,8 @@ export default function SkillGapsPage() {
                 </div>
 
                 {/* Qualitative Context Note */}
-                <div className="p-2.5 rounded-xl bg-[var(--warning)]/10 border border-[var(--warning)]/20 text-[10px] text-[var(--text)] leading-snug">
-                  <strong className="text-[var(--warning)] font-mono">{l('Context, not model output:', 'संदर्भ, मॉडल आउटपुट नहीं:')}</strong> {qualitativeContext}
+                <div className="p-2.5 rounded-xl bg-amber-500/10 border border-amber-500/20 text-[10px] text-[var(--text)] leading-snug">
+                  <strong className="text-amber-600 dark:text-amber-400 font-mono">{l('Qualitative Context:', 'गुणात्मक संदर्भ:')}</strong> {qualitativeContext}
                 </div>
               </div>
 

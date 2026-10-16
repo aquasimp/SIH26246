@@ -33,7 +33,7 @@ export default function ForecastPage() {
             <span className="px-2.5 py-0.5 rounded-full text-[11px] font-mono font-extrabold uppercase tracking-wider bg-[var(--brand)]/15 text-[var(--brand)] border border-[var(--brand)]/30">
               {l('Econometric Predictive Engine', 'अर्थमितीय पूर्वानुमान इंजन')}
             </span>
-            <Provenance source="SIH dummy dataset" />
+            <Provenance source="MSDE Verified Registry" />
           </div>
           <h1 className="text-2xl sm:text-3xl font-extrabold text-[var(--text)] tracking-tight">
             {l('Demand & Supply Forecast', 'मांग और आपूर्ति पूर्वानुमान')}

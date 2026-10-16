@@ -26,7 +26,7 @@ export const EvidenceDrawer: React.FC = () => {
 
   const handleExportEvidence = () => {
     const rows = [
-      ['KaushalPulse Policy Recommendation Dossier', 'CONFIDENTIAL - MSDE USE ONLY'],
+      ['KaushalYuva Policy Recommendation Dossier', 'CONFIDENTIAL - MSDE USE ONLY'],
       ['Recommendation ID', rec.id],
       ['Title', rec.title],
       ['Target Trade', `${rec.toTrade} (${rec.toNco})`],
@@ -48,7 +48,7 @@ export const EvidenceDrawer: React.FC = () => {
       ['Estimated Budget Required', formatINR(rec.expectedImpact.estimatedCostINR)],
       ['Constraints', rec.constraints]
     ];
-    downloadCSV(`KaushalPulse_Evidence_${rec.id}_${rec.district}.csv`, rows);
+    downloadCSV(`KaushalYuva_Evidence_${rec.id}_${rec.district}.csv`, rows);
   };
 
   return (

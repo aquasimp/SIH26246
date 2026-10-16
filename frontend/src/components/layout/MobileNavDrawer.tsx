@@ -19,11 +19,8 @@ import {
   DownloadCloud, 
   Settings, 
   FileText,
-  Bot,
-  Radio,
-  ExternalLink,
-  ChevronRight,
-  Sparkles
+  MessageSquare,
+  ChevronRight
 } from 'lucide-react';
 import { useApp } from '@/lib/store';
 import { ThemeToggle } from './ThemeToggle';
@@ -47,13 +44,14 @@ export const MobileNavDrawer: React.FC = () => {
     mobileMenuOpen, 
     setMobileMenuOpen, 
     language, 
-    setLanguage, 
     t, 
     alerts, 
     recommendations,
     setCopilotOpen,
     selectedDistrict,
-    selectedState, l } = useApp();
+    selectedState, 
+    l 
+  } = useApp();
 
   // Close drawer on Escape key and prevent background scroll when open
   useEffect(() => {
@@ -94,7 +92,7 @@ export const MobileNavDrawer: React.FC = () => {
 
   const navGroups: { title: string; items: NavItem[] }[] = [
     {
-      title: l('// INTELLIGENCE', '// इंटेलिजेंस'),
+      title: l('Intelligence', 'इंटेलिजेंस'),
       items: [
         { href: '/overview', label: t.nav.overview, icon: LayoutDashboard },
         { href: '/intelligence', label: t.nav.intelligence, icon: TrendingUp },
@@ -103,21 +101,21 @@ export const MobileNavDrawer: React.FC = () => {
       ]
     },
     {
-      title: l('// DECISION SUPPORT', '// निर्णय एवं सिमुलेशन'),
+      title: l('Planning & Action', 'कार्रवाई एवं सिमुलेशन'),
       items: [
         { 
           href: '/alerts', 
           label: t.nav.alerts, 
           icon: AlertTriangle, 
           badge: `${unreadAlerts}`, 
-          badgeColor: 'bg-[var(--severe)]/20 text-[var(--severe)] border-[var(--severe)]/40' 
+          badgeColor: 'bg-amber-100 dark:bg-amber-950/60 text-amber-700 dark:text-amber-400 border-amber-200 dark:border-amber-800' 
         },
         { 
           href: '/recommendations', 
           label: t.nav.recommendations, 
           icon: Lightbulb, 
           badge: `${pendingRecommendations}`, 
-          badgeColor: 'bg-cyan-500/20 text-cyan-600 dark:text-cyan-400 border-cyan-500/40' 
+          badgeColor: 'bg-sky-100 dark:bg-sky-950/60 text-sky-700 dark:text-sky-400 border-sky-200 dark:border-sky-800' 
         },
         { 
           href: '/scenarios', 
@@ -128,7 +126,7 @@ export const MobileNavDrawer: React.FC = () => {
       ]
     },
     {
-      title: l('// EXPLORE & TAXONOMY', '// अन्वेषण एवं वर्गीकरण'),
+      title: l('Taxonomy & Directory', 'अन्वेषण एवं वर्गीकरण'),
       items: [
         { href: '/districts', label: t.nav.districts, icon: MapPin },
         { href: '/occupations', label: t.nav.occupations, icon: Briefcase },
@@ -136,7 +134,7 @@ export const MobileNavDrawer: React.FC = () => {
       ]
     },
     {
-      title: l('// SYSTEM & GOVERNANCE', '// प्रणाली एवं मॉडल'),
+      title: l('System & Governance', 'प्रणाली एवं मॉडल'),
       items: [
         { href: '/data-health', label: t.nav.dataHealth, icon: ShieldCheck },
         { href: '/methodology', label: l('Methodology', 'मॉडल कार्यप्रणाली'), icon: FileText },
@@ -148,17 +146,17 @@ export const MobileNavDrawer: React.FC = () => {
 
   return (
     <div className="fixed inset-0 z-50 flex md:hidden" role="dialog" aria-modal="true" aria-label="Mobile Navigation Menu">
-      {/* Backdrop with blur */}
+      {/* Backdrop */}
       <div 
-        className="fixed inset-0 bg-black/60 backdrop-blur-md transition-opacity animate-in fade-in duration-200"
+        className="fixed inset-0 bg-black/50 transition-opacity animate-in fade-in duration-200"
         onClick={() => setMobileMenuOpen(false)}
         aria-hidden="true"
       />
 
       {/* Slide-in Drawer Container */}
-      <div className="relative w-[85%] max-w-sm h-full bg-[var(--surface-solid)] text-[var(--text)] border-r border-[var(--border)] shadow-2xl flex flex-col z-10 animate-in slide-in-from-left duration-250 ease-out">
+      <div className="relative w-[85%] max-w-sm h-full bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 border-r border-slate-200 dark:border-slate-800 shadow-xl flex flex-col z-10 animate-in slide-in-from-left duration-200 ease-out">
         {/* Drawer Header */}
-        <div className="p-4 border-b border-[var(--border)] flex items-center justify-between bg-[var(--surface-muted)]/50">
+        <div className="p-4 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between bg-slate-50/50 dark:bg-slate-800/30">
           <Link 
             href="/"
             onClick={() => setMobileMenuOpen(false)}
@@ -166,11 +164,10 @@ export const MobileNavDrawer: React.FC = () => {
           >
             <BrandLogo size="md" alt="KaushalYuva Logo" />
             <div className="flex flex-col min-w-0">
-              <span className="text-sm font-extrabold tracking-tight text-[var(--text)] font-display flex items-center gap-1.5 leading-tight">
+              <span className="text-sm font-bold tracking-tight text-slate-900 dark:text-slate-100 leading-tight">
                 {t.appTitle || siteConfig.name}
-                <span className="w-1.5 h-1.5 rounded-full bg-[#00c2cb] animate-pulse" />
               </span>
-              <span className="text-[9px] font-mono font-semibold text-cyan-600 dark:text-cyan-400 uppercase tracking-wider truncate">
+              <span className="text-[10px] font-medium text-slate-500 uppercase tracking-wider truncate">
                 MSDE · SIH 26246
               </span>
             </div>
@@ -179,7 +176,7 @@ export const MobileNavDrawer: React.FC = () => {
           <button
             type="button"
             onClick={() => setMobileMenuOpen(false)}
-            className="w-8 h-8 rounded-xl liquid-control flex items-center justify-center text-[var(--text-muted)] hover:text-[var(--text)] cursor-pointer"
+            className="p-1.5 rounded-md hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-500 hover:text-slate-900 dark:hover:text-slate-100 cursor-pointer"
             aria-label={l('Close navigation menu', 'मेनू बंद करें')}
           >
             <X className="w-4 h-4" />
@@ -187,15 +184,15 @@ export const MobileNavDrawer: React.FC = () => {
         </div>
 
         {/* Tactical Location Pill */}
-        <div className="px-4 py-2.5 bg-[var(--surface-solid)] border-b border-[var(--border)] flex items-center justify-between text-xs">
-          <div className="flex items-center gap-1.5 text-[var(--text-muted)]">
-            <MapPin className="w-3.5 h-3.5 text-[var(--brand)] shrink-0" />
-            <span className="font-semibold truncate max-w-[170px]">
+        <div className="px-4 py-2 bg-slate-50 dark:bg-slate-800/50 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between text-xs">
+          <div className="flex items-center gap-1.5 text-slate-600 dark:text-slate-400">
+            <MapPin className="w-3.5 h-3.5 text-slate-500 shrink-0" />
+            <span className="font-medium truncate max-w-[170px]">
               {localizedDistrict}, {localizedState}
             </span>
           </div>
-          <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-[#00c2cb]/10 text-cyan-600 dark:text-cyan-400 font-bold border border-[#00c2cb]/30">
-            LGD Active
+          <span className="text-[10px] font-medium px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-700">
+            Active
           </span>
         </div>
 
@@ -203,7 +200,7 @@ export const MobileNavDrawer: React.FC = () => {
         <div className="flex-1 overflow-y-auto px-3 py-3 space-y-4 overscroll-contain">
           {navGroups.map((group) => (
             <div key={group.title} className="space-y-1">
-              <div className="px-2 text-[10px] font-mono font-bold tracking-wider text-[var(--text-faint)] uppercase">
+              <div className="px-2.5 pt-1 text-[11px] font-semibold tracking-wider text-slate-400 uppercase">
                 {group.title}
               </div>
               <div className="space-y-0.5">
@@ -216,37 +213,33 @@ export const MobileNavDrawer: React.FC = () => {
                       key={item.href}
                       href={item.href}
                       onClick={() => setMobileMenuOpen(false)}
-                      className={`flex items-center justify-between px-3 py-2.5 rounded-xl text-xs font-semibold transition-all min-h-[44px] ${
+                      className={`flex items-center justify-between px-3 py-2 rounded-md text-xs font-medium transition-colors min-h-[40px] ${
                         isActive
-                          ? 'bg-[var(--brand)] text-white shadow-sm font-bold'
-                          : 'text-[var(--text)] hover:bg-[var(--surface-muted)]'
-                      } ${item.special && !isActive ? 'border border-amber-500/30 bg-amber-500/5' : ''}`}
+                          ? 'bg-slate-100 text-slate-900 dark:bg-slate-800 dark:text-slate-100 font-semibold border-l-[3px] border-l-slate-900 dark:border-l-slate-100'
+                          : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-50 dark:hover:bg-slate-800/60'
+                      }`}
                     >
                       <div className="flex items-center gap-2.5">
                         <Icon className={`w-4 h-4 shrink-0 ${
                           isActive 
-                            ? 'text-white' 
-                            : item.special 
-                              ? 'text-amber-500' 
-                              : 'text-[var(--text-muted)]'
+                            ? 'text-slate-900 dark:text-slate-100' 
+                            : 'text-slate-400'
                         }`} />
                         <span>{item.label}</span>
                       </div>
 
                       {item.badge ? (
-                        <span className={`px-2 py-0.5 rounded-full text-[10px] font-mono font-bold border ${
-                          isActive 
-                            ? 'bg-white/20 text-white border-white/30' 
-                            : item.badgeColor || 'bg-[var(--surface-muted)] text-[var(--text-muted)] border-[var(--border)]'
+                        <span className={`px-1.5 py-0.5 rounded text-[10px] font-medium border ${
+                          item.badgeColor || 'bg-slate-100 text-slate-600 border-slate-200'
                         }`}>
                           {item.badge}
                         </span>
-                      ) : item.special && !isActive ? (
-                        <span className="px-1.5 py-0.5 rounded text-[9px] font-mono font-bold bg-amber-500 text-white">
-                          SIM
+                      ) : item.special ? (
+                        <span className="px-1.5 py-0.5 text-[9px] font-semibold uppercase rounded bg-slate-900 text-white dark:bg-slate-100 dark:text-slate-900">
+                          STUDIO
                         </span>
                       ) : (
-                        <ChevronRight className={`w-3.5 h-3.5 opacity-40 ${isActive ? 'text-white opacity-80' : ''}`} />
+                        <ChevronRight className="w-3.5 h-3.5 text-slate-300 dark:text-slate-600" />
                       )}
                     </Link>
                   );
@@ -257,24 +250,25 @@ export const MobileNavDrawer: React.FC = () => {
         </div>
 
         {/* Footer Actions: Copilot, Language, Theme */}
-        <div className="p-3 border-t border-[var(--border)] bg-[var(--surface-muted)]/50 space-y-2.5">
-          {/* Kaushal Copilot Button */}
+        <div className="p-3 border-t border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/30 space-y-2.5">
+          {/* Ask Assistant Button */}
           <button
             type="button"
             onClick={() => {
               setMobileMenuOpen(false);
               setCopilotOpen(true);
             }}
-            className="w-full flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl bg-gradient-to-r from-[#0055a5] to-[#00c2cb] text-white font-bold text-xs shadow-md shadow-[#00c2cb]/20 cursor-pointer min-h-[44px]"
+            className="w-full flex items-center justify-center gap-2 py-2 px-3 rounded-md bg-sky-700 hover:bg-sky-800 text-white dark:bg-sky-500 dark:hover:bg-sky-400 dark:text-slate-950 font-medium text-xs transition-colors cursor-pointer min-h-[40px] shadow-xs"
           >
-            <Bot className="w-4 h-4" />
-            <span>{l('Open Kaushal Copilot AI', 'कौशल कोपायलट AI खोलें')}</span>
+            <MessageSquare className="w-4 h-4" />
+            <span>{l('Ask Assistant', 'सहायक से पूछें')}</span>
+            <kbd className="px-1.5 py-0.5 rounded bg-sky-800/80 text-sky-100 dark:bg-sky-600/30 dark:text-slate-900 text-[10px] font-mono">⌘K</kbd>
           </button>
 
-          {/* Language Selection Grid (7 Languages) */}
+          {/* Language Selection Grid */}
           <div className="space-y-1.5 pt-1">
-            <div className="flex items-center justify-between text-[10px] font-mono font-bold tracking-wider text-[var(--text-faint)] uppercase px-1">
-              <span>// {l('OFFICIAL LANGUAGES (7)', 'आधिकारिक भाषाएं (7)')}</span>
+            <div className="flex items-center justify-between text-[11px] font-semibold text-slate-400 uppercase tracking-wider px-1">
+              <span>{l('Languages', 'भाषाएं')}</span>
               <ThemeToggle />
             </div>
             <LanguageSelector variant="pills" />

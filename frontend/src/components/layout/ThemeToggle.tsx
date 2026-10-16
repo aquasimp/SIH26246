@@ -4,11 +4,7 @@ import { useTheme } from 'next-themes';
 import { useEffect, useState } from 'react';
 import { Moon, Sun, Monitor } from 'lucide-react';
 
-const OPTIONS = [
-  { id: 'light', icon: Sun, label: 'Light' },
-  { id: 'dark', icon: Moon, label: 'Dark' },
-  { id: 'system', icon: Monitor, label: 'System' }
-] as const;
+const CYCLE_ORDER = ['light', 'dark', 'system'] as const;
 
 export function ThemeToggle() {
   const { theme, setTheme } = useTheme();
@@ -19,35 +15,24 @@ export function ThemeToggle() {
   }, []);
 
   if (!mounted) {
-    return <div className="h-8 w-[98px] rounded-full border border-[var(--border)] opacity-0" aria-hidden />;
+    return <div className="h-8 w-8 rounded-md border border-slate-200 dark:border-slate-600 opacity-0" aria-hidden />;
   }
 
+  const currentIndex = CYCLE_ORDER.indexOf((theme as any) || 'system');
+  const nextTheme = CYCLE_ORDER[(currentIndex + 1) % CYCLE_ORDER.length];
+
+  const Icon = theme === 'dark' ? Moon : theme === 'light' ? Sun : Monitor;
+  const label = theme === 'dark' ? 'Dark' : theme === 'light' ? 'Light' : 'System';
+
   return (
-    <div
-      role="radiogroup"
-      aria-label="Theme selector"
-      className="liquid-glass-pill inline-flex items-center rounded-full p-0.5 border border-[var(--border)] h-[36px] shrink-0"
+    <button
+      type="button"
+      aria-label={`Theme: ${label}. Click to switch.`}
+      title={`Theme: ${label}`}
+      onClick={() => setTheme(nextTheme)}
+      className="h-[36px] w-[36px] rounded-md border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-800 flex items-center justify-center text-slate-500 hover:text-slate-900 dark:hover:text-slate-100 cursor-pointer transition-colors shrink-0"
     >
-      {OPTIONS.map(({ id, icon: Icon, label }) => {
-        const isActive = theme === id;
-        return (
-          <button
-            key={id}
-            role="radio"
-            aria-checked={isActive}
-            aria-label={`${label} theme`}
-            title={`${label} theme`}
-            onClick={() => setTheme(id)}
-            className={`grid h-7 w-7 place-items-center rounded-full transition-all cursor-pointer shrink-0 ${
-              isActive
-                ? 'bg-[var(--surface-solid)] text-[var(--brand)] shadow-xs font-bold border border-[var(--border-strong)]'
-                : 'text-[var(--text-faint)] hover:text-[var(--text)]'
-            }`}
-          >
-            <Icon className="h-3.5 w-3.5" />
-          </button>
-        );
-      })}
-    </div>
+      <Icon className="h-3.5 w-3.5" />
+    </button>
   );
 }

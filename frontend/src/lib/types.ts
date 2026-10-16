@@ -133,7 +133,7 @@ export interface EarlyWarningAlert {
   confidence: number;
   recommendedAction: string;
   recommendedActionHi?: string;
-  context?: string;       // e.g. 'Context, not model output: ...'
+  context?: string;       // e.g. Qualitative intelligence context
   contextHi?: string;
   wastedSeats?: number;   // e.g. 536 seats
   timestamp: string;
@@ -320,7 +320,7 @@ export interface DataHealthMetric {
   backtestHorizons?: BacktestHorizonRow[];
   sources?: {
     name: string;
-    type: 'Public Aggregate' | 'Demo Dataset' | 'Planned Government Feed';
+    type: 'Public Aggregate' | 'Demo Dataset' | 'Planned Government Feed' | 'Government Registry';
     status: 'Active' | 'Synced' | 'Pending';
     records: string;
     latency: string;

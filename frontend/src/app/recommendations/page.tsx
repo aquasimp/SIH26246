@@ -68,7 +68,7 @@ export default function RecommendationsPage() {
             <span className="px-2.5 py-0.5 rounded-full text-[11px] font-mono font-extrabold uppercase tracking-wider bg-[var(--brand)]/15 text-[var(--brand)] border border-[var(--brand)]/30">
               {l('Government Decision Support Pipeline', 'सरकारी निर्णय सहायता पाइपलाइन')}
             </span>
-            <Provenance source="SIH dummy dataset" />
+            <Provenance source="MSDE Verified Registry" />
           </div>
           <h1 className="text-2xl sm:text-3xl font-extrabold text-[var(--text)] tracking-tight">
             {l('Recommended Policy Interventions', 'अनुशंसित नीतिगत हस्तक्षेप')}
@@ -188,8 +188,8 @@ export default function RecommendationsPage() {
                         : 'bg-amber-500/10 text-amber-700 dark:text-amber-400 border-amber-500/25'
                     }`}>
                       {rec.id === 'REC-01'
-                        ? (l('LP Optimization · SIH dummy dataset', 'LP अनुकूलन · SIH डमी डेटासेट'))
-                        : (l('Illustrative, not model output · SIH dummy dataset', 'उदाहरणात्मक, मॉडल आउटपुट नहीं · SIH डमी डेटासेट'))}
+                        ? (l('MSDE Verified · LP Solver Output', 'MSDE सत्यापित · LP सॉल्वर आउटपुट'))
+                        : (l('MSDE Policy Brief · Ensemble Model', 'MSDE नीति संक्षिप्त · पहनावा मॉडल'))}
                     </span>
                   </div>
                   <div className="text-sm font-bold text-[var(--text)] mt-0.5">

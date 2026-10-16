@@ -18,24 +18,32 @@ export const GlassSelect: React.FC<GlassSelectProps> = ({
 }) => {
   return (
     <div className="flex flex-col gap-1">
-      {label && <label className="text-[11px] font-semibold text-[var(--text-faint)] uppercase tracking-wider">{label}</label>}
-      <div className="relative">
+      {label && (
+        <label className="text-[10px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
+          {label}
+        </label>
+      )}
+      <div className="relative flex items-center">
         {icon && (
-          <div className="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none text-[var(--text-faint)]">
+          <div className="absolute left-2.5 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400">
             {icon}
           </div>
         )}
         <select
           className={clsx(
-            'w-full appearance-none liquid-control rounded-xl py-2 pr-9 text-xs sm:text-sm font-medium text-[var(--text)] bg-[var(--surface-solid)] focus:outline-none focus:ring-2 focus:ring-[var(--brand)] cursor-pointer',
-            icon ? 'pl-9' : 'pl-3.5',
+            'w-full appearance-none bg-white/80 dark:bg-slate-900/80 backdrop-blur-md',
+            'border border-slate-200/80 dark:border-slate-800/80 rounded-lg py-1.5 pr-8 text-xs font-semibold',
+            'text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-sky-500/30',
+            'shadow-[inset_0_1px_0_0_rgba(255,255,255,0.95)] dark:shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)]',
+            'transition-all duration-200 cursor-pointer',
+            icon ? 'pl-8' : 'pl-2.5',
             className
           )}
           {...props}
         >
           {children}
         </select>
-        <ChevronDown className="w-4 h-4 text-[var(--text-faint)] absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none" />
+        <ChevronDown className="w-3.5 h-3.5 text-slate-400 absolute right-2.5 top-1/2 -translate-y-1/2 pointer-events-none" />
       </div>
     </div>
   );

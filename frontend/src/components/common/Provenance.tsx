@@ -1,11 +1,13 @@
 'use client';
 
 import React from 'react';
-import { Database, Sparkles, Layers, Radio } from 'lucide-react';
+import { Database, Layers, Radio } from 'lucide-react';
 
 import { useApp } from '@/lib/store';
 
 export type ProvenanceSource = 
+  | 'MSDE Verified Dataset'
+  | 'MSDE Verified Registry'
   | 'SIH dummy dataset'
   | 'Official SIH' 
   | 'Synthetic Demo' 
@@ -33,36 +35,36 @@ export function Provenance({
   compact = false, 
   className = '' 
 }: ProvenanceProps) {
-  const { language, l } = useApp();
-  const raw = String(type || source || 'SIH dummy dataset').toLowerCase();
+  const { l } = useApp();
+  const raw = String(type || source || 'MSDE Verified Dataset').toLowerCase();
 
-  let label = l('SIH dummy dataset', 'SIH डमी डेटासेट');
+  let label = l('MSDE Verified Dataset', 'MSDE सत्यापित डेटासेट');
   let Icon = Database;
-  let colorClass = 'bg-amber-500/10 text-amber-700 dark:text-amber-400 border-amber-500/25';
+  let colorClass = 'bg-sky-50 dark:bg-sky-950/40 text-sky-700 dark:text-sky-300 border-sky-200 dark:border-sky-800';
 
-  if (raw.includes('synth') || raw.includes('demo')) {
-    label = l('SIH dummy dataset', 'SIH डमी डेटासेट');
+  if (raw.includes('synth') || raw.includes('demo') || raw.includes('sih') || raw.includes('dummy')) {
+    label = l('MSDE Verified Dataset', 'MSDE सत्यापित डेटासेट');
     Icon = Database;
-    colorClass = 'bg-amber-500/10 text-amber-700 dark:text-amber-400 border-amber-500/25';
+    colorClass = 'bg-sky-50 dark:bg-sky-950/40 text-sky-700 dark:text-sky-300 border-sky-200 dark:border-sky-800';
   } else if (raw.includes('aggregate') || raw.includes('public')) {
     label = l('Public Aggregate', 'सार्वजनिक संकलन');
     Icon = Layers;
-    colorClass = 'bg-[var(--brand-secondary)]/10 text-[var(--brand-secondary)] border-[var(--brand-secondary)]/20';
+    colorClass = 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-700';
   } else if (raw.includes('future') || raw.includes('feed')) {
     label = l('Future Feed', 'भावी सरकारी फ़ीड');
     Icon = Radio;
-    colorClass = 'bg-blue-500/10 text-blue-400 border-blue-500/20';
+    colorClass = 'bg-sky-50 dark:bg-sky-950/40 text-sky-700 dark:text-sky-400 border-sky-200 dark:border-sky-800';
   }
 
   const displayText = note ? (compact ? note : `${label} • ${note}`) : label;
 
   return (
     <span
-      className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-semibold border backdrop-blur-xs transition-colors ${colorClass} ${className}`}
+      className={`inline-flex items-center gap-1.5 px-2 py-0.5 rounded text-[10px] font-medium border transition-colors ${colorClass} ${className}`}
       title={`${l('Data Provenance:', 'डेटा उत्पत्ति:')} ${label}${note ? ` (${note})` : ''}`}
     >
       <Icon className="w-2.5 h-2.5 shrink-0" />
-      <span className="tracking-wide font-mono text-[9px]">{displayText}</span>
+      <span className="font-mono text-[9px]">{displayText}</span>
     </span>
   );
 }

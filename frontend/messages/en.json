@@ -105,9 +105,9 @@
   },
   "hero": {
     "eyebrow": "SIH 2026 · PS 26246 · MSDE",
-    "titlePrefix": "FORECAST THE SKILL GAP.",
-    "titleAction": "FUND THE FIX.",
-    "subhead": "KaushalYuva turns labour-market data into district-level forecasts, early warnings and seat-reallocation decisions for India's youth skilling system.",
+    "titlePrefix": "Forecast District Skill Gaps.",
+    "titleAction": "Reallocate Training Capacity.",
+    "subhead": "Turn NCS, e-Shram, and PLFS labour-market datasets into district-level shortage forecasts, early warnings, and cost-optimized ITI seat reallocations.",
     "ctaPrimary": "Open Dashboard",
     "ctaSecondary": "Try Scenario Studio",
     "proofPanel": {
@@ -164,7 +164,7 @@
     }
   },
   "overview": {
-    "title": "National Intelligence Command Center",
+    "title": "District Skill & Capacity Overview",
     "subtitle": "Real-time district skill deficits, workforce demand pressures, and intervention status.",
     "kpis": {
       "shortageRisk": "National Shortage Risk Index",
@@ -174,7 +174,7 @@
       "activeAlerts": "Critical Early Warnings"
     },
     "actionRibbon": {
-      "title": "ACTION REQUIRED: Severe Solar PV Deficit in Gorakhpur",
+      "title": "Priority Intervention: Severe Solar PV Deficit in Gorakhpur",
       "description": "711 candidate shortfall projected over next 6 months. Physical training capacity in retail trades is underutilized.",
       "button": "Simulate Reallocation Package"
     },
