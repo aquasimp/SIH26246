@@ -38,9 +38,6 @@ export function HeroPage() {
             <circle cx="1220" cy="220" r="3" fill="rgba(255, 255, 255, 0.7)" />
             <circle cx="1180" cy="420" r="3" fill="rgba(255, 255, 255, 0.7)" />
 
-            {/* Technical HUD Coordinates Text */}
-            <text x="32" y="32" fill="rgba(255, 255, 255, 0.4)" fontSize="10" fontFamily="monospace" letterSpacing="0.1em">LAT 26.7606° N · LON 83.3732° E</text>
-            <text x="1220" y="32" fill="rgba(255, 255, 255, 0.4)" fontSize="10" fontFamily="monospace" letterSpacing="0.1em">SYS: MSDE-NCO-2015 · ELEV 79M</text>
           </svg>
         </div>
 
