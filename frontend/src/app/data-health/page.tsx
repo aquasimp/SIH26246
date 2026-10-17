@@ -6,17 +6,7 @@ import { GlassPanel } from '@/components/glass/GlassPanel';
 import { Provenance } from '@/components/common/Provenance';
 import { useApp } from '@/lib/store';
 import { clsx } from 'clsx';
-import { 
-  ShieldCheck, 
-  Database, 
-  Activity, 
-  Sparkles, 
-  RefreshCw, 
-  CheckCircle2, 
-  Clock, 
-  Check, 
-  AlertCircle 
-} from 'lucide-react';
+import { CheckCircle2 } from 'lucide-react';
 
 export default function DataHealthPage() {
   const { language, l } = useApp();
@@ -33,7 +23,7 @@ export default function DataHealthPage() {
   };
 
   const getLocalizedSourceName = (name: string) => {
-    if (name.includes('SIH Monthly Intelligence')) return l(name, 'SIH मासिक आसूचना विहित डेटासेट');
+    if (name.includes('Canonical Monthly Labour Intelligence Dataset') || name.includes('MSDE Canonical') || name.includes('SIH Monthly Intelligence')) return l(name, 'MSDE विहित मासिक श्रम आसूचना डेटासेट');
     if (name.includes('Local Government Directory')) return l(name, 'स्थानीय सरकारी निर्देशिका (LGD) मास्टर');
     if (name.includes('National Classification of Occupations')) return l(name, 'राष्ट्रीय व्यवसाय वर्गीकरण (NCO-2015)');
     if (name.includes('National Career Service')) return l(name, 'राष्ट्रीय करियर सेवा (NCS) API फ़ीड');
@@ -71,6 +61,7 @@ export default function DataHealthPage() {
   const getLocalizedType = (type: string) => {
     if (type === 'Public Aggregate') return l('Public Aggregate', 'सार्वजनिक संकलन');
     if (type === 'Demo Dataset') return l('Demo Dataset', 'डेमो डेटासेट');
+    if (type === 'Government Registry') return l('Government Registry', 'सरकारी रजिस्ट्री');
     if (type === 'Planned Government Feed') return l('Planned Government Feed', 'नियोजित सरकारी फ़ीड');
     return type;
   };
@@ -92,8 +83,14 @@ export default function DataHealthPage() {
             {l('Audit Ready', 'ऑडिट तैयार')}
           </span>
         </div>
-        <h1 className="text-2xl sm:text-3xl font-extrabold text-[var(--text)] tracking-tight">
-          {l('Data & Model Health Governance', 'डेटा एवं मॉडल स्वास्थ्य शासन')}
+        <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight font-sans">
+          {language === 'hi' ? (
+            'डेटा एवं मॉडल स्वास्थ्य शासन'
+          ) : (
+            <>
+              Data Pipeline &amp; Provenance <span className="title-serif-italic">Health</span>
+            </>
+          )}
         </h1>
         <p className="text-xs sm:text-sm text-[var(--text-muted)] mt-1 max-w-2xl leading-relaxed">
           {l('Comprehensive observability over multi-source ingestion feeds, NCO/LGD ontology mapping confidence, model drift metrics, and pipeline run provenance.', 'बहु-स्रोत अंतर्ग्रहण फ़ीड्स, NCO/LGD ऑन्कोलॉजी मैपिंग विश्वसनीयता, मॉडल ड्रिफ्ट मेट्रिक्स और पाइपलाइन रन उद्गम पर व्यापक दृश्यता।')}

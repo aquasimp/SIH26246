@@ -15,9 +15,11 @@ import {
 } from 'lucide-react';
 import { clsx } from 'clsx';
 
+type ApiTab = 'forecast' | 'gap' | 'recommendation' | 'district' | 'occupation';
+
 export default function ApiExportsPage() {
   const { language, l } = useApp();
-  const [activeTab, setActiveTab] = useState<'forecast' | 'gap' | 'recommendation' | 'district' | 'occupation'>('forecast');
+  const [activeTab, setActiveTab] = useState<ApiTab>('forecast');
   const [copied, setCopied] = useState(false);
 
   const getEndpoint = () => {
@@ -98,7 +100,7 @@ export default function ApiExportsPage() {
     downloadJSON(`KaushalYuva_${activeTab}_export.json`, getSampleJson());
   };
 
-  const tabs = [
+  const tabs: { id: ApiTab; label: string }[] = [
     { id: 'forecast', label: l('1. Forecast API', '1. पूर्वानुमान एपीआई') },
     { id: 'gap', label: l('2. Gap Intelligence API', '2. अंतर खुफिया एपीआई') },
     { id: 'recommendation', label: l('3. Recommendation API', '3. सिफारिश एपीआई') },
@@ -112,34 +114,41 @@ export default function ApiExportsPage() {
       <div>
         <div className="flex items-center gap-2 mb-2">
           <Provenance type="official" note={l('Open Government Data & Integration', 'ओपन सरकारी डेटा और एकीकरण')} />
-          <span className="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold uppercase tracking-wider bg-[var(--brand)]/10 text-[var(--brand)] border border-[var(--brand)]/20">
+          <span className="telemetry-chip">
             REST v1.0
           </span>
         </div>
-        <h1 className="text-2xl sm:text-3xl font-extrabold text-[var(--text)] tracking-tight">
-          {l('API & Data Exports Console', 'एपीआई और डेटा निर्यात कंसोल')}
+        <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight font-sans">
+          {language === 'hi' ? (
+            'एपीआई और डेटा निर्यात कंसोल'
+          ) : (
+            <>
+              API &amp; Data Exports <span className="title-serif-italic">Console</span>
+            </>
+          )}
         </h1>
-        <p className="text-xs sm:text-sm text-[var(--text-muted)] mt-1 max-w-2xl leading-relaxed">
+        <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1 max-w-2xl leading-relaxed">
           {l('Programmatic REST endpoints and structured data export facilities enabling inter-departmental integration with Skill India Digital Hub and state skill portals.', 'कौशल भारत डिजिटल हब (SIDH) और राज्य कौशल पोर्टलों के साथ अंतर-विभागीय एकीकरण सक्षम करने वाले प्रोग्रामेटिक REST एंडपॉइंट्स।')}
         </p>
       </div>
 
       {/* API Navigator & Interactive Console (Section 32) */}
       <GlassPanel
+        className="liquid-glass-card hud-corner-card"
         title={l('Interactive Labour Intelligence API Explorer', 'इंटरएक्टिव श्रम खुफिया एपीआई एक्सप्लोरर')}
         subtitle={l('Live payloads conforming to Open Data standards.', 'ओपन डेटा मानकों के अनुरूप लाइव पेलोड।')}
         action={
           <div className="flex items-center gap-2">
             <button
               onClick={handleDownloadCsv}
-              className="px-3 py-1.5 rounded-xl liquid-control text-xs font-bold flex items-center gap-1.5 cursor-pointer shadow-xs"
+              className="px-3.5 py-1.5 rounded-xl liquid-control text-xs font-semibold flex items-center gap-1.5 cursor-pointer shadow-xs"
             >
-              <FileSpreadsheet className="w-3.5 h-3.5 text-[var(--balanced)]" />
+              <FileSpreadsheet className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
               <span>{l('Download CSV', 'CSV डाउनलोड')}</span>
             </button>
             <button
               onClick={handleDownloadJson}
-              className="px-3 py-1.5 rounded-xl bg-[var(--brand)] hover:opacity-90 text-white text-xs font-bold flex items-center gap-1.5 transition-all shadow-xs cursor-pointer"
+              className="btn-liquid-primary px-3.5 py-1.5 rounded-xl text-xs font-semibold flex items-center gap-1.5 shadow-xs cursor-pointer"
             >
               <DownloadCloud className="w-3.5 h-3.5" />
               <span>{l('Download JSON', 'JSON डाउनलोड')}</span>
@@ -152,7 +161,7 @@ export default function ApiExportsPage() {
           {tabs.map(tab => (
             <button
               key={tab.id}
-              onClick={() => setActiveTab(tab.id as any)}
+              onClick={() => setActiveTab(tab.id)}
               className={clsx(
                 'px-3.5 py-1.5 text-xs font-bold rounded-xl transition-all cursor-pointer font-mono',
                 activeTab === tab.id

@@ -13,7 +13,7 @@ export async function GET(request: Request) {
   const district = searchParams.get('district');
   const state = searchParams.get('state');
 
-  let occs = OCCUPATIONS;
+  const occs = OCCUPATIONS;
   let dists = DISTRICTS;
 
   if (district) {
@@ -41,7 +41,8 @@ export async function GET(request: Request) {
       net_gap: netGap,
       at_risk_trades_count: atRiskTrades.length,
       active_warnings_count: ALERTS.length,
-      priority_recommendations_count: RECOMMENDATIONS.length
+      priority_recommendations_count: RECOMMENDATIONS.length,
+      districts_count: dists.length
     },
     planted_scenario: {
       shortage_occupation: 'Solar PV Installer (Gorakhpur)',

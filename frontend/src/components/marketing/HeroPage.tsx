@@ -14,171 +14,109 @@ import {
   Compass,
   ArrowUpRight
 } from 'lucide-react';
-import { getLocalizedEntityName } from '@/lib/i18n';
+import { Provenance } from '@/components/common/Provenance';
 
 export function HeroPage() {
   const { language, l } = useApp();
 
   return (
     <div className="w-full flex flex-col items-center">
-      {/* 1. DepthWizard Luminous Hero Cockpit with Circuit Overlay & Floating Dock */}
-      <section className="luminous-hero-container border-b border-slate-200/80 dark:border-slate-800/80 pt-6 pb-6 w-full flex flex-col items-center">
-        {/* Background Architectural Circuit SVGs from DepthWizard */}
+      {/* 1. DepthWizard Centered Luminous Hero Cockpit with Circuit Overlay & Floating Dock */}
+      <section className="luminous-hero-container w-full flex flex-col items-center">
+        {/* Background Architectural Circuit & Telemetry SVGs from DepthWizard */}
         <div className="hero-circuit-bg" aria-hidden="true">
-          <svg className="circuit-lines-svg" width="100%" height="100%" viewBox="0 0 1440 460" fill="none" preserveAspectRatio="none">
-            {/* Left Circuit Traces */}
-            <path d="M 0 140 L 160 140 L 200 180 L 200 320 L 240 360 L 320 360" stroke="rgba(14, 165, 233, 0.22)" strokeWidth="1.2" strokeDasharray="3 3" />
-            <path d="M 0 260 L 100 260 L 140 300 L 140 400" stroke="rgba(14, 165, 233, 0.16)" strokeWidth="1" />
-            <circle cx="200" cy="180" r="3" fill="rgba(14, 165, 233, 0.45)" />
-            <circle cx="240" cy="360" r="3" fill="rgba(14, 165, 233, 0.45)" />
+          <svg className="circuit-lines-svg" width="100%" height="100%" viewBox="0 0 1440 600" fill="none" preserveAspectRatio="none">
+            {/* Left Circuit Lines */}
+            <path d="M 0 180 L 180 180 L 220 220 L 220 380 L 260 420 L 340 420" stroke="rgba(255, 255, 255, 0.45)" strokeWidth="1.2" strokeDasharray="3 3" />
+            <path d="M 0 320 L 120 320 L 160 360 L 160 480" stroke="rgba(255, 255, 255, 0.35)" strokeWidth="1" />
+            <circle cx="220" cy="220" r="3" fill="rgba(255, 255, 255, 0.7)" />
+            <circle cx="260" cy="420" r="3" fill="rgba(255, 255, 255, 0.7)" />
 
-            {/* Right Circuit Traces */}
-            <path d="M 1440 140 L 1280 140 L 1240 180 L 1240 320 L 1200 360 L 1120 360" stroke="rgba(14, 165, 233, 0.22)" strokeWidth="1.2" strokeDasharray="3 3" />
-            <path d="M 1440 260 L 1340 260 L 1300 300 L 1300 400" stroke="rgba(14, 165, 233, 0.16)" strokeWidth="1" />
-            <circle cx="1240" cy="180" r="3" fill="rgba(14, 165, 233, 0.45)" />
-            <circle cx="1200" cy="360" r="3" fill="rgba(14, 165, 233, 0.45)" />
+            {/* Right Circuit Lines */}
+            <path d="M 1440 180 L 1260 180 L 1220 220 L 1220 380 L 1180 420 L 1100 420" stroke="rgba(255, 255, 255, 0.45)" strokeWidth="1.2" strokeDasharray="3 3" />
+            <path d="M 1440 320 L 1320 320 L 1280 360 L 1280 480" stroke="rgba(255, 255, 255, 0.35)" strokeWidth="1" />
+            <circle cx="1220" cy="220" r="3" fill="rgba(255, 255, 255, 0.7)" />
+            <circle cx="1180" cy="420" r="3" fill="rgba(255, 255, 255, 0.7)" />
 
-            {/* Central Technical Crosshairs */}
-            <line x1="720" y1="30" x2="720" y2="48" stroke="rgba(14, 165, 233, 0.25)" strokeWidth="1" />
-            <line x1="711" y1="39" x2="729" y2="39" stroke="rgba(14, 165, 233, 0.25)" strokeWidth="1" />
+            {/* Technical HUD Coordinates Text */}
+            <text x="32" y="32" fill="rgba(255, 255, 255, 0.4)" fontSize="10" fontFamily="monospace" letterSpacing="0.1em">LAT 26.7606° N · LON 83.3732° E</text>
+            <text x="1220" y="32" fill="rgba(255, 255, 255, 0.4)" fontSize="10" fontFamily="monospace" letterSpacing="0.1em">SYS: MSDE-NCO-2015 · ELEV 79M</text>
           </svg>
         </div>
 
-        <div className="relative z-10 w-full max-w-[1536px] px-4 sm:px-8 lg:px-10">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-stretch">
-            
-            {/* Left Column (lg: 7 cols): Tagline, Subtitle & DepthWizard Dual CTAs */}
-            <div className="lg:col-span-7 flex flex-col justify-between py-1">
-              <div className="space-y-4">
-                {/* Floating Badge Pill */}
-                <div className="hero-pill-badge">
-                  <span className="badge-sparkle">✦</span>
-                  <span className="badge-text">
-                    {l('SMART INDIA HACKATHON 2026 · PS 26246 · MSDE NATIONAL ENGINE', 'स्मार्ट इंडिया हैकथॉन 2026 · PS 26246 · MSDE राष्ट्रीय इंजन')}
-                  </span>
-                </div>
+        <div className="hero-inner-content">
+          {/* Top Floating Badge Pill */}
+          <div className="hero-pill-badge">
+            <span className="badge-sparkle">✦</span>
+            <span className="badge-text">
+              {l('MSDE / SIDH · NATIONAL LABOUR INTELLIGENCE & FORECASTING ENGINE', 'MSDE / SIDH · राष्ट्रीय श्रम बाजार बुद्धिमत्ता एवं पूर्वानुमान इंजन')}
+            </span>
+          </div>
 
-                {/* Editorial Serif Hero Headline with Italic Accent */}
-                <h1 className="hero-editorial-title">
-                  {language === 'hi' ? (
-                    <>
-                      ज़िला कौशल अंतराल का <span className="title-serif-italic font-serif">सटीक पूर्वानुमान</span> एवं प्रशिक्षण क्षमता का पुनर्आवंटन।
-                    </>
-                  ) : (
-                    <>
-                      Forecast District Skill Gaps that <span className="title-serif-italic">convert</span> into training capacity.
-                    </>
-                  )}
-                </h1>
+          {/* High-Impact Bold Hero Headline (Exact DepthWizard Typography — Not thin AI serif) */}
+          <h1 className="hero-bold-title">
+            {language === 'hi' ? (
+              <>
+                कौशल अंतराल का पूर्वानुमान <span className="hero-title-highlight">एवं प्रशिक्षण क्षमता का रूपांतरण</span>
+              </>
+            ) : (
+              <>
+                FORECAST THE SKILL GAP <span className="hero-title-highlight">&amp; TRANSFORM TRAINING CAPACITY</span> <br className="hero-title-br" /> for the Nation&apos;s Skills Ecosystem
+              </>
+            )}
+          </h1>
 
-                {/* Subtitle in Plus Jakarta Sans */}
-                <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 font-normal leading-relaxed max-w-xl">
-                  {l(
-                    'Turn NCS, e-Shram, and PLFS labour-market datasets into district-level shortage forecasts, early warnings, and cost-optimized ITI seat reallocations.',
-                    'NCS, e-Shram और PLFS श्रम बाज़ार डेटासेट को ज़िला-स्तरीय कमी पूर्वानुमान, पूर्व चेतावनियों और लागत-अनुकूलित ITI सीट पुनर्आवंटन में बदलें।'
-                  )}
-                </p>
-              </div>
-
-              {/* Dual Action CTA Buttons — Luminous Liquid Glass + White Pill */}
-              <div className="flex flex-wrap items-center gap-3.5 pt-6">
-                <Link
-                  href="/overview"
-                  className="btn-liquid-primary py-2.5 px-6 text-sm"
-                >
-                  <Compass className="w-4 h-4 text-sky-600 dark:text-sky-400" />
-                  <span>{l('Open Intelligence Dashboard', 'पूर्ण डैशबोर्ड खोलें')}</span>
-                  <ArrowRight className="w-4 h-4 text-sky-600 dark:text-sky-400" />
-                </Link>
-
-                <Link
-                  href="/scenarios?preset=rec01"
-                  className="hero-btn-white-pill py-2.5 px-5 text-sm"
-                >
-                  <Sliders className="w-4 h-4 text-slate-500 dark:text-slate-400" />
-                  <span>{l('Simulate Seat Transfer (97 Seats)', 'सीट स्थानांतरण अनुकरण')}</span>
-                </Link>
-              </div>
+          {/* Subheading Card with Illuminated Card Background */}
+          <div className="hero-subheading-card">
+            <div className="subheading-icon-badge">
+              <TrendingUp className="w-4 h-4 text-white" />
             </div>
-
-            {/* Right Column (lg: 5 cols): Priority Intervention Card with Liquid Glass */}
-            <div className="lg:col-span-5 flex flex-col">
-              <div className="liquid-glass-card p-6 h-full flex flex-col justify-between space-y-4">
-                <div className="space-y-3.5">
-                  <div className="flex flex-wrap items-center justify-between gap-2">
-                    <span className="text-[11px] font-bold text-amber-700 dark:text-amber-400 uppercase tracking-wider flex items-center gap-2">
-                      <span className="relative flex h-2.5 w-2.5">
-                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75" />
-                        <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-amber-500 shadow-[0_0_8px_rgba(245,158,11,0.6)]" />
-                      </span>
-                      <span>{l('Priority Intervention · Gorakhpur, UP', 'प्राथमिकता हस्तक्षेप · गोरखपुर, उ.प्र.')}</span>
-                    </span>
-                    <span className="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-amber-500/15 text-amber-700 dark:text-amber-400 border border-amber-500/30">
-                      {l('Score 94 · Critical Deficit', 'स्कोर 94 · गंभीर कमी')}
-                    </span>
-                  </div>
-
-                  {/* Sentence heading */}
-                  <h2 className="text-base sm:text-lg font-bold text-slate-900 dark:text-slate-100 leading-snug">
-                    {l('711-Seat Deficit in Solar PV Installers', 'सोलर पीवी इंस्टॉलर में 711 सीटों की कमी')}
-                  </h2>
-
-                  {/* Demand-vs-Supply Visual Bar */}
-                  <div className="p-3.5 rounded-xl bg-white/70 dark:bg-slate-900/60 border border-slate-200/80 dark:border-slate-800 space-y-2">
-                    <div className="flex justify-between items-center text-xs font-semibold">
-                      <span className="text-slate-600 dark:text-slate-400 flex items-center gap-1.5">
-                        <span className="w-2 h-2 rounded-xs bg-slate-700 dark:bg-slate-300 inline-block" />
-                        {l('Supply: 97', 'आपूर्ति: 97')}
-                      </span>
-                      <span className="text-amber-600 dark:text-amber-400 font-bold">
-                        {l('Deficit: 711 (88%)', 'कमी: 711 (88%)')}
-                      </span>
-                      <span className="text-slate-900 dark:text-slate-100 font-bold">
-                        {l('Demand: 808', 'मांग: 808')}
-                      </span>
-                    </div>
-
-                    {/* Stacked comparison bar */}
-                    <div className="w-full h-2 rounded-full bg-slate-200 dark:bg-slate-700 overflow-hidden flex relative">
-                      <div 
-                        className="h-full bg-slate-700 dark:bg-slate-300" 
-                        style={{ width: `${(97 / 808) * 100}%` }} 
-                        title="Effective Supply: 97" 
-                      />
-                      <div 
-                        className="h-full bg-amber-500" 
-                        style={{ width: `${(711 / 808) * 100}%` }} 
-                        title="Deficit: 711" 
-                      />
-                    </div>
-
-                    <div className="flex justify-between text-[11px] text-slate-500 dark:text-slate-400 font-medium">
-                      <span>{l('12% Staged Coverage', '12% चरणबद्ध पूर्ति')}</span>
-                      <span>{l('88% Unmet Deficit', '88% अधूरी मांग')}</span>
-                    </div>
-                  </div>
-
-                  {/* Subtext */}
-                  <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                    {l(
-                      'Reallocating 97 surplus seats from Retail Sales closes 6.2% deficit at ₹6.31L retrofit CapEx, saving ₹6.3L in public funds vs. greenfield seats. Retail donor remains balanced (Score 52).',
-                      'रिटेल सेल्स से 97 अतिरिक्त सीटें पुनर्आवंटित करने से ₹6.31 लाख रेट्रोफ़िट पूंजी व्यय में 6.2% घाटा कम होता है, ₹6.3 लाख की बचत होती है। दाता संतुलित (52) रहता है।'
-                    )}
-                  </p>
-                </div>
-
-                <Link
-                  href="/scenarios?preset=rec01"
-                  className="btn-liquid-primary inline-flex items-center justify-between w-full py-2.5 px-4 rounded-full font-semibold text-xs transition-all cursor-pointer group shadow-xs"
-                >
-                  <span>{l('Simulate Gorakhpur Seat Transfer (97 Seats)', 'गोरखपुर सीट स्थानांतरण अनुकरण (97 सीटें)')}</span>
-                  <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5 text-sky-600 dark:text-sky-400" />
-                </Link>
-              </div>
+            <p className="hero-subheading-text">
+              {l(
+                'Deterministic labour-market intelligence and cost-optimized ITI seat reallocation powered by ',
+                'नियतात्मक श्रम-बाजार खुफिया एवं लागत-अनुकूलित ITI सीट पुनर्आवंटन संचालित '
+              )}
+              <strong>{l('Tri-Model Ensemble Blend', 'त्रि-मॉडल पहनावा मिश्रण')}</strong>
+            </p>
+            <div className="subheading-badge-tag">
+              <span>⚡ WAPE 3.41%</span>
             </div>
           </div>
 
-          {/* Floating Bottom Pill Dock from DepthWizard */}
+          {/* Triple Action CTA Buttons Row (DepthWizard Master Layout) */}
+          <div className="hero-cta-buttons-row">
+            {/* Primary Dark Button with Intense Soft Ambient Glow */}
+            <Link
+              href="/overview"
+              className="hero-btn-dark-glow"
+            >
+              <Compass className="w-4 h-4 text-sky-400" />
+              <span>{l('Open Dashboard', 'डैशबोर्ड खोलें')}</span>
+              <ArrowRight className="w-4 h-4 text-sky-400" />
+            </Link>
+
+            {/* Tactical Cockpit Dedicated CTA Button */}
+            <Link
+              href="/scenarios?preset=rec01"
+              className="hero-btn-cockpit-pill"
+              title={l('Launch Seat Reallocation Studio', 'सीट पुनर्आवंटन स्टूडियो खोलें')}
+            >
+              <Sliders className="w-4 h-4 text-amber-400" />
+              <span>{l('Seat Reallocation Studio', 'सीट पुनर्आवंटन स्टूडियो')}</span>
+              <span className="cockpit-badge-live">{l('LIVE', 'लाइव')}</span>
+            </Link>
+
+            {/* Secondary Crisp White Pill Button */}
+            <Link
+              href="/intelligence"
+              className="hero-btn-white-pill"
+            >
+              <Layers className="w-4 h-4 text-sky-600" />
+              <span>{l('Browse National Intelligence', 'राष्ट्रीय बुद्धिमत्ता ब्राउज़ करें')}</span>
+            </Link>
+          </div>
+
+          {/* Floating Bottom Pill Dock with Connector Line */}
           <div className="hero-bottom-dock-wrapper">
             <div className="dock-connector-line" aria-hidden="true" />
             <div className="hero-bottom-dock">
@@ -208,47 +146,47 @@ export function HeroPage() {
       </section>
 
       {/* 2. Compact Proof Strip with Liquid Glass */}
-      <section className="w-full max-w-[1536px] px-4 sm:px-8 lg:px-10 py-3">
-        <div className="liquid-glass-card py-3.5 px-6 grid grid-cols-2 lg:grid-cols-4 divide-y lg:divide-y-0 lg:divide-x divide-slate-200/80 dark:divide-slate-800 gap-y-2 lg:gap-y-0 shadow-xs">
+      <section className="w-full max-w-[1536px] px-4 sm:px-8 lg:px-10 py-5">
+        <div className="liquid-glass-card py-3.5 px-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 divide-y sm:divide-y-0 lg:divide-x divide-slate-200/80 dark:divide-slate-800 gap-y-3 sm:gap-y-2 lg:gap-y-0 shadow-xs">
           {/* Geography */}
           <div className="flex items-center gap-2 px-2 shrink-0">
-            <span className="text-[11px] font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider">
+            <span className="text-[11px] font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider font-mono">
               {l('COVERAGE:', 'कवरेज:')}
             </span>
-            <span className="text-xs font-semibold text-slate-900 dark:text-slate-100">
+            <span className="text-xs font-bold text-slate-900 dark:text-slate-100 font-mono">
               16 {l('Districts', 'ज़िले')} · 5 {l('States', 'राज्य')}
             </span>
           </div>
 
           {/* Occupations */}
           <div className="flex items-center gap-2 px-2 shrink-0">
-            <span className="text-[11px] font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider">
+            <span className="text-[11px] font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider font-mono">
               {l('TRADES:', 'व्यवसाय:')}
             </span>
-            <span className="text-xs font-semibold text-slate-900 dark:text-slate-100">
-              16 {l('NCO Trades', 'NCO ट्रेड्स')}
+            <span className="text-xs font-bold text-slate-900 dark:text-slate-100 font-mono">
+              16 {l('NCO-2015 Trades', 'NCO-2015 ट्रेड्स')}
             </span>
           </div>
 
           {/* Forecast Horizons */}
           <div className="flex items-center gap-2 px-2 shrink-0">
-            <span className="text-[11px] font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider">
+            <span className="text-[11px] font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider font-mono">
               {l('HORIZONS:', 'क्षितिज:')}
             </span>
-            <span className="text-xs font-semibold text-slate-900 dark:text-slate-100 tabular-nums">
+            <span className="text-xs font-bold text-slate-900 dark:text-slate-100 font-mono tabular-nums">
               3M · 6M · 12M
             </span>
           </div>
 
           {/* Out-Of-Sample WAPE Mini Bar */}
-          <div className="flex items-center gap-3 px-2 flex-1 min-w-[200px]">
-            <span className="text-[11px] font-semibold text-emerald-700 dark:text-emerald-400 uppercase tracking-wider shrink-0">
+          <div className="flex items-center gap-3 px-2 flex-1 min-w-0 sm:min-w-[200px]">
+            <span className="text-[11px] font-semibold text-emerald-700 dark:text-emerald-400 uppercase tracking-wider shrink-0 font-mono">
               {l('WAPE:', 'WAPE:')}
             </span>
             <div className="flex-1 flex flex-col justify-center space-y-1">
-              <div className="flex justify-between items-center text-[11px]">
+              <div className="flex justify-between items-center text-[11px] font-mono">
                 <span className="text-slate-500">Naive: 6.93%</span>
-                <span className="font-semibold text-emerald-600 dark:text-emerald-400">Blend: 3.41% (-50.8%)</span>
+                <span className="font-bold text-emerald-600 dark:text-emerald-400">Blend: 3.41% (-50.8%)</span>
               </div>
               <div className="w-full h-1.5 rounded-full bg-slate-100 dark:bg-slate-800 overflow-hidden flex">
                 <div 
@@ -262,6 +200,85 @@ export function HeroPage() {
         </div>
       </section>
 
+      {/* 3. Executive Priority Policy Intervention Spotlight (Cleanly placed below hero) */}
+      <section className="w-full max-w-[1536px] px-4 sm:px-8 lg:px-10 py-2">
+        <div className="liquid-glass-card hud-corner-card p-6 sm:p-7 border border-amber-500/30 rounded-2xl shadow-sm">
+          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+            <div className="space-y-2.5 max-w-2xl">
+              <div className="flex flex-wrap items-center gap-2.5">
+                <span className="text-xs font-bold text-amber-700 dark:text-amber-400 uppercase tracking-wider flex items-center gap-2 font-mono">
+                  <span className="relative flex h-2.5 w-2.5">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75" />
+                    <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-amber-500 shadow-[0_0_10px_rgba(245,158,11,0.7)]" />
+                  </span>
+                  <span>{l('Priority Intervention · Gorakhpur, UP', 'प्राथमिकता हस्तक्षेप · गोरखपुर, उ.प्र.')}</span>
+                </span>
+                <Provenance source="SIH dummy dataset" note="RUN-SIH-001" compact={false} />
+                <span className="px-2.5 py-0.5 rounded-full text-[10.5px] font-mono font-bold bg-amber-500/15 text-amber-700 dark:text-amber-400 border border-amber-500/30">
+                  {l('Score 94 · Critical Deficit', 'स्कोर 94 · गंभीर कमी')}
+                </span>
+              </div>
+
+              <h2 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-slate-100 tracking-tight">
+                {l('711-Seat Deficit in Solar PV Installers', 'सोलर पीवी इंस्टॉलर में 711 सीटों की कमी')}
+              </h2>
+
+              <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                {l(
+                  'Reallocating 97 surplus seats from Retail Sales closes 6.2% deficit at ₹6.31L retrofit CapEx, saving ₹6.3L in public funds vs. greenfield seats. Retail donor stays Balanced (52). Remaining ~667 persons need new capacity.',
+                  'रिटेल सेल्स से 97 अतिरिक्त सीटें पुनर्आवंटित करने से ₹6.31 लाख रेट्रोफ़िट पूंजी व्यय में 6.2% घाटा कम होता है, ₹6.3 लाख की बचत होती है। दाता संतुलित रहता है (52)। शेष ~667 व्यक्तियों को नई क्षमता की आवश्यकता है।'
+                )}
+              </p>
+            </div>
+
+            <div className="flex flex-col sm:flex-row lg:flex-col gap-3 min-w-[320px] lg:max-w-md w-full justify-between">
+              {/* Demand-vs-Supply Visual Bar */}
+              <div className="p-3.5 rounded-xl bg-slate-50/80 dark:bg-slate-900/70 border border-slate-200/80 dark:border-white/10 space-y-2 w-full">
+                <div className="flex justify-between items-center text-xs font-semibold">
+                  <span className="text-slate-600 dark:text-slate-400 flex items-center gap-1.5 font-mono">
+                    <span className="w-2 h-2 rounded-xs bg-slate-700 dark:bg-slate-300 inline-block" />
+                    {l('Supply: 97', 'आपूर्ति: 97')}
+                  </span>
+                  <span className="text-amber-600 dark:text-amber-400 font-bold font-mono">
+                    {l('Deficit: 711 (88%)', 'कमी: 711 (88%)')}
+                  </span>
+                  <span className="text-slate-900 dark:text-slate-100 font-bold font-mono">
+                    {l('Demand: 808', 'मांग: 808')}
+                  </span>
+                </div>
+
+                <div className="w-full h-2 rounded-full bg-slate-200 dark:bg-slate-700 overflow-hidden flex relative">
+                  <div 
+                    className="h-full bg-slate-700 dark:bg-slate-300" 
+                    style={{ width: `${(97 / 808) * 100}%` }} 
+                    title="Effective Supply: 97" 
+                  />
+                  <div 
+                    className="h-full bg-amber-500" 
+                    style={{ width: `${(711 / 808) * 100}%` }} 
+                    title="Deficit: 711" 
+                  />
+                </div>
+
+                <div className="flex justify-between text-[11px] text-slate-500 dark:text-slate-400 font-medium">
+                  <span>{l('12% Staged Coverage', '12% चरणबद्ध पूर्ति')}</span>
+                  <span>{l('88% Unmet Deficit', '88% अधूरी मांग')}</span>
+                </div>
+              </div>
+
+              <Link
+                href="/scenarios?preset=rec01"
+                className="btn-liquid-primary inline-flex items-center justify-center gap-2 w-full py-2.5 px-5 rounded-full font-bold text-xs shadow-xs"
+              >
+                <span>{l('Simulate Gorakhpur Seat Transfer (97 Seats)', 'गोरखपुर सीट स्थानांतरण अनुकरण (97 सीटें)')}</span>
+                <ArrowRight className="w-4 h-4 text-sky-600 dark:text-sky-400" />
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
       {/* 4. Tactical Map & Selected District Panel */}
       <section id="tactical-map" className="w-full max-w-[1536px] px-4 sm:px-8 lg:px-10 py-5 scroll-mt-16 space-y-3">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 border-b border-slate-200 dark:border-slate-800 pb-2">
@@ -274,7 +291,7 @@ export function HeroPage() {
                 'राष्ट्रीय कौशल असंतुलन एवं क्षमता मानचित्र'
               ) : (
                 <>
-                  National Skill Imbalance &amp; Capacity <span className="title-serif-italic font-serif">Choropleth</span>
+                  National Skill Imbalance &amp; Capacity <span className="title-serif-italic">Choropleth</span>
                 </>
               )}
             </h2>
@@ -298,7 +315,7 @@ export function HeroPage() {
                 'डेटा-संचालित नीति समाधान'
               ) : (
                 <>
-                  Evidence-Backed Policy <span className="title-serif-italic font-serif">Interventions</span>
+                  Evidence-Backed Policy <span className="title-serif-italic">Interventions</span>
                 </>
               )}
             </h2>
@@ -391,22 +408,28 @@ export function HeroPage() {
           </div>
 
           {/* Recommendation 2: Pune EV Service Technician */}
-          <div className="p-5 rounded-2xl glass-interactive border border-slate-200/80 dark:border-slate-800 flex flex-col justify-between space-y-4 h-full shadow-[inset_0_1px_0_0_rgba(255,255,255,0.95),0_4px_24px_-4px_rgba(15,23,42,0.05)]">
+          <div className="p-5 rounded-2xl liquid-glass-card hud-corner-card flex flex-col justify-between space-y-4 h-full">
             <div className="space-y-3">
               <div className="flex items-center justify-between gap-2">
-                <span className="text-xs font-bold text-slate-900 dark:text-slate-100">
+                <span className="text-xs font-bold text-slate-900 dark:text-slate-100 font-mono">
                   REC-02
                 </span>
-                <span className="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700">
+                <span className="px-2.5 py-0.5 rounded-full text-[10.5px] font-mono font-bold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700">
                   {l('MSDE Policy Brief · Ensemble Model', 'MSDE नीति संक्षिप्त · मॉडल आउटपुट')}
                 </span>
               </div>
 
               <div>
-                <h3 className="text-base font-extrabold text-slate-900 dark:text-slate-100">
-                  {l('Pune EV Service Technician Cluster', 'पुणे ईवी सर्विस तकनीशियन क्लस्टर')}
+                <h3 className="text-base font-bold text-slate-900 dark:text-slate-100">
+                  {language === 'hi' ? (
+                    'पुणे ईवी सर्विस तकनीशियन क्लस्टर'
+                  ) : (
+                    <>
+                      Pune EV Service Technician <span className="title-serif-italic">Cluster</span>
+                    </>
+                  )}
                 </h3>
-                <span className="text-xs text-slate-500 font-medium">
+                <span className="text-xs text-slate-500 font-medium font-mono">
                   {l('Pune, Maharashtra (Chakan & Bhosari)', 'पुणे, महाराष्ट्र (चाकण एवं भोसरी)')}
                 </span>
               </div>
@@ -419,8 +442,8 @@ export function HeroPage() {
               </p>
 
               {/* Before/After Mini Bar */}
-              <div className="p-2.5 rounded-xl bg-slate-50/80 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-700/80 space-y-1.5">
-                <div className="flex justify-between items-center text-xs">
+              <div className="p-2.5 rounded-xl bg-white/70 dark:bg-slate-800/60 backdrop-blur-md border border-slate-200/80 dark:border-slate-700/80 space-y-1.5 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.8)] dark:shadow-[inset_0_1px_0_0_rgba(255,255,255,0.06)]">
+                <div className="flex justify-between items-center text-xs font-mono">
                   <span className="text-amber-600 dark:text-amber-400 font-semibold">
                     {l('Before: Score 88', 'पहले: स्कोर 88')}
                   </span>
@@ -435,7 +458,7 @@ export function HeroPage() {
               </div>
 
               {/* Metrics Grid */}
-              <div className="grid grid-cols-3 gap-2 p-2 rounded-xl bg-slate-50/80 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-700/80 text-center text-xs">
+              <div className="grid grid-cols-3 gap-2 p-2 rounded-xl bg-white/70 dark:bg-slate-800/60 backdrop-blur-md border border-slate-200/80 dark:border-slate-700/80 text-center text-xs shadow-2xs font-mono">
                 <div>
                   <span className="text-[10px] text-slate-400 uppercase font-semibold block">
                     {l('New Seats', 'नई क्षमता')}
@@ -460,30 +483,36 @@ export function HeroPage() {
             {/* ONE Primary Action */}
             <Link
               href="/recommendations"
-              className="inline-flex items-center justify-between w-full py-2.5 px-3.5 rounded-xl border border-slate-200/80 dark:border-slate-700/80 bg-white/80 dark:bg-slate-800/80 hover:bg-slate-100 text-slate-800 dark:text-slate-200 text-xs font-semibold transition-all cursor-pointer mt-2"
+              className="btn-liquid-primary inline-flex items-center justify-between w-full py-2.5 px-3.5 rounded-xl text-xs font-semibold transition-all cursor-pointer group mt-2 shadow-xs"
             >
               <span>{l('View Recommendation Details', 'सिफारिश विवरण देखें')}</span>
-              <ArrowUpRight className="w-3.5 h-3.5" />
+              <ArrowUpRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5 text-sky-600 dark:text-sky-400" />
             </Link>
           </div>
 
           {/* Recommendation 3: Coimbatore CNC Machine Operator */}
-          <div className="p-5 rounded-2xl glass-interactive border border-slate-200/80 dark:border-slate-800 flex flex-col justify-between space-y-4 h-full shadow-[inset_0_1px_0_0_rgba(255,255,255,0.95),0_4px_24px_-4px_rgba(15,23,42,0.05)]">
+          <div className="p-5 rounded-2xl liquid-glass-card hud-corner-card flex flex-col justify-between space-y-4 h-full">
             <div className="space-y-3">
               <div className="flex items-center justify-between gap-2">
-                <span className="text-xs font-bold text-slate-900 dark:text-slate-100">
+                <span className="text-xs font-bold text-slate-900 dark:text-slate-100 font-mono">
                   REC-03
                 </span>
-                <span className="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700">
+                <span className="px-2.5 py-0.5 rounded-full text-[10.5px] font-mono font-bold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700">
                   {l('MSDE Policy Brief · Ensemble Model', 'MSDE नीति संक्षिप्त · मॉडल आउटपुट')}
                 </span>
               </div>
 
               <div>
-                <h3 className="text-base font-extrabold text-slate-900 dark:text-slate-100">
-                  {l('Coimbatore CNC Machine Operator Cluster', 'कोयंबटूर सीएनसी ऑपरेटर क्लस्टर')}
+                <h3 className="text-base font-bold text-slate-900 dark:text-slate-100">
+                  {language === 'hi' ? (
+                    'कोयंबटूर सीएनसी ऑपरेटर क्लस्टर'
+                  ) : (
+                    <>
+                      Coimbatore CNC Machine Operator <span className="title-serif-italic">Cluster</span>
+                    </>
+                  )}
                 </h3>
-                <span className="text-xs text-slate-500 font-medium">
+                <span className="text-xs text-slate-500 font-medium font-mono">
                   {l('Coimbatore, Tamil Nadu', 'कोयंबटूर, तमिलनाडु')}
                 </span>
               </div>
@@ -496,8 +525,8 @@ export function HeroPage() {
               </p>
 
               {/* Before/After Mini Bar */}
-              <div className="p-2.5 rounded-xl bg-slate-50/80 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-700/80 space-y-1.5">
-                <div className="flex justify-between items-center text-xs">
+              <div className="p-2.5 rounded-xl bg-white/70 dark:bg-slate-800/60 backdrop-blur-md border border-slate-200/80 dark:border-slate-700/80 space-y-1.5 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.8)] dark:shadow-[inset_0_1px_0_0_rgba(255,255,255,0.06)]">
+                <div className="flex justify-between items-center text-xs font-mono">
                   <span className="text-amber-600 dark:text-amber-400 font-semibold">
                     {l('Before: Score 76', 'पहले: स्कोर 76')}
                   </span>
@@ -512,7 +541,7 @@ export function HeroPage() {
               </div>
 
               {/* Metrics Grid */}
-              <div className="grid grid-cols-3 gap-2 p-2 rounded-xl bg-slate-50/80 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-700/80 text-center text-xs">
+              <div className="grid grid-cols-3 gap-2 p-2 rounded-xl bg-white/70 dark:bg-slate-800/60 backdrop-blur-md border border-slate-200/80 dark:border-slate-700/80 text-center text-xs shadow-2xs font-mono">
                 <div>
                   <span className="text-[10px] text-slate-400 uppercase font-semibold block">
                     {l('New Seats', 'नई क्षमता')}
@@ -537,10 +566,10 @@ export function HeroPage() {
             {/* ONE Primary Action */}
             <Link
               href="/recommendations"
-              className="inline-flex items-center justify-between w-full py-2 px-3 rounded-md border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-900 dark:text-slate-100 text-xs font-medium transition-colors cursor-pointer mt-2"
+              className="btn-liquid-primary inline-flex items-center justify-between w-full py-2.5 px-3.5 rounded-xl text-xs font-semibold transition-all cursor-pointer group mt-2 shadow-xs"
             >
               <span>{l('View Recommendation Details', 'सिफारिश विवरण देखें')}</span>
-              <ArrowUpRight className="w-3.5 h-3.5" />
+              <ArrowUpRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5 text-sky-600 dark:text-sky-400" />
             </Link>
           </div>
         </div>
@@ -550,11 +579,17 @@ export function HeroPage() {
       <section className="w-full max-w-[1536px] px-4 sm:px-8 lg:px-10 py-6 space-y-4">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-200 dark:border-slate-800 pb-3">
           <div>
-            <span className="text-[11px] font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider block">
+            <span className="text-[11px] font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider block font-mono">
               {l('SMART INDIA HACKATHON · PS 26246 COMPLIANCE', 'स्मार्ट इंडिया हैकथॉन · PS 26246 अनुपालन')}
             </span>
             <h2 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-slate-100 tracking-tight mt-0.5">
-              {l('MSDE Problem Statement 26246: Implementation Matrix', 'एमएसडीई समस्या विवरण २६२४६: कार्यान्वयन ढांचा')}
+              {language === 'hi' ? (
+                'एमएसडीई समस्या विवरण २६२४६: कार्यान्वयन ढांचा'
+              ) : (
+                <>
+                  MSDE Problem Statement 26246: <span className="title-serif-italic">Implementation Matrix</span>
+                </>
+              )}
             </h2>
           </div>
           <Link
@@ -566,14 +601,14 @@ export function HeroPage() {
           </Link>
         </div>
 
-        {/* 2x2 Icon Tiles */}
+        {/* 2x2 Icon Tiles in Liquid Glass */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
           {/* Tile 1: Demand Normalization */}
           <Link
             href="/occupations"
-            className="p-4 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 group flex items-start gap-3 hover:border-slate-300 dark:hover:border-slate-700 transition-all shadow-xs"
+            className="p-4 rounded-2xl liquid-glass-card group flex items-start gap-3 hover:-translate-y-0.5 transition-all shadow-xs"
           >
-            <div className="p-2 rounded-md bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 shrink-0 mt-0.5">
+            <div className="p-2 rounded-xl bg-sky-500/10 text-sky-600 dark:text-sky-400 border border-sky-500/20 shrink-0 mt-0.5">
               <Layers className="w-4 h-4" />
             </div>
             <div className="space-y-0.5 min-w-0">
@@ -595,9 +630,9 @@ export function HeroPage() {
           {/* Tile 2: Time-Series ML Forecaster */}
           <Link
             href="/forecasts"
-            className="p-4 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 group flex items-start gap-3 hover:border-slate-300 dark:hover:border-slate-700 transition-all shadow-xs"
+            className="p-4 rounded-2xl liquid-glass-card group flex items-start gap-3 hover:-translate-y-0.5 transition-all shadow-xs"
           >
-            <div className="p-2 rounded-md bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 shrink-0 mt-0.5">
+            <div className="p-2 rounded-xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 shrink-0 mt-0.5">
               <TrendingUp className="w-4 h-4" />
             </div>
             <div className="space-y-0.5 min-w-0">
@@ -619,9 +654,9 @@ export function HeroPage() {
           {/* Tile 3: Staged Supply Funnel */}
           <Link
             href="/methodology"
-            className="p-4 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 group flex items-start gap-3 hover:border-slate-300 dark:hover:border-slate-700 transition-all shadow-xs"
+            className="p-4 rounded-2xl liquid-glass-card group flex items-start gap-3 hover:-translate-y-0.5 transition-all shadow-xs"
           >
-            <div className="p-2 rounded-md bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 shrink-0 mt-0.5">
+            <div className="p-2 rounded-xl bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20 shrink-0 mt-0.5">
               <Activity className="w-4 h-4" />
             </div>
             <div className="space-y-0.5 min-w-0">
@@ -643,9 +678,9 @@ export function HeroPage() {
           {/* Tile 4: PuLP Capacity Solver */}
           <Link
             href="/scenarios"
-            className="p-4 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 group flex items-start gap-3 hover:border-slate-300 dark:hover:border-slate-700 transition-all shadow-xs"
+            className="p-4 rounded-2xl liquid-glass-card group flex items-start gap-3 hover:-translate-y-0.5 transition-all shadow-xs"
           >
-            <div className="p-2 rounded-md bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 shrink-0 mt-0.5">
+            <div className="p-2 rounded-xl bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border border-indigo-500/20 shrink-0 mt-0.5">
               <Sliders className="w-4 h-4" />
             </div>
             <div className="space-y-0.5 min-w-0">

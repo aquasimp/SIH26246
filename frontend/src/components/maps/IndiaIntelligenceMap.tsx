@@ -2,10 +2,8 @@
 
 import React, { useState, useMemo, useRef, useEffect, useCallback } from 'react';
 import Link from 'next/link';
-import { geoMercator, geoPath } from 'd3-geo';
-import { useTheme } from 'next-themes';
+import { geoMercator, geoPath, type GeoPermissibleObjects, type ExtendedFeature, type GeoGeometryObjects } from 'd3-geo';
 import { useApp } from '@/lib/store';
-import { useChartPalette } from '@/lib/useChartPalette';
 import { 
   Database,
   Table as TableIcon,
@@ -81,17 +79,13 @@ const EVAL_STATE_NAMES = new Set([
 
 const indiaStatesAll = indiaStatesAllRaw as {
   type: string;
-  features: Array<{
-    type: string;
-    properties: { st_nm: string; st_code?: string };
-    geometry: any;
-  }>;
+  features: Array<ExtendedFeature<GeoGeometryObjects | null, { st_nm: string; st_code?: string }>>;
 };
 
 const choroplethData = choroplethDataRaw as {
   type: string;
-  districts: any[];
-  states: any[];
+  districts: Array<ExtendedFeature<GeoGeometryObjects | null, { id: string; name: string; name_hi?: string; state: string; [key: string]: unknown }>>;
+  states: unknown[];
 };
 
 const tradeMetrics = tradeMetricsRaw as Record<string, {
@@ -163,10 +157,6 @@ export const IndiaIntelligenceMap: React.FC = () => {
     didMove: false
   });
 
-  const palette = useChartPalette();
-  const { resolvedTheme } = useTheme();
-  const isDark = resolvedTheme === 'dark';
-
   const availableTrades = useMemo(() => {
     const firstDist = Object.values(tradeMetrics)[0];
     if (!firstDist) return ['Solar PV Installer'];
@@ -179,7 +169,7 @@ export const IndiaIntelligenceMap: React.FC = () => {
   // Stable Mercator projection fitted to all 36 Indian states with ample margin for western Gujarat
   const { pathGenerator } = useMemo(() => {
     const proj = geoMercator();
-    proj.fitExtent([[44, 20], [mapWidth - 28, mapHeight - 20]], indiaStatesAll as any);
+    proj.fitExtent([[44, 20], [mapWidth - 28, mapHeight - 20]], indiaStatesAll as unknown as GeoPermissibleObjects);
     const gen = geoPath(proj);
     return { pathGenerator: gen, projection: proj };
   }, [mapWidth, mapHeight]);
@@ -275,7 +265,7 @@ export const IndiaIntelligenceMap: React.FC = () => {
     };
   }, [activeLayer, selectedTrade, language, l, forecastHorizon]);
 
-  const getDistrictFill = useCallback((districtId: string, isHovered: boolean, isSelected: boolean) => {
+  const getDistrictFill = useCallback((districtId: string, _isHovered?: boolean, _isSelected?: boolean) => {
     const metric = getDistrictMetric(districtId);
 
     if (activeLayer === 'severity') {
@@ -315,7 +305,7 @@ export const IndiaIntelligenceMap: React.FC = () => {
   }, [selectedDistrict, getDistrictMetric]);
 
   // Programmatic smooth zoom to geometry bounding box (clamped between 1.0 and 3.0)
-  const zoomToGeometry = useCallback((geometry: any, padding = 40, maxZoom = 2.8) => {
+  const zoomToGeometry = useCallback((geometry: GeoPermissibleObjects, _padding = 40, maxZoom = 2.8) => {
     const bounds = pathGenerator.bounds(geometry);
     if (!bounds || isNaN(bounds[0][0])) return;
 
@@ -558,11 +548,11 @@ export const IndiaIntelligenceMap: React.FC = () => {
   return (
     <div className="w-full space-y-3">
       {/* 1. Unified Toolbar: Trade Dropdown, Layer Selector, State Options Dropdown & Tabs, Table Toggle */}
-      <div className="p-2.5 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xs flex flex-col xl:flex-row items-stretch xl:items-center justify-between gap-3">
+      <div className="p-2.5 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xs flex flex-col xl:flex-row items-stretch xl:items-center justify-between gap-3 max-w-full overflow-hidden">
         {/* Left: Trade Dropdown & Layer Selector */}
-        <div className="flex flex-wrap items-center gap-2.5">
+        <div className="flex flex-wrap items-center gap-2.5 max-w-full">
           {/* Trade Selector */}
-          <div className="flex items-center gap-1.5">
+          <div className="flex items-center gap-1.5 max-w-full">
             <label htmlFor="map-trade-select" className="text-[10px] font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider shrink-0">
               {l('Trade:', 'व्यवसाय:')}
             </label>
@@ -589,7 +579,7 @@ export const IndiaIntelligenceMap: React.FC = () => {
           </div>
 
           {/* Layer Selector */}
-          <div className="flex items-center gap-0.5 p-0.5 rounded bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 overflow-x-auto scrollbar-none">
+          <div className="flex items-center gap-0.5 p-0.5 rounded bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 overflow-x-auto scrollbar-none max-w-full">
             {MAP_LAYERS.map(layer => (
               <button
                 key={layer.id}
@@ -609,13 +599,13 @@ export const IndiaIntelligenceMap: React.FC = () => {
         </div>
 
         {/* Right: State Segmented Pill Bar & Table Toggle */}
-        <div className="flex items-center gap-2 flex-wrap justify-between xl:justify-end">
+        <div className="flex items-center gap-2 flex-wrap justify-between xl:justify-end max-w-full">
           {/* Quick State Pill Tabs */}
-          <div className="flex items-center gap-1">
+          <div className="flex items-center gap-1 max-w-full">
             <span className="text-[10px] font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider shrink-0 mr-0.5">
               {l('State:', 'राज्य:')}
             </span>
-            <div className="flex items-center gap-0.5 p-0.5 rounded-lg bg-slate-100 dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700/80 text-xs">
+            <div className="flex items-center gap-0.5 p-0.5 rounded-lg bg-slate-100 dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700/80 text-xs overflow-x-auto scrollbar-none max-w-full">
               {['all', 'uttar_pradesh', 'maharashtra', 'karnataka', 'gujarat', 'tamil_nadu'].map(tabId => {
                 const label = STATE_TAB_LABELS[tabId]?.[language] || STATE_TAB_LABELS[tabId]?.en || tabId;
                 const isActive = selectedStateFilter === tabId;
@@ -772,7 +762,7 @@ export const IndiaIntelligenceMap: React.FC = () => {
                   <g className="all-india-states">
                     {indiaStatesAll.features.map(stFeat => {
                       const stName = stFeat.properties.st_nm;
-                      const pathD = pathGenerator(stFeat as any);
+                      const pathD = pathGenerator(stFeat as unknown as GeoPermissibleObjects);
                       if (!pathD) return null;
 
                       const isEvalState = EVAL_STATE_NAMES.has(stName);
@@ -781,12 +771,14 @@ export const IndiaIntelligenceMap: React.FC = () => {
                         <path
                           key={stName}
                           d={pathD}
-                          fill={isEvalState ? (isDark ? '#1E293B' : '#F1F5F9') : (isDark ? '#0F172A' : '#F8FAFC')}
                           fillOpacity={isEvalState ? 0.7 : 0.85}
-                          stroke={isEvalState ? (isDark ? '#64748B' : '#94A3B8') : (isDark ? '#334155' : '#CBD5E1')}
                           strokeWidth={isEvalState ? 1.2 : 0.75}
                           strokeDasharray={isEvalState ? undefined : '1 1'}
-                          className="transition-colors duration-150 cursor-pointer"
+                          className={`transition-colors duration-150 cursor-pointer ${
+                            isEvalState 
+                              ? 'fill-slate-100 dark:fill-slate-800 stroke-slate-400 dark:stroke-slate-500' 
+                              : 'fill-slate-50 dark:fill-slate-900 stroke-slate-300 dark:stroke-slate-700'
+                          }`}
                           onMouseEnter={() => {
                             if (!isEvalState) setHoveredStateName(stName);
                           }}
@@ -806,7 +798,7 @@ export const IndiaIntelligenceMap: React.FC = () => {
                   <g className="districts-choropleth">
                     {choroplethData.districts.map(distFeat => {
                       const dId = distFeat.properties.id;
-                      const pathD = pathGenerator(distFeat as any);
+                      const pathD = pathGenerator(distFeat as unknown as GeoPermissibleObjects);
                       if (!pathD) return null;
 
                       const isHovered = hoveredDistrictId === dId;
@@ -817,7 +809,7 @@ export const IndiaIntelligenceMap: React.FC = () => {
                         ? distFeat.properties.name 
                         : getLocalizedEntityName('districts', distFeat.properties.name, language, distFeat.properties.name_hi);
 
-                      const centroid = pathGenerator.centroid(distFeat as any);
+                      const centroid = pathGenerator.centroid(distFeat as unknown as GeoPermissibleObjects);
                       const cx = Math.round(centroid[0] * 10) / 10;
                       const cy = Math.round(centroid[1] * 10) / 10;
 
@@ -984,15 +976,21 @@ export const IndiaIntelligenceMap: React.FC = () => {
 
               {/* Engine Band Legend Inline */}
               <div className="flex items-center gap-2.5 text-[10px] flex-wrap">
-                {SEVERITY_BANDS.map(band => (
-                  <div key={band.code} className="flex items-center gap-1 text-slate-700 dark:text-slate-300 font-medium">
-                    <span 
-                      className="w-2.5 h-2.5 rounded-full shrink-0 shadow-xs" 
-                      style={{ backgroundColor: band.color }}
-                    />
-                    <span>{getLocalizedEntityName('severityBands', band.labelEn, language)}</span>
-                  </div>
-                ))}
+                <span className="font-semibold text-slate-700 dark:text-slate-300">
+                  {l('Severity Bands (Gap Score)', 'गंभीरता श्रेणियां (अंतर स्कोर)')}:
+                </span>
+                {SEVERITY_BANDS.map(band => {
+                  const range = band.min === 75 ? '≥ 75' : band.min === 60 ? '60–74' : band.min === 40 ? '40–59' : band.min === 25 ? '25–39' : '< 25';
+                  return (
+                    <div key={band.code} className="flex items-center gap-1 text-slate-700 dark:text-slate-300 font-medium">
+                      <span 
+                        className="w-2.5 h-2.5 rounded-full shrink-0 shadow-xs" 
+                        style={{ backgroundColor: band.color }}
+                      />
+                      <span>{range} ({getLocalizedEntityName('severityBands', band.labelEn, language)})</span>
+                    </div>
+                  );
+                })}
               </div>
             </div>
           </div>

@@ -25,6 +25,7 @@ export const GlassPanel: React.FC<GlassPanelProps> = ({
         'border border-slate-200/80 dark:border-slate-800/80 rounded-2xl p-5 sm:p-6',
         'shadow-[inset_0_1px_0_0_rgba(255,255,255,0.95),0_4px_24px_-4px_rgba(15,23,42,0.05)] dark:shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08),0_4px_24px_-4px_rgba(0,0,0,0.35)]',
         'transition-all duration-300',
+        'max-w-full overflow-hidden min-w-0',
         className
       )}
     >
@@ -42,7 +43,7 @@ export const GlassPanel: React.FC<GlassPanelProps> = ({
               </p>
             )}
           </div>
-          {action && <div className="flex items-center gap-2">{action}</div>}
+          {action && <div className="flex items-center gap-2 max-w-full flex-wrap">{action}</div>}
         </div>
       )}
       {children}

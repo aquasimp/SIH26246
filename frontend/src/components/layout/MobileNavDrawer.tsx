@@ -200,10 +200,10 @@ export const MobileNavDrawer: React.FC = () => {
         <div className="flex-1 overflow-y-auto px-3 py-3 space-y-4 overscroll-contain">
           {navGroups.map((group) => (
             <div key={group.title} className="space-y-1">
-              <div className="px-2.5 pt-1 text-[11px] font-semibold tracking-wider text-slate-400 uppercase">
+              <div className="px-2.5 pt-2 text-[10.5px] font-bold font-mono tracking-wider text-slate-400 dark:text-slate-500 uppercase">
                 {group.title}
               </div>
-              <div className="space-y-0.5">
+              <div className="space-y-1">
                 {group.items.map((item) => {
                   const Icon = item.icon;
                   const isActive = pathname === item.href;
@@ -213,29 +213,29 @@ export const MobileNavDrawer: React.FC = () => {
                       key={item.href}
                       href={item.href}
                       onClick={() => setMobileMenuOpen(false)}
-                      className={`flex items-center justify-between px-3 py-2 rounded-md text-xs font-medium transition-colors min-h-[40px] ${
+                      className={`flex items-center justify-between px-3 py-2 rounded-xl text-xs font-medium transition-all min-h-[42px] border ${
                         isActive
-                          ? 'bg-slate-100 text-slate-900 dark:bg-slate-800 dark:text-slate-100 font-semibold border-l-[3px] border-l-slate-900 dark:border-l-slate-100'
-                          : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-50 dark:hover:bg-slate-800/60'
+                          ? 'bg-white/90 dark:bg-slate-800/90 text-slate-900 dark:text-slate-100 font-semibold border-slate-200/90 dark:border-slate-700 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.95),0_2px_8px_rgba(15,23,42,0.04)] dark:shadow-[inset_0_1px_0_0_rgba(255,255,255,0.12),0_2px_8px_rgba(0,0,0,0.3)]'
+                          : 'border-transparent text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-white/60 dark:hover:bg-slate-800/60'
                       }`}
                     >
                       <div className="flex items-center gap-2.5">
-                        <Icon className={`w-4 h-4 shrink-0 ${
+                        <Icon className={`w-4 h-4 shrink-0 transition-colors ${
                           isActive 
-                            ? 'text-slate-900 dark:text-slate-100' 
+                            ? 'text-sky-600 dark:text-sky-400' 
                             : 'text-slate-400'
                         }`} />
                         <span>{item.label}</span>
                       </div>
 
                       {item.badge ? (
-                        <span className={`px-1.5 py-0.5 rounded text-[10px] font-medium border ${
+                        <span className={`px-1.5 py-0.5 rounded-full text-[10px] font-bold border shadow-2xs ${
                           item.badgeColor || 'bg-slate-100 text-slate-600 border-slate-200'
                         }`}>
                           {item.badge}
                         </span>
                       ) : item.special ? (
-                        <span className="px-1.5 py-0.5 text-[9px] font-semibold uppercase rounded bg-slate-900 text-white dark:bg-slate-100 dark:text-slate-900">
+                        <span className="px-1.5 py-0.5 text-[9px] font-mono font-bold uppercase rounded-full bg-sky-500/10 text-sky-700 dark:text-sky-400 border border-sky-500/25">
                           STUDIO
                         </span>
                       ) : (
@@ -250,7 +250,7 @@ export const MobileNavDrawer: React.FC = () => {
         </div>
 
         {/* Footer Actions: Copilot, Language, Theme */}
-        <div className="p-3 border-t border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/30 space-y-2.5">
+        <div className="p-3.5 border-t border-slate-200/80 dark:border-slate-800 bg-slate-50/60 dark:bg-slate-900/60 backdrop-blur-md space-y-2.5">
           {/* Ask Assistant Button */}
           <button
             type="button"
@@ -258,11 +258,11 @@ export const MobileNavDrawer: React.FC = () => {
               setMobileMenuOpen(false);
               setCopilotOpen(true);
             }}
-            className="w-full flex items-center justify-center gap-2 py-2 px-3 rounded-md bg-sky-700 hover:bg-sky-800 text-white dark:bg-sky-500 dark:hover:bg-sky-400 dark:text-slate-950 font-medium text-xs transition-colors cursor-pointer min-h-[40px] shadow-xs"
+            className="w-full flex items-center justify-center gap-2 py-2 px-3 rounded-full btn-liquid-primary font-semibold text-xs transition-all cursor-pointer min-h-[40px] shadow-xs active:scale-[0.98]"
           >
-            <MessageSquare className="w-4 h-4" />
+            <MessageSquare className="w-4 h-4 text-sky-600 dark:text-sky-400" />
             <span>{l('Ask Assistant', 'सहायक से पूछें')}</span>
-            <kbd className="px-1.5 py-0.5 rounded bg-sky-800/80 text-sky-100 dark:bg-sky-600/30 dark:text-slate-900 text-[10px] font-mono">⌘K</kbd>
+            <span className="px-1.5 py-0.5 rounded-full bg-sky-500/10 text-sky-600 dark:text-sky-400 text-[9px] font-mono font-bold border border-sky-500/20">AI</span>
           </button>
 
           {/* Language Selection Grid */}

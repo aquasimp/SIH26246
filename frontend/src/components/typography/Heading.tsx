@@ -71,7 +71,7 @@ export function Display({ children, eyebrow, index, className, dataGlyph, serif,
   return (
     <div className="group">
       <SignalEyebrow index={index} text={eyebrow} />
-      <h1 className={clsx('display', serif && 'font-serif font-normal', className)} {...props}>
+      <h1 className={clsx('display', serif && 'font-serif font-bold', className)} {...props}>
         {children}
         {dataGlyph && <InlineChartGlyph />}
       </h1>
@@ -80,13 +80,13 @@ export function Display({ children, eyebrow, index, className, dataGlyph, serif,
 }
 
 /**
- * DepthWizard-Style Editorial Serif Hero Display Heading
+ * DepthWizard-Style Hero Display Heading
  */
 export function SerifDisplay({ children, eyebrow, index, className, dataGlyph, ...props }: HeadingProps) {
   return (
     <div className="group">
       <SignalEyebrow index={index} text={eyebrow} />
-      <h1 className={clsx('hero-editorial-title', className)} {...props}>
+      <h1 className={clsx('hero-editorial-title font-extrabold', className)} {...props}>
         {children}
         {dataGlyph && <InlineChartGlyph />}
       </h1>
@@ -101,7 +101,7 @@ export function H1({ children, eyebrow, index, className, dataGlyph, serif, ...p
   return (
     <div className="group">
       <SignalEyebrow index={index} text={eyebrow} />
-      <h1 className={clsx('h1', serif && 'font-serif font-normal tracking-tight', className)} {...props}>
+      <h1 className={clsx('h1', serif && 'font-serif font-bold tracking-tight', className)} {...props}>
         {children}
         {dataGlyph && <InlineChartGlyph />}
       </h1>
@@ -116,7 +116,7 @@ export function H2({ children, eyebrow, index, className, serif, ...props }: Hea
   return (
     <div className="group">
       <SignalEyebrow index={index} text={eyebrow} />
-      <h2 className={clsx('h2', serif && 'font-serif font-normal', className)} {...props}>
+      <h2 className={clsx('h2', serif && 'font-serif font-bold', className)} {...props}>
         {children}
       </h2>
     </div>

@@ -41,8 +41,14 @@ export default function OccupationsOverviewPage() {
             {l('Standardized Roles', 'मानकीकृत भूमिकाएं')}
           </span>
         </div>
-        <h1 className="text-2xl sm:text-3xl font-extrabold text-[var(--text)] tracking-tight">
-          {l('Occupational Standard & Trade Directory', 'व्यावसायिक मानक और व्यापार निर्देशिका')}
+        <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight font-sans">
+          {language === 'hi' ? (
+            'व्यावसायिक मानक और व्यापार निर्देशिका'
+          ) : (
+            <>
+              Occupational Standards &amp; Trade <span className="title-serif-italic">Directory</span>
+            </>
+          )}
         </h1>
         <p className="text-xs sm:text-sm text-[var(--text-muted)] mt-1 max-w-2xl leading-relaxed">
           {l('Standardized National Classification of Occupations (NCO) mapped directly to National Skills Qualification Framework (NSQF) levels and staged pipeline cohorts.', 'राष्ट्रीय कौशल योग्यता ढांचा (NSQF) स्तरों और चरणबद्ध पाइपलाइन समूहों से सीधे जुड़े मानकीकृत राष्ट्रीय व्यवसाय वर्गीकरण (NCO)।')}

@@ -79,8 +79,14 @@ export default function AlertsPage() {
               {l('35 Anomalies Active', '35 विसंगतियां सक्रिय')}
             </span>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-[var(--text)] tracking-tight">
-            {l('Early Warning Command Center', 'प्रारंभिक चेतावनी कमान केंद्र')}
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight font-sans">
+            {language === 'hi' ? (
+              'प्रारंभिक चेतावनी कमान केंद्र'
+            ) : (
+              <>
+                Early Warning &amp; Shortage <span className="title-serif-italic">Alerts</span>
+              </>
+            )}
           </h1>
           <p className="text-xs sm:text-sm text-[var(--text-muted)] mt-1 max-w-2xl leading-relaxed">
             {l('Predictive detection of emerging trade imbalances, saturation hazards, and technological skill obsolescence before structural distress occurs.', 'ढांचागत संकट उत्पन्न होने से पहले उभरते व्यापार असंतुलन, संतृप्ति खतरों और तकनीकी कौशल अप्रचलन का भविष्यसूचक पता लगाना।')}
@@ -89,9 +95,9 @@ export default function AlertsPage() {
 
         <button
           onClick={handleExport}
-          className="px-4 py-2 rounded-xl liquid-control text-xs sm:text-sm font-semibold flex items-center gap-2 self-start md:self-auto cursor-pointer"
+          className="btn-liquid-primary py-2 px-4 text-xs font-semibold flex items-center gap-2 self-start md:self-auto cursor-pointer"
         >
-          <Download className="w-4 h-4 text-[var(--brand)]" />
+          <Download className="w-4 h-4 text-sky-600 dark:text-sky-400" />
           <span>{l('Export Alert Dossier', 'अलर्ट डोजियर निर्यात करें')}</span>
         </button>
       </div>

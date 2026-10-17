@@ -52,22 +52,22 @@ export const FilterBar: React.FC = () => {
   };
 
   return (
-    <div className="sticky top-14 z-20 bg-white dark:bg-slate-900 rounded-lg p-2.5 mb-6 border border-slate-200 dark:border-slate-800 shadow-xs">
+    <div className="sticky top-[68px] z-20 liquid-glass-card p-3 mb-6">
       <div className="flex flex-col xl:flex-row xl:items-center justify-between gap-3">
         {/* Left: Section Header & Reset */}
-        <div className="flex items-center justify-between xl:justify-start gap-3 border-b xl:border-b-0 pb-2 xl:pb-0 border-slate-100 dark:border-slate-800 shrink-0">
-          <div className="flex items-center gap-1.5 text-xs font-semibold text-slate-800 dark:text-slate-200 tracking-tight">
-            <SlidersHorizontal className="w-3.5 h-3.5 text-slate-500" />
+        <div className="flex items-center justify-between xl:justify-start gap-3 border-b xl:border-b-0 pb-2 xl:pb-0 border-slate-200/60 dark:border-slate-800 shrink-0">
+          <div className="flex items-center gap-1.5 text-xs font-semibold text-slate-800 dark:text-slate-200 tracking-tight font-display">
+            <SlidersHorizontal className="w-3.5 h-3.5 text-sky-600 dark:text-sky-400" />
             <span>{l('Context Filters', 'संदर्भ फ़िल्टर')}</span>
           </div>
 
           <button
             type="button"
             onClick={handleReset}
-            className="px-2 py-1 rounded text-xs font-medium border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-400 flex items-center gap-1 transition-colors cursor-pointer"
+            className="px-2.5 py-1 rounded-full text-xs font-medium border border-slate-200/80 dark:border-slate-700 bg-white/70 dark:bg-slate-800/70 hover:bg-white dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300 flex items-center gap-1 transition-all cursor-pointer shadow-2xs hover:scale-105"
             title={l('Reset filters to default', 'फ़िल्टर रीसेट करें')}
           >
-            <RotateCcw className="w-3 h-3" />
+            <RotateCcw className="w-3 h-3 text-slate-400" />
             <span>{l('Reset', 'रीसेट')}</span>
           </button>
         </div>
@@ -75,8 +75,8 @@ export const FilterBar: React.FC = () => {
         {/* Right: High-Density Inline Filters Grid */}
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2 flex-1 max-w-full">
           {/* State Filter */}
-          <div className="flex flex-col gap-0.5 p-1.5 px-2 rounded-md bg-slate-50 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-700/80 min-w-0">
-            <label htmlFor="state-filter" className="text-[10px] font-semibold uppercase text-slate-400 dark:text-slate-500 tracking-wider block">
+          <div className="flex flex-col gap-0.5 p-1.5 px-2.5 rounded-xl bg-white/60 dark:bg-slate-800/60 backdrop-blur-md border border-slate-200/80 dark:border-slate-700/80 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.8)] dark:shadow-[inset_0_1px_0_0_rgba(255,255,255,0.06)] min-w-0 transition-all focus-within:border-sky-500/50">
+            <label htmlFor="state-filter" className="text-[9.5px] font-mono font-bold uppercase text-slate-400 dark:text-slate-500 tracking-wider block">
               {l('State', 'राज्य')}
             </label>
             <div className="relative flex items-center">
@@ -98,8 +98,8 @@ export const FilterBar: React.FC = () => {
           </div>
 
           {/* District Filter */}
-          <div className="flex flex-col gap-0.5 p-1.5 px-2 rounded-md bg-slate-50 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-700/80 min-w-0">
-            <label htmlFor="district-filter" className="text-[10px] font-semibold uppercase text-slate-400 dark:text-slate-500 tracking-wider block">
+          <div className="flex flex-col gap-0.5 p-1.5 px-2.5 rounded-xl bg-white/60 dark:bg-slate-800/60 backdrop-blur-md border border-slate-200/80 dark:border-slate-700/80 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.8)] dark:shadow-[inset_0_1px_0_0_rgba(255,255,255,0.06)] min-w-0 transition-all focus-within:border-sky-500/50">
+            <label htmlFor="district-filter" className="text-[9.5px] font-mono font-bold uppercase text-slate-400 dark:text-slate-500 tracking-wider block">
               {l('District (LGD)', 'ज़िला (LGD)')}
             </label>
             <div className="relative flex items-center">
@@ -124,8 +124,8 @@ export const FilterBar: React.FC = () => {
           </div>
 
           {/* Sector Filter */}
-          <div className="flex flex-col gap-0.5 p-1.5 px-2 rounded-md bg-slate-50 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-700/80 min-w-0">
-            <label htmlFor="sector-filter" className="text-[10px] font-semibold uppercase text-slate-400 dark:text-slate-500 tracking-wider block">
+          <div className="flex flex-col gap-0.5 p-1.5 px-2.5 rounded-xl bg-white/60 dark:bg-slate-800/60 backdrop-blur-md border border-slate-200/80 dark:border-slate-700/80 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.8)] dark:shadow-[inset_0_1px_0_0_rgba(255,255,255,0.06)] min-w-0 transition-all focus-within:border-sky-500/50">
+            <label htmlFor="sector-filter" className="text-[9.5px] font-mono font-bold uppercase text-slate-400 dark:text-slate-500 tracking-wider block">
               {l('Sector', 'क्षेत्र')}
             </label>
             <div className="relative flex items-center">
@@ -150,8 +150,8 @@ export const FilterBar: React.FC = () => {
           </div>
 
           {/* Occupation Filter */}
-          <div className="flex flex-col gap-0.5 p-1.5 px-2 rounded-md bg-slate-50 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-700/80 min-w-0">
-            <label htmlFor="occupation-filter" className="text-[10px] font-semibold uppercase text-slate-400 dark:text-slate-500 tracking-wider block">
+          <div className="flex flex-col gap-0.5 p-1.5 px-2.5 rounded-xl bg-white/60 dark:bg-slate-800/60 backdrop-blur-md border border-slate-200/80 dark:border-slate-700/80 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.8)] dark:shadow-[inset_0_1px_0_0_rgba(255,255,255,0.06)] min-w-0 transition-all focus-within:border-sky-500/50">
+            <label htmlFor="occupation-filter" className="text-[9.5px] font-mono font-bold uppercase text-slate-400 dark:text-slate-500 tracking-wider block">
               {l('Occupation (NCO)', 'व्यवसाय (NCO)')}
             </label>
             <div className="relative flex items-center">
@@ -176,11 +176,11 @@ export const FilterBar: React.FC = () => {
           </div>
 
           {/* Forecast Horizon Switcher */}
-          <div className="flex flex-col gap-0.5 p-1.5 px-2 rounded-md bg-slate-50 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-700/80 col-span-2 sm:col-span-1">
-            <span className="text-[10px] font-semibold uppercase text-slate-400 dark:text-slate-500 tracking-wider block">
+          <div className="flex flex-col gap-0.5 p-1.5 px-2.5 rounded-xl bg-white/60 dark:bg-slate-800/60 backdrop-blur-md border border-slate-200/80 dark:border-slate-700/80 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.8)] dark:shadow-[inset_0_1px_0_0_rgba(255,255,255,0.06)] col-span-2 sm:col-span-1">
+            <span className="text-[9.5px] font-mono font-bold uppercase text-slate-400 dark:text-slate-500 tracking-wider block">
               {l('Horizon', 'अवधि')}
             </span>
-            <div className="flex rounded-md p-0.5 bg-slate-200/70 dark:bg-slate-700/70 items-center" role="group" aria-label="Forecast Horizon Options">
+            <div className="flex rounded-lg p-0.5 bg-slate-200/60 dark:bg-slate-700/60 items-center" role="group" aria-label="Forecast Horizon Options">
               {(['3M', '6M', '12M'] as ForecastHorizon[]).map((hz) => (
                 <button
                   key={hz}
@@ -192,9 +192,9 @@ export const FilterBar: React.FC = () => {
                     toast.success(l(`Forecast Horizon: ${hz}`, `पूर्वानुमान अवधि: ${hz}`));
                   }}
                   className={clsx(
-                    'flex-1 py-1 text-[11px] font-semibold rounded-sm transition-all cursor-pointer text-center select-none active:scale-95',
+                    'flex-1 py-0.5 text-[11px] font-mono font-semibold rounded-md transition-all cursor-pointer text-center select-none active:scale-95',
                     forecastHorizon === hz
-                      ? 'bg-white dark:bg-slate-800 text-sky-700 dark:text-sky-300 shadow-xs font-bold'
+                      ? 'bg-white dark:bg-slate-800 text-sky-700 dark:text-sky-300 shadow-xs font-bold border border-slate-200/80 dark:border-slate-600'
                       : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
                   )}
                 >

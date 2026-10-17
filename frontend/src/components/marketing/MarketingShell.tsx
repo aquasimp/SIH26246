@@ -7,7 +7,7 @@ import { ThemeToggle } from '@/components/layout/ThemeToggle';
 import { LanguageSelector } from '@/components/layout/LanguageSelector';
 import { siteConfig } from '@/lib/site.config';
 import { EXPORT_METADATA } from '@/lib/demoData';
-import { ArrowRight, Compass, Sliders, Database, FileText, Menu, Sparkles } from 'lucide-react';
+import { ArrowRight, Compass, Sliders, Database, FileText, Menu, Sparkles, TrendingUp } from 'lucide-react';
 import { BrandLogo } from '@/components/ui/BrandLogo';
 
 export function MarketingTopbar() {
@@ -26,39 +26,46 @@ export function MarketingTopbar() {
     <div className={`floating-nav-wrapper ${scrolled ? 'nav-scrolled' : ''}`}>
       <header className="floating-nav-pill select-none">
         {/* Brand Lockup with DepthWizard-style geometry */}
-        <Link href="/" className="flex items-center gap-2.5 sm:gap-3 group focus:outline-none min-w-0 shrink">
+        <Link href="/" className="flex items-center gap-2.5 sm:gap-3 group focus:outline-none min-w-0 shrink-0">
           <BrandLogo size="md" alt="KaushalYuva Logo" />
           <div className="flex flex-col min-w-0">
             <div className="flex items-center gap-1.5">
-              <span className="text-sm font-bold tracking-tight text-slate-900 dark:text-slate-100 leading-tight">
+              <span className="text-sm font-extrabold tracking-tight text-slate-900 dark:text-slate-100 leading-tight">
                 {t.appTitle || siteConfig.name}
               </span>
-              <span className="hidden sm:inline-flex text-[9.5px] font-bold text-sky-700 dark:text-sky-400 bg-sky-500/10 border border-sky-500/20 px-1.5 py-0.5 rounded-full">
+              <span className="hidden sm:inline-flex text-[9px] font-extrabold font-mono text-sky-700 dark:text-sky-300 bg-sky-500/15 border border-sky-500/30 px-1.5 py-0.5 rounded-full">
                 MSDE
               </span>
             </div>
-            <span className="hidden md:block text-[9.5px] font-medium text-slate-500 uppercase tracking-wider truncate">
+            <span className="hidden md:block text-[9px] font-bold font-mono tracking-wider text-slate-500 dark:text-slate-400 uppercase mt-0.5">
               {t.appSubtitle || l('AI LABOUR MARKET INTELLIGENCE', 'श्रम बाजार बुद्धिमत्ता इंजन')}
             </span>
           </div>
         </Link>
 
-        {/* Center: DepthWizard-style Navigation Links & Centered Demo Action Button */}
-        <div className="hidden lg:flex items-center gap-1.5 flex-1 justify-center max-w-2xl px-2">
+        {/* Center: DepthWizard Navigation Links */}
+        <div className="hidden lg:flex items-center gap-1 flex-1 justify-center px-2">
           <nav aria-label="Marketing Navigation" className="flex items-center gap-1">
             <Link 
               href="/overview" 
               className="nav-link-btn"
             >
               <Compass className="w-3.5 h-3.5 text-sky-600 dark:text-sky-400" />
-              <span>{t.nav.overview}</span>
+              <span>{t.nav.overview || l('Overview', 'अवलोकन')}</span>
             </Link>
             <Link 
               href="/scenarios" 
               className="nav-link-btn"
             >
               <Sliders className="w-3.5 h-3.5 text-indigo-500" />
-              <span>{t.nav.scenarios}</span>
+              <span>{t.nav.scenarios || l('Scenario Studio', 'परिदृश्य स्टूडियो')}</span>
+            </Link>
+            <Link 
+              href="/forecasts" 
+              className="nav-link-btn"
+            >
+              <TrendingUp className="w-3.5 h-3.5 text-amber-500" />
+              <span>{t.nav.forecasts || l('Forecasts', 'पूर्वानुमान')}</span>
             </Link>
             <Link 
               href="/methodology" 
@@ -72,31 +79,35 @@ export function MarketingTopbar() {
               className="nav-link-btn"
             >
               <Database className="w-3.5 h-3.5 text-slate-500" />
-              <span>{t.nav.apiExports}</span>
+              <span>{t.nav.apiExports || l('API & Exports', 'एपीआई')}</span>
             </Link>
           </nav>
-
-          {/* Centered Quick Action Demo Pill */}
-          <Link
-            href="/scenarios?preset=rec01"
-            className="nav-demo-pill-btn ml-2"
-            title={l('Run Live Reallocation Simulation', 'लाइव सिमुलेशन चलाएं')}
-          >
-            <Sparkles className="w-3 h-3 text-sky-500" />
-            <span>{l('Live Studio', 'लाइव स्टूडियो')}</span>
-          </Link>
         </div>
 
-        {/* Right Controls: Frosted Chips & Luminous Liquid Glass Button */}
+        {/* Right Controls: Telemetry Chip, Live Studio Action, Language, Theme */}
         <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
           {/* Dataset Chip */}
           <span 
-            className="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-medium bg-white/70 dark:bg-slate-800/70 text-slate-700 dark:text-slate-300 border border-slate-200/80 dark:border-slate-700 shrink-0 shadow-2xs"
+            className="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10.5px] font-mono font-bold bg-white/70 dark:bg-slate-800/70 text-slate-700 dark:text-slate-300 border border-slate-200/80 dark:border-slate-700 shrink-0 shadow-2xs"
             title={`${EXPORT_METADATA.runId} · ${EXPORT_METADATA.dataThrough}`}
           >
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 shrink-0" />
-            <span className="font-mono text-[10px]">{EXPORT_METADATA.runId}</span>
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 shrink-0 animate-pulse" />
+            <span>{EXPORT_METADATA.runId}</span>
           </span>
+
+          {/* Quick Action Live Demo / Studio Pill (DepthWizard signature action) */}
+          <Link
+            href="/scenarios?preset=rec01"
+            className="nav-demo-pill-btn flex items-center gap-1.5 text-xs font-bold px-3 py-1.5 rounded-full"
+            title={l('Run Live Reallocation Simulation', 'लाइव सिमुलेशन चलाएं')}
+          >
+            <Sparkles className="w-3.5 h-3.5 text-amber-500" />
+            <span className="hidden sm:inline">{l('Live Studio', 'लाइव स्टूडियो')}</span>
+            <span className="sm:hidden">{l('Live', 'लाइव')}</span>
+            <span className="px-1 py-0.2 rounded-xs text-[9px] font-mono font-extrabold bg-amber-500/20 text-amber-600 dark:text-amber-400">
+              {l('LIVE', 'लाइव')}
+            </span>
+          </Link>
 
           {/* Multilingual Selector */}
           <div className="hidden sm:inline-flex shrink-0">
@@ -107,17 +118,6 @@ export function MarketingTopbar() {
           <div className="hidden sm:block shrink-0">
             <ThemeToggle />
           </div>
-
-          {/* Primary Open Dashboard CTA — Luminous Liquid Glass (NO harsh black!) */}
-          <Link
-            href="/overview"
-            className="btn-liquid-primary text-xs py-1.5 px-3.5 font-semibold"
-          >
-            <Compass className="w-3.5 h-3.5 text-sky-600 dark:text-sky-400" />
-            <span className="hidden xs:inline">{t.nav.openDashboard || l('Open Dashboard', 'डैशबोर्ड खोलें')}</span>
-            <span className="xs:hidden">{t.nav.overview || l('Dashboard', 'डैशबोर्ड')}</span>
-            <ArrowRight className="w-3.5 h-3.5" />
-          </Link>
 
           {/* Mobile Navigation Drawer Trigger */}
           <button

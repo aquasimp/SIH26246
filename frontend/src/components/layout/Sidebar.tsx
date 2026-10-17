@@ -120,13 +120,13 @@ export const Sidebar: React.FC = () => {
     <aside 
       aria-label="Primary Platform Navigation"
       className={`hidden md:flex flex-col shrink-0 transition-all duration-300 z-30 sticky top-0 h-screen select-none ${
-        collapsed ? 'w-20' : 'w-20 xl:w-[280px]'
+        collapsed ? 'w-20' : 'w-[260px] xl:w-[280px]'
       }`}
     >
-      <div className="bg-white dark:bg-slate-900 h-full flex flex-col justify-between p-3 relative overflow-hidden border-r border-slate-200 dark:border-slate-700">
+      <div className="liquid-glass-sidebar h-full flex flex-col p-3 relative overflow-hidden">
         {/* Top Brand & Header */}
-        <div className="flex flex-col min-h-0">
-          <div className="flex items-center justify-between px-2 pt-1 pb-3 border-b border-slate-200 dark:border-slate-700">
+        <div className="flex flex-col flex-1 min-h-0 h-full">
+          <div className="flex items-center justify-between px-2 pt-1 pb-3 border-b border-slate-200/80 dark:border-slate-800">
             <Link href="/" className="flex items-center gap-2.5 group" title={l('KaushalYuva Home', 'कौशलयुवा होम')}>
               <BrandLogo size="lg" alt="KaushalYuva Logo" />
               {!collapsed && (
@@ -144,7 +144,7 @@ export const Sidebar: React.FC = () => {
             <button
               type="button"
               onClick={() => setCollapsed(!collapsed)}
-              className="w-7 h-7 rounded-md border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-800 flex items-center justify-center text-slate-500 hover:text-slate-900 dark:hover:text-slate-100 cursor-pointer transition-colors"
+              className="w-7 h-7 rounded-lg border border-slate-200/80 dark:border-slate-700 bg-white/80 dark:bg-slate-800/80 backdrop-blur-md flex items-center justify-center text-slate-500 hover:text-slate-900 dark:hover:text-slate-100 cursor-pointer transition-all shadow-2xs hover:scale-105"
               title={collapsed ? 'Expand sidebar (Ctrl+B)' : 'Collapse sidebar'}
               aria-label={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
             >
@@ -157,11 +157,11 @@ export const Sidebar: React.FC = () => {
             {navGroups.map((group) => (
               <div key={group.title} className="space-y-0.5">
                 {!collapsed && (
-                  <span className="px-3 pt-4 pb-1 text-[11px] font-semibold tracking-wider uppercase text-slate-400 block">
+                  <span className="px-3 pt-3 pb-1 text-[10.5px] font-bold tracking-wider uppercase text-slate-400 dark:text-slate-500 block font-mono">
                     {group.title}
                   </span>
                 )}
-                <div className="space-y-0.5">
+                <div className="space-y-1">
                   {group.items.map((item) => {
                     const isActive = pathname === item.href || (item.href !== '/overview' && pathname.startsWith(item.href));
                     const Icon = item.icon;
@@ -170,15 +170,15 @@ export const Sidebar: React.FC = () => {
                       <Link
                         key={item.href}
                         href={item.href}
-                        className={`flex items-center gap-2.5 px-2.5 py-2 rounded-md text-xs font-medium transition-all relative group cursor-pointer ${
+                        className={`flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-medium transition-all relative group cursor-pointer border ${
                           isActive
-                            ? 'bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-slate-100 font-semibold border-l-[3px] border-l-slate-900 dark:border-l-slate-100'
-                            : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-50 dark:hover:bg-slate-800'
+                            ? 'bg-white/90 dark:bg-slate-800/90 text-slate-900 dark:text-slate-100 font-semibold border-slate-200/90 dark:border-slate-700 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.95),0_2px_8px_rgba(15,23,42,0.04)] dark:shadow-[inset_0_1px_0_0_rgba(255,255,255,0.12),0_2px_8px_rgba(0,0,0,0.3)]'
+                            : 'border-transparent text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-white/60 dark:hover:bg-slate-800/60 hover:border-slate-200/60 dark:hover:border-slate-700/60'
                         }`}
                         title={collapsed ? item.label : undefined}
                       >
-                        <Icon className={`w-4 h-4 shrink-0 ${
-                          isActive ? 'text-slate-900 dark:text-slate-100' : 'text-slate-400'
+                        <Icon className={`w-4 h-4 shrink-0 transition-colors ${
+                          isActive ? 'text-sky-600 dark:text-sky-400' : 'text-slate-400 group-hover:text-slate-600 dark:group-hover:text-slate-300'
                         }`} />
                         
                         {!collapsed && (
@@ -188,13 +188,13 @@ export const Sidebar: React.FC = () => {
                         )}
 
                         {!collapsed && item.badge !== undefined && (
-                          <span className={`px-1.5 py-0.5 text-[11px] font-medium rounded border ${item.badgeColor}`}>
+                          <span className={`px-1.5 py-0.5 text-[10px] font-bold rounded-full border shadow-2xs ${item.badgeColor}`}>
                             {item.badge}
                           </span>
                         )}
 
                         {!collapsed && item.special && (
-                          <span className="px-1.5 py-0.5 text-[9px] font-semibold uppercase rounded bg-slate-900 dark:bg-slate-100 text-white dark:text-slate-900">
+                          <span className="px-1.5 py-0.5 text-[9px] font-mono font-bold uppercase rounded-full bg-sky-500/10 text-sky-700 dark:text-sky-400 border border-sky-500/25">
                             STUDIO
                           </span>
                         )}

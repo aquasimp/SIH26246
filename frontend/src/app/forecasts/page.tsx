@@ -30,13 +30,19 @@ export default function ForecastPage() {
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
         <div>
           <div className="flex items-center gap-2 mb-1.5">
-            <span className="px-2.5 py-0.5 rounded-full text-[11px] font-mono font-extrabold uppercase tracking-wider bg-[var(--brand)]/15 text-[var(--brand)] border border-[var(--brand)]/30">
+            <span className="px-2.5 py-0.5 rounded-full text-[11px] font-mono font-bold uppercase tracking-wider bg-sky-500/15 text-sky-700 dark:text-sky-300 border border-sky-500/30">
               {l('Econometric Predictive Engine', 'अर्थमितीय पूर्वानुमान इंजन')}
             </span>
             <Provenance source="MSDE Verified Registry" />
           </div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-[var(--text)] tracking-tight">
-            {l('Demand & Supply Forecast', 'मांग और आपूर्ति पूर्वानुमान')}
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight font-sans">
+            {language === 'hi' ? (
+              'मांग और आपूर्ति पूर्वानुमान'
+            ) : (
+              <>
+                Demand &amp; Supply <span className="title-serif-italic">Forecasts</span>
+              </>
+            )}
           </h1>
           <p className="text-sm text-[var(--text-muted)] mt-1 max-w-2xl leading-relaxed">
             {l('Multi-horizon machine learning forecasting of trade demand versus staged employable labour supply. Sourced dynamically from verified out-of-sample backtests.', 'व्यवसाय मांग बनाम चरणबद्ध रोजगार योग्य श्रम आपूर्ति का बहु-क्षितिज मशीन लर्निंग पूर्वानुमान। सत्यापित आउट-ऑफ-सैंपल बैकटेस्ट से गतिशील रूप से प्राप्त।')}
@@ -45,19 +51,19 @@ export default function ForecastPage() {
 
         {/* Horizon Quick Selector (§6.2) */}
         <div className="flex items-center gap-2 self-start md:self-auto">
-          <span className="text-xs font-bold text-[var(--text-faint)]">
+          <span className="text-xs font-mono font-bold text-slate-400">
             {l('Horizon:', 'क्षितिज:')}
           </span>
-          <div className="glass inline-flex items-center rounded-xl p-0.5 border border-[var(--border)] text-xs">
+          <div className="liquid-glass-card inline-flex items-center rounded-xl p-1 text-xs">
             {(['3M', '6M', '12M'] as const).map((hz) => (
               <button
                 key={hz}
                 type="button"
                 onClick={() => setForecastHorizon(hz)}
-                className={`px-3 py-1.5 text-xs font-bold rounded-lg transition-all cursor-pointer font-mono ${
+                className={`px-3 py-1 text-xs font-bold rounded-lg transition-all cursor-pointer font-mono ${
                   forecastHorizon === hz
-                    ? 'bg-[var(--brand)] text-white shadow-xs'
-                    : 'text-[var(--text-muted)] hover:text-[var(--text)]'
+                    ? 'bg-sky-600 dark:bg-sky-500 text-white shadow-xs'
+                    : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100'
                 }`}
               >
                 {hz}
@@ -70,7 +76,7 @@ export default function ForecastPage() {
       <FilterBar />
 
       {/* Main Forecast Visualization Panel (§6.2) */}
-      <div className="p-5 sm:p-6 rounded-3xl glass-strong border border-[var(--border)] shadow-md space-y-4">
+      <div className="p-5 sm:p-6 rounded-3xl liquid-glass-card hud-corner-card space-y-4">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-[var(--border)]">
           <div>
             <h2 className="text-lg font-extrabold text-[var(--text)]">

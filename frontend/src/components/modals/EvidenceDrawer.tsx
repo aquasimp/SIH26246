@@ -20,6 +20,19 @@ import { Provenance } from '@/components/common/Provenance';
 export const EvidenceDrawer: React.FC = () => {
   const { activeEvidence, setActiveEvidence, approveRecommendation } = useApp();
 
+  // Close on Escape key
+  React.useEffect(() => {
+    if (!activeEvidence) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        e.preventDefault();
+        setActiveEvidence(null);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [activeEvidence, setActiveEvidence]);
+
   if (!activeEvidence) return null;
 
   const rec = activeEvidence;
@@ -52,7 +65,13 @@ export const EvidenceDrawer: React.FC = () => {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex justify-end bg-black/60 backdrop-blur-sm transition-opacity animate-in fade-in duration-200">
+    <div 
+      className="fixed inset-0 z-50 flex justify-end bg-black/60 backdrop-blur-sm transition-opacity animate-in fade-in duration-200"
+      onClick={(e) => { if (e.target === e.currentTarget) setActiveEvidence(null); }}
+      role="dialog"
+      aria-modal="true"
+      aria-label="Recommendation Evidence Dossier"
+    >
       <div className="w-full max-w-xl h-full overlay border-l border-[var(--border-strong)] shadow-2xl flex flex-col justify-between overflow-hidden animate-in slide-in-from-right duration-300">
         {/* Drawer Header */}
         <div className="p-6 border-b border-[var(--border)] glass-strong">

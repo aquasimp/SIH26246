@@ -42,7 +42,11 @@ export function Provenance({
   let Icon = Database;
   let colorClass = 'bg-sky-50 dark:bg-sky-950/40 text-sky-700 dark:text-sky-300 border-sky-200 dark:border-sky-800';
 
-  if (raw.includes('synth') || raw.includes('demo') || raw.includes('sih') || raw.includes('dummy')) {
+  if (source === 'SIH dummy dataset' || raw === 'sih dummy dataset' || raw.includes('sih dummy')) {
+    label = l('SIH dummy dataset', 'SIH डमी डेटासेट');
+    Icon = Database;
+    colorClass = 'bg-sky-50 dark:bg-sky-950/40 text-sky-700 dark:text-sky-300 border-sky-200 dark:border-sky-800';
+  } else if (raw.includes('synth') || raw.includes('demo') || raw.includes('sih') || raw.includes('dummy')) {
     label = l('MSDE Verified Dataset', 'MSDE सत्यापित डेटासेट');
     Icon = Database;
     colorClass = 'bg-sky-50 dark:bg-sky-950/40 text-sky-700 dark:text-sky-300 border-sky-200 dark:border-sky-800';

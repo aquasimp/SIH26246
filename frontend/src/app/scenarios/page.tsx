@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useMemo, useEffect, Suspense } from 'react';
+import React, { useState, useMemo, useEffect, useCallback, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { useApp } from '@/lib/store';
 import { FilterBar } from '@/components/layout/FilterBar';
@@ -51,11 +51,27 @@ function ScenarioStudioContent() {
   const [donorSafetyRule, setDonorSafetyRule] = useState<number>(0.05); // 0.05 (Strict, default)
   const [whyModalOpen, setWhyModalOpen] = useState<boolean>(false);
 
+  // "Load Recommendation #01 Preset" lands EXACTLY on 97 seats / donor 52 / ₹18.31L / 6.2% alone / 15.6% combo (§4.1)
+  const handleApplyPreset = useCallback(() => {
+    setSelectedDistrict('gorakhpur');
+    setSelectedOccupationNco('7126.0101');
+    setSeatShiftAmount(500); // Will be safely capped to 97 seats by LP Strict rule
+    setSeatPercentAdjustment(0);
+    setDemandShockPercent(0);
+    setNewCentreActive(true); // +150 greenfield lab seats (+₹12L)
+    setMobilityFactorPercent(0); // 0% default
+    setDonorSafetyRule(0.05); // Strict default
+    toast.success(l('Recommendation #01 preset loaded: 97 seats • ₹18.31L • 15.6% closure', 'सिफ़ारिश #01 प्रीसेट लोड: 97 सीटें • ₹18.31L • 15.6% भरपाई'));
+  }, [setSelectedDistrict, setSelectedOccupationNco, l]);
+
   // Check URL preset and district query param
   useEffect(() => {
     const preset = searchParams.get('preset');
+    let timer: NodeJS.Timeout | null = null;
     if (preset === 'rec01') {
-      handleApplyPreset();
+      timer = setTimeout(() => {
+        handleApplyPreset();
+      }, 0);
     }
     const districtParam = searchParams.get('district');
     if (districtParam) {
@@ -65,7 +81,23 @@ function ScenarioStudioContent() {
         setSelectedState(distMatch.state);
       }
     }
-  }, [searchParams, setSelectedDistrict, setSelectedState]);
+    return () => {
+      if (timer) clearTimeout(timer);
+    };
+  }, [searchParams, handleApplyPreset, setSelectedDistrict, setSelectedState]);
+
+  // Close whyModal on Escape
+  useEffect(() => {
+    if (!whyModalOpen) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        e.preventDefault();
+        setWhyModalOpen(false);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [whyModalOpen]);
 
   // Simulation execution via engine (memoized)
   const simulation = useMemo(() => {
@@ -93,19 +125,6 @@ function ScenarioStudioContent() {
     setMobilityFactorPercent(0);
     setDonorSafetyRule(0.05);
     toast.info(l('Scenario levers reset to unadjusted baseline', 'परिदृश्य लीवर अप्रभावित आधारभूत पर रीसेट हो गए'));
-  };
-
-  // "Load Recommendation #01 Preset" lands EXACTLY on 97 seats / donor 52 / ₹18.31L / 6.2% alone / 15.6% combo (§4.1)
-  const handleApplyPreset = () => {
-    setSelectedDistrict('gorakhpur');
-    setSelectedOccupationNco('7126.0101');
-    setSeatShiftAmount(500); // Will be safely capped to 97 seats by LP Strict rule
-    setSeatPercentAdjustment(0);
-    setDemandShockPercent(0);
-    setNewCentreActive(true); // +150 greenfield lab seats (+₹12L)
-    setMobilityFactorPercent(0); // 0% default
-    setDonorSafetyRule(0.05); // Strict default
-    toast.success(l('Recommendation #01 preset loaded: 97 seats • ₹18.31L • 15.6% closure', 'सिफ़ारिश #01 प्रीसेट लोड: 97 सीटें • ₹18.31L • 15.6% भरपाई'));
   };
 
   const handleExportSimulation = () => {
@@ -182,8 +201,14 @@ function ScenarioStudioContent() {
             </span>
             <Provenance source="MSDE Verified Registry" />
           </div>
-          <h1 className="text-2xl sm:text-4xl font-extrabold text-[var(--text)] tracking-tight break-words">
-            {l('Scenario Studio', 'परिदृश्य स्टूडियो')}
+          <h1 className="text-2xl sm:text-4xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight break-words font-sans">
+            {language === 'hi' ? (
+              'नीति सिमुलेशन एवं सीट पुनर्गठन'
+            ) : (
+              <>
+                Policy Sandbox &amp; Seat Reallocation <span className="title-serif-italic">Studio</span>
+              </>
+            )}
           </h1>
           <p className="text-xs sm:text-sm text-[var(--text-muted)] mt-1 max-w-2xl leading-relaxed">
             {l('Test policy decisions before real-world capital deployment. Simulate seat shifts, demand shocks, greenfield labs, and candidate mobility under LP non-depletion constraints.', 'वास्तविक पूंजी आवंटन से पहले नीतिगत निर्णयों का परीक्षण करें। LP गैर-रिक्तीकरण प्रतिबंधों के तहत सीट स्थानांतरण, मांग झटके, नए प्रयोगशाला केंद्र और उम्मीदवार गतिशीलता का अनुकरण करें।')}
@@ -194,7 +219,7 @@ function ScenarioStudioContent() {
           <button
             type="button"
             onClick={handleApplyPreset}
-            className="px-3.5 py-2 rounded-xl bg-[var(--brand)] hover:opacity-90 text-white text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer shadow-xs min-h-[36px]"
+            className="hero-btn-dark-glow py-2 px-4 text-xs font-semibold flex items-center gap-1.5 cursor-pointer shadow-xs min-h-[36px]"
             title="Load canonical Recommendation #01: 97 seats • ₹18.31L • donor score 52"
           >
             <Sparkles className="w-3.5 h-3.5 text-amber-300" />
@@ -204,7 +229,7 @@ function ScenarioStudioContent() {
           <button
             type="button"
             onClick={handleReset}
-            className="p-2 rounded-xl liquid-control text-[var(--text-muted)] hover:text-[var(--text)] cursor-pointer min-h-[36px] min-w-[36px] flex items-center justify-center"
+            className="hero-btn-white-pill p-2 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-slate-100 cursor-pointer min-h-[36px] min-w-[36px] flex items-center justify-center text-xs"
             title="Reset controls to baseline"
             aria-label="Reset controls"
           >
@@ -214,9 +239,9 @@ function ScenarioStudioContent() {
           <button
             type="button"
             onClick={handleExportSimulation}
-            className="px-3.5 py-2 rounded-xl liquid-control text-[var(--text)] text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer min-h-[36px]"
+            className="hero-btn-white-pill py-2 px-3.5 text-slate-700 dark:text-slate-200 text-xs font-semibold flex items-center gap-1.5 cursor-pointer min-h-[36px]"
           >
-            <Download className="w-4 h-4" />
+            <Download className="w-4 h-4 text-sky-500" />
             <span>{l('Export Report', 'रिपोर्ट निर्यात करें')}</span>
           </button>
         </div>

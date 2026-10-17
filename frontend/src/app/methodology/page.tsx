@@ -62,8 +62,14 @@ export default function MethodologyPage() {
             </span>
             <Provenance source="Official SIH Audit Standard" />
           </div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-[var(--text)] tracking-tight">
-            {l('Model Assumptions & Methodology', 'मॉडल धारणाएँ एवं कार्यप्रणाली')}
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight font-sans">
+            {language === 'hi' ? (
+              'मॉडल धारणाएँ एवं कार्यप्रणाली'
+            ) : (
+              <>
+                Model Architecture &amp; Out-of-Sample <span className="title-serif-italic">Validation</span>
+              </>
+            )}
           </h1>
           <p className="text-sm text-[var(--text-muted)] mt-1 max-w-3xl leading-relaxed">
             {l('The architectural foundations of KaushalYuva: zero-leakage econometrics, staged supply funnel dynamics, rolling-origin walk-forward validation, and PuLP non-depletion optimization.', 'कौशलयुवा का संपूर्ण निर्णय-सहायता ढांचा: शून्य-रिसाव इकोनोमेट्रिक्स, चरणबद्ध आपूर्ति फनल, रोलिंग-ओरिजिन वॉक-फ़ॉरवर्ड मूल्यांकन, और LP गैर-रिक्तीकरण अनुकूलन।')}
@@ -73,9 +79,9 @@ export default function MethodologyPage() {
         <button
           type="button"
           onClick={handleExportMethodology}
-          className="px-4 py-2 rounded-xl liquid-control text-xs sm:text-sm font-semibold text-[var(--text)] hover:bg-[var(--glass-strong)] border border-[var(--border)] flex items-center gap-2 self-start md:self-auto cursor-pointer"
+          className="btn-liquid-primary py-2 px-4 text-xs font-semibold flex items-center gap-2 self-start md:self-auto cursor-pointer"
         >
-          <Download className="w-4 h-4" />
+          <Download className="w-4 h-4 text-sky-600 dark:text-sky-400" />
           <span>{l('Export Mathematical Spec', 'गणितीय विनिर्देश निर्यात')}</span>
         </button>
       </div>

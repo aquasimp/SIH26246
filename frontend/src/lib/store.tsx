@@ -56,7 +56,7 @@ const AppContext = createContext<AppContextType | undefined>(undefined);
 export const AppProvider = ({ children, initialLanguage }: { children: ReactNode; initialLanguage?: Language }) => {
   const [language, setLanguage] = useState<Language>(() => {
     const validLanguages: Language[] = ['en', 'hi', 'mr', 'ta', 'te', 'kn', 'bn'];
-    const isValid = (l: any): l is Language => validLanguages.includes(l);
+    const isValid = (l: unknown): l is Language => typeof l === 'string' && validLanguages.includes(l as Language);
 
     if (isValid(initialLanguage)) return initialLanguage;
     if (typeof window !== 'undefined') {
@@ -116,13 +116,6 @@ export const AppProvider = ({ children, initialLanguage }: { children: ReactNode
         if (document.body) {
           document.body.setAttribute('translate', 'no');
           document.body.classList.add('notranslate');
-        }
-
-        // Initialize language from storage or document lang
-        const savedLang = (localStorage.getItem('kaushalyuva-lang') || 
-                           document.documentElement.lang) as Language;
-        if (['en', 'hi', 'mr', 'ta', 'te', 'kn', 'bn'].includes(savedLang)) {
-          setLanguage(savedLang);
         }
       }
     } catch {

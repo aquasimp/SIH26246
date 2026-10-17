@@ -59,8 +59,14 @@ export default function LabourIntelligencePage() {
             {l('Employer Pulse', 'नियोक्ता पल्स')}
           </span>
         </div>
-        <h1 className="text-2xl sm:text-3xl font-extrabold text-[var(--text)] tracking-tight">
-          {l('Labour Market Demand Intelligence', 'श्रम बाजार मांग आसूचना')}
+        <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight font-sans">
+          {language === 'hi' ? (
+            'श्रम बाजार मांग आसूचना'
+          ) : (
+            <>
+              National Labour Market <span className="title-serif-italic">Intelligence</span>
+            </>
+          )}
         </h1>
         <p className="text-xs sm:text-sm text-[var(--text-muted)] mt-1 max-w-2xl leading-relaxed">
           {l("Aggregated employer hiring demand, skill momentum, and occupational pressure indices across India's industrial hubs.", 'भारत के औद्योगिक केंद्रों में समग्र नियोक्ता भर्ती मांग, कौशल गति और व्यावसायिक दबाव सूचकांक।')}
@@ -213,8 +219,8 @@ export default function LabourIntelligencePage() {
         title={l('Comprehensive Occupational Demand Table', 'व्यापक व्यावसायिक मांग तालिका')}
         subtitle={l('Ranked list of standardized occupations showing current vacancies, projected growth rates, and pressure indices.', 'मानकीकृत व्यवसायों की श्रेणीबद्ध सूची जो वर्तमान रिक्तियां, अनुमानित वृद्धि दर और दबाव सूचकांक दर्शाती है।')}
         action={
-          <div className="flex items-center gap-2">
-            <div className="relative w-56">
+          <div className="flex flex-wrap items-center gap-2 w-full sm:w-auto">
+            <div className="relative flex-1 sm:flex-initial w-full sm:w-56 min-w-[140px]">
               <Search className="w-3.5 h-3.5 text-[var(--text-faint)] absolute left-3 top-1/2 -translate-y-1/2" />
               <input
                 type="text"
@@ -224,22 +230,22 @@ export default function LabourIntelligencePage() {
                 className="w-full text-xs pl-8 pr-3 py-1.5 rounded-xl liquid-control text-[var(--text)] focus:outline-none"
               />
             </div>
-            <div className="flex rounded-xl p-0.5 liquid-control border border-[var(--border)] text-xs">
+            <div className="flex rounded-xl p-0.5 liquid-control border border-[var(--border)] text-xs overflow-x-auto max-w-full">
               <button
                 onClick={() => setSortField('demand')}
-                className={clsx('px-2.5 py-1 font-bold rounded-lg cursor-pointer text-xs', sortField === 'demand' ? 'bg-[var(--brand)] text-white' : 'text-[var(--text-muted)]')}
+                className={clsx('px-2.5 py-1 font-bold rounded-lg cursor-pointer text-xs whitespace-nowrap', sortField === 'demand' ? 'bg-[var(--brand)] text-white' : 'text-[var(--text-muted)]')}
               >
                 {l('Demand', 'मांग')}
               </button>
               <button
                 onClick={() => setSortField('growth')}
-                className={clsx('px-2.5 py-1 font-bold rounded-lg cursor-pointer text-xs', sortField === 'growth' ? 'bg-[var(--brand)] text-white' : 'text-[var(--text-muted)]')}
+                className={clsx('px-2.5 py-1 font-bold rounded-lg cursor-pointer text-xs whitespace-nowrap', sortField === 'growth' ? 'bg-[var(--brand)] text-white' : 'text-[var(--text-muted)]')}
               >
                 {l('Growth', 'वृद्धि')}
               </button>
               <button
                 onClick={() => setSortField('pressure')}
-                className={clsx('px-2.5 py-1 font-bold rounded-lg cursor-pointer text-xs', sortField === 'pressure' ? 'bg-[var(--brand)] text-white' : 'text-[var(--text-muted)]')}
+                className={clsx('px-2.5 py-1 font-bold rounded-lg cursor-pointer text-xs whitespace-nowrap', sortField === 'pressure' ? 'bg-[var(--brand)] text-white' : 'text-[var(--text-muted)]')}
               >
                 {l('Pressure', 'दबाव')}
               </button>

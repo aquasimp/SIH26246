@@ -55,7 +55,7 @@ export default function OccupationDetailPage({ params }: { params: Promise<{ nco
       <div className="flex items-center justify-between">
         <Link
           href="/occupations"
-          className="text-xs font-bold text-[var(--text-muted)] hover:text-[var(--brand)] flex items-center gap-1 transition-colors"
+          className="text-xs font-semibold text-slate-500 hover:text-sky-600 dark:hover:text-sky-400 flex items-center gap-1 transition-colors"
         >
           <ChevronLeft className="w-4 h-4" />
           <span>{l('Back to All Occupations', 'सभी व्यवसायों पर वापस')}</span>
@@ -65,31 +65,31 @@ export default function OccupationDetailPage({ params }: { params: Promise<{ nco
           onClick={handleExport}
           className="px-3.5 py-1.5 rounded-xl liquid-control text-xs font-semibold flex items-center gap-1.5 cursor-pointer shadow-xs"
         >
-          <Download className="w-3.5 h-3.5 text-[var(--brand)]" />
+          <Download className="w-3.5 h-3.5 text-sky-600 dark:text-sky-400" />
           <span>{l('Export NCO Profile', 'NCO प्रोफ़ाइल निर्यात करें')}</span>
         </button>
       </div>
 
       {/* Hero Occupation Header (Section 25) */}
-      <div className="p-6 sm:p-7 rounded-3xl glass border border-[var(--border)] shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-6">
+      <div className="p-6 sm:p-7 rounded-2xl liquid-glass-card hud-corner-card flex flex-col md:flex-row md:items-center justify-between gap-6">
         <div>
           <div className="flex items-center gap-2 mb-2 flex-wrap">
-            <span className="text-xs font-mono font-bold text-[var(--brand)] bg-[var(--brand)]/10 px-2.5 py-0.5 rounded-md border border-[var(--brand)]/20">
+            <span className="telemetry-chip">
               NCO-2015: {occ.ncoCode}
             </span>
-            <span className="text-xs font-semibold px-2 py-0.5 rounded-md bg-purple-500/10 text-purple-400 border border-purple-500/20 font-mono">
+            <span className="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-purple-500/10 text-purple-600 dark:text-purple-400 border border-purple-500/20 font-mono">
               NSQF {l('Level', 'स्तर')} {occ.nsqfLevel}
             </span>
-            <span className="text-xs text-[var(--text-muted)] font-medium">
+            <span className="text-xs text-slate-500 font-medium">
               {l('Sector', 'क्षेत्र')}: {getLocalizedEntityName('sectors', occ.sector, language, occ.sector)}
             </span>
           </div>
 
-          <h1 className="text-2xl sm:text-4xl font-extrabold text-[var(--text)] tracking-tight">
+          <h1 className="text-2xl sm:text-4xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight font-sans">
             {resolveDisplayName(occ, language)}
           </h1>
 
-          <p className="text-xs sm:text-sm text-[var(--text-muted)] mt-1 max-w-2xl leading-relaxed">
+          <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1 max-w-2xl leading-relaxed">
             {l('Detailed occupational intelligence profile mapping real-time industry vacancies to the staged training and certification funnel.', 'उद्योग की वास्तविक समय की रिक्तियों को चरणबद्ध प्रशिक्षण और प्रमाणन फ़नल से जोड़ने वाला विस्तृत व्यावसायिक खुफिया प्रोफ़ाइल।')}
           </p>
         </div>
@@ -97,9 +97,9 @@ export default function OccupationDetailPage({ params }: { params: Promise<{ nco
         <div className="flex items-center gap-3 shrink-0">
           <Link
             href="/scenarios"
-            className="px-4 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 hover:opacity-90 text-white text-xs sm:text-sm font-bold flex items-center gap-2 shadow-xs"
+            className="btn-liquid-primary px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold flex items-center gap-2 shadow-xs"
           >
-            <Sliders className="w-4 h-4" />
+            <Sliders className="w-4 h-4 text-sky-600 dark:text-sky-400" />
             <span>{l('Simulate in Scenario Studio', 'परिदृश्य स्टूडियो में अनुकरण')}</span>
           </Link>
         </div>
@@ -108,66 +108,66 @@ export default function OccupationDetailPage({ params }: { params: Promise<{ nco
       {/* 5 Core Top Metric Blocks (Section 25) */}
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4">
         {/* Metric 1: Current Demand */}
-        <div className="p-4 rounded-2xl glass border border-[var(--border)] shadow-xs">
-          <span className="text-[10px] font-bold text-[var(--text-faint)] uppercase tracking-wider block">
+        <div className="p-4 rounded-xl liquid-glass-card">
+          <span className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider block font-mono">
             {l('Current Demand', 'वर्तमान मांग')}
           </span>
-          <div className="text-2xl sm:text-3xl font-extrabold text-[var(--text)] font-mono my-1">
+          <div className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-slate-100 font-mono my-1">
             {occ.currentDemand.toLocaleString()}
           </div>
-          <span className="text-[11px] text-orange-500 font-semibold">
+          <span className="text-[11px] text-amber-600 dark:text-amber-400 font-semibold">
             +{occ.growthRate6M}% {l('Growth', 'वृद्धि')}
           </span>
         </div>
 
         {/* Metric 2: Effective Supply */}
-        <div className="p-4 rounded-2xl glass border border-[var(--border)] shadow-xs">
-          <span className="text-[10px] font-bold text-[var(--text-faint)] uppercase tracking-wider block">
+        <div className="p-4 rounded-xl liquid-glass-card">
+          <span className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider block font-mono">
             {l('Effective Supply', 'प्रभावी आपूर्ति')}
           </span>
-          <div className="text-2xl sm:text-3xl font-extrabold text-[var(--text)] font-mono my-1">
+          <div className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-slate-100 font-mono my-1">
             {occ.effectiveSupply.toLocaleString()}
           </div>
-          <span className="text-[11px] text-[var(--text-faint)] font-semibold">
+          <span className="text-[11px] text-slate-500 font-semibold">
             {l('Employable Pool', 'रोजगार योग्य पूल')}
           </span>
         </div>
 
         {/* Metric 3: Gap Score */}
-        <div className="p-4 rounded-2xl glass border border-[var(--severe)]/40 shadow-xs">
-          <span className="text-[10px] font-bold text-[var(--severe)] uppercase tracking-wider block">
+        <div className="p-4 rounded-xl liquid-glass-card border-red-500/30">
+          <span className="text-[10px] font-bold text-red-600 dark:text-red-400 uppercase tracking-wider block font-mono">
             {l('Gap Score', 'अंतर स्कोर')}
           </span>
-          <div className="text-2xl sm:text-3xl font-extrabold text-[var(--severe)] font-mono my-1">
+          <div className="text-2xl sm:text-3xl font-extrabold text-red-600 dark:text-red-400 font-mono my-1">
             {occ.gapScore} / 100
           </div>
-          <span className="text-[11px] text-[var(--severe)] font-semibold">
+          <span className="text-[11px] text-red-600 dark:text-red-400 font-semibold">
             {getLocalizedSeverity(occ.severity)}
           </span>
         </div>
 
         {/* Metric 4: 6M Forecast Demand */}
-        <div className="p-4 rounded-2xl glass border border-[var(--border)] shadow-xs">
-          <span className="text-[10px] font-bold text-[var(--text-faint)] uppercase tracking-wider block">
+        <div className="p-4 rounded-xl liquid-glass-card">
+          <span className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider block font-mono">
             {l('6M Projected Demand', '6M अनुमानित मांग')}
           </span>
-          <div className="text-2xl sm:text-3xl font-extrabold text-[var(--brand)] font-mono my-1">
+          <div className="text-2xl sm:text-3xl font-extrabold text-sky-700 dark:text-sky-400 font-mono my-1">
             {occ.forecastDemand6M.toLocaleString()}
           </div>
-          <span className="text-[11px] text-[var(--brand)] font-semibold">
+          <span className="text-[11px] text-sky-700 dark:text-sky-400 font-semibold">
             {l('LightGBM Projection', 'LightGBM प्रक्षेपण')}
           </span>
         </div>
 
         {/* Metric 5: Shortage Probability */}
-        <div className="p-4 rounded-2xl glass border border-[var(--border)] shadow-xs col-span-2 sm:col-span-1">
-          <span className="text-[10px] font-bold text-[var(--text-faint)] uppercase tracking-wider block">
+        <div className="p-4 rounded-xl liquid-glass-card col-span-2 sm:col-span-1">
+          <span className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider block font-mono">
             {l('Shortage Risk (6M)', 'कमी जोखिम (6M)')}
           </span>
-          <div className="text-2xl sm:text-3xl font-extrabold text-[var(--severe)] font-mono my-1">
+          <div className="text-2xl sm:text-3xl font-extrabold text-red-600 dark:text-red-400 font-mono my-1">
             {occ.shortageProbability6M}%
           </div>
-          <span className="text-[11px] text-[var(--text-faint)] font-semibold">
+          <span className="text-[11px] text-red-600 dark:text-red-400 font-semibold">
             {l('High Severity Signal', 'उच्च गंभीरता संकेत')}
           </span>
         </div>

@@ -106,7 +106,7 @@ export function runScenarioSimulation(params: ScenarioParams): ScenarioResult {
   // Target Net Gap Calculation & Score
   const rawGap = simulatedDemand - simulatedSupply;
   const gapRatio = simulatedDemand > 0 ? rawGap / simulatedDemand : 0;
-  let simulatedGapScore = Math.max(10, Math.min(98, pyRound(50 + (gapRatio * 50))));
+  const simulatedGapScore = Math.max(10, Math.min(98, pyRound(50 + (gapRatio * 50))));
   const simulatedSeverity = getSeverityBand(simulatedGapScore);
   const simulatedShortageProbability = Math.round(Math.max(5, Math.min(95, simulatedGapScore * 0.85)));
 

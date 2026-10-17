@@ -46,45 +46,109 @@ export interface ReferenceData {
 
 export const referenceData: ReferenceData = hiRef;
 
-function buildTranslationBundle(dict: any) {
+type DeepPartial<T> = T extends object ? {
+  [P in keyof T]?: DeepPartial<T[P]>;
+} : T;
+
+type DictSource = DeepPartial<typeof enDict>;
+
+function deepMerge<T extends object>(target: T, source: DeepPartial<T>): T {
+  const output = { ...target };
+  const src = source as Record<string, unknown>;
+  const tgt = output as Record<string, unknown>;
+
+  for (const key of Object.keys(src)) {
+    const sVal = src[key];
+    const tVal = tgt[key];
+    if (sVal !== undefined) {
+      if (typeof sVal === 'object' && sVal !== null && !Array.isArray(sVal) && typeof tVal === 'object' && tVal !== null) {
+        tgt[key] = deepMerge(tVal as object, sVal as DeepPartial<object>);
+      } else {
+        tgt[key] = sVal;
+      }
+    }
+  }
+  return output;
+}
+
+function buildTranslationBundle(dict: DictSource): typeof enDict & {
+  appTitle: string;
+  appSubtitle: string;
+  nationalIntelligence: string;
+  heroSubtitle: string;
+  metrics: {
+    demand: string;
+    effectiveSupply: string;
+    netGap: string;
+    atRiskTrades: string;
+    earlyWarnings: string;
+    recommendations: string;
+    gapScore: string;
+    confidence: string;
+    shortageProb: string;
+  };
+  status: {
+    severeShortage: string;
+    moderateShortage: string;
+    balanced: string;
+    moderateOversupply: string;
+    severeOversupply: string;
+    demoDataset: string;
+    publicAggregate: string;
+    plannedFeed: string;
+  };
+  actions: {
+    simulate: string;
+    viewEvidence: string;
+    exportAction: string;
+    approveDraft: string;
+    acknowledge: string;
+    investigate: string;
+    downloadCsv: string;
+    downloadXlsx: string;
+    copyEndpoint: string;
+    askCopilot: string;
+  };
+} {
+  const merged = deepMerge(enDict, dict);
   return {
-    ...dict,
-    appTitle: dict.brand?.name || enDict.brand.name,
-    appSubtitle: dict.brand?.descriptor || enDict.brand.descriptor,
-    nationalIntelligence: dict.overview?.title || enDict.overview.title,
-    heroSubtitle: dict.hero?.subhead || enDict.hero.subhead,
+    ...merged,
+    appTitle: merged.brand?.name || enDict.brand.name,
+    appSubtitle: merged.brand?.descriptor || enDict.brand.descriptor,
+    nationalIntelligence: merged.overview?.title || enDict.overview.title,
+    heroSubtitle: merged.hero?.subhead || enDict.hero.subhead,
     metrics: {
-      demand: dict.glossary?.demand || enDict.glossary.demand,
-      effectiveSupply: dict.glossary?.effectiveSupply || enDict.glossary.effectiveSupply,
-      netGap: dict.overview?.kpis?.netDeficit || enDict.overview.kpis.netDeficit,
-      atRiskTrades: dict.glossary?.atRiskTrades || 'At-Risk Trades',
-      earlyWarnings: dict.overview?.kpis?.activeAlerts || enDict.overview.kpis.activeAlerts,
-      recommendations: dict.nav?.recommendations || 'Priority Actions',
-      gapScore: dict.glossary?.gapScore || enDict.glossary.gapScore,
-      confidence: dict.glossary?.confidence || enDict.glossary.confidence,
-      shortageProb: dict.hero?.proofPanel?.shortageProbability || '6M Shortage Probability'
+      demand: merged.glossary?.demand || enDict.glossary.demand,
+      effectiveSupply: merged.glossary?.effectiveSupply || enDict.glossary.effectiveSupply,
+      netGap: merged.overview?.kpis?.netDeficit || enDict.overview.kpis.netDeficit,
+      atRiskTrades: merged.glossary?.atRiskTrades || 'At-Risk Trades',
+      earlyWarnings: merged.overview?.kpis?.activeAlerts || enDict.overview.kpis.activeAlerts,
+      recommendations: merged.nav?.recommendations || 'Priority Actions',
+      gapScore: merged.glossary?.gapScore || enDict.glossary.gapScore,
+      confidence: merged.glossary?.confidence || enDict.glossary.confidence,
+      shortageProb: merged.hero?.proofPanel?.shortageProbability || '6M Shortage Probability'
     },
     status: {
-      severeShortage: dict.glossary?.severeShortage || enDict.glossary.severeShortage,
-      moderateShortage: dict.glossary?.moderateShortage || enDict.glossary.moderateShortage,
-      balanced: dict.glossary?.balanced || enDict.glossary.balanced,
-      moderateOversupply: dict.glossary?.moderateOversupply || enDict.glossary.moderateOversupply,
-      severeOversupply: dict.glossary?.severeOversupply || enDict.glossary.severeOversupply,
-      demoDataset: dict.glossary?.demoDataset || enDict.glossary.demoDataset,
+      severeShortage: merged.glossary?.severeShortage || enDict.glossary.severeShortage,
+      moderateShortage: merged.glossary?.moderateShortage || enDict.glossary.moderateShortage,
+      balanced: merged.glossary?.balanced || enDict.glossary.balanced,
+      moderateOversupply: merged.glossary?.moderateOversupply || enDict.glossary.moderateOversupply,
+      severeOversupply: merged.glossary?.severeOversupply || enDict.glossary.severeOversupply,
+      demoDataset: merged.glossary?.demoDataset || enDict.glossary.demoDataset,
       publicAggregate: 'Public Aggregate',
       plannedFeed: 'Planned Government Feed'
     },
     actions: {
-      simulate: dict.glossary?.simulate || enDict.glossary.simulate,
-      viewEvidence: dict.common?.viewEvidence || enDict.common.viewEvidence,
+      simulate: merged.glossary?.simulate || enDict.glossary.simulate,
+      viewEvidence: merged.common?.viewEvidence || enDict.common.viewEvidence,
       exportAction: 'Export Action',
       approveDraft: 'Approve Draft',
-      acknowledge: dict.common?.acknowledge || enDict.common.acknowledge,
-      investigate: dict.common?.investigate || enDict.common.investigate,
-      downloadCsv: dict.common?.downloadCsv || enDict.common.downloadCsv,
-      downloadXlsx: dict.common?.downloadXlsx || enDict.common.downloadXlsx,
-      copyEndpoint: dict.common?.copyEndpoint || enDict.common.copyEndpoint,
-      askCopilot: dict.copilot?.title || 'Ask Kaushal Copilot'
+      acknowledge: merged.common?.acknowledge || enDict.common.acknowledge,
+      investigate: merged.common?.investigate || enDict.common.investigate,
+      downloadCsv: merged.common?.downloadCsv || enDict.common.downloadCsv,
+      downloadXlsx: merged.common?.downloadXlsx || enDict.common.downloadXlsx,
+      copyEndpoint: merged.common?.copyEndpoint || enDict.common.copyEndpoint,
+      askCopilot: merged.copilot?.title || 'Ask Kaushal Copilot'
     }
   };
 }

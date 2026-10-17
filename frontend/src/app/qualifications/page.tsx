@@ -34,8 +34,14 @@ export default function QualificationsPage() {
             NSQF {l('Levels 1-8', 'स्तर 1-8')}
           </span>
         </div>
-        <h1 className="text-2xl sm:text-3xl font-extrabold text-[var(--text)] tracking-tight">
-          {l('Qualification & NSQF Intelligence', 'योग्यता और NSQF इंटेलिजेंस')}
+        <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight font-sans">
+          {language === 'hi' ? (
+            'योग्यता और NSQF इंटेलिजेंस'
+          ) : (
+            <>
+              National Qualifications Register <span className="title-serif-italic">(NQR/NSQF)</span>
+            </>
+          )}
         </h1>
         <p className="text-xs sm:text-sm text-[var(--text-muted)] mt-1 max-w-2xl leading-relaxed">
           {l('Full traceability chain mapping Occupations → NCO Codes → Qualification Packs (QP) → NSQF Levels → Verified Training Providers.', 'व्यवसाय → NCO कोड → योग्यता पैक (QP) → NSQF स्तर → सत्यापित प्रशिक्षण प्रदाताओं की पूर्ण ट्रेसिबिलिटी श्रृंखला।')}

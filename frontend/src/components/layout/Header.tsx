@@ -64,7 +64,7 @@ export const Header: React.FC = () => {
   const localizedDistrict = getLocalizedEntityName('districts', rawDistrict, language, rawDistrict);
 
   return (
-    <div className="sticky top-2.5 z-40 px-3 sm:px-5 lg:px-6 w-full select-none transition-all">
+    <div className="sticky top-0 z-40 pt-2.5 pb-1 px-3 sm:px-5 lg:px-6 w-full select-none transition-all bg-[var(--bg)]/80 backdrop-blur-md">
       <header className="floating-nav-pill w-full">
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-2 lg:gap-3 min-w-0 w-full">
         {/* Left Side: Mobile Hamburger Menu & Breadcrumb Trail */}
@@ -185,7 +185,7 @@ export const Header: React.FC = () => {
           >
             <MessageSquare className="w-3.5 h-3.5 text-sky-600 dark:text-sky-400" />
             <span>{l('Ask Assistant', 'AI सहायक')}</span>
-            <kbd className="hidden sm:inline-flex px-1.5 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 text-[9px] font-mono border border-slate-200 dark:border-slate-700">⌘K</kbd>
+            <span className="hidden sm:inline-flex px-1.5 py-0.5 rounded-full bg-sky-500/10 text-sky-600 dark:text-sky-400 text-[9px] font-mono font-bold border border-sky-500/20">AI</span>
           </button>
         </div>
       </div>

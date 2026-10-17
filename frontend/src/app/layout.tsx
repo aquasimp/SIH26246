@@ -46,8 +46,9 @@ export default async function RootLayout({
   const cookieStore = await cookies();
   const headersList = await headers();
   const rawLang = headersList.get("x-lang") || cookieStore.get("kaushalyuva-lang")?.value;
-  const validLanguages: Language[] = ['en', 'hi', 'mr', 'ta', 'te', 'kn', 'bn'];
-  const lang: Language = (validLanguages.includes(rawLang as any) ? rawLang : "en") as Language;
+  const isValidLanguage = (val: unknown): val is Language =>
+    typeof val === 'string' && ['en', 'hi', 'mr', 'ta', 'te', 'kn', 'bn'].includes(val);
+  const lang: Language = isValidLanguage(rawLang) ? rawLang : "en";
 
   const skipToContentText: Record<Language, string> = {
     en: 'Skip to main content',

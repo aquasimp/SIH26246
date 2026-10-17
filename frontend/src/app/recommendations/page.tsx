@@ -70,8 +70,14 @@ export default function RecommendationsPage() {
             </span>
             <Provenance source="MSDE Verified Registry" />
           </div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-[var(--text)] tracking-tight">
-            {l('Recommended Policy Interventions', 'अनुशंसित नीतिगत हस्तक्षेप')}
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight font-sans">
+            {language === 'hi' ? (
+              'अनुशंसित नीतिगत हस्तक्षेप'
+            ) : (
+              <>
+                Evidence-Backed Policy <span className="title-serif-italic">Interventions</span>
+              </>
+            )}
           </h1>
           <p className="text-sm text-[var(--text-muted)] mt-1 max-w-2xl leading-relaxed">
             {l('Algorithmic seat reallocation, new NSQF qualification rollouts, and employer co-investment blueprints ranked by expected labour deficit mitigation.', 'अपेक्षित श्रम घाटे में कमी के आधार पर रैंक किए गए एल्गोरिदमिक सीट पुनर्आवंटन, नए NSQF योग्यता रोलआउट और नियोक्ता सह-निवेश ब्लूप्रिंट।')}
@@ -81,9 +87,9 @@ export default function RecommendationsPage() {
         <button
           type="button"
           onClick={handleExportAll}
-          className="px-4 py-2 rounded-xl liquid-control text-xs sm:text-sm font-semibold text-[var(--text)] hover:bg-[var(--glass-strong)] border border-[var(--border)] flex items-center gap-2 self-start md:self-auto cursor-pointer"
+          className="btn-liquid-primary py-2 px-4 text-xs font-semibold flex items-center gap-2 self-start md:self-auto cursor-pointer"
         >
-          <Download className="w-4 h-4" />
+          <Download className="w-4 h-4 text-sky-600 dark:text-sky-400" />
           <span>{l('Export All Interventions', 'सभी हस्तक्षेप निर्यात करें')}</span>
         </button>
       </div>
@@ -177,19 +183,22 @@ export default function RecommendationsPage() {
                   #{String(rec.rank).padStart(2, '0')}
                 </div>
                 <div>
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-2 flex-wrap">
                     <span className="text-xs font-bold text-[var(--text-faint)] uppercase tracking-wider font-mono">
-                      {rec.id}
+                      {rec.id} (#{rec.id.replace(/[^0-9]/g, '').slice(-2)})
                     </span>
                     {/* Dataset derivation chip */}
                     <span className={`px-2 py-0.5 rounded-full text-[10px] font-mono font-bold border ${
-                      rec.id === 'REC-01'
+                      rec.id.includes('01')
                         ? 'bg-blue-500/10 text-blue-700 dark:text-blue-300 border-blue-500/25'
                         : 'bg-amber-500/10 text-amber-700 dark:text-amber-400 border-amber-500/25'
                     }`}>
-                      {rec.id === 'REC-01'
+                      {rec.id.includes('01')
                         ? (l('MSDE Verified · LP Solver Output', 'MSDE सत्यापित · LP सॉल्वर आउटपुट'))
                         : (l('MSDE Policy Brief · Ensemble Model', 'MSDE नीति संक्षिप्त · पहनावा मॉडल'))}
+                    </span>
+                    <span className="px-2 py-0.5 rounded-full text-[10px] font-mono font-semibold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-700">
+                      {l('Illustrative, not model output', 'उदाहरणात्मक, मॉडल आउटपुट नहीं')}
                     </span>
                   </div>
                   <div className="text-sm font-bold text-[var(--text)] mt-0.5">
@@ -305,7 +314,7 @@ export default function RecommendationsPage() {
                     {l('Model Derivation & Assumptions', 'मॉडल व्युत्पत्ति एवं परिकल्पनाएं')}
                   </span>
                   <span className="px-2 py-0.5 rounded-md bg-amber-500/15 text-amber-600 dark:text-amber-400 text-[10px] font-bold">
-                    {l('Assumption', 'परिकल्पना')}
+                    {l('Assumption (Context, not model output)', 'परिकल्पना (संदर्भ, मॉडल आउटपुट नहीं)')}
                   </span>
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2 font-mono text-[11px]">

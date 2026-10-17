@@ -63,7 +63,7 @@ export default function DistrictDetailPage({ params }: { params: Promise<{ id: s
       <div className="flex items-center justify-between">
         <Link
           href="/districts"
-          className="text-xs font-bold text-[var(--text-muted)] hover:text-[var(--brand)] flex items-center gap-1 transition-colors"
+          className="text-xs font-semibold text-slate-500 hover:text-sky-600 dark:hover:text-sky-400 flex items-center gap-1 transition-colors"
         >
           <ChevronLeft className="w-4 h-4" />
           <span>{l('Back to All Districts', 'सभी जिलों पर वापस')}</span>
@@ -73,28 +73,28 @@ export default function DistrictDetailPage({ params }: { params: Promise<{ id: s
           onClick={handleExportDistrict}
           className="px-3.5 py-1.5 rounded-xl liquid-control text-xs font-semibold flex items-center gap-1.5 cursor-pointer shadow-xs"
         >
-          <Download className="w-3.5 h-3.5 text-[var(--brand)]" />
+          <Download className="w-3.5 h-3.5 text-sky-600 dark:text-sky-400" />
           <span>{l('Export District Brief', 'जिला संक्षिप्त विवरण निर्यात')}</span>
         </button>
       </div>
 
       {/* Hero District Header (Section 24) */}
-      <div className="p-6 sm:p-7 rounded-3xl glass border border-[var(--border)] shadow-xs flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+      <div className="p-6 sm:p-7 rounded-2xl liquid-glass-card hud-corner-card flex flex-col lg:flex-row lg:items-center justify-between gap-6">
         <div>
           <div className="flex items-center gap-2 mb-2">
-            <span className="text-xs font-mono font-bold text-[var(--brand)] uppercase tracking-wider">
+            <span className="telemetry-chip">
               {l('India', 'भारत')} → {localizedState} → {localizedDistrictName}
             </span>
-            <span className="text-xs font-mono text-[var(--text-faint)]">
+            <span className="text-xs font-mono text-slate-500 dark:text-slate-400">
               [LGD: {d.lgdCode}]
             </span>
           </div>
 
-          <h1 className="text-3xl sm:text-4xl font-extrabold text-[var(--text)] tracking-tight flex items-center gap-3">
+          <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight font-sans flex items-center gap-3">
             {localizedDistrictName}
           </h1>
 
-          <p className="text-xs sm:text-sm text-[var(--text-muted)] mt-1 max-w-2xl leading-relaxed">
+          <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1 max-w-2xl leading-relaxed">
             {l('Localised district intelligence assessing training centre capacity, candidate absorption, and employer vacancy signals under MSDE jurisdiction.', 'प्रशिक्षण केंद्र क्षमता, उम्मीदवार अवशोषण और एमएसडीई क्षेत्राधिकार के तहत नियोक्ता रिक्ति संकेतों का आकलन करने वाला स्थानीय जिला खुफिया मंच।')}
           </p>
         </div>
@@ -102,9 +102,9 @@ export default function DistrictDetailPage({ params }: { params: Promise<{ id: s
         <div className="flex items-center gap-3 shrink-0">
           <Link
             href="/scenarios"
-            className="px-4 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 hover:opacity-90 text-white text-xs sm:text-sm font-bold flex items-center gap-2 shadow-xs"
+            className="btn-liquid-primary px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold flex items-center gap-2 shadow-xs"
           >
-            <Sliders className="w-4 h-4" />
+            <Sliders className="w-4 h-4 text-sky-600 dark:text-sky-400" />
             <span>{l('Simulate District Scenarios', 'जिला परिदृश्य अनुकरण')}</span>
           </Link>
         </div>
@@ -113,66 +113,66 @@ export default function DistrictDetailPage({ params }: { params: Promise<{ id: s
       {/* 5 Hero Diagnostic Cards (Section 23) */}
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4">
         {/* Card 1: Demand Index */}
-        <div className="p-4 rounded-2xl glass border border-[var(--border)] shadow-xs">
-          <span className="text-[10px] font-bold text-[var(--text-faint)] uppercase tracking-wider block">
+        <div className="p-4 rounded-xl liquid-glass-card">
+          <span className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider block font-mono">
             {l('Demand Index', 'मांग सूचकांक')}
           </span>
-          <div className="text-3xl font-extrabold text-[var(--text)] font-mono my-1">
+          <div className="text-3xl font-extrabold text-slate-900 dark:text-slate-100 font-mono my-1">
             {d.demandIndex}
           </div>
-          <span className="text-[11px] text-orange-500 font-semibold">
+          <span className="text-[11px] text-amber-600 dark:text-amber-400 font-semibold">
             {l('High Labour Demand', 'उच्च श्रम मांग')}
           </span>
         </div>
 
         {/* Card 2: Effective Supply */}
-        <div className="p-4 rounded-2xl glass border border-[var(--border)] shadow-xs">
-          <span className="text-[10px] font-bold text-[var(--text-faint)] uppercase tracking-wider block">
+        <div className="p-4 rounded-xl liquid-glass-card">
+          <span className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider block font-mono">
             {l('Effective Supply', 'प्रभावी आपूर्ति')}
           </span>
-          <div className="text-3xl font-extrabold text-[var(--text)] font-mono my-1">
+          <div className="text-3xl font-extrabold text-slate-900 dark:text-slate-100 font-mono my-1">
             {d.effectiveSupplyIndex}
           </div>
-          <span className="text-[11px] text-[var(--text-faint)] font-semibold">
+          <span className="text-[11px] text-slate-500 font-semibold">
             {l('Staged Employable Pool', 'चरणबद्ध रोजगार योग्य पूल')}
           </span>
         </div>
 
         {/* Card 3: Gap Score */}
-        <div className="p-4 rounded-2xl glass border border-[var(--severe)]/40 shadow-xs">
-          <span className="text-[10px] font-bold text-[var(--severe)] uppercase tracking-wider block">
+        <div className="p-4 rounded-xl liquid-glass-card border-red-500/30">
+          <span className="text-[10px] font-bold text-red-600 dark:text-red-400 uppercase tracking-wider block font-mono">
             {l('Gap Score', 'अंतर स्कोर')}
           </span>
-          <div className="text-3xl font-extrabold text-[var(--severe)] font-mono my-1">
+          <div className="text-3xl font-extrabold text-red-600 dark:text-red-400 font-mono my-1">
             {d.gapScore}
           </div>
-          <span className="text-[11px] text-[var(--severe)] font-semibold">
+          <span className="text-[11px] text-red-600 dark:text-red-400 font-semibold">
             {l('Severe Shortage', 'गंभीर कमी')}
           </span>
         </div>
 
         {/* Card 4: 6M Shortage Probability */}
-        <div className="p-4 rounded-2xl glass border border-[var(--border)] shadow-xs">
-          <span className="text-[10px] font-bold text-[var(--text-faint)] uppercase tracking-wider block">
+        <div className="p-4 rounded-xl liquid-glass-card">
+          <span className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider block font-mono">
             {l('6M Shortage Prob', '६ माह कमी संभावना')}
           </span>
-          <div className="text-3xl font-extrabold text-[var(--text)] font-mono my-1">
+          <div className="text-3xl font-extrabold text-slate-900 dark:text-slate-100 font-mono my-1">
             {d.shortageProbability6M}%
           </div>
-          <span className="text-[11px] text-[var(--severe)] font-semibold">
+          <span className="text-[11px] text-red-600 dark:text-red-400 font-semibold">
             {l('Critical Threshold', 'महत्वपूर्ण सीमा')}
           </span>
         </div>
 
         {/* Card 5: Training Capacity */}
-        <div className="p-4 rounded-2xl glass border border-[var(--border)] shadow-xs col-span-2 sm:col-span-1">
-          <span className="text-[10px] font-bold text-[var(--text-faint)] uppercase tracking-wider block">
+        <div className="p-4 rounded-xl liquid-glass-card col-span-2 sm:col-span-1">
+          <span className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider block font-mono">
             {l('Training Capacity', 'प्रशिक्षण क्षमता')}
           </span>
-          <div className="text-xl sm:text-2xl font-extrabold text-[var(--brand)] font-mono my-1">
+          <div className="text-xl sm:text-2xl font-extrabold text-sky-700 dark:text-sky-400 font-mono my-1">
             {d.totalTrainingSeats} {l('Seats', 'सीटें')}
           </div>
-          <span className="text-[11px] text-[var(--text-faint)] font-semibold">
+          <span className="text-[11px] text-slate-500 font-semibold">
             {d.activeEmployers} {l('Active Employers', 'सक्रिय नियोक्ता')}
           </span>
         </div>

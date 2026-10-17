@@ -76,7 +76,7 @@ export default function SkillGapsPage() {
             {l('Equilibrium Diagnostics', 'संतुलन निदान')}
           </span>
         </div>
-        <h1 className="text-2xl sm:text-3xl font-normal text-[var(--text)] tracking-tight font-serif">
+        <h1 className="text-2xl sm:text-3xl font-extrabold text-[var(--text)] tracking-tight font-sans">
           {language === 'hi' ? (
             'कौशल अंतर एवं कमी इंटेलिजेंस'
           ) : (

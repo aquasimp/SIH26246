@@ -42,8 +42,14 @@ export default function DistrictsOverviewPage() {
             {l('16 Pilot Districts', '16 पायलट जिले')}
           </span>
         </div>
-        <h1 className="text-2xl sm:text-3xl font-extrabold text-[var(--text)] tracking-tight">
-          {l('District Labour Market Intelligence', 'जिला श्रम बाजार इंटेलिजेंस')}
+        <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight font-sans">
+          {language === 'hi' ? (
+            'जिला श्रम बाजार इंटेलिजेंस'
+          ) : (
+            <>
+              District Labour Market <span className="title-serif-italic">Directory</span>
+            </>
+          )}
         </h1>
         <p className="text-xs sm:text-sm text-[var(--text-muted)] mt-1 max-w-2xl leading-relaxed">
           {l('Local Government Directory (LGD) district-level profiles evaluating training infrastructure, employer demand signals, and structural skill mismatches.', 'स्थानीय सरकारी निर्देशिका (LGD) जिला-स्तरीय प्रोफ़ाइल जो प्रशिक्षण बुनियादी ढांचे, नियोक्ता मांग संकेतों और संरचनात्मक कौशल असंतुलन का मूल्यांकन करती है।')}

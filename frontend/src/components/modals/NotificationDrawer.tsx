@@ -18,6 +18,19 @@ import { downloadCSV } from '@/lib/exportUtils';
 export const NotificationDrawer: React.FC = () => {
   const { notificationOpen, setNotificationOpen, alerts, acknowledgeAlert } = useApp();
 
+  // Close on Escape key
+  React.useEffect(() => {
+    if (!notificationOpen) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        e.preventDefault();
+        setNotificationOpen(false);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [notificationOpen, setNotificationOpen]);
+
   if (!notificationOpen) return null;
 
   const handleExportAlerts = () => {
@@ -40,7 +53,13 @@ export const NotificationDrawer: React.FC = () => {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex justify-end bg-black/60 backdrop-blur-sm animate-in fade-in duration-200">
+    <div 
+      className="fixed inset-0 z-50 flex justify-end bg-black/60 backdrop-blur-sm animate-in fade-in duration-200"
+      onClick={(e) => { if (e.target === e.currentTarget) setNotificationOpen(false); }}
+      role="dialog"
+      aria-modal="true"
+      aria-label="Intelligence Notifications"
+    >
       <div className="w-full max-w-md h-full overlay border-l border-[var(--border-strong)] shadow-2xl flex flex-col justify-between overflow-hidden animate-in slide-in-from-right duration-300">
         {/* Header */}
         <div className="p-5 border-b border-[var(--border)] glass-strong flex items-center justify-between">

@@ -22,9 +22,10 @@ export async function POST(request: Request) {
       inputs: body,
       result
     });
-  } catch (err: any) {
+  } catch (err: unknown) {
+    const message = err instanceof Error ? err.message : 'Invalid simulation parameters';
     return NextResponse.json(
-      { status: 'error', message: err.message || 'Invalid simulation parameters' },
+      { status: 'error', message },
       { status: 400 }
     );
   }
