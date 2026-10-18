@@ -65,13 +65,13 @@ export function InlineChartGlyph({ className }: { className?: string }) {
 }
 
 /**
- * Display H1 for Hero (§4.4) — supports DepthWizard editorial serif
+ * Display H1 for Hero (§4.4) — institutional civic voice
  */
 export function Display({ children, eyebrow, index, className, dataGlyph, serif, ...props }: HeadingProps) {
   return (
     <div className="group">
       <SignalEyebrow index={index} text={eyebrow} />
-      <h1 className={clsx('display', serif && 'font-serif font-bold', className)} {...props}>
+      <h1 className={clsx('hero-bold-title', serif && 'font-serif', className)} {...props}>
         {children}
         {dataGlyph && <InlineChartGlyph />}
       </h1>
@@ -86,7 +86,7 @@ export function SerifDisplay({ children, eyebrow, index, className, dataGlyph, .
   return (
     <div className="group">
       <SignalEyebrow index={index} text={eyebrow} />
-      <h1 className={clsx('hero-editorial-title font-extrabold', className)} {...props}>
+      <h1 className={clsx('hero-editorial-title font-bold', className)} {...props}>
         {children}
         {dataGlyph && <InlineChartGlyph />}
       </h1>
@@ -101,7 +101,7 @@ export function H1({ children, eyebrow, index, className, dataGlyph, serif, ...p
   return (
     <div className="group">
       <SignalEyebrow index={index} text={eyebrow} />
-      <h1 className={clsx('h1', serif && 'font-serif font-bold tracking-tight', className)} {...props}>
+      <h1 className={clsx('page-title-editorial', serif && 'font-serif', className)} {...props}>
         {children}
         {dataGlyph && <InlineChartGlyph />}
       </h1>
@@ -116,7 +116,7 @@ export function H2({ children, eyebrow, index, className, serif, ...props }: Hea
   return (
     <div className="group">
       <SignalEyebrow index={index} text={eyebrow} />
-      <h2 className={clsx('h2', serif && 'font-serif font-bold', className)} {...props}>
+      <h2 className={clsx('section-title-editorial', serif && 'font-serif', className)} {...props}>
         {children}
       </h2>
     </div>

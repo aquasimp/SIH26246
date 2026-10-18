@@ -19,12 +19,12 @@ export const GlassCard: React.FC<GlassCardProps> = ({
   accentColor = 'neutral'
 }) => {
   const accentBorder = {
-    demand: 'border-l-[3px] border-l-amber-500/90 dark:border-l-amber-400',
-    supply: 'border-l-[3px] border-l-sky-500/90 dark:border-l-sky-400',
-    shortage: 'border-l-[3px] border-l-red-500/90 dark:border-l-red-400',
-    oversupply: 'border-l-[3px] border-l-indigo-500/90 dark:border-l-indigo-400',
-    forecast: 'border-l-[3px] border-l-sky-600/90 dark:border-l-sky-400',
-    warning: 'border-l-[3px] border-l-amber-500/90 dark:border-l-amber-400',
+    demand: 'border-l-[3px] border-l-[var(--moderate)]',
+    supply: 'border-l-[3px] border-l-[var(--surplus)]',
+    shortage: 'border-l-[3px] border-l-[var(--severe)]',
+    oversupply: 'border-l-[3px] border-l-[var(--oversupply)]',
+    forecast: 'border-l-[3px] border-l-[var(--forecast)]',
+    warning: 'border-l-[3px] border-l-[var(--warning)]',
     neutral: ''
   }[accentColor];
 
@@ -33,7 +33,7 @@ export const GlassCard: React.FC<GlassCardProps> = ({
       onClick={onClick}
       className={clsx(
         'bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl backdrop-saturate-150',
-        'border border-slate-200/80 dark:border-slate-800/80 rounded-xl p-5',
+        'border border-slate-200/80 dark:border-slate-800/80 rounded-[var(--radius-xl)] p-5',
         'shadow-[inset_0_1px_0_0_rgba(255,255,255,0.95),0_4px_24px_-4px_rgba(15,23,42,0.05)] dark:shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08),0_4px_24px_-4px_rgba(0,0,0,0.35)]',
         'transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]',
         hoverEffect && [

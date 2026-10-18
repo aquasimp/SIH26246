@@ -20,7 +20,6 @@ import {
   HelpCircle, 
   ArrowRight, 
   Layers, 
-  Sparkles,
   Award,
   ArrowUpRight
 } from 'lucide-react';
@@ -57,14 +56,15 @@ export default function MethodologyPage() {
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
         <div>
           <div className="flex items-center gap-2 mb-1.5">
-            <span className="px-2.5 py-0.5 rounded-full text-[11px] font-mono font-extrabold uppercase tracking-wider bg-[var(--brand)]/15 text-[var(--brand)] border border-[var(--brand)]/30">
+            <span className="eyebrow"><span className="eyebrow-bullet" />{l('System & Governance', 'प्रणाली एवं शासन')}</span>
+            <span className="px-2.5 py-0.5 rounded-full text-[11px] font-bold uppercase bg-[var(--brand)]/15 text-[var(--brand)] border border-[var(--brand)]/30">
               {l('Technical & Mathematical Specification', 'तकनीकी एवं गणितीय विनिर्देश')}
             </span>
             <Provenance source="Official SIH Audit Standard" />
           </div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight font-sans">
-            {language === 'hi' ? (
-              'मॉडल धारणाएँ एवं कार्यप्रणाली'
+          <h1 className="page-title-editorial">
+            {language !== 'en' ? (
+              l('Model Architecture & Out-of-Sample Validation', 'मॉडल धारणाएँ एवं कार्यप्रणाली')
             ) : (
               <>
                 Model Architecture &amp; Out-of-Sample <span className="title-serif-italic">Validation</span>
@@ -313,16 +313,16 @@ export default function MethodologyPage() {
 
             {/* Benchmark Table */}
             <div className="overflow-x-auto rounded-2xl glass border border-[var(--border)]">
-              <table className="w-full text-left text-xs font-mono">
-                <thead className="bg-[var(--glass-strong)] border-b border-[var(--border)] text-[10px] text-[var(--text-faint)] uppercase">
+              <table className="data-table">
+                <thead>
                   <tr>
-                    <th className="p-3">Horizon</th>
-                    <th className="p-3">Model Architecture</th>
-                    <th className="p-3">WAPE (%)</th>
-                    <th className="p-3">MASE</th>
-                    <th className="p-3">80% CI Coverage</th>
-                    <th className="p-3">95% CI Coverage</th>
-                    <th className="p-3">Sample Count</th>
+                    <th>Horizon</th>
+                    <th>Model Architecture</th>
+                    <th className="num">WAPE (%)</th>
+                    <th className="num">MASE</th>
+                    <th className="num">80% CI Coverage</th>
+                    <th className="num">95% CI Coverage</th>
+                    <th className="num">Sample Count</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-[var(--border)]">
@@ -541,7 +541,7 @@ export default function MethodologyPage() {
             href="/recommendations"
             className="px-4 py-2.5 rounded-xl glass hover:bg-[var(--glass-strong)] border border-[var(--border)] text-[var(--text)] text-xs font-bold flex items-center gap-1.5 transition-all cursor-pointer"
           >
-            <Sparkles className="w-4 h-4 text-[var(--brand)]" />
+            <ShieldCheck className="w-4 h-4 text-[var(--brand)]" />
             <span>{l('View Recommendations', 'सिफारिशें देखें')}</span>
           </Link>
         </div>

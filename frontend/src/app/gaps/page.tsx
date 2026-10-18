@@ -25,12 +25,14 @@ import {
 import { downloadCSV } from '@/lib/exportUtils';
 import { getLocalizedEntityName, resolveDisplayName } from '@/lib/i18n';
 import { toast } from 'sonner';
+import { MatteAlertFeedback } from '@/components/ui/matte-alert-feedback';
 
 export default function SkillGapsPage() {
-  const { selectedOccupationNco, setSelectedOccupationNco, selectedDistrict, language, l } = useApp();
+  const { selectedOccupationNco, setSelectedOccupationNco, selectedDistrict, language, l, t } = useApp();
   const [severityFilter, setSeverityFilter] = useState<'all' | 'shortage' | 'oversupply'>('all');
   const [searchTerm, setSearchTerm] = useState('');
 
+  const notices = (t as unknown as Record<string, Record<string, string>>)?.notices || {};
   const activeOcc = OCCUPATIONS.find(o => o.ncoCode === selectedOccupationNco) || OCCUPATIONS[0];
 
   const getLocalizedSeverity = (severity: string) => {
@@ -71,14 +73,15 @@ export default function SkillGapsPage() {
       {/* Page Title */}
       <div>
         <div className="flex items-center gap-2 mb-2">
+          <span className="eyebrow"><span className="eyebrow-bullet" />{l('Intelligence', 'इंटेलिजेंस')}</span>
           <Provenance type="official" note={l('Labour Market Equilibrium Engine', 'श्रम बाजार संतुलन इंजन')} />
-          <span className="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold uppercase tracking-wider bg-[var(--severe)]/10 text-[var(--severe)] border border-[var(--severe)]/20">
+          <span className="px-2 py-0.5 rounded-full text-[11px] font-bold bg-[var(--severe)]/10 text-[var(--severe)] border border-[var(--severe)]/20">
             {l('Equilibrium Diagnostics', 'संतुलन निदान')}
           </span>
         </div>
-        <h1 className="text-2xl sm:text-3xl font-extrabold text-[var(--text)] tracking-tight font-sans">
-          {language === 'hi' ? (
-            'कौशल अंतर एवं कमी इंटेलिजेंस'
+        <h1 className="page-title-editorial">
+          {language !== 'en' ? (
+            l('Skill Gap & Shortage Intelligence', 'कौशल अंतर एवं कमी इंटेलिजेंस')
           ) : (
             <>
               Skill Gap &amp; Shortage <span className="title-serif-italic">Intelligence</span>
@@ -181,6 +184,16 @@ export default function SkillGapsPage() {
           </span>
         </div>
       </div>
+
+      {/* Notice 2: Low-confidence gap caution if confidence < 50 */}
+      {(activeOcc.confidence < 50 || (activeOcc.confidence <= 1 && activeOcc.confidence < 0.5)) && (
+        <MatteAlertFeedback
+          variant="warning"
+          bare={true}
+          title={notices.lowConfidenceTitle || 'Indicative Forecast Caution'}
+          detail={notices.lowConfidenceDetail || 'Model confidence is below threshold (< 50%). Metrics are indicative and require field validation.'}
+        />
+      )}
 
       {/* Hero Visual: Gap Score Diagnostics (Section 21) */}
       <GlassPanel
@@ -469,19 +482,19 @@ export default function SkillGapsPage() {
         }
       >
         <div className="overflow-x-auto">
-          <table className="w-full text-left text-xs">
+          <table className="data-table">
             <thead>
-              <tr className="border-b border-[var(--border)] text-[var(--text-faint)] font-bold uppercase tracking-wider text-[10px]">
-                <th className="py-3 px-3">{l('Occupation', 'व्यवसाय')}</th>
-                <th className="py-3 px-3">{l('District Hub', 'जिला केंद्र')}</th>
-                <th className="py-3 px-3 text-right">{l('Current Demand', 'वर्तमान मांग')}</th>
-                <th className="py-3 px-3 text-right">{l('Effective Supply', 'प्रभावी आपूर्ति')}</th>
-                <th className="py-3 px-3 text-right">{l('Net Gap', 'शुद्ध अंतर')}</th>
-                <th className="py-3 px-3 text-center">{l('Gap Score', 'अंतर स्कोर')}</th>
-                <th className="py-3 px-3 text-center">{l('Severity', 'गंभीरता')}</th>
-                <th className="py-3 px-3 text-center">{l('Confidence', 'विश्वसनीयता')}</th>
-                <th className="py-3 px-3 text-center">{l('Persistence', 'स्थिरता')}</th>
-                <th className="py-3 px-3 text-right">{l('Action', 'कार्रवाई')}</th>
+              <tr>
+                <th>{l('Occupation', 'व्यवसाय')}</th>
+                <th>{l('District Hub', 'जिला केंद्र')}</th>
+                <th className="num">{l('Current Demand', 'वर्तमान मांग')}</th>
+                <th className="num">{l('Effective Supply', 'प्रभावी आपूर्ति')}</th>
+                <th className="num">{l('Net Gap', 'शुद्ध अंतर')}</th>
+                <th className="text-center">{l('Gap Score', 'अंतर स्कोर')}</th>
+                <th className="text-center">{l('Severity', 'गंभीरता')}</th>
+                <th className="text-center">{l('Confidence', 'विश्वसनीयता')}</th>
+                <th className="text-center">{l('Persistence', 'स्थिरता')}</th>
+                <th className="num">{l('Action', 'कार्रवाई')}</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-[var(--border)]">

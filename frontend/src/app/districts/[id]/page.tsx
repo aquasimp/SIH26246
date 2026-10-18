@@ -81,8 +81,9 @@ export default function DistrictDetailPage({ params }: { params: Promise<{ id: s
       {/* Hero District Header (Section 24) */}
       <div className="p-6 sm:p-7 rounded-2xl liquid-glass-card hud-corner-card flex flex-col lg:flex-row lg:items-center justify-between gap-6">
         <div>
-          <div className="flex items-center gap-2 mb-2">
-            <span className="telemetry-chip">
+          <div className="flex flex-wrap items-center gap-2 mb-2">
+            <span className="eyebrow"><span className="eyebrow-bullet" />{l('Taxonomy & Directory', 'वर्गीकरण एवं निर्देशिका')}</span>
+            <span className="telemetry-chip max-w-full truncate">
               {l('India', 'भारत')} → {localizedState} → {localizedDistrictName}
             </span>
             <span className="text-xs font-mono text-slate-500 dark:text-slate-400">
@@ -90,7 +91,7 @@ export default function DistrictDetailPage({ params }: { params: Promise<{ id: s
             </span>
           </div>
 
-          <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight font-sans flex items-center gap-3">
+          <h1 className="page-title-editorial flex items-center gap-3">
             {localizedDistrictName}
           </h1>
 

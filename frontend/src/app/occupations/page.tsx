@@ -36,14 +36,15 @@ export default function OccupationsOverviewPage() {
       {/* Title */}
       <div>
         <div className="flex items-center gap-2 mb-2">
+          <span className="eyebrow"><span className="eyebrow-bullet" />{l('Taxonomy & Directory', 'वर्गीकरण एवं निर्देशिका')}</span>
           <Provenance type="official" note={l('NCO-2015 Classification', 'NCO-2015 वर्गीकरण')} />
-          <span className="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold uppercase tracking-wider bg-[var(--brand)]/10 text-[var(--brand)] border border-[var(--brand)]/20">
+          <span className="px-2 py-0.5 rounded-full text-[11px] font-bold bg-[var(--brand)]/10 text-[var(--brand)] border border-[var(--brand)]/20">
             {l('Standardized Roles', 'मानकीकृत भूमिकाएं')}
           </span>
         </div>
-        <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight font-sans">
-          {language === 'hi' ? (
-            'व्यावसायिक मानक और व्यापार निर्देशिका'
+        <h1 className="page-title-editorial">
+          {language !== 'en' ? (
+            l('Occupational Standards & Trade Directory', 'व्यावसायिक मानक और व्यापार निर्देशिका')
           ) : (
             <>
               Occupational Standards &amp; Trade <span className="title-serif-italic">Directory</span>

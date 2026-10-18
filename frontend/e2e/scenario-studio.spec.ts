@@ -9,7 +9,7 @@ test.describe('KaushalYuva Scenario Studio & UI Quality Suite', () => {
     // Hero H1
     const h1 = page.locator('h1').first();
     await expect(h1).toBeVisible();
-    await expect(h1).toContainText('FORECAST THE SKILL GAP');
+    await expect(h1).toContainText(/Forecast the skill gap/i);
 
     // Proof panel ledger
     await expect(page.locator('text=808').first()).toBeVisible();

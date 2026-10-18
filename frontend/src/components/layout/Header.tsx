@@ -130,7 +130,7 @@ export const Header: React.FC = () => {
           >
             <Search className="w-3.5 h-3.5 text-slate-400 shrink-0" />
             <span className="hidden xl:inline">{l('Search...', 'खोजें...')}</span>
-            <kbd className="hidden sm:inline-block px-1.5 py-0.5 text-[10px] font-mono text-slate-400 bg-slate-100 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded">
+            <kbd className="hidden sm:inline-block px-1.5 py-0.5 text-[11px] font-mono text-slate-400 bg-slate-100 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded">
               ⌘K
             </kbd>
           </button>
@@ -170,7 +170,7 @@ export const Header: React.FC = () => {
           >
             <Bell className="w-4 h-4" />
             {unreadAlerts > 0 && (
-              <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-red-600 text-white text-[9px] font-mono font-bold flex items-center justify-center border-2 border-white dark:border-slate-900">
+              <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-[var(--severe)] text-white text-[10px] font-mono font-bold flex items-center justify-center border-2 border-white dark:border-slate-900">
                 {unreadAlerts}
               </span>
             )}
@@ -185,7 +185,7 @@ export const Header: React.FC = () => {
           >
             <MessageSquare className="w-3.5 h-3.5 text-sky-600 dark:text-sky-400" />
             <span>{l('Ask Assistant', 'AI सहायक')}</span>
-            <span className="hidden sm:inline-flex px-1.5 py-0.5 rounded-full bg-sky-500/10 text-sky-600 dark:text-sky-400 text-[9px] font-mono font-bold border border-sky-500/20">AI</span>
+            <span className="hidden sm:inline-flex px-1.5 py-0.5 rounded-full bg-sky-500/10 text-sky-600 dark:text-sky-400 text-[10.5px] font-sans font-semibold border border-sky-500/20">AI</span>
           </button>
         </div>
       </div>

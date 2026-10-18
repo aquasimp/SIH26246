@@ -10,15 +10,17 @@ import {
   TrendingUp, 
   AlertTriangle, 
   CheckCircle, 
-  Sparkles, 
+  Target, 
   Download, 
   Share2
 } from 'lucide-react';
 import { downloadCSV, formatINR } from '@/lib/exportUtils';
 import { Provenance } from '@/components/common/Provenance';
+import GlassFolder from '@/components/ui/glass-folder-cards';
+import { EXPORT_METADATA } from '@/lib/demoData';
 
 export const EvidenceDrawer: React.FC = () => {
-  const { activeEvidence, setActiveEvidence, approveRecommendation } = useApp();
+  const { activeEvidence, setActiveEvidence, approveRecommendation, language, t, l } = useApp();
 
   // Close on Escape key
   React.useEffect(() => {
@@ -107,10 +109,58 @@ export const EvidenceDrawer: React.FC = () => {
 
         {/* Drawer Scrollable Body */}
         <div className="p-6 space-y-6 overflow-y-auto flex-1 text-[var(--text)] text-xs sm:text-sm">
+          {/* Recommendation Evidence Files Folder (Dense view: art="none") */}
+          <div className="flex flex-col items-center justify-center p-4 rounded-2xl glass border border-[var(--border)] shadow-xs">
+            <GlassFolder
+              label={`${rec.id} · ${rec.district}`}
+              meta={`Run ${EXPORT_METADATA.runId}`}
+              art="none"
+              width={340}
+              files={[
+                {
+                  name: t.evidenceDossier?.gapAuditCsv || "Labour Market Gap Audit (CSV)",
+                  meta: `CSV · ${rec.district}`,
+                  href: `/api/export?district=${encodeURIComponent(rec.district)}`,
+                },
+                {
+                  name: t.evidenceDossier?.recommendationJson || "Recommendation Payload (JSON)",
+                  meta: `JSON · ${rec.id}`,
+                  href: `/api/recommendations?district=${encodeURIComponent(rec.district)}`,
+                },
+                {
+                  name: t.evidenceDossier?.scenarioStudioLink || "Scenario Simulation Sandbox",
+                  meta: `LP Solver · Preset`,
+                  href: `/scenarios?preset=rec0${rec.rank}`,
+                },
+                {
+                  name: l('Download Evidence Dossier (CSV)', 'साक्ष्य डॉसियर डाउनलोड (CSV)'),
+                  meta: `${rec.id} · MSDE`,
+                },
+              ]}
+              onFileSelect={(_file, idx) => {
+                if (idx === 3) {
+                  handleExportEvidence();
+                }
+              }}
+              labels={t.glassFolder}
+              action="more"
+              menu={[
+                {
+                  label: l('Export Evidence CSV', 'साक्ष्य CSV निर्यात'),
+                  onSelect: handleExportEvidence,
+                },
+                {
+                  label: l('Approve Recommendation', 'सिफारिश स्वीकृत करें'),
+                  onSelect: () => approveRecommendation(rec.id),
+                },
+              ]}
+            />
+          </div>
+
           {/* Section: Algorithmic Rationale */}
           <div className="p-4 rounded-2xl glass border border-[var(--brand)]/30">
             <span className="text-[11px] font-bold text-[var(--brand)] uppercase tracking-wider flex items-center gap-1.5 mb-1.5 font-mono">
-              <Sparkles className="w-4 h-4 text-[var(--brand)]" />
+              <Target className="w-4 h-4 text-[var(--brand)]" />
               Strategic Planning Rationale
             </span>
             <p className="text-[var(--text-muted)] leading-relaxed">

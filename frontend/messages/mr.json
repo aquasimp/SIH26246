@@ -256,5 +256,59 @@
     "prompt2": "गोरखपूरमध्ये 500 जागा जोडण्याचा काय परिणाम होईल?",
     "prompt3": "रिटेल ट्रेनीचा अतिपुरवठा का आहे?",
     "prompt4": "उत्तर प्रदेशात कोणत्या व्यवसायात सर्वाधिक तूट आहे?"
+  },
+  "glassFolder": {
+    "open": "उघडा",
+    "close": "बंद करा",
+    "item": "घटक",
+    "items": "घटक",
+    "add": "जोडा",
+    "more": "अधिक पर्याय",
+    "contents": "सामग्री",
+    "untitled": "अशीर्षक",
+    "justNow": "आत्ताच",
+    "openFolder": "फोल्डर उघडा",
+    "closeFolder": "फोल्डर बंद करा",
+    "menuLabel": "पर्याय"
+  },
+  "matteAlert": {
+    "dismiss": "सूचना फेटाळा",
+    "dismissedMessage": "सूचना फेटाळली गेली.",
+    "showAlert": "सूचना दाखवा",
+    "defaultCaption": "संदेश बंद करा आणि पुन्हा उघडा.",
+    "reopen": "सूचना दाखवा"
+  },
+  "notices": {
+    "sihProvenanceTitle": "SIH मूल्यमापन प्रोटोटाइप डेटासेट",
+    "sihProvenanceDetail": "हा प्रोटोटाइप थेट उत्पादन फीडऐवजी संरचित SIH मूल्यमापन बेंचमार्क डेटासेटवर कार्य करतो.",
+    "sihProvenancePill": "SIH प्रोटोटाइप",
+    "lowConfidenceTitle": "सूचक अंदाज चेतावणी",
+    "lowConfidenceDetail": "मॉडेलची खात्री मर्यादेपेक्षा कमी (< 50%) आहे. मेट्रिक्स सूचक आहेत आणि क्षेत्रीय पडताळणी आवश्यक आहे.",
+    "seatCapTitle": "LP दाता गैर-घसरण मर्यादा लागू",
+    "seatCapDetail": "दाता व्यवसाय समतोलाचे रक्षण करण्यासाठी LP सॉल्व्हरद्वारे विनंती केलेले स्थानांतर स्वयंचलितपणे मर्यादित केले गेले.",
+    "seatCapPill": "सॉल्व्हर सुरक्षित-मर्यादा",
+    "betaLanguageTitle": "प्रायोगिक भाषा स्थानिकीकरण",
+    "betaLanguageDetail": "हा भाषा पॅक सध्या बीटा मध्ये आहे. शब्दावलीची भाषिक पडताळणी सुरू आहे.",
+    "betaLanguagePill": "बीटा पूर्वावलोकन",
+    "precomputedTitle": "पूर्व-गणित पाइपलाइन मूल्यमापन",
+    "precomputedDetail": "दाखवलेला डेटा पाइपलाइन रन RUN-SIH-001 (ऑक्टोबर 2024 पर्यंतचा डेटा) वरून पूर्व-गणित केला आहे.",
+    "precomputedPill": "पूर्व-गणित रन"
+  },
+  "evidenceDossier": {
+    "dossierTitle": "शिफारस डॉसियर",
+    "dossierMeta": "4 सत्यापित फाइल्स",
+    "gapAuditCsv": "कामगार बाजार अंतर ऑडिट (CSV)",
+    "recommendationJson": "शिफारस पेलोड (JSON)",
+    "scenarioStudioLink": "परिदृश्य सिम्युलेशन सँडबॉक्स",
+    "districtProfile": "जिल्हा इंटेलिजन्स प्रोफाइल"
+  },
+  "docPack": {
+    "title": "दस्तऐवजीकरण आणि तपशील",
+    "methodology": "गणितीय पद्धती",
+    "methodologyMeta": "WAPE सूत्र आणि LP मर्यादा",
+    "apiDocs": "API आणि निर्यात नोंदणी",
+    "apiDocsMeta": "OpenAPI संवादी एंडपॉइंट्स",
+    "dataHealth": "डेटा पाइपलाइन आणि स्रोत",
+    "dataHealthMeta": "बहु-स्रोत SLA आणि ड्रिफ्ट मेट्रिक्स"
   }
 }

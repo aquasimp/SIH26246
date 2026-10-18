@@ -29,14 +29,15 @@ export default function QualificationsPage() {
       {/* Title */}
       <div>
         <div className="flex items-center gap-2 mb-2">
+          <span className="eyebrow"><span className="eyebrow-bullet" />{l('Taxonomy & Directory', 'वर्गीकरण एवं निर्देशिका')}</span>
           <Provenance type="official" note={l('NQR Curriculum Standards', 'NQR पाठ्यक्रम मानक')} />
-          <span className="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold uppercase tracking-wider bg-purple-500/10 text-purple-400 border border-purple-500/20">
+          <span className="px-2 py-0.5 rounded-full text-[11px] font-bold bg-purple-500/10 text-purple-600 dark:text-purple-400 border border-purple-500/20">
             NSQF {l('Levels 1-8', 'स्तर 1-8')}
           </span>
         </div>
-        <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight font-sans">
-          {language === 'hi' ? (
-            'योग्यता और NSQF इंटेलिजेंस'
+        <h1 className="page-title-editorial">
+          {language !== 'en' ? (
+            l('National Qualifications Register (NQR/NSQF)', 'योग्यता और NSQF इंटेलिजेंस')
           ) : (
             <>
               National Qualifications Register <span className="title-serif-italic">(NQR/NSQF)</span>

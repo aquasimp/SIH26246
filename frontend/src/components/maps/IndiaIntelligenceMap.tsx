@@ -553,7 +553,7 @@ export const IndiaIntelligenceMap: React.FC = () => {
         <div className="flex flex-wrap items-center gap-2.5 max-w-full">
           {/* Trade Selector */}
           <div className="flex items-center gap-1.5 max-w-full">
-            <label htmlFor="map-trade-select" className="text-[10px] font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider shrink-0">
+            <label htmlFor="map-trade-select" className="text-[11px] font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider shrink-0">
               {l('Trade:', 'व्यवसाय:')}
             </label>
             <select
@@ -602,7 +602,7 @@ export const IndiaIntelligenceMap: React.FC = () => {
         <div className="flex items-center gap-2 flex-wrap justify-between xl:justify-end max-w-full">
           {/* Quick State Pill Tabs */}
           <div className="flex items-center gap-1 max-w-full">
-            <span className="text-[10px] font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider shrink-0 mr-0.5">
+            <span className="text-[11px] font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider shrink-0 mr-0.5">
               {l('State:', 'राज्य:')}
             </span>
             <div className="flex items-center gap-0.5 p-0.5 rounded-lg bg-slate-100 dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700/80 text-xs overflow-x-auto scrollbar-none max-w-full">
@@ -632,17 +632,17 @@ export const IndiaIntelligenceMap: React.FC = () => {
           <button
             type="button"
             onClick={() => setViewMode(prev => prev === 'map' ? 'table' : 'map')}
-            className="px-3 py-1.5 rounded-lg border border-slate-200/80 bg-white/85 hover:bg-white text-xs font-semibold text-slate-700 hover:text-slate-900 flex items-center gap-1.5 cursor-pointer transition-all shadow-[inset_0_1px_0_0_rgba(255,255,255,0.9),0_1px_3px_rgba(15,23,42,0.05)] active:scale-[0.98]"
+            className="px-3 py-1.5 rounded-lg border border-[var(--border)] glass hover:bg-[var(--glass-strong)] text-xs font-semibold text-[var(--text)] flex items-center gap-1.5 cursor-pointer transition-all active:scale-[0.98]"
             aria-label={viewMode === 'map' ? l('View as table', 'तालिका के रूप में देखें') : l('View as map', 'मानचित्र के रूप में देखें')}
           >
             {viewMode === 'map' ? (
               <>
-                <TableIcon className="w-3.5 h-3.5 text-sky-600" />
+                <TableIcon className="w-3.5 h-3.5 text-[var(--accent)]" />
                 <span>{l('Table View', 'तालिका देखें')}</span>
               </>
             ) : (
               <>
-                <MapIcon className="w-3.5 h-3.5 text-sky-600" />
+                <MapIcon className="w-3.5 h-3.5 text-[var(--accent)]" />
                 <span>{l('Map View', 'मानचित्र देखें')}</span>
               </>
             )}
@@ -975,7 +975,7 @@ export const IndiaIntelligenceMap: React.FC = () => {
               </div>
 
               {/* Engine Band Legend Inline */}
-              <div className="flex items-center gap-2.5 text-[10px] flex-wrap">
+              <div className="flex items-center gap-2.5 text-[11px] flex-wrap">
                 <span className="font-semibold text-slate-700 dark:text-slate-300">
                   {l('Severity Bands (Gap Score)', 'गंभीरता श्रेणियां (अंतर स्कोर)')}:
                 </span>
@@ -1010,7 +1010,7 @@ export const IndiaIntelligenceMap: React.FC = () => {
                   >
                     {getLocalizedEntityName('severityBands', selectedDistrictMetric.band.labelEn, language, selectedDistrictMetric.band.labelEn)}
                   </span>
-                  <span className="px-1.5 py-0.5 rounded-full text-[10px] font-bold bg-sky-500/10 text-sky-700 dark:text-sky-300 border border-sky-500/20">
+                  <span className="px-1.5 py-0.5 rounded-full text-[11px] font-bold bg-sky-500/10 text-sky-700 dark:text-sky-300 border border-sky-500/20">
                     {forecastHorizon}
                   </span>
                 </div>
@@ -1039,49 +1039,49 @@ export const IndiaIntelligenceMap: React.FC = () => {
               {/* 4 Metric Divided Grid - Boxed card with ZERO negative margins (no clipping, no scrollbar!) */}
               <div className="grid grid-cols-2 rounded-xl border border-slate-200/80 dark:border-slate-800/80 overflow-hidden divide-x divide-y divide-slate-200/80 dark:divide-slate-800/80 bg-slate-50/70 dark:bg-slate-900/70 shadow-2xs">
                 <div className="p-3">
-                  <span className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider block truncate">
+                  <span className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider block truncate">
                     {l('Gap Score', 'अंतर स्कोर')}
                   </span>
                   <div className="text-2xl font-bold text-slate-900 dark:text-slate-100 tabular-nums mt-0.5">
                     {selectedDistrictMetric.gapScore}
                   </div>
-                  <span className="text-[10px] text-amber-600 dark:text-amber-400 font-medium truncate block">
+                  <span className="text-[11px] text-amber-600 dark:text-amber-400 font-medium truncate block">
                     {getLocalizedEntityName('severityBands', selectedDistrictMetric.band.labelEn, language, selectedDistrictMetric.band.labelEn)}
                   </span>
                 </div>
 
                 <div className="p-3">
-                  <span className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider block truncate">
+                  <span className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider block truncate">
                     {l('Demand', 'मांग')}
                   </span>
                   <div className="text-2xl font-bold text-slate-900 dark:text-slate-100 tabular-nums mt-0.5">
                     {selectedDistrictMetric.demand}
                   </div>
-                  <span className="text-[10px] text-slate-500 truncate block">
+                  <span className="text-[11px] text-slate-500 truncate block">
                     {l('Candidates', 'उम्मीदवार')}
                   </span>
                 </div>
 
                 <div className="p-3">
-                  <span className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider block truncate">
+                  <span className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider block truncate">
                     {l('Effective Supply', 'प्रभावी आपूर्ति')}
                   </span>
                   <div className="text-2xl font-bold text-slate-900 dark:text-slate-100 tabular-nums mt-0.5">
                     {selectedDistrictMetric.supply}
                   </div>
-                  <span className="text-[10px] text-slate-500 truncate block">
+                  <span className="text-[11px] text-slate-500 truncate block">
                     {l('Employable', 'रोजगार योग्य')}
                   </span>
                 </div>
 
                 <div className="p-3">
-                  <span className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider block truncate">
+                  <span className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider block truncate">
                     {l('Net Balance', 'शुद्ध संतुलन')}
                   </span>
                   <div className={`text-2xl font-bold tabular-nums mt-0.5 ${selectedDistrictMetric.surplus < 0 ? 'text-rose-600 dark:text-rose-400' : 'text-emerald-600 dark:text-emerald-400'}`}>
                     {selectedDistrictMetric.surplus > 0 ? `+${selectedDistrictMetric.surplus}` : selectedDistrictMetric.surplus}
                   </div>
-                  <span className="text-[10px] text-slate-500 truncate block">
+                  <span className="text-[11px] text-slate-500 truncate block">
                     {selectedDistrictMetric.surplus < 0 ? l('Deficit Seats', 'कमी सीटें') : l('Surplus Seats', 'अधिशेष सीटें')}
                   </span>
                 </div>
@@ -1156,19 +1156,19 @@ export const IndiaIntelligenceMap: React.FC = () => {
           </div>
 
           <div className="overflow-x-auto">
-            <table className="w-full text-left text-xs">
-              <thead className="bg-slate-50 dark:bg-slate-800/60 text-slate-500 uppercase text-[10px] font-semibold border-b border-slate-200 dark:border-slate-800">
+            <table className="data-table">
+              <thead>
                 <tr>
-                  <th className="py-2.5 px-3">{l('District', 'ज़िला')}</th>
-                  <th className="py-2.5 px-3">{l('State', 'राज्य')}</th>
-                  <th className="py-2.5 px-3">{l('District LGD Code', 'जिला LGD कोड')}</th>
-                  <th className="py-2.5 px-3">{l('Selected Trade', 'व्यवसाय')}</th>
-                  <th className="py-2.5 px-3">{l('Gap Score', 'अंतर स्कोर')}</th>
-                  <th className="py-2.5 px-3">{l('Demand', 'मांग')}</th>
-                  <th className="py-2.5 px-3">{l('Supply', 'आपूर्ति')}</th>
-                  <th className="py-2.5 px-3">{l('Net Balance', 'संतुलन')}</th>
-                  <th className="py-2.5 px-3">{l('Severity Band', 'गंभीरता बैंड')}</th>
-                  <th className="py-2.5 px-3 text-right">{l('Action', 'कार्रवाई')}</th>
+                  <th>{l('District', 'ज़िला')}</th>
+                  <th>{l('State', 'राज्य')}</th>
+                  <th>{l('District LGD Code', 'जिला LGD कोड')}</th>
+                  <th>{l('Selected Trade', 'व्यवसाय')}</th>
+                  <th className="text-center">{l('Gap Score', 'अंतर स्कोर')}</th>
+                  <th className="num">{l('Demand', 'मांग')}</th>
+                  <th className="num">{l('Supply', 'आपूर्ति')}</th>
+                  <th className="num">{l('Net Balance', 'संतुलन')}</th>
+                  <th className="text-center">{l('Severity Band', 'गंभीरता बैंड')}</th>
+                  <th className="num">{l('Action', 'कार्रवाई')}</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-200 dark:divide-slate-800">

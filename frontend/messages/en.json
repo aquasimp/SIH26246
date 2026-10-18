@@ -256,5 +256,59 @@
     "prompt2": "What is the impact of adding 500 seats in Gorakhpur?",
     "prompt3": "Why is Retail Trainee oversupplied?",
     "prompt4": "Which trades have highest deficit in Uttar Pradesh?"
+  },
+  "glassFolder": {
+    "open": "Open",
+    "close": "Close",
+    "item": "item",
+    "items": "items",
+    "add": "Add",
+    "more": "More options",
+    "contents": "contents",
+    "untitled": "Untitled",
+    "justNow": "Just now",
+    "openFolder": "Open folder",
+    "closeFolder": "Close folder",
+    "menuLabel": "options"
+  },
+  "matteAlert": {
+    "dismiss": "Dismiss notification",
+    "dismissedMessage": "Message dismissed.",
+    "showAlert": "Show notification",
+    "defaultCaption": "Close and reopen the notification.",
+    "reopen": "Show notification"
+  },
+  "notices": {
+    "sihProvenanceTitle": "SIH Evaluation Prototype Dataset",
+    "sihProvenanceDetail": "This prototype operates on structured SIH evaluation benchmark datasets rather than live production feeds.",
+    "sihProvenancePill": "SIH Prototype",
+    "lowConfidenceTitle": "Indicative Forecast Caution",
+    "lowConfidenceDetail": "Model confidence is below threshold (< 50%). Metrics are indicative and require field validation.",
+    "seatCapTitle": "LP Donor Non-Depletion Boundary Enforced",
+    "seatCapDetail": "Requested shift was automatically capped by the LP solver to protect donor trade equilibrium.",
+    "seatCapPill": "Solver Safe-Cap",
+    "betaLanguageTitle": "Experimental Language Localization",
+    "betaLanguageDetail": "This language pack is currently in Beta. Terminology is undergoing linguistic verification.",
+    "betaLanguagePill": "Beta Preview",
+    "precomputedTitle": "Precomputed Pipeline Evaluation",
+    "precomputedDetail": "Data shown is precomputed from pipeline run RUN-SIH-001 (data through Oct 2024).",
+    "precomputedPill": "Precomputed Run"
+  },
+  "evidenceDossier": {
+    "dossierTitle": "Recommendation Dossier",
+    "dossierMeta": "4 verified assets",
+    "gapAuditCsv": "Labour Market Gap Audit (CSV)",
+    "recommendationJson": "Recommendation Payload (JSON)",
+    "scenarioStudioLink": "Scenario Simulation Sandbox",
+    "districtProfile": "District Intelligence Profile"
+  },
+  "docPack": {
+    "title": "Documentation & Specifications",
+    "methodology": "Mathematical Methodology",
+    "methodologyMeta": "WAPE formulation & LP constraints",
+    "apiDocs": "API & Exports Registry",
+    "apiDocsMeta": "OpenAPI interactive endpoints",
+    "dataHealth": "Data Pipeline & Provenance",
+    "dataHealthMeta": "Multi-source SLA & drift metrics"
   }
 }

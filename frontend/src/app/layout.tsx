@@ -1,5 +1,16 @@
 import type { Metadata, Viewport } from "next";
-import { plusJakartaSans, instrumentSerif, spaceGrotesk, khandFont, notoDevanagariFont, monoFont } from "@/fonts/display";
+import { 
+  plusJakartaSans, 
+  instrumentSerif, 
+  instrumentSans, 
+  khandFont, 
+  notoDevanagariFont, 
+  monoFont,
+  notoTamilFont,
+  notoTeluguFont,
+  notoKannadaFont,
+  notoBengaliFont
+} from "@/fonts/display";
 import "./globals.css";
 import { Providers } from "./providers";
 import { AppProvider } from "@/lib/store";
@@ -13,8 +24,8 @@ export const viewport: Viewport = {
   initialScale: 1,
   maximumScale: 5,
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#F8FAFC" },
-    { media: "(prefers-color-scheme: dark)", color: "#0F172A" },
+    { media: "(prefers-color-scheme: light)", color: "#F4F7FB" },
+    { media: "(prefers-color-scheme: dark)", color: "#0B132B" },
   ],
 };
 
@@ -65,7 +76,7 @@ export default async function RootLayout({
       lang={lang} 
       translate="no"
       suppressHydrationWarning 
-      className={`notranslate ${plusJakartaSans.variable} ${instrumentSerif.variable} ${spaceGrotesk.variable} ${khandFont.variable} ${notoDevanagariFont.variable} ${monoFont.variable} scroll-smooth`}
+      className={`notranslate ${plusJakartaSans.variable} ${instrumentSerif.variable} ${instrumentSans.variable} ${khandFont.variable} ${notoDevanagariFont.variable} ${monoFont.variable} ${notoTamilFont.variable} ${notoTeluguFont.variable} ${notoKannadaFont.variable} ${notoBengaliFont.variable} scroll-smooth`}
     >
       <head>
         <meta name="google" content="notranslate" />

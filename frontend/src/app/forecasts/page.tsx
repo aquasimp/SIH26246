@@ -30,14 +30,15 @@ export default function ForecastPage() {
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
         <div>
           <div className="flex items-center gap-2 mb-1.5">
-            <span className="px-2.5 py-0.5 rounded-full text-[11px] font-mono font-bold uppercase tracking-wider bg-sky-500/15 text-sky-700 dark:text-sky-300 border border-sky-500/30">
+            <span className="eyebrow"><span className="eyebrow-bullet" />{l('Intelligence', 'इंटेलिजेंस')}</span>
+            <span className="px-2.5 py-0.5 rounded-full text-[11px] font-bold uppercase bg-sky-500/15 text-sky-700 dark:text-sky-300 border border-sky-500/30">
               {l('Econometric Predictive Engine', 'अर्थमितीय पूर्वानुमान इंजन')}
             </span>
             <Provenance source="MSDE Verified Registry" />
           </div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight font-sans">
-            {language === 'hi' ? (
-              'मांग और आपूर्ति पूर्वानुमान'
+          <h1 className="page-title-editorial">
+            {language !== 'en' ? (
+              l('Demand & Supply Forecasts', 'मांग और आपूर्ति पूर्वानुमान')
             ) : (
               <>
                 Demand &amp; Supply <span className="title-serif-italic">Forecasts</span>

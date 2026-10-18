@@ -80,14 +80,14 @@ export const Sidebar: React.FC = () => {
           label: t.nav.alerts, 
           icon: AlertTriangle, 
           badge: '35', 
-          badgeColor: 'bg-red-50 text-red-600 border-red-200' 
+          badgeColor: 'bg-red-50 text-red-600 border-red-200 dark:bg-red-950/40 dark:text-red-400 dark:border-red-800/60' 
         },
         { 
           href: '/recommendations', 
           label: t.nav.recommendations, 
           icon: Lightbulb, 
           badge: `${pendingRecommendations || 4}`, 
-          badgeColor: 'bg-sky-50 text-sky-700 border-sky-200' 
+          badgeColor: 'bg-sky-50 text-sky-700 border-sky-200 dark:bg-sky-950/40 dark:text-sky-400 dark:border-sky-800/60' 
         },
         { 
           href: '/scenarios', 
@@ -134,7 +134,7 @@ export const Sidebar: React.FC = () => {
                   <span className="text-sm font-bold tracking-tight text-slate-900 dark:text-slate-100 leading-tight flex items-center gap-1.5 font-display">
                     {t.appTitle}
                   </span>
-                  <span className="text-[9px] font-mono font-semibold text-slate-400 uppercase tracking-wider truncate">
+                  <span className="text-[11px] font-sans font-medium text-[var(--text-faint)] tracking-normal truncate">
                     {t.appSubtitle}
                   </span>
                 </div>
@@ -157,7 +157,7 @@ export const Sidebar: React.FC = () => {
             {navGroups.map((group) => (
               <div key={group.title} className="space-y-0.5">
                 {!collapsed && (
-                  <span className="px-3 pt-3 pb-1 text-[10.5px] font-bold tracking-wider uppercase text-slate-400 dark:text-slate-500 block font-mono">
+                  <span className="px-3 pt-3 pb-1 text-xs font-semibold tracking-[0.06em] uppercase text-[var(--text-faint)] block font-sans">
                     {group.title}
                   </span>
                 )}
@@ -177,8 +177,11 @@ export const Sidebar: React.FC = () => {
                         }`}
                         title={collapsed ? item.label : undefined}
                       >
+                        {isActive && (
+                          <span className="absolute left-0 top-1.5 bottom-1.5 w-[2.5px] rounded-r bg-[var(--accent)]" aria-hidden="true" />
+                        )}
                         <Icon className={`w-4 h-4 shrink-0 transition-colors ${
-                          isActive ? 'text-sky-600 dark:text-sky-400' : 'text-slate-400 group-hover:text-slate-600 dark:group-hover:text-slate-300'
+                          isActive ? 'text-[var(--accent)]' : 'text-slate-400 group-hover:text-slate-600 dark:group-hover:text-slate-300'
                         }`} />
                         
                         {!collapsed && (
@@ -188,13 +191,13 @@ export const Sidebar: React.FC = () => {
                         )}
 
                         {!collapsed && item.badge !== undefined && (
-                          <span className={`px-1.5 py-0.5 text-[10px] font-bold rounded-full border shadow-2xs ${item.badgeColor}`}>
+                          <span className={`px-1.5 py-0.5 text-[11px] font-semibold rounded-full border shadow-2xs ${item.badgeColor}`}>
                             {item.badge}
                           </span>
                         )}
 
                         {!collapsed && item.special && (
-                          <span className="px-1.5 py-0.5 text-[9px] font-mono font-bold uppercase rounded-full bg-sky-500/10 text-sky-700 dark:text-sky-400 border border-sky-500/25">
+                          <span className="px-1.5 py-0.5 text-[11px] font-sans font-semibold uppercase rounded-full bg-[var(--accent-soft)] text-[var(--accent)] border border-[var(--accent)]/30">
                             STUDIO
                           </span>
                         )}

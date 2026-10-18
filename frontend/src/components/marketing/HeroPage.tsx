@@ -12,12 +12,14 @@ import {
   CheckCircle2,
   TrendingUp,
   Compass,
-  ArrowUpRight
+  ArrowUpRight,
+  MapPin
 } from 'lucide-react';
 import { Provenance } from '@/components/common/Provenance';
+import GlassFolder from '@/components/ui/glass-folder-cards';
 
 export function HeroPage() {
-  const { language, l } = useApp();
+  const { language, l, t } = useApp();
 
   return (
     <div className="w-full flex flex-col items-center">
@@ -44,21 +46,21 @@ export function HeroPage() {
         <div className="hero-inner-content">
           {/* Top Floating Badge Pill */}
           <div className="hero-pill-badge">
-            <span className="badge-sparkle">✦</span>
+            <span className="eyebrow-bullet" />
             <span className="badge-text">
               {l('MSDE / SIDH · NATIONAL LABOUR INTELLIGENCE & FORECASTING ENGINE', 'MSDE / SIDH · राष्ट्रीय श्रम बाजार बुद्धिमत्ता एवं पूर्वानुमान इंजन')}
             </span>
           </div>
 
-          {/* High-Impact Bold Hero Headline (Exact DepthWizard Typography — Not thin AI serif) */}
+          {/* High-Impact Bold Hero Headline (Institutional Civic Voice) */}
           <h1 className="hero-bold-title">
-            {language === 'hi' ? (
+            {language !== 'en' ? (
               <>
                 कौशल अंतराल का पूर्वानुमान <span className="hero-title-highlight">एवं प्रशिक्षण क्षमता का रूपांतरण</span>
               </>
             ) : (
               <>
-                FORECAST THE SKILL GAP <span className="hero-title-highlight">&amp; TRANSFORM TRAINING CAPACITY</span> <br className="hero-title-br" /> for the Nation&apos;s Skills Ecosystem
+                Forecast the skill gap <span className="hero-title-highlight">and transform training capacity</span> <br className="hero-title-br" /> for the nation&apos;s skills ecosystem
               </>
             )}
           </h1>
@@ -76,7 +78,7 @@ export function HeroPage() {
               <strong>{l('Tri-Model Ensemble Blend', 'त्रि-मॉडल पहनावा मिश्रण')}</strong>
             </p>
             <div className="subheading-badge-tag">
-              <span>⚡ WAPE 3.41%</span>
+              <span>WAPE 3.41%</span>
             </div>
           </div>
 
@@ -118,7 +120,7 @@ export function HeroPage() {
             <div className="dock-connector-line" aria-hidden="true" />
             <div className="hero-bottom-dock">
               <Link href="#tactical-map" className="dock-pill-chip active">
-                <span className="dock-chip-icon">✦</span>
+                <MapPin className="w-3.5 h-3.5 text-sky-400" />
                 <span>{l('National Imbalance Map', 'राष्ट्रीय असंतुलन मानचित्र')}</span>
               </Link>
               <Link href="/forecasts" className="dock-pill-chip">
@@ -284,7 +286,7 @@ export function HeroPage() {
               {l('GEOSPATIAL INTELLIGENCE', 'भू-स्थानिक बुद्धिमत्ता')}
             </span>
             <h2 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-slate-100 tracking-tight">
-              {language === 'hi' ? (
+              {language !== 'en' ? (
                 'राष्ट्रीय कौशल असंतुलन एवं क्षमता मानचित्र'
               ) : (
                 <>
@@ -308,7 +310,7 @@ export function HeroPage() {
               {l('TOP 3 RANKED INTERVENTIONS', 'शीर्ष 3 अनुशंसित हस्तक्षेप')}
             </span>
             <h2 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-slate-100 tracking-tight mt-0.5">
-              {language === 'hi' ? (
+              {language !== 'en' ? (
                 'डेटा-संचालित नीति समाधान'
               ) : (
                 <>
@@ -418,7 +420,7 @@ export function HeroPage() {
 
               <div>
                 <h3 className="text-base font-bold text-slate-900 dark:text-slate-100">
-                  {language === 'hi' ? (
+                  {language !== 'en' ? (
                     'पुणे ईवी सर्विस तकनीशियन क्लस्टर'
                   ) : (
                     <>
@@ -501,7 +503,7 @@ export function HeroPage() {
 
               <div>
                 <h3 className="text-base font-bold text-slate-900 dark:text-slate-100">
-                  {language === 'hi' ? (
+                  {language !== 'en' ? (
                     'कोयंबटूर सीएनसी ऑपरेटर क्लस्टर'
                   ) : (
                     <>
@@ -580,7 +582,7 @@ export function HeroPage() {
               {l('SMART INDIA HACKATHON · PS 26246 COMPLIANCE', 'स्मार्ट इंडिया हैकथॉन · PS 26246 अनुपालन')}
             </span>
             <h2 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-slate-100 tracking-tight mt-0.5">
-              {language === 'hi' ? (
+              {language !== 'en' ? (
                 'एमएसडीई समस्या विवरण २६२४६: कार्यान्वयन ढांचा'
               ) : (
                 <>
@@ -695,6 +697,51 @@ export function HeroPage() {
               </p>
             </div>
           </Link>
+        </div>
+
+        {/* Documentation & Specifications Pack Folder */}
+        <div className="mt-8 pt-6 border-t border-slate-200 dark:border-slate-800 flex flex-col md:flex-row items-center justify-between gap-6 p-6 rounded-3xl glass-strong border border-[var(--border)] shadow-xs">
+          <div className="space-y-2 max-w-xl">
+            <span className="text-[11px] font-semibold text-[var(--brand)] uppercase tracking-wider block font-mono">
+              {l('GOVERNANCE & SPECIFICATIONS PACK', 'शासन एवं विनिर्देश पैक')}
+            </span>
+            <h3 className="text-lg sm:text-xl font-bold text-slate-900 dark:text-slate-100 tracking-tight">
+              {t.docPack?.title || l('Documentation & Specifications', 'दस्तावेज़ीकरण एवं विनिर्देश')}
+            </h3>
+            <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+              {l(
+                'Direct access to official mathematical formulations, OpenAPI endpoint specifications, and multi-source pipeline health provenance.',
+                'आधिकारिक गणितीय सूत्रों, OpenAPI एंडपॉइंट विनिर्देशों और बहु-स्रोत पाइपलाइन स्वास्थ्य उद्गम तक सीधी पहुंच।'
+              )}
+            </p>
+          </div>
+
+          <div className="shrink-0 flex justify-center">
+            <GlassFolder
+              label={t.docPack?.title || "Documentation Pack"}
+              meta={l('3 verified assets', '3 सत्यापित संपत्तियां')}
+              art="aurora"
+              labels={t.glassFolder}
+              files={[
+                {
+                  name: t.docPack?.methodology || "Mathematical Methodology",
+                  meta: t.docPack?.methodologyMeta || "WAPE formulation & LP constraints",
+                  href: "/methodology",
+                },
+                {
+                  name: t.docPack?.apiDocs || "API & Exports Registry",
+                  meta: t.docPack?.apiDocsMeta || "OpenAPI interactive endpoints",
+                  href: "/api",
+                },
+                {
+                  name: t.docPack?.dataHealth || "Data Pipeline & Provenance",
+                  meta: t.docPack?.dataHealthMeta || "Multi-source SLA & drift metrics",
+                  href: "/data-health",
+                },
+              ]}
+              action="none"
+            />
+          </div>
         </div>
       </section>
     </div>

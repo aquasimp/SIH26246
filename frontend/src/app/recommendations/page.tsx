@@ -18,14 +18,21 @@ import {
   Download, 
   Eye, 
   ShieldCheck, 
-  Sparkles,
   TrendingDown,
-  Building2
+  Building2,
+  ChevronLeft,
+  ChevronRight
 } from 'lucide-react';
+import GlassFolder, { ArtPreset, FolderFile } from '@/components/ui/glass-folder-cards';
+import { EXPORT_METADATA } from '@/lib/demoData';
 import { downloadCSV, formatINR } from '@/lib/exportUtils';
 
 export default function RecommendationsPage() {
   const { recommendations, approveRecommendation, setActiveEvidence, language, t, l } = useApp();
+  const [folderPage, setFolderPage] = React.useState(0);
+  const FOLDERS_PER_PAGE = 3;
+  const totalFolderPages = Math.ceil(recommendations.length / FOLDERS_PER_PAGE);
+  const visibleFolderRecs = recommendations.slice(folderPage * FOLDERS_PER_PAGE, (folderPage + 1) * FOLDERS_PER_PAGE);
 
   const handleExportAll = () => {
     const rows = [
@@ -65,14 +72,15 @@ export default function RecommendationsPage() {
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
         <div>
           <div className="flex items-center gap-2 mb-1.5">
-            <span className="px-2.5 py-0.5 rounded-full text-[11px] font-mono font-extrabold uppercase tracking-wider bg-[var(--brand)]/15 text-[var(--brand)] border border-[var(--brand)]/30">
+            <span className="eyebrow"><span className="eyebrow-bullet" />{l('Planning & Action', 'योजना एवं कार्रवाई')}</span>
+            <span className="px-2.5 py-0.5 rounded-full text-[11px] font-bold uppercase bg-[var(--brand)]/15 text-[var(--brand)] border border-[var(--brand)]/30">
               {l('Government Decision Support Pipeline', 'सरकारी निर्णय सहायता पाइपलाइन')}
             </span>
             <Provenance source="MSDE Verified Registry" />
           </div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight font-sans">
-            {language === 'hi' ? (
-              'अनुशंसित नीतिगत हस्तक्षेप'
+          <h1 className="page-title-editorial">
+            {language !== 'en' ? (
+              l('Evidence-Backed Policy Interventions', 'अनुशंसित नीतिगत हस्तक्षेप')
             ) : (
               <>
                 Evidence-Backed Policy <span className="title-serif-italic">Interventions</span>
@@ -101,7 +109,7 @@ export default function RecommendationsPage() {
         <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-3 border-b border-[var(--border)] mb-4 gap-2">
           <div className="flex items-center gap-2">
             <div className="w-8 h-8 rounded-xl bg-[var(--brand)]/15 text-[var(--brand)] flex items-center justify-center font-bold">
-              <Sparkles className="w-4 h-4 text-[var(--brand)]" />
+              <ShieldCheck className="w-4 h-4 text-[var(--brand)]" />
             </div>
             <div>
               <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[var(--brand)] block">
@@ -165,6 +173,104 @@ export default function RecommendationsPage() {
               {l('4 Standalone Dossiers Below', '4 स्वतंत्र हस्तक्षेप नीचे देखें')}
             </span>
           </div>
+        </div>
+      </div>
+
+      {/* Interactive Priority Decision Dossier Folders (Max 3 visible per view) */}
+      <div className="p-5 sm:p-6 rounded-3xl glass-strong border border-[var(--border)] shadow-md space-y-4">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-[var(--border)]">
+          <div>
+            <span className="text-xs font-mono font-bold text-[var(--brand)] uppercase tracking-wider block">
+              {l('Interactive Decision Dossier Folders', 'इंटरैक्टिव निर्णय डॉसियर फ़ोल्डर')}
+            </span>
+            <h2 className="text-base sm:text-lg font-extrabold text-[var(--text)]">
+              {l('Priority Policy Intervention Packs (Max 3 visible per view)', 'प्राथमिकता नीतिगत हस्तक्षेप पैक (प्रति दृश्य अधिकतम 3)')}
+            </h2>
+            <p className="text-xs text-[var(--text-muted)] mt-0.5">
+              {l('Click any folder or press Enter/Space to explore verified export files and simulation sandboxes.', 'सत्यापित निर्यात फाइलों और सिमुलेशन सैंडबॉक्स का पता लगाने के लिए किसी भी फ़ोल्डर पर क्लिक करें या खोलें।')}
+            </p>
+          </div>
+
+          {/* Accessible Pagination Controls */}
+          <div className="flex items-center gap-2 self-start sm:self-auto shrink-0" role="navigation" aria-label="Folder pagination">
+            <span className="text-xs font-mono text-[var(--text-faint)]" aria-live="polite">
+              {l(`Page ${folderPage + 1} of ${totalFolderPages} (${recommendations.length} total)`, `पृष्ठ ${folderPage + 1} का ${totalFolderPages} (कुल ${recommendations.length})`)}
+            </span>
+            <div className="flex items-center gap-1">
+              <button
+                type="button"
+                onClick={() => setFolderPage(p => Math.max(0, p - 1))}
+                disabled={folderPage === 0}
+                aria-label={l('Previous folder page', 'पिछला फ़ोल्डर पृष्ठ')}
+                className="p-1.5 rounded-lg border border-[var(--border)] liquid-control disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer"
+              >
+                <ChevronLeft className="w-4 h-4 text-[var(--text)]" />
+              </button>
+              <button
+                type="button"
+                onClick={() => setFolderPage(p => Math.min(totalFolderPages - 1, p + 1))}
+                disabled={folderPage >= totalFolderPages - 1}
+                aria-label={l('Next folder page', 'अगला फ़ोल्डर पृष्ठ')}
+                className="p-1.5 rounded-lg border border-[var(--border)] liquid-control disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer"
+              >
+                <ChevronRight className="w-4 h-4 text-[var(--text)]" />
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 justify-items-center">
+          {visibleFolderRecs.map((rec) => {
+            const artPresets: ArtPreset[] = ['aurora', 'ember', 'verdant', 'dusk'];
+            const art = artPresets[(rec.rank - 1) % artPresets.length];
+            const localizedDistrict = getLocalizedEntityName('districts', rec.district, language, rec.district);
+            const localizedState = getLocalizedEntityName('states', rec.state, language, rec.state);
+            const files: FolderFile[] = [
+              {
+                name: t.evidenceDossier?.gapAuditCsv || "Labour Market Gap Audit (CSV)",
+                meta: `CSV · ${localizedDistrict}`,
+                href: `/api/export?district=${encodeURIComponent(rec.district)}`,
+              },
+              {
+                name: t.evidenceDossier?.recommendationJson || "Recommendation Payload (JSON)",
+                meta: `JSON · ${rec.id}`,
+                href: `/api/recommendations?district=${encodeURIComponent(rec.district)}`,
+              },
+              {
+                name: t.evidenceDossier?.scenarioStudioLink || "Scenario Simulation Sandbox",
+                meta: l('LP Solver · Preset', 'LP सॉल्वर · प्रीसेट'),
+                href: `/scenarios?preset=rec0${rec.rank}`,
+              },
+              {
+                name: t.evidenceDossier?.districtProfile || "District Intelligence Profile",
+                meta: localizedState,
+                href: `/districts/${rec.district.toLowerCase()}`,
+              },
+            ];
+
+            return (
+              <div key={rec.id} className="flex flex-col items-center">
+                <GlassFolder
+                  label={`${rec.id} · ${getLocalizedEntityName('districts', rec.district, language)}`}
+                  meta={`Run ${EXPORT_METADATA.runId}`}
+                  art={art}
+                  files={files}
+                  labels={t.glassFolder}
+                  action="more"
+                  menu={[
+                    {
+                      label: l('View Empirical Evidence', 'अनुभवजन्य साक्ष्य देखें'),
+                      onSelect: () => setActiveEvidence(rec),
+                    },
+                    {
+                      label: l('Approve Draft Action', 'प्रारूप कार्रवाई स्वीकृत करें'),
+                      onSelect: () => handleApprove(rec.id, rec.title),
+                    },
+                  ]}
+                />
+              </div>
+            );
+          })}
         </div>
       </div>
 
@@ -331,8 +437,8 @@ export default function RecommendationsPage() {
                     <strong className="text-[var(--text)] font-semibold">{l(rec.assumptions.capexRate, rec.assumptions.capexRateHi)}</strong>
                   </div>
                   <div className="p-2 rounded-lg bg-[var(--surface-card)] border border-[var(--border)] col-span-1 sm:col-span-2 lg:col-span-4">
-                    <span className="text-[var(--text-faint)] block text-[10px] uppercase">{l('Staged Funnel Conversion', 'चरणबद्ध फ़नल रूपांतरण')}</span>
-                    <span className="text-[var(--text-muted)] text-[10px]">{l(rec.assumptions.funnelConversion, rec.assumptions.funnelConversionHi)}</span>
+                    <span className="text-[var(--text-faint)] block text-[11px] uppercase">{l('Staged Funnel Conversion', 'चरणबद्ध फ़नल रूपांतरण')}</span>
+                    <span className="text-[var(--text-muted)] text-[11px]">{l(rec.assumptions.funnelConversion, rec.assumptions.funnelConversionHi)}</span>
                   </div>
                 </div>
               </div>
@@ -341,63 +447,63 @@ export default function RecommendationsPage() {
             {/* Expected Impact Stats Grid in aligned responsive grid (§6.3, §D) */}
             <div className="grid grid-cols-2 sm:grid-cols-3 2xl:grid-cols-6 gap-2.5 sm:gap-3 p-3.5 sm:p-4 rounded-2xl glass-strong border border-[var(--border)] shadow-2xs mb-4 text-center">
               <div>
-                <span className="text-[10px] font-bold text-[var(--text-faint)] uppercase tracking-wider block">
+                <span className="text-[11px] font-bold text-[var(--text-faint)] uppercase tracking-wider block">
                   {l('Shortfall Closed', 'कमी भरपाई')}
                 </span>
                 <span className="text-base sm:text-xl font-extrabold text-[var(--success)] font-mono tabular-nums whitespace-nowrap block">
                   -{rec.expectedImpact.gapReductionPercent}%
                 </span>
-                <span className="text-[9px] text-[var(--success)] font-semibold block whitespace-nowrap">{l('Deficit Mitigated', 'अनुमानित भरपाई')}</span>
+                <span className="text-[11px] text-[var(--success)] font-semibold block whitespace-nowrap">{l('Deficit Mitigated', 'अनुमानित भरपाई')}</span>
               </div>
 
               <div>
-                <span className="text-[10px] font-bold text-[var(--text-faint)] uppercase tracking-wider block">
+                <span className="text-[11px] font-bold text-[var(--text-faint)] uppercase tracking-wider block">
                   {l('Supply Coverage', 'आपूर्ति कवरेज')}
                 </span>
                 <span className="text-base sm:text-xl font-extrabold text-[var(--brand)] font-mono tabular-nums whitespace-nowrap block">
                   +{rec.expectedImpact.supplyCoveragePercent}%
                 </span>
-                <span className="text-[9px] text-[var(--brand)] font-semibold block whitespace-nowrap">{l('Employable Pool', 'रोजगार योग्य पूल')}</span>
+                <span className="text-[11px] text-[var(--brand)] font-semibold block whitespace-nowrap">{l('Employable Pool', 'रोजगार योग्य पूल')}</span>
               </div>
 
               <div>
-                <span className="text-[10px] font-bold text-[var(--text-faint)] uppercase tracking-wider block">
+                <span className="text-[11px] font-bold text-[var(--text-faint)] uppercase tracking-wider block">
                   {l('Youth Placed', 'प्रमाणित युवा रोजगार')}
                 </span>
                 <span className="text-base sm:text-xl font-extrabold text-[var(--brand)] font-mono tabular-nums whitespace-nowrap block">
                   +{rec.expectedImpact.youthEmployed || Math.round(rec.recommendedSeats * 0.5)}
                 </span>
-                <span className="text-[9px] text-[var(--text-muted)] font-semibold block whitespace-nowrap">{l('Direct Jobs', 'सीधे रोजगार')}</span>
+                <span className="text-[11px] text-[var(--text-muted)] font-semibold block whitespace-nowrap">{l('Direct Jobs', 'सीधे रोजगार')}</span>
               </div>
 
               <div>
-                <span className="text-[10px] font-bold text-[var(--text-faint)] uppercase tracking-wider block">
+                <span className="text-[11px] font-bold text-[var(--text-faint)] uppercase tracking-wider block">
                   {l('Annual Wages', 'वार्षिक युवा आय')}
                 </span>
                 <span className="text-base sm:text-xl font-extrabold text-[var(--success)] font-mono tabular-nums whitespace-nowrap block">
                   {rec.expectedImpact.annualWageIncomeINR ? formatINR(rec.expectedImpact.annualWageIncomeINR) : 'N/A'}
                 </span>
-                <span className="text-[9px] text-[var(--success)] font-semibold block whitespace-nowrap">{l('District Wages', 'वार्षिक वेतन')}</span>
+                <span className="text-[11px] text-[var(--success)] font-semibold block whitespace-nowrap">{l('District Wages', 'वार्षिक वेतन')}</span>
               </div>
 
               <div>
-                <span className="text-[10px] font-bold text-[var(--text-faint)] uppercase tracking-wider block">
+                <span className="text-[11px] font-bold text-[var(--text-faint)] uppercase tracking-wider block">
                   {l('Capex Saved', 'पूंजी व्यय बचत')}
                 </span>
                 <span className="text-base sm:text-xl font-extrabold text-[var(--text)] font-mono tabular-nums whitespace-nowrap block">
                   {rec.expectedImpact.publicFundsSavedINR ? formatINR(rec.expectedImpact.publicFundsSavedINR) : 'N/A'}
                 </span>
-                <span className="text-[9px] text-[var(--text-muted)] font-semibold block font-mono whitespace-nowrap">{l('vs Greenfield', 'पुनरुपयोग बचत')}</span>
+                <span className="text-[11px] text-[var(--text-muted)] font-semibold block font-mono whitespace-nowrap">{l('vs Greenfield', 'पुनरुपयोग बचत')}</span>
               </div>
 
               <div>
-                <span className="text-[10px] font-bold text-[var(--text-faint)] uppercase tracking-wider block">
+                <span className="text-[11px] font-bold text-[var(--text-faint)] uppercase tracking-wider block">
                   {l('Package Cost', 'पैकेज लागत')}
                 </span>
                 <span className="text-base sm:text-xl font-extrabold text-[var(--text)] font-mono tabular-nums whitespace-nowrap block">
                   {formatINR(rec.expectedImpact.estimatedCostINR)}
                 </span>
-                <span className="text-[9px] text-[var(--brand)] font-semibold block font-mono whitespace-nowrap">
+                <span className="text-[11px] text-[var(--brand)] font-semibold block font-mono whitespace-nowrap">
                   {rec.expectedImpact.roiMultiple ? `${rec.expectedImpact.roiMultiple}x ${l('ROI', 'प्रतिफल')}` : (l('₹6,500/seat', '₹6,500/सीट'))}
                 </span>
               </div>

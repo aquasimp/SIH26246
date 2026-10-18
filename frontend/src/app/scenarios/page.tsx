@@ -12,7 +12,7 @@ import { formatINR, downloadCSV } from '@/lib/exportUtils';
 import { toast } from 'sonner';
 import { 
   Sliders, 
-  Sparkles, 
+  Target, 
   RotateCcw, 
   Download, 
   TrendingDown, 
@@ -31,6 +31,7 @@ import {
 } from 'lucide-react';
 
 import { getLocalizedEntityName, resolveDisplayName } from '@/lib/i18n';
+import MatteAlertFeedback from '@/components/ui/matte-alert-feedback';
 
 function ScenarioStudioContent() {
   const searchParams = useSearchParams();
@@ -196,14 +197,15 @@ function ScenarioStudioContent() {
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 pt-1">
         <div className="min-w-0 flex-1">
           <div className="flex items-center gap-2 mb-1.5 flex-wrap">
-            <span className="px-2.5 py-0.5 rounded-full text-xs font-mono font-extrabold uppercase tracking-wider bg-amber-500/15 text-amber-500 border border-amber-500/30">
+            <span className="eyebrow"><span className="eyebrow-bullet" />{l('Planning & Action', 'योजना एवं कार्रवाई')}</span>
+            <span className="px-2.5 py-0.5 rounded-full text-xs font-bold uppercase bg-amber-500/15 text-amber-600 dark:text-amber-400 border border-amber-500/30">
               {l('Interactive Policy Sandbox', 'इंटरैक्टिव नीति सैंडबॉक्स')}
             </span>
             <Provenance source="MSDE Verified Registry" />
           </div>
-          <h1 className="text-2xl sm:text-4xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight break-words font-sans">
-            {language === 'hi' ? (
-              'नीति सिमुलेशन एवं सीट पुनर्गठन'
+          <h1 className="page-title-editorial">
+            {language !== 'en' ? (
+              l('Policy Sandbox & Seat Reallocation Studio', 'नीति सिमुलेशन एवं सीट पुनर्गठन')
             ) : (
               <>
                 Policy Sandbox &amp; Seat Reallocation <span className="title-serif-italic">Studio</span>
@@ -222,7 +224,7 @@ function ScenarioStudioContent() {
             className="hero-btn-dark-glow py-2 px-4 text-xs font-semibold flex items-center gap-1.5 cursor-pointer shadow-xs min-h-[36px]"
             title="Load canonical Recommendation #01: 97 seats • ₹18.31L • donor score 52"
           >
-            <Sparkles className="w-3.5 h-3.5 text-amber-300" />
+            <Target className="w-3.5 h-3.5 text-amber-300" />
             <span>{l('Load Recommendation #01 Preset', 'सिफ़ारिश #01 प्रीसेट लोड करें')}</span>
           </button>
 
@@ -602,34 +604,22 @@ function ScenarioStudioContent() {
 
         {/* Right / Center Columns: Real-time Simulation Impact (7 cols at lg, 8 cols at 2xl) */}
         <div className="lg:col-span-7 2xl:col-span-8 space-y-6">
-          {/* LP Shrinkage Warning Banner */}
+          {/* Contextual Notice 3: Scenario Seat Cap (LP Solver Safe-Cap Enforced) */}
           {simulation.wasShrunk && (
-            <div className="p-4 rounded-2xl glass-strong border-l-4 border-l-amber-500 border-[var(--border)] text-[var(--text)] flex items-start gap-3 shadow-xs">
-              <AlertTriangle className="w-5 h-5 text-amber-500 shrink-0 mt-0.5" />
-              <div className="text-xs space-y-1">
-                <div className="font-extrabold text-[var(--text)] text-sm flex items-center gap-2">
-                  <span>{l('LP Donor Non-Depletion Boundary Enforced', 'LP दाता गैर-रिक्तीकरण सीमा लागू')}</span>
-                  <span className="px-2 py-0.2 rounded-full text-xs font-mono font-bold bg-amber-500/20 text-amber-500 border border-amber-500/30">
-                    {l('Auto-Shrunk', 'स्वतः-सीमित')}
-                  </span>
-                </div>
-                <p className="leading-relaxed text-[var(--text-muted)]">
-                  {language === 'en' ? (
-                    <>
-                      Requested reallocation shrunk from <strong className="text-[var(--text)] font-mono">{simulation.requestedSeats}</strong> to <strong className="text-[var(--brand)] font-mono">{simulation.actualSeatsShifted} seats</strong>. 
-                      Shifting {simulation.requestedSeats} seats would drop {donorOcc.title}&apos;s supply to 184 and push its Gap Score to 76 (Severe Shortage). 
-                      The LP non-depletion constraint capped the shift to guarantee {donorOcc.title} preserves a safe Balanced equilibrium (<strong className="text-[var(--brand)] font-mono">Score {simulation.donorTrade?.gap_score_after}</strong>, {simulation.donorTrade?.severity_after}).
-                    </>
-                  ) : (
-                    <>
-                      {l('Requested reallocation shrunk from', 'अनुरोधित पुनर्आवंटन')} <strong className="text-[var(--text)] font-mono">{simulation.requestedSeats}</strong> {l('to', 'से घटकर')} <strong className="text-[var(--brand)] font-mono">{simulation.actualSeatsShifted} {l('seats', 'सीटों')}</strong>. 
-                      {l(`Shifting ${simulation.requestedSeats} seats would drop ${resolveDisplayName(donorOcc, language)}'s supply to 184 and push its Gap Score to 76 (Severe Shortage).`, `${simulation.requestedSeats} सीटों के स्थानांतरण से ${resolveDisplayName(donorOcc, language)} की आपूर्ति गिरकर 184 हो जाती और अंतर स्कोर 76 (गंभीर कमी) पर पहुंच जाता।`)} 
-                      {l('The LP non-depletion constraint capped the shift to guarantee safe Balanced equilibrium', 'LP गैर-रिक्तीकरण प्रतिबंध ने सुरक्षित संतुलित संतुलन बनाए रखने के लिए स्थानांतरण को सीमित कर दिया')} (<strong className="text-[var(--brand)] font-mono">{l('Score', 'स्कोर')} {simulation.donorTrade?.gap_score_after}</strong>, {localizeSeverity(simulation.donorTrade?.severity_after)}).
-                    </>
-                  )}
-                </p>
-              </div>
-            </div>
+            <MatteAlertFeedback
+              variant="info"
+              bare={true}
+              alertTitle={t.notices?.seatCapTitle || l('LP Donor Non-Depletion Boundary Enforced', 'LP दाता गैर-रिक्तीकरण सीमा लागू')}
+              alertDetail={
+                language === 'en'
+                  ? `Requested reallocation shrunk from ${simulation.requestedSeats} to ${simulation.actualSeatsShifted} seats under strict donor rule. Shifting ${simulation.requestedSeats} seats would drop ${donorOcc.title}'s supply and push its Gap Score into severe shortage. The LP non-depletion constraint capped the shift to guarantee safe equilibrium (Score ${simulation.donorTrade?.gap_score_after}, ${simulation.donorTrade?.severity_after}).`
+                  : `${l('Requested reallocation shrunk from', 'अनुरोधित पुनर्आवंटन')} ${simulation.requestedSeats} ${l('to', 'से घटकर')} ${simulation.actualSeatsShifted} ${l('seats', 'सीटों')} ${l('under strict donor rule', 'सख्त दाता नियम के तहत')} (${l('Score', 'स्कोर')} ${simulation.donorTrade?.gap_score_after}, ${localizeSeverity(simulation.donorTrade?.severity_after)})।`
+              }
+              buttonLabel={t.matteAlert?.showAlert || l('Show Solver Safe-Cap Notice', 'सॉल्वर सुरक्षित-मर्यादा सूचना दिखाएं')}
+              dismissLabel={t.matteAlert?.dismiss || "Dismiss notification"}
+              dismissedMessage={t.matteAlert?.dismissedMessage || "Message dismissed."}
+              defaultVisible={true}
+            />
           )}
 
           {/* Before/After Hero (§6.4, §8) */}
@@ -801,16 +791,16 @@ function ScenarioStudioContent() {
               </div>
 
               <div className="overflow-x-auto">
-                <table className="w-full text-left text-xs border-collapse">
+                <table className="data-table">
                   <thead>
-                    <tr className="border-b border-[var(--border)] text-[10px] font-mono uppercase text-[var(--text-faint)] font-bold">
-                      <th className="py-2.5 px-2.5">{l('Safety Rule', 'सुरक्षा नियम')}</th>
-                      <th className="py-2.5 px-2">{l('Seats Moved', 'स्थानांतरित सीटें')}</th>
-                      <th className="py-2.5 px-2">{l('Donor Score', 'दाता स्कोर')}</th>
-                      <th className="py-2.5 px-2">{l('Realloc Alone', 'केवल पुनर्आवंटन')}</th>
-                      <th className="py-2.5 px-2">{l('Combo (0% Mob)', 'कॉम्बो (0% गति)')}</th>
-                      <th className="py-2.5 px-2">{l('Combo (+10% Mob)', 'कॉम्बो (+10% गति)')}</th>
-                      <th className="py-2.5 px-2.5 text-right">{l('Package Cost', 'पैकेज लागत')}</th>
+                    <tr>
+                      <th>{l('Safety Rule', 'सुरक्षा नियम')}</th>
+                      <th className="num">{l('Seats Moved', 'स्थानांतरित सीटें')}</th>
+                      <th className="num">{l('Donor Score', 'दाता स्कोर')}</th>
+                      <th className="num">{l('Realloc Alone', 'केवल पुनर्आवंटन')}</th>
+                      <th className="num">{l('Combo (0% Mob)', 'कॉम्बो (0% गति)')}</th>
+                      <th className="num">{l('Combo (+10% Mob)', 'कॉम्बो (+10% गति)')}</th>
+                      <th className="num">{l('Package Cost', 'पैकेज लागत')}</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-[var(--border)] text-[11px] font-mono tabular-nums">

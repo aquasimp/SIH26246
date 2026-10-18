@@ -78,13 +78,13 @@ export const GapChart: React.FC<GapChartProps> = ({
           </svg>
 
           <div className="absolute inset-0 flex flex-col items-center justify-center text-center">
-            <span className="text-[10px] font-bold uppercase tracking-wider text-[var(--text-faint)]">
+            <span className="text-[11px] font-bold uppercase tracking-wider text-[var(--text-faint)]">
               {l('Gap Score', 'अंतर स्कोर')}
             </span>
             <span className={clsx('text-3xl font-extrabold tracking-tight font-mono', theme.text)}>
               {score}
             </span>
-            <span className="text-[9px] font-semibold text-[var(--text-faint)]">
+            <span className="text-[11px] font-semibold text-[var(--text-faint)]">
               / 100
             </span>
           </div>
@@ -115,7 +115,7 @@ export const GapChart: React.FC<GapChartProps> = ({
             <span className="font-mono text-[var(--text)]">{demandPressure} / 100</span>
           </div>
           <div className="w-full h-1.5 rounded-full bg-[var(--border)] overflow-hidden">
-            <div className="h-full bg-orange-500 rounded-full" style={{ width: `${demandPressure}%` }} />
+            <div className="h-full bg-[var(--accent)] rounded-full" style={{ width: `${demandPressure}%` }} />
           </div>
         </div>
 

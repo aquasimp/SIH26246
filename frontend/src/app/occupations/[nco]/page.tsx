@@ -77,6 +77,7 @@ export default function OccupationDetailPage({ params }: { params: Promise<{ nco
             <span className="telemetry-chip">
               NCO-2015: {occ.ncoCode}
             </span>
+            <span className="eyebrow"><span className="eyebrow-bullet" />{l('Taxonomy & Directory', 'वर्गीकरण एवं निर्देशिका')}</span>
             <span className="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-purple-500/10 text-purple-600 dark:text-purple-400 border border-purple-500/20 font-mono">
               NSQF {l('Level', 'स्तर')} {occ.nsqfLevel}
             </span>
@@ -85,7 +86,7 @@ export default function OccupationDetailPage({ params }: { params: Promise<{ nco
             </span>
           </div>
 
-          <h1 className="text-2xl sm:text-4xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight font-sans">
+          <h1 className="page-title-editorial">
             {resolveDisplayName(occ, language)}
           </h1>
 

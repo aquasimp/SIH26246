@@ -7,7 +7,7 @@ import { ThemeToggle } from '@/components/layout/ThemeToggle';
 import { LanguageSelector } from '@/components/layout/LanguageSelector';
 import { siteConfig } from '@/lib/site.config';
 import { EXPORT_METADATA } from '@/lib/demoData';
-import { ArrowRight, Compass, Sliders, Database, FileText, Menu, Sparkles, TrendingUp } from 'lucide-react';
+import { ArrowRight, Compass, Sliders, Database, FileText, Menu, TrendingUp } from 'lucide-react';
 import { BrandLogo } from '@/components/ui/BrandLogo';
 
 export function MarketingTopbar() {
@@ -30,14 +30,14 @@ export function MarketingTopbar() {
           <BrandLogo size="md" alt="KaushalYuva Logo" />
           <div className="flex flex-col min-w-0">
             <div className="flex items-center gap-1.5">
-              <span className="text-sm font-extrabold tracking-tight text-slate-900 dark:text-slate-100 leading-tight">
+              <span className="text-sm font-semibold tracking-tight text-slate-900 dark:text-slate-100 leading-tight font-display">
                 {t.appTitle || siteConfig.name}
               </span>
-              <span className="hidden sm:inline-flex text-[9px] font-extrabold font-mono text-sky-700 dark:text-sky-300 bg-sky-500/15 border border-sky-500/30 px-1.5 py-0.5 rounded-full">
+              <span className="hidden sm:inline-flex text-[10px] font-semibold font-sans text-[var(--accent)] bg-[var(--accent-soft)] border border-[var(--accent)]/30 px-2 py-0.5 rounded-full">
                 MSDE
               </span>
             </div>
-            <span className="hidden md:block text-[9px] font-bold font-mono tracking-wider text-slate-500 dark:text-slate-400 uppercase mt-0.5">
+            <span className="hidden md:block text-[11px] font-sans font-medium tracking-normal text-[var(--text-faint)] mt-0.5">
               {t.appSubtitle || l('AI LABOUR MARKET INTELLIGENCE', 'श्रम बाजार बुद्धिमत्ता इंजन')}
             </span>
           </div>
@@ -48,37 +48,37 @@ export function MarketingTopbar() {
           <nav aria-label="Marketing Navigation" className="flex items-center gap-1">
             <Link 
               href="/overview" 
-              className="nav-link-btn"
+              className="nav-link-btn group"
             >
-              <Compass className="w-3.5 h-3.5 text-sky-600 dark:text-sky-400" />
+              <Compass className="w-3.5 h-3.5 text-[var(--text-faint)] group-hover:text-[var(--accent)] transition-colors" />
               <span>{t.nav.overview || l('Overview', 'अवलोकन')}</span>
             </Link>
             <Link 
               href="/scenarios" 
-              className="nav-link-btn"
+              className="nav-link-btn group"
             >
-              <Sliders className="w-3.5 h-3.5 text-indigo-500" />
+              <Sliders className="w-3.5 h-3.5 text-[var(--text-faint)] group-hover:text-[var(--accent)] transition-colors" />
               <span>{t.nav.scenarios || l('Scenario Studio', 'परिदृश्य स्टूडियो')}</span>
             </Link>
             <Link 
               href="/forecasts" 
-              className="nav-link-btn"
+              className="nav-link-btn group"
             >
-              <TrendingUp className="w-3.5 h-3.5 text-amber-500" />
+              <TrendingUp className="w-3.5 h-3.5 text-[var(--text-faint)] group-hover:text-[var(--accent)] transition-colors" />
               <span>{t.nav.forecasts || l('Forecasts', 'पूर्वानुमान')}</span>
             </Link>
             <Link 
               href="/methodology" 
-              className="nav-link-btn"
+              className="nav-link-btn group"
             >
-              <FileText className="w-3.5 h-3.5 text-emerald-500" />
+              <FileText className="w-3.5 h-3.5 text-[var(--text-faint)] group-hover:text-[var(--accent)] transition-colors" />
               <span>{t.nav.methodology || l('Methodology', 'मॉडल कार्यप्रणाली')}</span>
             </Link>
             <Link 
               href="/api" 
-              className="nav-link-btn"
+              className="nav-link-btn group"
             >
-              <Database className="w-3.5 h-3.5 text-slate-500" />
+              <Database className="w-3.5 h-3.5 text-[var(--text-faint)] group-hover:text-[var(--accent)] transition-colors" />
               <span>{t.nav.apiExports || l('API & Exports', 'एपीआई')}</span>
             </Link>
           </nav>
@@ -101,10 +101,10 @@ export function MarketingTopbar() {
             className="nav-demo-pill-btn flex items-center gap-1.5 text-xs font-bold px-3 py-1.5 rounded-full"
             title={l('Run Live Reallocation Simulation', 'लाइव सिमुलेशन चलाएं')}
           >
-            <Sparkles className="w-3.5 h-3.5 text-amber-500" />
+            <Sliders className="w-3.5 h-3.5 text-[var(--accent)]" />
             <span className="hidden sm:inline">{l('Live Studio', 'लाइव स्टूडियो')}</span>
             <span className="sm:hidden">{l('Live', 'लाइव')}</span>
-            <span className="px-1 py-0.2 rounded-xs text-[9px] font-mono font-extrabold bg-amber-500/20 text-amber-600 dark:text-amber-400">
+            <span className="px-1.5 py-0.5 rounded-full text-[10px] font-sans font-semibold bg-[var(--accent-soft)] text-[var(--accent)] border border-[var(--accent)]/30">
               {l('LIVE', 'लाइव')}
             </span>
           </Link>

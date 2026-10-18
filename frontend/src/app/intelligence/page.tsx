@@ -14,7 +14,7 @@ import {
   Building2, 
   Activity, 
   MapPin, 
-  Sparkles, 
+  Target, 
   ArrowUpRight, 
   ArrowDownRight, 
   Briefcase,
@@ -54,14 +54,15 @@ export default function LabourIntelligencePage() {
       {/* Page Title */}
       <div>
         <div className="flex items-center gap-2 mb-2">
+          <span className="eyebrow"><span className="eyebrow-bullet" />{l('Intelligence', 'इंटेलिजेंस')}</span>
           <Provenance type="official" note={l('National Demand Aggregation Matrix', 'राष्ट्रीय मांग एकत्रीकरण मैट्रिक्स')} />
-          <span className="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold uppercase tracking-wider bg-[var(--brand)]/10 text-[var(--brand)] border border-[var(--brand)]/20">
+          <span className="px-2 py-0.5 rounded-full text-[11px] font-bold bg-[var(--brand)]/10 text-[var(--brand)] border border-[var(--brand)]/20">
             {l('Employer Pulse', 'नियोक्ता पल्स')}
           </span>
         </div>
-        <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight font-sans">
-          {language === 'hi' ? (
-            'श्रम बाजार मांग आसूचना'
+        <h1 className="page-title-editorial">
+          {language !== 'en' ? (
+            l('National Labour Market Intelligence', 'श्रम बाजार मांग आसूचना')
           ) : (
             <>
               National Labour Market <span className="title-serif-italic">Intelligence</span>
@@ -154,7 +155,7 @@ export default function LabourIntelligencePage() {
               {l('Skill Momentum', 'कौशल गति')}
             </span>
             <div className="p-2 rounded-xl bg-[var(--balanced)]/10 text-[var(--balanced)]">
-              <Sparkles className="w-4 h-4" />
+              <Target className="w-4 h-4" />
             </div>
           </div>
           <div className="my-3">
@@ -254,18 +255,18 @@ export default function LabourIntelligencePage() {
         }
       >
         <div className="overflow-x-auto">
-          <table className="w-full text-left text-xs">
+          <table className="data-table">
             <thead>
-              <tr className="border-b border-[var(--border)] text-[var(--text-faint)] font-bold uppercase tracking-wider text-[10px]">
-                <th className="py-3 px-3">{l('Occupation & NCO', 'व्यवसाय व NCO')}</th>
-                <th className="py-3 px-3">{l('Sector', 'क्षेत्र')}</th>
-                <th className="py-3 px-3 text-right">{l('Demand', 'मांग')}</th>
-                <th className="py-3 px-3 text-right">{l('6M Growth', '6 माह वृद्धि')}</th>
-                <th className="py-3 px-3 text-center">{l('Top District', 'शीर्ष जिला')}</th>
-                <th className="py-3 px-3 text-center">{l('Pressure Index', 'दबाव सूचकांक')}</th>
-                <th className="py-3 px-3 text-center">{l('Severity', 'गंभीरता')}</th>
-                <th className="py-3 px-3 text-center">{l('Confidence', 'विश्वसनीयता')}</th>
-                <th className="py-3 px-3 text-right">{l('Action', 'कार्रवाई')}</th>
+              <tr>
+                <th>{l('Occupation & NCO', 'व्यवसाय व NCO')}</th>
+                <th>{l('Sector', 'क्षेत्र')}</th>
+                <th className="num">{l('Demand', 'मांग')}</th>
+                <th className="num">{l('6M Growth', '6 माह वृद्धि')}</th>
+                <th className="text-center">{l('Top District', 'शीर्ष जिला')}</th>
+                <th className="text-center">{l('Pressure Index', 'दबाव सूचकांक')}</th>
+                <th className="text-center">{l('Severity', 'गंभीरता')}</th>
+                <th className="text-center">{l('Confidence', 'विश्वसनीयता')}</th>
+                <th className="num">{l('Action', 'कार्रवाई')}</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-[var(--border)]">

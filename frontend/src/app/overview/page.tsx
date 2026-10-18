@@ -96,17 +96,18 @@ export default function OverviewPage() {
 
   return (
     <div className="space-y-6 min-w-0 max-w-full overflow-hidden">
-      {/* Compact Executive Header with DepthWizard Aerospace Badge & Bold Typography */}
+      {/* Compact Executive Header with Institutional Eyebrow & Bold Typography */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div className="space-y-1">
           <div className="flex items-center gap-2">
-            <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10.5px] font-bold font-mono tracking-wider uppercase bg-sky-500/10 text-sky-700 dark:text-sky-300 border border-sky-500/25">
-              <span className="text-sky-500">✦</span> {l('MSDE EXECUTIVE COCKPIT', 'MSDE कार्यकारी कॉकपिट')}
+            <span className="eyebrow">
+              <span className="eyebrow-bullet" />
+              {l('MSDE · District Intelligence Brief', 'MSDE · ज़िला बुद्धिमत्ता सारांश')}
             </span>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900 dark:text-slate-100 font-sans">
-            {language === 'hi' ? (
-              'ज़िला कौशल एवं क्षमता सारांश'
+          <h1 className="page-title-editorial">
+            {language !== 'en' ? (
+              l('District Skill & Capacity Overview', 'ज़िला कौशल एवं क्षमता सारांश')
             ) : (
               <>
                 District Skill &amp; Capacity <span className="title-serif-italic">Overview</span>
@@ -172,21 +173,21 @@ export default function OverviewPage() {
       <div className="glass-interactive border border-amber-500/30 rounded-2xl p-4 sm:p-5 flex flex-col md:flex-row md:items-center justify-between gap-4 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.95),0_8px_24px_-6px_rgba(245,158,11,0.12)]">
         <div className="min-w-0">
           <div className="flex items-center gap-2 mb-1.5 flex-wrap">
-            <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 text-[11px] font-semibold rounded-full bg-amber-500/10 text-amber-700 border border-amber-500/25">
+            <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 text-[11px] font-semibold rounded-full bg-amber-500/10 text-amber-700 dark:text-amber-300 border border-amber-500/25">
               <span className="relative flex h-2 w-2">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75" />
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-amber-500" />
               </span>
               {l('PRIORITY INTERVENTION', 'प्राथमिकता हस्तक्षेप')}
             </span>
-            <span className="text-sm font-bold text-slate-900 tracking-tight">
+            <span className="text-sm font-bold text-slate-900 dark:text-slate-100 tracking-tight">
               {l('Gorakhpur · Solar PV Installer (NCO 7126.0101)', 'गोरखपुर · सोलर पीवी इंस्टॉलर (NCO 7126.0101)')}
             </span>
-            <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-sky-500/10 text-sky-700 dark:text-sky-400 border border-sky-500/20">
+            <span className="text-[11px] font-bold px-2 py-0.5 rounded-full bg-sky-500/10 text-sky-700 dark:text-sky-400 border border-sky-500/20">
               {forecastHorizon} {l('Horizon', 'क्षितिज')}
             </span>
           </div>
-          <p className="text-xs text-slate-600 mt-0.5 leading-relaxed">
+          <p className="text-xs text-slate-600 dark:text-slate-400 mt-0.5 leading-relaxed">
             {l(
               forecastHorizon === '3M'
                 ? '340-seat deficit projected in 3 months (92% probability). Immediate reallocation of 97 surplus seats from Retail Sales Associate satisfies 28% of urgent demand.'
@@ -204,7 +205,7 @@ export default function OverviewPage() {
         <div className="flex items-center gap-2.5 shrink-0 self-end md:self-auto">
           <Link
             href="/districts/gorakhpur"
-            className="border border-slate-200/90 bg-white/85 hover:bg-white text-slate-700 hover:text-slate-900 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.9),0_1px_3px_rgba(15,23,42,0.06)] rounded-lg px-3.5 py-1.5 text-xs font-semibold transition-all active:scale-[0.98]"
+            className="border border-slate-200/90 dark:border-slate-700/80 bg-white/85 dark:bg-slate-800/85 hover:bg-white dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 hover:text-slate-900 dark:hover:text-white shadow-[inset_0_1px_0_0_rgba(255,255,255,0.9),0_1px_3px_rgba(15,23,42,0.06)] dark:shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)] rounded-[var(--radius)] px-3.5 py-1.5 text-xs font-semibold transition-all active:scale-[0.98]"
           >
             {l('View Diagnostics', 'निदान देखें')}
           </Link>
@@ -269,9 +270,9 @@ export default function OverviewPage() {
       <div className="space-y-2">
         <div className="flex items-center justify-between gap-2 pb-1">
           <div>
-            <h2 className="text-base sm:text-lg font-bold text-slate-900 dark:text-slate-100 tracking-tight font-sans">
-              {language === 'hi' ? (
-                'राष्ट्रीय श्रम बाजार भू-स्थानिक खुफिया'
+            <h2 className="section-title-editorial">
+              {language !== 'en' ? (
+                l('National Labour Market Geospatial Intelligence', 'राष्ट्रीय श्रम बाजार भू-स्थानिक खुफिया')
               ) : (
                 <>
                   National Labour Market <span className="title-serif-italic">Geospatial Intelligence</span>
@@ -293,9 +294,9 @@ export default function OverviewPage() {
       <div className="liquid-glass-card hud-corner-card rounded-2xl overflow-hidden">
         <div className="flex items-center justify-between p-4 border-b border-slate-200/80 dark:border-white/10">
           <div>
-            <h2 className="text-base sm:text-lg font-bold text-slate-900 dark:text-slate-100 tracking-tight font-sans">
-              {language === 'hi' ? (
-                'शीर्ष प्राथमिकता नीतिगत हस्तक्षेप (रैंक किए गए)'
+            <h2 className="section-title-editorial">
+              {language !== 'en' ? (
+                l('Top Priority Policy Interventions (Ranked)', 'शीर्ष प्राथमिकता नीतिगत हस्तक्षेप (रैंक किए गए)')
               ) : (
                 <>
                   Top Priority Policy <span className="title-serif-italic">Interventions</span> (Ranked)
@@ -344,7 +345,7 @@ export default function OverviewPage() {
                 {/* Score & Impact Stats */}
                 <div className="grid grid-cols-3 gap-2 p-2.5 rounded-xl bg-slate-50/70 dark:bg-slate-900/60 border border-slate-200/60 dark:border-white/10 mb-3 text-center">
                   <div>
-                    <span className="text-[10px] text-slate-400 font-semibold uppercase tracking-wider block font-mono">
+                    <span className="text-[11px] text-slate-500 dark:text-slate-400 font-semibold uppercase tracking-wider block font-sans">
                       {l('Seats', 'सीटें')}
                     </span>
                     <strong className="text-sm font-bold text-slate-900 dark:text-slate-100 font-mono tabular-nums">
@@ -352,7 +353,7 @@ export default function OverviewPage() {
                     </strong>
                   </div>
                   <div>
-                    <span className="text-[10px] text-slate-400 font-semibold uppercase tracking-wider block font-mono">
+                    <span className="text-[11px] text-slate-500 dark:text-slate-400 font-semibold uppercase tracking-wider block font-sans">
                       {l('Shortfall Closed', 'कमी भरपाई')}
                     </span>
                     <strong className="text-sm font-bold text-sky-700 dark:text-sky-400 font-mono tabular-nums">
@@ -360,7 +361,7 @@ export default function OverviewPage() {
                     </strong>
                   </div>
                   <div>
-                    <span className="text-[10px] text-slate-400 font-semibold uppercase tracking-wider block font-mono">
+                    <span className="text-[11px] text-slate-500 dark:text-slate-400 font-semibold uppercase tracking-wider block font-sans">
                       {l('Target Trade', 'लक्षित व्यवसाय')}
                     </span>
                     <strong className="text-xs font-semibold text-slate-900 dark:text-slate-100 truncate block">

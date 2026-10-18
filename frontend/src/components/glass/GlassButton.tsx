@@ -19,18 +19,16 @@ export const GlassButton: React.FC<GlassButtonProps> = ({
   ...props
 }) => {
   const sizeClasses = {
-    sm: 'text-xs px-2.5 py-1.5 gap-1.5 rounded-lg',
-    md: 'text-xs px-3.5 py-2 gap-2 rounded-lg font-medium',
-    lg: 'text-sm px-4.5 py-2.5 gap-2.5 rounded-lg font-medium'
+    sm: 'h-[32px] text-xs px-3 gap-1.5 rounded-[var(--radius)]',
+    md: 'h-[36px] text-xs px-3.5 gap-2 rounded-[var(--radius)] font-medium',
+    lg: 'h-[40px] text-sm px-4.5 gap-2.5 rounded-[var(--radius)] font-medium'
   }[size];
 
   const variantClasses = {
     primary: clsx(
-      'bg-white/95 hover:bg-white text-slate-900',
-      'dark:bg-slate-800/90 dark:text-slate-100 dark:hover:bg-slate-700/90',
-      'border border-slate-200/90 dark:border-slate-700/80',
-      'shadow-[inset_0_1px_0_0_#ffffff,0_2px_8px_rgba(15,23,42,0.06)] dark:shadow-[inset_0_1px_0_0_rgba(255,255,255,0.12),0_4px_16px_rgba(0,0,0,0.3)]',
-      'hover:shadow-[inset_0_1px_0_0_#ffffff,0_6px_20px_rgba(14,165,233,0.12)] hover:border-sky-500/30 dark:hover:border-sky-400/30',
+      'bg-slate-900 text-white hover:bg-slate-800 border border-slate-800',
+      'dark:bg-slate-100 dark:text-slate-900 dark:hover:bg-white dark:border-white/90',
+      'shadow-[inset_0_1px_0_0_rgba(255,255,255,0.2),0_2px_8px_rgba(15,23,42,0.12)] dark:shadow-[inset_0_1px_0_0_#ffffff,0_4px_16px_rgba(0,0,0,0.3)]',
       'hover:-translate-y-0.5 active:translate-y-0'
     ),
     secondary: clsx(
@@ -41,10 +39,10 @@ export const GlassButton: React.FC<GlassButtonProps> = ({
       'hover:-translate-y-0.5 active:translate-y-0'
     ),
     accent: clsx(
-      'bg-sky-500/10 hover:bg-sky-500/15 text-sky-700 dark:text-sky-300',
-      'border border-sky-500/30 dark:border-sky-400/30',
-      'shadow-[inset_0_1px_0_0_rgba(255,255,255,0.8),0_2px_8px_rgba(2,132,199,0.08)]',
-      'hover:shadow-[inset_0_1px_0_0_rgba(255,255,255,0.9),0_6px_16px_rgba(2,132,199,0.16)]',
+      'bg-[var(--accent-soft)] hover:bg-[var(--accent)]/20 text-[var(--accent)]',
+      'border border-[var(--accent)]/35 dark:border-[var(--accent)]/45',
+      'shadow-[inset_0_1px_0_0_rgba(255,255,255,0.6),0_2px_8px_rgba(180,83,15,0.08)]',
+      'hover:shadow-[inset_0_1px_0_0_rgba(255,255,255,0.9),0_6px_16px_rgba(180,83,15,0.16)]',
       'hover:-translate-y-0.5 active:translate-y-0'
     ),
     danger: clsx(
@@ -64,6 +62,7 @@ export const GlassButton: React.FC<GlassButtonProps> = ({
       className={clsx(
         'inline-flex items-center justify-center font-medium transition-all duration-200 ease-[cubic-bezier(0.22,1,0.36,1)]',
         'active:scale-[0.98] disabled:opacity-50 disabled:pointer-events-none cursor-pointer',
+        'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)]',
         sizeClasses,
         variantClasses,
         className

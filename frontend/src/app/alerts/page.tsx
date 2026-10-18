@@ -74,14 +74,15 @@ export default function AlertsPage() {
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
         <div>
           <div className="flex items-center gap-2 mb-2">
+            <span className="eyebrow"><span className="eyebrow-bullet" />{l('Planning & Action', 'योजना एवं कार्रवाई')}</span>
             <Provenance type="official" note={l('National Predictive Risk Engine', 'राष्ट्रीय भविष्यसूचक जोखिम इंजन')} />
-            <span className="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold uppercase tracking-wider bg-[var(--severe)]/10 text-[var(--severe)] border border-[var(--severe)]/20">
+            <span className="px-2 py-0.5 rounded-full text-[11px] font-bold bg-[var(--severe)]/10 text-[var(--severe)] border border-[var(--severe)]/20">
               {l('35 Anomalies Active', '35 विसंगतियां सक्रिय')}
             </span>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight font-sans">
-            {language === 'hi' ? (
-              'प्रारंभिक चेतावनी कमान केंद्र'
+          <h1 className="page-title-editorial">
+            {language !== 'en' ? (
+              l('Early Warning & Shortage Alerts', 'प्रारंभिक चेतावनी कमान केंद्र')
             ) : (
               <>
                 Early Warning &amp; Shortage <span className="title-serif-italic">Alerts</span>

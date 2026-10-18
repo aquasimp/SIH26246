@@ -76,7 +76,7 @@ export const FilterBar: React.FC = () => {
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2 flex-1 max-w-full">
           {/* State Filter */}
           <div className="flex flex-col gap-0.5 p-1.5 px-2.5 rounded-xl bg-white/60 dark:bg-slate-800/60 backdrop-blur-md border border-slate-200/80 dark:border-slate-700/80 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.8)] dark:shadow-[inset_0_1px_0_0_rgba(255,255,255,0.06)] min-w-0 transition-all focus-within:border-sky-500/50">
-            <label htmlFor="state-filter" className="text-[9.5px] font-mono font-bold uppercase text-slate-400 dark:text-slate-500 tracking-wider block">
+            <label htmlFor="state-filter" className="text-[11px] font-semibold uppercase text-slate-500 dark:text-slate-400 tracking-wider block">
               {l('State', 'राज्य')}
             </label>
             <div className="relative flex items-center">
@@ -99,7 +99,7 @@ export const FilterBar: React.FC = () => {
 
           {/* District Filter */}
           <div className="flex flex-col gap-0.5 p-1.5 px-2.5 rounded-xl bg-white/60 dark:bg-slate-800/60 backdrop-blur-md border border-slate-200/80 dark:border-slate-700/80 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.8)] dark:shadow-[inset_0_1px_0_0_rgba(255,255,255,0.06)] min-w-0 transition-all focus-within:border-sky-500/50">
-            <label htmlFor="district-filter" className="text-[9.5px] font-mono font-bold uppercase text-slate-400 dark:text-slate-500 tracking-wider block">
+            <label htmlFor="district-filter" className="text-[11px] font-semibold uppercase text-slate-500 dark:text-slate-400 tracking-wider block">
               {l('District (LGD)', 'ज़िला (LGD)')}
             </label>
             <div className="relative flex items-center">
@@ -125,7 +125,7 @@ export const FilterBar: React.FC = () => {
 
           {/* Sector Filter */}
           <div className="flex flex-col gap-0.5 p-1.5 px-2.5 rounded-xl bg-white/60 dark:bg-slate-800/60 backdrop-blur-md border border-slate-200/80 dark:border-slate-700/80 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.8)] dark:shadow-[inset_0_1px_0_0_rgba(255,255,255,0.06)] min-w-0 transition-all focus-within:border-sky-500/50">
-            <label htmlFor="sector-filter" className="text-[9.5px] font-mono font-bold uppercase text-slate-400 dark:text-slate-500 tracking-wider block">
+            <label htmlFor="sector-filter" className="text-[11px] font-semibold uppercase text-slate-500 dark:text-slate-400 tracking-wider block">
               {l('Sector', 'क्षेत्र')}
             </label>
             <div className="relative flex items-center">
@@ -151,7 +151,7 @@ export const FilterBar: React.FC = () => {
 
           {/* Occupation Filter */}
           <div className="flex flex-col gap-0.5 p-1.5 px-2.5 rounded-xl bg-white/60 dark:bg-slate-800/60 backdrop-blur-md border border-slate-200/80 dark:border-slate-700/80 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.8)] dark:shadow-[inset_0_1px_0_0_rgba(255,255,255,0.06)] min-w-0 transition-all focus-within:border-sky-500/50">
-            <label htmlFor="occupation-filter" className="text-[9.5px] font-mono font-bold uppercase text-slate-400 dark:text-slate-500 tracking-wider block">
+            <label htmlFor="occupation-filter" className="text-[11px] font-semibold uppercase text-slate-500 dark:text-slate-400 tracking-wider block">
               {l('Occupation (NCO)', 'व्यवसाय (NCO)')}
             </label>
             <div className="relative flex items-center">
@@ -177,7 +177,7 @@ export const FilterBar: React.FC = () => {
 
           {/* Forecast Horizon Switcher */}
           <div className="flex flex-col gap-0.5 p-1.5 px-2.5 rounded-xl bg-white/60 dark:bg-slate-800/60 backdrop-blur-md border border-slate-200/80 dark:border-slate-700/80 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.8)] dark:shadow-[inset_0_1px_0_0_rgba(255,255,255,0.06)] col-span-2 sm:col-span-1">
-            <span className="text-[9.5px] font-mono font-bold uppercase text-slate-400 dark:text-slate-500 tracking-wider block">
+            <span className="text-[11px] font-semibold uppercase text-slate-500 dark:text-slate-400 tracking-wider block">
               {l('Horizon', 'अवधि')}
             </span>
             <div className="flex rounded-lg p-0.5 bg-slate-200/60 dark:bg-slate-700/60 items-center" role="group" aria-label="Forecast Horizon Options">

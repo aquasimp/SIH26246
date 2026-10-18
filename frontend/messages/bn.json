@@ -256,5 +256,59 @@
     "prompt2": "৫০০ আসন যোগ করার প্রভাব কী হবে?",
     "prompt3": "রিটেল ট্রেইনি কেন উদ্বৃত্ত?",
     "prompt4": "উত্তরপ্রদেশে কোন ট্রেডে সবচেয়ে বেশি ঘাটতি রয়েছে?"
+  },
+  "glassFolder": {
+    "open": "খুলুন",
+    "close": "বন্ধ করুন",
+    "item": "আইটেম",
+    "items": "আইটেম",
+    "add": "যোগ করুন",
+    "more": "আরও বিকল্প",
+    "contents": "বিষয়বস্তু",
+    "untitled": "শিরোনামহীন",
+    "justNow": "এইমাত্র",
+    "openFolder": "ফোল্ডার খুলুন",
+    "closeFolder": "ফোল্ডার বন্ধ করুন",
+    "menuLabel": "বিকল্প"
+  },
+  "matteAlert": {
+    "dismiss": "বিজ্ঞপ্তি বাতিল করুন",
+    "dismissedMessage": "বিজ্ঞপ্তি বাতিল করা হয়েছে।",
+    "showAlert": "বিজ্ঞপ্তি দেখান",
+    "defaultCaption": "বার্তাটি বন্ধ করুন এবং পুনরায় খুলুন।",
+    "reopen": "বিজ্ঞপ্তি দেখান"
+  },
+  "notices": {
+    "sihProvenanceTitle": "SIH মূল্যায়ন প্রোটোটাইপ ডেটাসেট",
+    "sihProvenanceDetail": "এই প্রোটোটাইপটি লাইভ ফিডের পরিবর্তে কাঠামোগত SIH মূল্যায়ন বেঞ্চমার্ক ডেটাসেটে কাজ করে।",
+    "sihProvenancePill": "SIH প্রোটোটাইপ",
+    "lowConfidenceTitle": "সূচকীয় পূর্বাভাস সতর্কতা",
+    "lowConfidenceDetail": "মডেলের নির্ভরযোগ্যতা সীমার নিচে (< 50%)। মেট্রিক্সগুলো কেবলমাত্র নির্দেশক।",
+    "seatCapTitle": "LP দাতা সীমা প্রয়োগ করা হয়েছে",
+    "seatCapDetail": "দাতা ট্রেডের ভারসাম্য রক্ষা করার জন্য LP সলভার দ্বারা স্থানান্তর সীমাবদ্ধ করা হয়েছে।",
+    "seatCapPill": "সলভার নিরাপদ সীমা",
+    "betaLanguageTitle": "পরীক্ষামূলক ভাষা স্থানীয়করণ",
+    "betaLanguageDetail": "এই ভাষা প্যাকটি বর্তমানে বিটাতে রয়েছে। ভাষাগত যাচাইকরণ চলছে।",
+    "betaLanguagePill": "বিটা প্রাকদর্শন",
+    "precomputedTitle": "পূর্ব-গণনাকৃত পাইপলাইন মূল্যায়ন",
+    "precomputedDetail": "প্রদর্শিত ডেটা RUN-SIH-001 পাইপলাইন রান থেকে পূর্ব-গণনাকৃত।",
+    "precomputedPill": "পূর্ব-গণনাকৃত রান"
+  },
+  "evidenceDossier": {
+    "dossierTitle": "সুপারিশ ডসিয়ার",
+    "dossierMeta": "4টি যাচাইকৃত ফাইল",
+    "gapAuditCsv": "শ্রম বাজার ব্যবধান নিরীক্ষা (CSV)",
+    "recommendationJson": "সুপারিশ পেলোড (JSON)",
+    "scenarioStudioLink": "পরিস্থিতি সিমুলেশন স্যান্ডবক্স",
+    "districtProfile": "জেলা গোয়েন্দা প্রোফাইল"
+  },
+  "docPack": {
+    "title": "ডকুমেন্টেশন & স্পেসিফিকেশন",
+    "methodology": "গাণিতিক পদ্ধতি",
+    "methodologyMeta": "WAPE সূত্র & LP সীমাবদ্ধতা",
+    "apiDocs": "API & রপ্তানি রেজিস্ট্রি",
+    "apiDocsMeta": "OpenAPI ইন্টারেক্টিভ এন্ডপয়েন্ট",
+    "dataHealth": "ডেটা পাইপলাইন & উৎস",
+    "dataHealthMeta": "বহু-উৎস SLA & মেট্রিক্স"
   }
 }

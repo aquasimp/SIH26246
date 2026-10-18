@@ -5,7 +5,7 @@ import { useApp } from '@/lib/store';
 import { TimePoint, ForecastHorizon } from '@/lib/types';
 import { OUT_OF_SAMPLE_BENCHMARKS } from '@/lib/benchmarkMetrics';
 import { useChartPalette } from '@/lib/useChartPalette';
-import { Sparkles } from 'lucide-react';
+import { Cpu } from 'lucide-react';
 
 interface ForecastChartProps {
   data: TimePoint[];
@@ -149,17 +149,17 @@ export const ForecastChart: React.FC<ForecastChartProps> = ({
           <span className="text-[11px] font-semibold text-[var(--text-faint)]">
             {l('Model Architecture:', 'मॉडल वास्तुकला:')}
           </span>
-          <div className="glass inline-flex items-center rounded-xl p-0.5 border border-slate-200/80 text-xs">
+          <div className="glass inline-flex items-center rounded-xl p-0.5 border border-[var(--border)] text-xs">
             <button
               type="button"
               onClick={() => onModelChange && onModelChange('lightgbm')}
               className={`px-2.5 py-1 text-xs font-bold rounded-lg transition-all cursor-pointer flex items-center gap-1.5 ${
                 model === 'lightgbm' 
-                  ? 'bg-slate-900 text-white shadow-xs' 
-                  : 'text-slate-600 hover:text-slate-900'
+                  ? 'bg-[var(--brand-ink)] text-white dark:bg-[var(--accent)] dark:text-slate-900 shadow-xs' 
+                  : 'text-[var(--text-muted)] hover:text-[var(--text)]'
               }`}
             >
-              <Sparkles className="w-3 h-3 text-amber-300" />
+              <Cpu className="w-3 h-3 text-amber-300" />
               <span>{horizon === '12M' ? (l('Tri-Model Blend', 'त्रि-मॉडल मिश्रण')) : 'LightGBM'} (WAPE {benchmark.wape}%)</span>
             </button>
             <button
@@ -167,8 +167,8 @@ export const ForecastChart: React.FC<ForecastChartProps> = ({
               onClick={() => onModelChange && onModelChange('naive')}
               className={`px-2.5 py-1 text-xs font-bold rounded-lg transition-all cursor-pointer ${
                 model === 'naive' 
-                  ? 'bg-white text-slate-900 border border-slate-200 shadow-xs' 
-                  : 'text-slate-600 hover:text-slate-900'
+                  ? 'bg-[var(--surface-solid)] text-[var(--text)] border border-[var(--border)] shadow-xs' 
+                  : 'text-[var(--text-muted)] hover:text-[var(--text)]'
               }`}
             >
               <span>{l('Seasonal Naive', 'सीज़नल नेईव')} ({benchmark.naiveWape}%)</span>
@@ -216,10 +216,11 @@ export const ForecastChart: React.FC<ForecastChartProps> = ({
                   x={padding.left - 10}
                   y={y + 4}
                   textAnchor="end"
-                  fontSize="10"
+                  fontSize="11"
+                  fontFamily={palette.fontMono}
                   fill={palette.textMuted}
                   fontWeight="600"
-                  className="font-mono tabular-nums"
+                  className="tabular-nums"
                 >
                   {val.toLocaleString()}
                 </text>
@@ -252,7 +253,7 @@ export const ForecastChart: React.FC<ForecastChartProps> = ({
           <path
             d={supplyPath}
             fill="none"
-            stroke="#10b981"
+            stroke={palette.balanced}
             strokeWidth="2.5"
             strokeLinecap="round"
           />
@@ -261,7 +262,7 @@ export const ForecastChart: React.FC<ForecastChartProps> = ({
           <path
             d={histDemandPath}
             fill="none"
-            stroke="#ef4444"
+            stroke={palette.severe}
             strokeWidth="3"
             strokeLinecap="round"
           />
@@ -271,7 +272,7 @@ export const ForecastChart: React.FC<ForecastChartProps> = ({
             <path
               d={forecastDemandPath}
               fill="none"
-              stroke="#0284c7"
+              stroke={palette.forecast}
               strokeWidth="3"
               strokeDasharray="6 4"
               strokeLinecap="round"
@@ -286,7 +287,7 @@ export const ForecastChart: React.FC<ForecastChartProps> = ({
                 y1={padding.top}
                 x2={getX(cutoffIdx)}
                 y2={height - padding.bottom}
-                stroke="#0284c7"
+                stroke={palette.forecast}
                 strokeWidth="1.5"
                 strokeDasharray="4 4"
                 opacity="0.8"
@@ -295,7 +296,8 @@ export const ForecastChart: React.FC<ForecastChartProps> = ({
                 x={getX(cutoffIdx) - 8}
                 y={padding.top + 14}
                 textAnchor="end"
-                fontSize="10"
+                fontSize="11"
+                fontFamily={palette.fontMono}
                 fontWeight="700"
                 fill={palette.textMuted}
               >
@@ -305,9 +307,10 @@ export const ForecastChart: React.FC<ForecastChartProps> = ({
                 x={getX(cutoffIdx) + 8}
                 y={padding.top + 14}
                 textAnchor="start"
-                fontSize="10"
+                fontSize="11"
+                fontFamily={palette.fontMono}
                 fontWeight="700"
-                fill="#0284c7"
+                fill={palette.forecast}
               >
                 {l('Forecast Start (Oct 2024)', 'पूर्वानुमान प्रारंभ (अक्टूबर 2024)')}
               </text>
@@ -322,7 +325,7 @@ export const ForecastChart: React.FC<ForecastChartProps> = ({
                 y1={padding.top}
                 x2={activeX}
                 y2={height - padding.bottom}
-                stroke="#0284c7"
+                stroke={palette.forecast}
                 strokeWidth="1.5"
                 strokeDasharray="2 2"
               />
@@ -330,16 +333,16 @@ export const ForecastChart: React.FC<ForecastChartProps> = ({
                 cx={activeX}
                 cy={getY(activePoint.forecastDemand || activePoint.historicalDemand || 0)}
                 r="5"
-                fill={hoverIndex <= cutoffIdx ? '#ef4444' : '#0284c7'}
-                stroke="#ffffff"
+                fill={hoverIndex <= cutoffIdx ? palette.severe : palette.forecast}
+                stroke={palette.surface}
                 strokeWidth="2"
               />
               <circle
                 cx={activeX}
                 cy={getY(activePoint.effectiveSupply)}
                 r="5"
-                fill="#10b981"
-                stroke="#ffffff"
+                fill={palette.balanced}
+                stroke={palette.surface}
                 strokeWidth="2"
               />
             </g>
@@ -370,10 +373,10 @@ export const ForecastChart: React.FC<ForecastChartProps> = ({
                 x={getX(i)}
                 y={height - padding.bottom + 18}
                 textAnchor="middle"
-                fontSize="9"
-                fill={i > cutoffIdx ? '#0284c7' : palette.textMuted}
+                fontSize="11"
+                fontFamily={palette.fontMono}
+                fill={i > cutoffIdx ? palette.forecast : palette.textMuted}
                 fontWeight={i > cutoffIdx || isImportant ? '700' : '500'}
-                className="font-mono"
               >
                 {d.month.slice(2)}
               </text>
@@ -392,7 +395,7 @@ export const ForecastChart: React.FC<ForecastChartProps> = ({
           >
             <div className="font-bold text-[var(--text)] flex items-center justify-between gap-4 border-b border-slate-200/70 pb-1.5">
               <span className="text-sm font-extrabold">{activePoint.month}</span>
-              <span className="text-[10px] px-2 py-0.5 rounded-full font-bold uppercase tracking-wider bg-slate-100 text-slate-700 border border-slate-200">
+              <span className="text-[11px] px-2 py-0.5 rounded-full font-bold uppercase tracking-wider bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700">
                 {hoverIndex <= cutoffIdx ? l('Historical Actual', 'ऐतिहासिक वास्तविक') : `${horizon} ${l('Forecast', 'पूर्वानुमान')}`}
               </span>
             </div>
@@ -444,17 +447,17 @@ export const ForecastChart: React.FC<ForecastChartProps> = ({
       <div className="flex flex-wrap items-center justify-between gap-3 text-xs text-[var(--text-muted)] pt-1 px-1">
         <div className="flex items-center flex-wrap gap-4 font-mono text-[11px]">
           <div className="flex items-center gap-1.5">
-            <span className="w-3.5 h-1 bg-[#ef4444] rounded" />
+            <span className="w-3.5 h-1 rounded" style={{ background: palette.severe }} />
             <span>{l('Historical Actuals', 'ऐतिहासिक वास्तविक')}</span>
           </div>
 
           <div className="flex items-center gap-1.5">
-            <span className="w-3.5 h-1 bg-[#0284c7] rounded border-b border-dashed" />
+            <span className="w-3.5 h-1 rounded border-b border-dashed" style={{ background: palette.forecast }} />
             <span>{l('Forecast Demand', 'अनुमानित मांग')}</span>
           </div>
 
           <div className="flex items-center gap-1.5">
-            <span className="w-3.5 h-1 bg-[#10b981] rounded" />
+            <span className="w-3.5 h-1 rounded" style={{ background: palette.balanced }} />
             <span>{l('Staged Supply (0.70 Readiness)', 'चरणबद्ध आपूर्ति (0.70 तत्परता)')}</span>
           </div>
 

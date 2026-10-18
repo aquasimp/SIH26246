@@ -9,7 +9,6 @@ import {
   Settings, 
   Shield, 
   Globe, 
-  Sparkles, 
   Database, 
   CheckCircle2, 
   Sliders, 
@@ -25,14 +24,15 @@ export default function SettingsPage() {
       {/* Title */}
       <div>
         <div className="flex items-center gap-2 mb-2">
+          <span className="eyebrow"><span className="eyebrow-bullet" />{l('System & Governance', 'प्रणाली एवं शासन')}</span>
           <Provenance type="official" note={l('System Administration & Environment', 'सिस्टम प्रशासन और वातावरण')} />
           <span className="telemetry-chip">
             {l('Runtime v1.0', 'रनटाइम v1.0')}
           </span>
         </div>
-        <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight font-sans">
-          {language === 'hi' ? (
-            'सेटिंग्स और इंजन कॉन्फ़िगरेशन'
+        <h1 className="page-title-editorial">
+          {language !== 'en' ? (
+            l('Settings & Engine Configuration', 'सेटिंग्स और इंजन कॉन्फ़िगरेशन')
           ) : (
             <>
               Settings &amp; Engine <span className="title-serif-italic">Configuration</span>

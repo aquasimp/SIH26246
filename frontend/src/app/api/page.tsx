@@ -113,14 +113,15 @@ export default function ApiExportsPage() {
       {/* Title */}
       <div>
         <div className="flex items-center gap-2 mb-2">
+          <span className="eyebrow"><span className="eyebrow-bullet" />{l('System & Governance', 'प्रणाली एवं शासन')}</span>
           <Provenance type="official" note={l('Open Government Data & Integration', 'ओपन सरकारी डेटा और एकीकरण')} />
           <span className="telemetry-chip">
             REST v1.0
           </span>
         </div>
-        <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight font-sans">
-          {language === 'hi' ? (
-            'एपीआई और डेटा निर्यात कंसोल'
+        <h1 className="page-title-editorial">
+          {language !== 'en' ? (
+            l('API & Data Exports Console', 'एपीआई और डेटा निर्यात कंसोल')
           ) : (
             <>
               API &amp; Data Exports <span className="title-serif-italic">Console</span>

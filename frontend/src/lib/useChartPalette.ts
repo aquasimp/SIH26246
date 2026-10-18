@@ -14,41 +14,47 @@ export interface ChartPalette {
   moderate: string;
   balanced: string;
   oversupply: string;
+  accent: string;
   bg: string;
   surface: string;
   glass: string;
+  fontMono: string;
 }
 
 const DEFAULT_DARK_PALETTE: ChartPalette = {
-  text: '#E9ECF1',
-  textMuted: '#A7AEBB',
-  grid: 'rgba(255, 255, 255, 0.08)',
-  brand: '#8C9CF5',
-  brandSecondary: '#5FC4C9',
-  forecast: '#8C9CF5',
-  severe: '#FF6600',
+  text: '#F8FAFC',
+  textMuted: '#94A3B8',
+  grid: 'rgba(255, 255, 255, 0.12)',
+  brand: '#38BDF8',
+  brandSecondary: '#0EA5E9',
+  forecast: '#38BDF8',
+  severe: '#F87171',
   moderate: '#FBBF24',
-  balanced: '#38BDF8',
+  balanced: '#34D399',
   oversupply: '#818CF8',
-  bg: '#090A0C',
-  surface: '#14171C',
-  glass: 'rgba(255, 255, 255, 0.045)'
+  accent: '#F59E5B',
+  bg: '#0B132B',
+  surface: '#0F172A',
+  glass: 'rgba(15, 23, 42, 0.75)',
+  fontMono: 'var(--font-mono), monospace'
 };
 
 const DEFAULT_LIGHT_PALETTE: ChartPalette = {
-  text: '#14171C',
-  textMuted: '#434A57',
-  grid: 'rgba(20, 23, 28, 0.08)',
-  brand: '#3F51C7',
-  brandSecondary: '#12818A',
-  forecast: '#3F51C7',
-  severe: '#EA580C',
+  text: '#0F172A',
+  textMuted: '#334155',
+  grid: 'rgba(226, 232, 240, 0.85)',
+  brand: '#13213F',
+  brandSecondary: '#0369A1',
+  forecast: '#0284C7',
+  severe: '#DC2626',
   moderate: '#D97706',
-  balanced: '#0284C7',
+  balanced: '#059669',
   oversupply: '#4338CA',
-  bg: '#F7F6F2',
+  accent: '#B4530F',
+  bg: '#F4F7FB',
   surface: '#FFFFFF',
-  glass: 'rgba(255, 255, 255, 0.66)'
+  glass: 'rgba(255, 255, 255, 0.75)',
+  fontMono: 'var(--font-mono), monospace'
 };
 
 export function useChartPalette(): ChartPalette {
@@ -77,9 +83,11 @@ export function useChartPalette(): ChartPalette {
         moderate: v('--moderate', fallback.moderate),
         balanced: v('--balanced', fallback.balanced),
         oversupply: v('--oversupply', fallback.oversupply),
+        accent: v('--accent', fallback.accent),
         bg: v('--bg', fallback.bg),
         surface: v('--surface-solid', fallback.surface),
-        glass: v('--glass', fallback.glass)
+        glass: v('--glass', fallback.glass),
+        fontMono: v('--font-mono-stack', fallback.fontMono)
       });
     });
 

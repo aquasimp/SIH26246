@@ -4,6 +4,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { useApp } from '@/lib/store';
 import { SUPPORTED_LANGUAGES, Language } from '@/lib/i18n';
 import { Languages, ChevronDown, Check } from 'lucide-react';
+import { MatteAlertFeedback } from '@/components/ui/matte-alert-feedback';
 
 interface LanguageSelectorProps {
   variant?: 'dropdown' | 'pills';
@@ -16,9 +17,10 @@ export const LanguageSelector: React.FC<LanguageSelectorProps> = ({
   align = 'right',
   className = ''
 }) => {
-  const { language, setLanguage } = useApp();
+  const { language, setLanguage, t } = useApp();
   const [open, setOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const notices = (t as unknown as Record<string, Record<string, string>>)?.notices || {};
 
   // Close dropdown on outside click or escape
   useEffect(() => {
@@ -49,43 +51,56 @@ export const LanguageSelector: React.FC<LanguageSelectorProps> = ({
 
   if (variant === 'pills') {
     return (
-      <div className={`grid grid-cols-2 sm:grid-cols-3 gap-1.5 w-full ${className}`}>
-        {SUPPORTED_LANGUAGES.map((lang) => {
-          const isSelected = language === lang.code;
-          return (
-            <button
-              key={lang.code}
-              type="button"
-              onClick={() => handleSelect(lang.code)}
-              className={`flex items-center justify-between px-3 py-2 rounded-md text-xs transition-colors cursor-pointer border text-left min-h-[40px] ${
-                isSelected
-                  ? 'bg-slate-900 text-white dark:bg-slate-100 dark:text-slate-900 border-slate-900 dark:border-slate-100 font-semibold shadow-xs'
-                  : 'bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800'
-              }`}
-            >
-              <div className="flex flex-col min-w-0 pr-1">
-                <div className="flex items-center gap-1.5">
-                  <span className="font-semibold text-xs tracking-tight truncate">
-                    {lang.nativeLabel}
-                  </span>
-                  {lang.isBeta && (
-                    <span className={`text-[9px] font-mono uppercase px-1 py-0.2 rounded font-semibold ${
-                      isSelected
-                        ? 'bg-white/20 text-white dark:text-slate-900'
-                        : 'bg-amber-50 dark:bg-amber-950/40 text-amber-600 dark:text-amber-400 border border-amber-200 dark:border-amber-800'
-                    }`}>
-                      Beta
+      <div className={`space-y-3 w-full ${className}`}>
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-1.5 w-full">
+          {SUPPORTED_LANGUAGES.map((lang) => {
+            const isSelected = language === lang.code;
+            return (
+              <button
+                key={lang.code}
+                type="button"
+                onClick={() => handleSelect(lang.code)}
+                className={`flex items-center justify-between px-3 py-2 rounded-md text-xs transition-colors cursor-pointer border text-left min-h-[40px] ${
+                  isSelected
+                    ? 'bg-slate-900 text-white dark:bg-slate-100 dark:text-slate-900 border-slate-900 dark:border-slate-100 font-semibold shadow-xs'
+                    : 'bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800'
+                }`}
+              >
+                <div className="flex flex-col min-w-0 pr-1">
+                  <div className="flex items-center gap-1.5">
+                    <span className="font-semibold text-xs tracking-tight truncate">
+                      {lang.nativeLabel}
                     </span>
-                  )}
+                    {lang.isBeta && (
+                      <span className={`text-[9px] font-mono uppercase px-1 py-0.2 rounded font-semibold ${
+                        isSelected
+                          ? 'bg-white/20 text-white dark:text-slate-900'
+                          : 'bg-amber-50 dark:bg-amber-950/40 text-amber-600 dark:text-amber-400 border border-amber-200 dark:border-amber-800'
+                      }`}>
+                        Beta
+                      </span>
+                    )}
+                  </div>
+                  <span className={`text-[10px] truncate ${isSelected ? 'text-white/80 dark:text-slate-900/80' : 'text-slate-400'}`}>
+                    {lang.label}
+                  </span>
                 </div>
-                <span className={`text-[10px] truncate ${isSelected ? 'text-white/80 dark:text-slate-900/80' : 'text-slate-400'}`}>
-                  {lang.label}
-                </span>
-              </div>
-              {isSelected && <Check className="w-3.5 h-3.5 shrink-0 text-white dark:text-slate-900" />}
-            </button>
-          );
-        })}
+                {isSelected && <Check className="w-3.5 h-3.5 shrink-0 text-white dark:text-slate-900" />}
+              </button>
+            );
+          })}
+        </div>
+
+        {/* Notice 4: Beta language preview alert */}
+        {currentOption.isBeta && (
+          <MatteAlertFeedback
+            variant="info"
+            bare={true}
+            title={notices.betaLanguageTitle || 'Experimental Language Localization'}
+            detail={notices.betaLanguageDetail || 'This language pack is currently in Beta. Terminology is undergoing linguistic verification.'}
+            pill={notices.betaLanguagePill || 'Beta Preview'}
+          />
+        )}
       </div>
     );
   }
@@ -156,6 +171,17 @@ export const LanguageSelector: React.FC<LanguageSelectorProps> = ({
               );
             })}
           </div>
+          {currentOption.isBeta && (
+            <div className="mt-2 pt-2 border-t border-slate-100 dark:border-slate-800">
+              <MatteAlertFeedback
+                variant="info"
+                bare={true}
+                title={notices.betaLanguageTitle || 'Experimental Language Localization'}
+                detail={notices.betaLanguageDetail || 'This language pack is currently in Beta. Terminology is undergoing linguistic verification.'}
+                pill={notices.betaLanguagePill || 'Beta Preview'}
+              />
+            </div>
+          )}
         </div>
       )}
     </div>

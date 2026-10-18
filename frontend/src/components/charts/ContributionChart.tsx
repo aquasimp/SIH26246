@@ -9,7 +9,7 @@ import {
   TrendingDown, 
   Briefcase, 
   Building2, 
-  Sparkles, 
+  Target, 
   Calendar 
 } from 'lucide-react';
 
@@ -29,7 +29,7 @@ export const ContributionChart: React.FC<ContributionChartProps> = ({
       case 'vacancy': return <TrendingUp className="w-4 h-4 text-[var(--balanced)]" />;
       case 'employer': return <Building2 className="w-4 h-4 text-[var(--brand)]" />;
       case 'capex': return <Briefcase className="w-4 h-4 text-[var(--brand-secondary)]" />;
-      case 'skill': return <Sparkles className="w-4 h-4 text-[var(--warning)]" />;
+      case 'skill': return <Target className="w-4 h-4 text-[var(--warning)]" />;
       case 'seasonality': return <Calendar className="w-4 h-4 text-[var(--text-faint)]" />;
     }
   };
@@ -133,7 +133,7 @@ export const ContributionChart: React.FC<ContributionChartProps> = ({
                     <span className="text-xs sm:text-sm font-bold text-[var(--text)] font-mono">
                       {getFactorLabel(factor.name)}
                     </span>
-                    <span className="text-[10px] text-[var(--text-faint)] font-mono uppercase tracking-wider ml-2">
+                    <span className="text-[11px] text-[var(--text-faint)] font-mono uppercase tracking-wider ml-2">
                       [{getSignalTypeLabel(factor.signalType)}]
                     </span>
                   </div>

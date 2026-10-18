@@ -8,7 +8,7 @@ import {
   TrendingDown, 
   HelpCircle,
   Database,
-  Sparkles
+  FlaskConical
 } from 'lucide-react';
 
 export type BadgeVariant = 
@@ -73,19 +73,19 @@ export function Badge({
     };
   } else if (v === 'synthetic') {
     config = {
-      bg: 'bg-purple-50 dark:bg-purple-950/40 text-purple-700 dark:text-purple-400 border-purple-200 dark:border-purple-800',
-      DefaultIcon: Sparkles
+      bg: 'bg-indigo-50 dark:bg-indigo-950/40 text-indigo-700 dark:text-indigo-400 border-indigo-200 dark:border-indigo-800',
+      DefaultIcon: FlaskConical
     };
   }
 
   const IconComp = config.DefaultIcon;
   const sizeClasses = size === 'sm' 
-    ? 'text-[10px] px-1.5 py-0.5 gap-1' 
-    : 'text-[11px] px-2 py-0.5 gap-1.5 font-medium';
+    ? 'text-[11px] px-2 py-0.5 gap-1 rounded-[var(--radius-sm)]' 
+    : 'text-xs px-2.5 py-0.5 gap-1.5 font-medium rounded-[var(--radius-sm)]';
 
   return (
     <span
-      className={`inline-flex items-center font-medium rounded border transition-colors ${sizeClasses} ${config.bg} ${className}`}
+      className={`inline-flex items-center font-medium border transition-colors ${sizeClasses} ${config.bg} ${className}`}
     >
       {icon ? icon : <IconComp className={size === 'sm' ? 'w-3 h-3' : 'w-3.5 h-3.5'} />}
       <span>{children}</span>

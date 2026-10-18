@@ -1,16 +1,48 @@
 'use client';
 
 import React from 'react';
-import { DATA_HEALTH_METRIC } from '@/lib/demoData';
+import { DATA_HEALTH_METRIC, EXPORT_METADATA } from '@/lib/demoData';
 import { GlassPanel } from '@/components/glass/GlassPanel';
 import { Provenance } from '@/components/common/Provenance';
 import { useApp } from '@/lib/store';
 import { clsx } from 'clsx';
 import { CheckCircle2 } from 'lucide-react';
+import MatteAlertFeedback from '@/components/ui/matte-alert-feedback';
 
 export default function DataHealthPage() {
-  const { language, l } = useApp();
+  const { language, l, t } = useApp();
   const m = DATA_HEALTH_METRIC;
+
+  const [localDismissed, setLocalDismissed] = React.useState<boolean | null>(null);
+  const storedDismissed = React.useSyncExternalStore(
+    (callback) => {
+      window.addEventListener('storage', callback);
+      return () => window.removeEventListener('storage', callback);
+    },
+    () => {
+      try {
+        return sessionStorage.getItem('kaushalyuva-sih-dismissed') === 'true';
+      } catch {
+        return false;
+      }
+    },
+    () => false
+  );
+  const sihDismissed = localDismissed ?? storedDismissed;
+
+  const handleDismissSih = React.useCallback(() => {
+    try {
+      sessionStorage.setItem('kaushalyuva-sih-dismissed', 'true');
+    } catch {}
+    setLocalDismissed(true);
+  }, []);
+
+  const handleShowSih = React.useCallback(() => {
+    try {
+      sessionStorage.removeItem('kaushalyuva-sih-dismissed');
+    } catch {}
+    setLocalDismissed(false);
+  }, []);
 
   const getLocalizedModelName = (name: string) => {
     if (name.includes('LightGBM Regressor (Production)')) return l(name, 'LightGBM समाश्रयण (उत्पादन)');
@@ -78,14 +110,15 @@ export default function DataHealthPage() {
       {/* Title */}
       <div>
         <div className="flex items-center gap-2 mb-2">
+          <span className="eyebrow"><span className="eyebrow-bullet" />{l('System & Governance', 'प्रणाली एवं शासन')}</span>
           <Provenance type="official" note={l('Platform Trust & Audit Governance', 'प्लेटफ़ॉर्म विश्वसनीयता एवं ऑडिट शासन')} />
-          <span className="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold uppercase tracking-wider bg-[var(--balanced)]/10 text-[var(--balanced)] border border-[var(--balanced)]/20">
+          <span className="px-2 py-0.5 rounded-full text-[11px] font-bold bg-[var(--balanced)]/10 text-[var(--balanced)] border border-[var(--balanced)]/20">
             {l('Audit Ready', 'ऑडिट तैयार')}
           </span>
         </div>
-        <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight font-sans">
-          {language === 'hi' ? (
-            'डेटा एवं मॉडल स्वास्थ्य शासन'
+        <h1 className="page-title-editorial">
+          {language !== 'en' ? (
+            l('Data Pipeline & Provenance Health', 'डेटा एवं मॉडल स्वास्थ्य शासन')
           ) : (
             <>
               Data Pipeline &amp; Provenance <span className="title-serif-italic">Health</span>
@@ -96,6 +129,37 @@ export default function DataHealthPage() {
           {l('Comprehensive observability over multi-source ingestion feeds, NCO/LGD ontology mapping confidence, model drift metrics, and pipeline run provenance.', 'बहु-स्रोत अंतर्ग्रहण फ़ीड्स, NCO/LGD ऑन्कोलॉजी मैपिंग विश्वसनीयता, मॉडल ड्रिफ्ट मेट्रिक्स और पाइपलाइन रन उद्गम पर व्यापक दृश्यता।')}
         </p>
       </div>
+
+      {/* Contextual Notice 1: SIH Data Provenance (sessionStorage tracked) */}
+      <MatteAlertFeedback
+        variant="info"
+        bare={false}
+        cardTitle={t.notices?.sihProvenanceTitle || l('SIH Evaluation Prototype Dataset', 'SIH मूल्यांकन प्रोटोटाइप डेटासेट')}
+        cardDescription={l('Notice on prototype datasets and benchmark environments.', 'प्रोटोटाइप डेटासेट एवं बेंचमार्क वातावरण संबंधी सूचना।')}
+        pillText={t.notices?.sihProvenancePill || "SIH Prototype"}
+        alertTitle={t.notices?.sihProvenanceTitle || l('SIH Evaluation Prototype Dataset', 'SIH मूल्यांकन प्रोटोटाइप डेटासेट')}
+        alertDetail={t.notices?.sihProvenanceDetail || l('This prototype operates on structured SIH evaluation benchmark datasets rather than live production feeds.', 'यह प्रोटोटाइप लाइव उत्पादन फ़ीड के बजाय संरचित SIH मूल्यांकन बेंचमार्क डेटासेट पर कार्य करता है।')}
+        buttonLabel={t.matteAlert?.showAlert || l('Show SIH Provenance Notice', 'SIH उद्गम सूचना दिखाएं')}
+        dismissLabel={t.matteAlert?.dismiss || "Dismiss notification"}
+        dismissedMessage={t.matteAlert?.dismissedMessage || "Message dismissed."}
+        defaultVisible={!sihDismissed}
+        onDismiss={handleDismissSih}
+        onShow={handleShowSih}
+      />
+
+      {/* Contextual Notice 5: Precomputed Data Path Confirmation */}
+      {EXPORT_METADATA.statusLabel && (
+        <MatteAlertFeedback
+          variant="warning"
+          bare={true}
+          alertTitle={t.notices?.precomputedTitle || l('Precomputed Pipeline Evaluation', 'पूर्व-गणना पाइपलाइन मूल्यांकन')}
+          alertDetail={language !== 'en' ? (EXPORT_METADATA.statusLabelHi || t.notices?.precomputedDetail) : (EXPORT_METADATA.statusLabel || t.notices?.precomputedDetail)}
+          buttonLabel={t.matteAlert?.showAlert || l('Show Precomputed Pipeline Notice', 'पूर्व-गणना पाइपलाइन सूचना दिखाएं')}
+          dismissLabel={t.matteAlert?.dismiss || "Dismiss notification"}
+          dismissedMessage={t.matteAlert?.dismissedMessage || "Message dismissed."}
+          defaultVisible={true}
+        />
+      )}
 
       {/* 6 Top Governance KPI Cards (Section 31) */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-6 gap-3.5 sm:gap-4">
@@ -238,16 +302,16 @@ export default function DataHealthPage() {
         }
       >
         <div className="overflow-x-auto">
-          <table className="w-full text-left text-xs">
+          <table className="data-table">
             <thead>
-              <tr className="border-b border-[var(--border)] text-[var(--text-faint)] font-bold uppercase tracking-wider text-[10px]">
-                <th className="py-3 px-3">{l('Forecast Horizon', 'पूर्वानुमान क्षितिज')}</th>
-                <th className="py-3 px-3">{l('Model / Baseline', 'मॉडल / बेसलाइन')}</th>
-                <th className="py-3 px-3 text-right">WAPE (%)</th>
-                <th className="py-3 px-3 text-right">MASE</th>
-                <th className="py-3 px-3 text-right">{l('80% Interval Coverage', '80% अंतराल कवरेज')}</th>
-                <th className="py-3 px-3 text-right">{l('95% Interval Coverage', '95% अंतराल कवरेज')}</th>
-                <th className="py-3 px-3 text-right">{l('Sample Observations', 'नमूना अवलोकन')}</th>
+              <tr>
+                <th>{l('Forecast Horizon', 'पूर्वानुमान क्षितिज')}</th>
+                <th>{l('Model / Baseline', 'मॉडल / बेसलाइन')}</th>
+                <th className="num">WAPE (%)</th>
+                <th className="num">MASE</th>
+                <th className="num">{l('80% Interval Coverage', '80% अंतराल कवरेज')}</th>
+                <th className="num">{l('95% Interval Coverage', '95% अंतराल कवरेज')}</th>
+                <th className="num">{l('Sample Observations', 'नमूना अवलोकन')}</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-[var(--border)]">
@@ -348,14 +412,14 @@ export default function DataHealthPage() {
         subtitle={l('Mandatory Section 51 classification: Public Aggregate, Demo Dataset, and Planned Government Feeds.', 'अनिवार्य धारा 51 वर्गीकरण: सार्वजनिक संकलन, डेमो डेटासेट और नियोजित सरकारी फ़ीड।')}
       >
         <div className="overflow-x-auto">
-          <table className="w-full text-left text-xs">
+          <table className="data-table">
             <thead>
-              <tr className="border-b border-[var(--border)] text-[var(--text-faint)] font-bold uppercase tracking-wider text-[10px]">
-                <th className="py-3 px-3">{l('Data Source Description', 'डेटा स्रोत विवरण')}</th>
-                <th className="py-3 px-3">{l('Data Classification', 'डेटा वर्गीकरण')}</th>
-                <th className="py-3 px-3">{l('Sync Status', 'सिंक स्थिति')}</th>
-                <th className="py-3 px-3">{l('Records Ingested', 'रिकॉर्ड्स अंतर्ग्रहीत')}</th>
-                <th className="py-3 px-3 text-right">{l('Query Latency', 'क्वेरी लेटेंसी')}</th>
+              <tr>
+                <th>{l('Data Source Description', 'डेटा स्रोत विवरण')}</th>
+                <th>{l('Data Classification', 'डेटा वर्गीकरण')}</th>
+                <th>{l('Sync Status', 'सिंक स्थिति')}</th>
+                <th>{l('Records Ingested', 'रिकॉर्ड्स अंतर्ग्रहीत')}</th>
+                <th className="num">{l('Query Latency', 'क्वेरी लेटेंसी')}</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-[var(--border)]">
