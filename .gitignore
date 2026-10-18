@@ -92,3 +92,7 @@ scripts/export_orig_png.ps1
 scripts/export_slides_png.ps1
 scripts/export_winning_png.ps1
 scripts/create_prototype_mockups.py
+
+# Local workspace memory & agent state
+.gsk/
+CONTEXT.md
