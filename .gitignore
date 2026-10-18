@@ -95,4 +95,5 @@ scripts/create_prototype_mockups.py
 
 # Local workspace memory & agent state
 .gsk/
+.freebuff/
 CONTEXT.md

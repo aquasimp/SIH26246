@@ -557,7 +557,7 @@ export default function GlassFolder({
   onOpenChange,
   onFileSelect,
   width: widthProp,
-  appear = true,
+  appear = false,
   appearDelay = 0,
   labels: labelsProp,
   className,
@@ -609,7 +609,7 @@ export default function GlassFolder({
     [openProp, onOpenChange],
   )
   const [menuOpen, setMenuOpen] = React.useState(false)
-  const [entered, setEntered] = React.useState(!appear)
+  const [entered, setEntered] = React.useState(true)
 
   const k = width / W
   const density = Math.min(1.5, Math.max(1, typeof window === "undefined" ? 1 : window.devicePixelRatio || 1)) * k

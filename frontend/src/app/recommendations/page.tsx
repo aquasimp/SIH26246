@@ -28,16 +28,106 @@ import { EXPORT_METADATA } from '@/lib/demoData';
 import { downloadCSV, formatINR } from '@/lib/exportUtils';
 
 export default function RecommendationsPage() {
-  const { recommendations, approveRecommendation, setActiveEvidence, language, t, l } = useApp();
+  const { 
+    recommendations, 
+    selectedDistrict,
+    selectedState,
+    selectedOccupationNco,
+    forecastHorizon,
+    approveRecommendation, 
+    setActiveEvidence, 
+    language, 
+    t, 
+    l 
+  } = useApp();
+
   const [folderPage, setFolderPage] = React.useState(0);
   const FOLDERS_PER_PAGE = 3;
-  const totalFolderPages = Math.ceil(recommendations.length / FOLDERS_PER_PAGE);
-  const visibleFolderRecs = recommendations.slice(folderPage * FOLDERS_PER_PAGE, (folderPage + 1) * FOLDERS_PER_PAGE);
+
+  // Dynamic Horizon Modeling (§6.2 Out-of-sample forward scaling)
+  const horizonConfig = React.useMemo(() => {
+    switch (forecastHorizon) {
+      case '3M':
+        return {
+          label: '3M Immediate Horizon',
+          labelHi: '3-माह तत्काल क्षितिज',
+          cohortFactor: 0.55,
+          wageFactor: 0.52,
+          capexFactor: 0.58,
+          gapAdj: 1.15,
+          coverageAdj: 0.85,
+          tag: '3M · Immediate Q1 Response',
+          tagHi: '3-माह · तत्काल Q1 प्रतिक्रिया',
+        };
+      case '12M':
+        return {
+          label: '12M Annual Target',
+          labelHi: '12-माह वार्षिक लक्ष्य',
+          cohortFactor: 1.32,
+          wageFactor: 1.30,
+          capexFactor: 1.35,
+          gapAdj: 1.0,
+          coverageAdj: 1.18,
+          tag: '12M · Annual Full Deployment',
+          tagHi: '12-माह · वार्षिक पूर्ण परिनियोजन',
+        };
+      case '6M':
+      default:
+        return {
+          label: '6M Mid-Term Baseline',
+          labelHi: '6-माह मध्यावधि आधार',
+          cohortFactor: 1.0,
+          wageFactor: 1.0,
+          capexFactor: 1.0,
+          gapAdj: 1.05,
+          coverageAdj: 1.0,
+          tag: '6M · Mid-Term Baseline',
+          tagHi: '6-माह · मध्यावधि आधार',
+        };
+    }
+  }, [forecastHorizon]);
+
+  // Active filter evaluation: check if selected district matches any recommendation
+  const activeMatchedRecs = React.useMemo(() => {
+    if (!selectedDistrict || selectedDistrict === 'all') return [];
+    return recommendations.filter(r => r.district.toLowerCase() === selectedDistrict.toLowerCase());
+  }, [recommendations, selectedDistrict]);
+
+  const isDistrictFiltered = activeMatchedRecs.length > 0;
+
+  // Display ordering: if a district is matched, prioritize it at the top
+  const displayRecommendations = React.useMemo(() => {
+    if (!isDistrictFiltered) return recommendations;
+    const unmatched = recommendations.filter(r => r.district.toLowerCase() !== selectedDistrict.toLowerCase());
+    return [...activeMatchedRecs, ...unmatched];
+  }, [recommendations, activeMatchedRecs, isDistrictFiltered, selectedDistrict]);
+
+  const totalFolderPages = Math.ceil(displayRecommendations.length / FOLDERS_PER_PAGE);
+  const visibleFolderRecs = displayRecommendations.slice(folderPage * FOLDERS_PER_PAGE, (folderPage + 1) * FOLDERS_PER_PAGE);
+
+  // Portfolio & Scope Aggregations (reactively scaled to forecastHorizon)
+  const stats = React.useMemo(() => {
+    const listForStats = isDistrictFiltered ? activeMatchedRecs : recommendations;
+    
+    const baseYouth = listForStats.reduce((sum, r) => sum + (r.expectedImpact.youthEmployed || Math.round(r.recommendedSeats * 0.5)), 0);
+    const baseWages = listForStats.reduce((sum, r) => sum + (r.expectedImpact.annualWageIncomeINR || 0), 0);
+    const baseCapex = listForStats.reduce((sum, r) => sum + (r.expectedImpact.publicFundsSavedINR || 0), 0);
+    const totalSeats = listForStats.reduce((sum, r) => sum + r.recommendedSeats, 0);
+
+    return {
+      youthPlaced: Math.round(baseYouth * horizonConfig.cohortFactor),
+      annualWages: Math.round(baseWages * horizonConfig.wageFactor),
+      capexSaved: Math.round(baseCapex * horizonConfig.capexFactor),
+      totalSeats,
+      count: listForStats.length,
+      scopeName: isDistrictFiltered ? activeMatchedRecs[0]?.district : null
+    };
+  }, [isDistrictFiltered, activeMatchedRecs, recommendations, horizonConfig]);
 
   const handleExportAll = () => {
     const rows = [
-      ['Rank', 'Recommendation ID', 'Title', 'Type', 'Target Trade', 'Source Trade', 'District', 'State', 'Recommended Seats', 'Expected Shortage Reduction', 'Estimated Cost INR', 'Youth Placed', 'Annual Wages INR', 'Public Funds Saved INR', 'Confidence', 'Status'],
-      ...recommendations.map(r => [
+      ['Rank', 'Recommendation ID', 'Title', 'Type', 'Target Trade', 'Source Trade', 'District', 'State', 'Horizon', 'Recommended Seats', 'Expected Shortage Reduction', 'Estimated Cost INR', 'Youth Placed', 'Annual Wages INR', 'Public Funds Saved INR', 'Confidence', 'Status'],
+      ...displayRecommendations.map(r => [
         r.rank,
         r.id,
         r.title,
@@ -46,20 +136,20 @@ export default function RecommendationsPage() {
         r.fromTrade ? `${r.fromTrade} (${r.fromNco})` : 'N/A',
         r.district,
         r.state,
+        forecastHorizon,
         r.recommendedSeats,
-        `${r.expectedImpact.gapReductionPercent}%`,
+        `${Math.min(95, Math.round(r.expectedImpact.gapReductionPercent * horizonConfig.gapAdj * 10) / 10)}%`,
         r.expectedImpact.estimatedCostINR,
-        r.expectedImpact.youthEmployed || 'N/A',
-        r.expectedImpact.annualWageIncomeINR || 'N/A',
-        r.expectedImpact.publicFundsSavedINR || 'N/A',
+        Math.round((r.expectedImpact.youthEmployed || Math.round(r.recommendedSeats * 0.5)) * horizonConfig.cohortFactor),
+        Math.round((r.expectedImpact.annualWageIncomeINR || 0) * horizonConfig.wageFactor),
+        Math.round((r.expectedImpact.publicFundsSavedINR || 0) * horizonConfig.capexFactor),
         `${r.confidence}%`,
         r.status
       ])
     ];
-    downloadCSV('KaushalYuva_Recommended_Interventions_Dossier.csv', rows);
-    toast.success(l(`Exported ${recommendations.length} policy interventions to CSV`, `${recommendations.length} नीतिगत हस्तक्षेप CSV में निर्यात किए गए`));
+    downloadCSV(`KaushalYuva_Interventions_${forecastHorizon}.csv`, rows);
+    toast.success(l(`Exported ${displayRecommendations.length} interventions (${forecastHorizon}) to CSV`, `${displayRecommendations.length} हस्तक्षेप (${forecastHorizon}) CSV में निर्यात किए गए`));
   };
-
 
   const handleApprove = (id: string, title: string) => {
     approveRecommendation(id);
@@ -98,7 +188,7 @@ export default function RecommendationsPage() {
           className="btn-liquid-primary py-2 px-4 text-xs font-semibold flex items-center gap-2 self-start md:self-auto cursor-pointer"
         >
           <Download className="w-4 h-4 text-sky-600 dark:text-sky-400" />
-          <span>{l('Export All Interventions', 'सभी हस्तक्षेप निर्यात करें')}</span>
+          <span>{l(`Export Interventions (${forecastHorizon})`, `हस्तक्षेप निर्यात करें (${forecastHorizon})`)}</span>
         </button>
       </div>
 
@@ -113,15 +203,21 @@ export default function RecommendationsPage() {
             </div>
             <div>
               <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[var(--brand)] block">
-                {l('EXECUTIVE IMPACT DOSSIER · PORTFOLIO LEVEL', 'कार्यकारी प्रभाव विश्लेषण · पोर्टफोलियो स्तर')}
+                {stats.scopeName 
+                  ? l(`EXECUTIVE IMPACT DOSSIER · ${stats.scopeName.toUpperCase()} FOCUS (${forecastHorizon})`, `कार्यकारी प्रभाव विश्लेषण · ${stats.scopeName.toUpperCase()} फोकस (${forecastHorizon})`)
+                  : l(`EXECUTIVE IMPACT DOSSIER · PORTFOLIO LEVEL (${forecastHorizon})`, `कार्यकारी प्रभाव विश्लेषण · पोर्टफोलियो स्तर (${forecastHorizon})`)}
               </span>
               <h2 className="text-base font-extrabold text-[var(--text)]">
-                {l('Dossier Impact Overview (Portfolio Consolidation Pending Validation)', 'हस्तक्षेप प्रभाव अवलोकन (पोर्टफोलियो एकत्रीकरण सत्यापन लंबित)')}
+                {stats.scopeName 
+                  ? l(`Impact Overview: ${stats.scopeName} Policy Interventions (${forecastHorizon})`, `हस्तक्षेप प्रभाव अवलोकन: ${stats.scopeName} नीतिगत हस्तक्षेप (${forecastHorizon})`)
+                  : l(`Dossier Impact Overview: Multi-District Portfolio (${forecastHorizon})`, `हस्तक्षेप प्रभाव अवलोकन: बहु-जिला पोर्टफोलियो (${forecastHorizon})`)}
               </h2>
             </div>
           </div>
           <span className="px-3 py-1 rounded-full text-[10px] font-mono font-bold bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/25 self-start sm:self-auto">
-            {l('Dossier-Level Modeling · 4 Priority Blueprints', 'दस्तावेज़-स्तरीय मॉडलिंग · 4 प्राथमिकता ब्लूप्रिंट')}
+            {stats.scopeName 
+              ? l(`Active Focus: ${stats.scopeName} · ${l(horizonConfig.tag, horizonConfig.tagHi)}`, `सक्रिय फोकस: ${stats.scopeName} · ${l(horizonConfig.tag, horizonConfig.tagHi)}`)
+              : l(`Consolidated Modeling · ${l(horizonConfig.tag, horizonConfig.tagHi)}`, `समेकित मॉडलिंग · ${l(horizonConfig.tag, horizonConfig.tagHi)}`)}
           </span>
         </div>
 
@@ -130,11 +226,11 @@ export default function RecommendationsPage() {
             <span className="text-[10px] font-mono font-bold text-[var(--text-faint)] uppercase tracking-wider block">
               {l('TOTAL YOUTH PLACED', 'कुल प्रमाणित युवा रोजगार')}
             </span>
-            <div className="text-2xl sm:text-3xl font-extrabold text-[var(--text-faint)] font-mono tabular-nums">
-              —
+            <div className="text-2xl sm:text-3xl font-extrabold text-[var(--brand)] font-mono tabular-nums transition-all">
+              +{stats.youthPlaced}
             </div>
-            <span className="text-[10px] text-amber-600 dark:text-amber-400 font-semibold block">
-              {l('Validation Pending (Per-Dossier Below)', 'सत्यापन लंबित (नीचे प्रति-दस्तावेज़)')}
+            <span className="text-[10px] text-emerald-600 dark:text-emerald-400 font-semibold block">
+              {stats.scopeName ? l(`${stats.scopeName} (${forecastHorizon}) Jobs`, `${stats.scopeName} (${forecastHorizon}) रोजगार`) : l(`${forecastHorizon} Horizon Jobs`, `${forecastHorizon} क्षितिज रोजगार`)}
             </span>
           </div>
 
@@ -142,11 +238,11 @@ export default function RecommendationsPage() {
             <span className="text-[10px] font-mono font-bold text-[var(--text-faint)] uppercase tracking-wider block">
               {l('ANNUAL YOUTH WAGES', 'वार्षिक युवा वेतन आय')}
             </span>
-            <div className="text-2xl sm:text-3xl font-extrabold text-[var(--text-faint)] font-mono tabular-nums">
-              —
+            <div className="text-2xl sm:text-3xl font-extrabold text-[var(--brand)] font-mono tabular-nums transition-all">
+              {formatINR(stats.annualWages)}
             </div>
-            <span className="text-[10px] text-amber-600 dark:text-amber-400 font-semibold block">
-              {l('Consolidated Wages Unvalidated', 'समेकित वेतन असत्यापित')}
+            <span className="text-[10px] text-emerald-600 dark:text-emerald-400 font-semibold block">
+              {l(`${forecastHorizon} Projected Wage Pool`, `${forecastHorizon} अनुमानित वेतन पूल`)}
             </span>
           </div>
 
@@ -154,23 +250,23 @@ export default function RecommendationsPage() {
             <span className="text-[10px] font-mono font-bold text-[var(--text-faint)] uppercase tracking-wider block">
               {l('PUBLIC CAPEX SAVED', 'सार्वजनिक पूंजी व्यय बचत')}
             </span>
-            <div className="text-2xl sm:text-3xl font-extrabold text-[var(--text-faint)] font-mono tabular-nums">
-              —
+            <div className="text-2xl sm:text-3xl font-extrabold text-[var(--text)] font-mono tabular-nums transition-all">
+              {formatINR(stats.capexSaved)}
             </div>
-            <span className="text-[10px] text-amber-600 dark:text-amber-400 font-semibold block">
-              {l('Rollup Pending Field Audit', 'फील्ड ऑडिट लंबित')}
+            <span className="text-[10px] text-[var(--text-muted)] font-semibold block font-mono">
+              {l(`${forecastHorizon} vs Greenfield Setup`, `${forecastHorizon} नई सुविधा की तुलना में`)}
             </span>
           </div>
 
           <div className="p-3.5 rounded-2xl glass border border-[var(--border)] space-y-1">
             <span className="text-[10px] font-mono font-bold text-[var(--text-faint)] uppercase tracking-wider block">
-              {l('PORTFOLIO STATUS', 'पोर्टफोलियो स्थिति')}
+              {l('PORTFOLIO CAPACITY', 'पोर्टफोलियो क्षमता')}
             </span>
-            <div className="text-xl sm:text-2xl font-extrabold text-[var(--brand)] font-mono tabular-nums">
-              {l('UNAGGREGATED', 'असमेकित')}
+            <div className="text-xl sm:text-2xl font-extrabold text-[var(--brand)] font-mono tabular-nums transition-all">
+              {stats.totalSeats} {l('SEATS', 'सीटें')}
             </div>
-            <span className="text-[10px] text-[var(--text-muted)] font-semibold block">
-              {l('4 Standalone Dossiers Below', '4 स्वतंत्र हस्तक्षेप नीचे देखें')}
+            <span className="text-[10px] text-amber-600 dark:text-amber-400 font-semibold block">
+              {stats.scopeName ? l(`${stats.scopeName} Target Capacity`, `${stats.scopeName} लक्षित क्षमता`) : l(`${forecastHorizon} Target Capacity`, `${forecastHorizon} लक्षित क्षमता`)}
             </span>
           </div>
         </div>
@@ -194,7 +290,7 @@ export default function RecommendationsPage() {
           {/* Accessible Pagination Controls */}
           <div className="flex items-center gap-2 self-start sm:self-auto shrink-0" role="navigation" aria-label="Folder pagination">
             <span className="text-xs font-mono text-[var(--text-faint)]" aria-live="polite">
-              {l(`Page ${folderPage + 1} of ${totalFolderPages} (${recommendations.length} total)`, `पृष्ठ ${folderPage + 1} का ${totalFolderPages} (कुल ${recommendations.length})`)}
+              {l(`Page ${folderPage + 1} of ${totalFolderPages} (${displayRecommendations.length} total)`, `पृष्ठ ${folderPage + 1} का ${totalFolderPages} (कुल ${displayRecommendations.length})`)}
             </span>
             <div className="flex items-center gap-1">
               <button
@@ -251,6 +347,7 @@ export default function RecommendationsPage() {
             return (
               <div key={rec.id} className="flex flex-col items-center">
                 <GlassFolder
+                  appear={false}
                   label={`${rec.id} · ${getLocalizedEntityName('districts', rec.district, language)}`}
                   meta={`Run ${EXPORT_METADATA.runId}`}
                   art={art}
@@ -276,7 +373,7 @@ export default function RecommendationsPage() {
 
       {/* Ranked Recommendation Feed (§6.3) */}
       <div className="space-y-5">
-        {recommendations.map((rec) => (
+        {displayRecommendations.map((rec) => (
           <div
             key={rec.id}
             className="p-4 sm:p-6 rounded-3xl glass-strong border border-[var(--border)] shadow-md flex flex-col justify-between hover:border-[var(--brand)] transition-all relative overflow-hidden"
@@ -302,6 +399,9 @@ export default function RecommendationsPage() {
                       {rec.id.includes('01')
                         ? (l('MSDE Verified · LP Solver Output', 'MSDE सत्यापित · LP सॉल्वर आउटपुट'))
                         : (l('MSDE Policy Brief · Ensemble Model', 'MSDE नीति संक्षिप्त · पहनावा मॉडल'))}
+                    </span>
+                    <span className="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold bg-indigo-500/10 text-indigo-700 dark:text-indigo-300 border border-indigo-500/25">
+                      {forecastHorizon} {l('Horizon', 'अवधि')}
                     </span>
                     <span className="px-2 py-0.5 rounded-full text-[10px] font-mono font-semibold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-700">
                       {l('Illustrative, not model output', 'उदाहरणात्मक, मॉडल आउटपुट नहीं')}
@@ -451,9 +551,9 @@ export default function RecommendationsPage() {
                   {l('Shortfall Closed', 'कमी भरपाई')}
                 </span>
                 <span className="text-base sm:text-xl font-extrabold text-[var(--success)] font-mono tabular-nums whitespace-nowrap block">
-                  -{rec.expectedImpact.gapReductionPercent}%
+                  -{Math.min(95, Math.round(rec.expectedImpact.gapReductionPercent * horizonConfig.gapAdj * 10) / 10)}%
                 </span>
-                <span className="text-[11px] text-[var(--success)] font-semibold block whitespace-nowrap">{l('Deficit Mitigated', 'अनुमानित भरपाई')}</span>
+                <span className="text-[11px] text-[var(--success)] font-semibold block whitespace-nowrap">{l(`${forecastHorizon} Mitigated`, `${forecastHorizon} भरपाई`)}</span>
               </div>
 
               <div>
@@ -461,9 +561,9 @@ export default function RecommendationsPage() {
                   {l('Supply Coverage', 'आपूर्ति कवरेज')}
                 </span>
                 <span className="text-base sm:text-xl font-extrabold text-[var(--brand)] font-mono tabular-nums whitespace-nowrap block">
-                  +{rec.expectedImpact.supplyCoveragePercent}%
+                  +{Math.min(100, Math.round(rec.expectedImpact.supplyCoveragePercent * horizonConfig.coverageAdj))}%
                 </span>
-                <span className="text-[11px] text-[var(--brand)] font-semibold block whitespace-nowrap">{l('Employable Pool', 'रोजगार योग्य पूल')}</span>
+                <span className="text-[11px] text-[var(--brand)] font-semibold block whitespace-nowrap">{l(`${forecastHorizon} Pool`, `${forecastHorizon} पूल`)}</span>
               </div>
 
               <div>
@@ -471,9 +571,9 @@ export default function RecommendationsPage() {
                   {l('Youth Placed', 'प्रमाणित युवा रोजगार')}
                 </span>
                 <span className="text-base sm:text-xl font-extrabold text-[var(--brand)] font-mono tabular-nums whitespace-nowrap block">
-                  +{rec.expectedImpact.youthEmployed || Math.round(rec.recommendedSeats * 0.5)}
+                  +{Math.round((rec.expectedImpact.youthEmployed || Math.round(rec.recommendedSeats * 0.5)) * horizonConfig.cohortFactor)}
                 </span>
-                <span className="text-[11px] text-[var(--text-muted)] font-semibold block whitespace-nowrap">{l('Direct Jobs', 'सीधे रोजगार')}</span>
+                <span className="text-[11px] text-[var(--text-muted)] font-semibold block whitespace-nowrap">{l(`${forecastHorizon} Direct Jobs`, `${forecastHorizon} सीधे रोजगार`)}</span>
               </div>
 
               <div>
@@ -481,9 +581,9 @@ export default function RecommendationsPage() {
                   {l('Annual Wages', 'वार्षिक युवा आय')}
                 </span>
                 <span className="text-base sm:text-xl font-extrabold text-[var(--success)] font-mono tabular-nums whitespace-nowrap block">
-                  {rec.expectedImpact.annualWageIncomeINR ? formatINR(rec.expectedImpact.annualWageIncomeINR) : 'N/A'}
+                  {rec.expectedImpact.annualWageIncomeINR ? formatINR(Math.round(rec.expectedImpact.annualWageIncomeINR * horizonConfig.wageFactor)) : 'N/A'}
                 </span>
-                <span className="text-[11px] text-[var(--success)] font-semibold block whitespace-nowrap">{l('District Wages', 'वार्षिक वेतन')}</span>
+                <span className="text-[11px] text-[var(--success)] font-semibold block whitespace-nowrap">{l(`${forecastHorizon} Wages`, `${forecastHorizon} वेतन`)}</span>
               </div>
 
               <div>
@@ -491,9 +591,9 @@ export default function RecommendationsPage() {
                   {l('Capex Saved', 'पूंजी व्यय बचत')}
                 </span>
                 <span className="text-base sm:text-xl font-extrabold text-[var(--text)] font-mono tabular-nums whitespace-nowrap block">
-                  {rec.expectedImpact.publicFundsSavedINR ? formatINR(rec.expectedImpact.publicFundsSavedINR) : 'N/A'}
+                  {rec.expectedImpact.publicFundsSavedINR ? formatINR(Math.round(rec.expectedImpact.publicFundsSavedINR * horizonConfig.capexFactor)) : 'N/A'}
                 </span>
-                <span className="text-[11px] text-[var(--text-muted)] font-semibold block font-mono whitespace-nowrap">{l('vs Greenfield', 'पुनरुपयोग बचत')}</span>
+                <span className="text-[11px] text-[var(--text-muted)] font-semibold block font-mono whitespace-nowrap">{l(`${forecastHorizon} vs Greenfield`, `${forecastHorizon} नई सुविधा`)}</span>
               </div>
 
               <div>
